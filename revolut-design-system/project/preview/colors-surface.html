@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Colors" name="Surfaces" subtitle="Two-mode canvas + dark luminance steps" viewport="700x280" -->
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{margin:0;background:var(--canvas-light);color:var(--ink);font-family:var(--font-body);}
+  .wrap{padding:24px 32px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+  .sw{border-radius:var(--radius-md);overflow:hidden;border:1px solid var(--hairline-light);}
+  .chip{height:48px;}
+  .meta{padding:8px 11px;}
+  .name{font-size:12.5px;font-weight:600;}
+  .hex{font-size:11px;color:var(--mute);margin-top:1px;}
+</style></head>
+<body><div class="wrap">
+  <div class="sw"><div class="chip" style="background:#000000"></div><div class="meta"><div class="name">canvas-dark</div><div class="hex">#000000</div></div></div>
+  <div class="sw"><div class="chip" style="background:#ffffff;border-bottom:1px solid var(--hairline-light)"></div><div class="meta"><div class="name">canvas-light</div><div class="hex">#ffffff</div></div></div>
+  <div class="sw"><div class="chip" style="background:#f4f4f4"></div><div class="meta"><div class="name">surface-soft</div><div class="hex">#f4f4f4</div></div></div>
+  <div class="sw"><div class="chip" style="background:#0a0a0a"></div><div class="meta"><div class="name">surface-deep</div><div class="hex">#0a0a0a</div></div></div>
+  <div class="sw"><div class="chip" style="background:#16181a"></div><div class="meta"><div class="name">surface-elevated</div><div class="hex">#16181a</div></div></div>
+  <div class="sw"><div class="chip" style="background:#ffffff;border-bottom:1px solid var(--hairline-light)"></div><div class="meta"><div class="name">surface-card</div><div class="hex">#ffffff</div></div></div>
+</div></body></html>

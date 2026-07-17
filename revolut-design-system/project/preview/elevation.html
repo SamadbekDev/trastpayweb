@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Spacing" name="Elevation & depth" subtitle="No shadows — color-block + luminance ladder" viewport="700x250" -->
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{margin:0;font-family:var(--font-body);}
+  .wrap{display:grid;grid-template-columns:1fr 1fr;}
+  .pane{padding:24px 28px;}
+  .light{background:var(--canvas-light);color:var(--ink);}
+  .dark{background:#000;color:#fff;}
+  .h{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--stone);margin-bottom:14px;}
+  .card{border-radius:var(--radius-lg);padding:16px 18px;font-size:13px;margin-bottom:12px;}
+  .l1{background:#fff;border:1px solid var(--hairline-light);}
+  .l0{background:var(--surface-soft);}
+  .d0{background:#000;border:1px solid var(--hairline-dark);color:#fff;}
+  .d2{background:#16181a;color:#fff;}
+  .d3{background:#1b2c7a;color:#fff;}
+  .tag{font-size:11px;color:var(--mute);}
+  .dark .tag{color:var(--on-dark-mute);}
+</style></head>
+<body><div class="wrap">
+  <div class="pane light">
+    <div class="h">Light bands — no shadow</div>
+    <div class="card l0">surface-soft band<div class="tag">level 0</div></div>
+    <div class="card l1">surface-card<div class="tag">level 1 · hairline, not shadow</div></div>
+  </div>
+  <div class="pane dark">
+    <div class="h">Dark bands — luminance ladder</div>
+    <div class="card d0">canvas-dark #000<div class="tag">level 0</div></div>
+    <div class="card d2">surface-elevated #16181a<div class="tag">level 2</div></div>
+    <div class="card d3">primary featured<div class="tag" style="color:rgba(255,255,255,.8)">level 3</div></div>
+  </div>
+</div></body></html>

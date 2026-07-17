@@ -1,0 +1,176 @@
+{
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "rules": {
+    "react/forbid-elements": [
+      "warn",
+      {
+        "forbid": []
+      }
+    ],
+    "no-restricted-imports": [
+      "warn",
+      {
+        "patterns": [
+          {
+            "group": [
+              "assets/**",
+              "ui_kits/marketing-site/**"
+            ],
+            "message": "Import design-system components from 'index.js', not component internals."
+          }
+        ]
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
+        "message": "Raw hex color — use a design-system color token via var()."
+      },
+      {
+        "selector": "Literal[value=/\\b\\d+px\\b/]",
+        "message": "Raw px value — use a design-system spacing token via var()."
+      },
+      {
+        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:SF Pro Display|Inter))/i]",
+        "message": "Font not provided by the design system. Available: SF Pro Display, Inter."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/index.js"
+      ],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ],
+  "x-omelette": {
+    "components": {},
+    "tokens": [
+      "--accent-blue-link",
+      "--accent-brown",
+      "--accent-danger",
+      "--accent-deep-red",
+      "--accent-green-text",
+      "--accent-light-blue",
+      "--accent-light-green",
+      "--accent-pink",
+      "--accent-teal",
+      "--accent-warning",
+      "--accent-yellow",
+      "--ash",
+      "--body",
+      "--canvas-dark",
+      "--canvas-light",
+      "--charcoal",
+      "--container-max",
+      "--divider-soft",
+      "--faint",
+      "--font-body",
+      "--font-display",
+      "--hairline-dark",
+      "--hairline-light",
+      "--hairline-strong",
+      "--ink",
+      "--link",
+      "--mute",
+      "--on-dark",
+      "--on-dark-mute",
+      "--on-primary",
+      "--primary",
+      "--primary-bright",
+      "--primary-deep",
+      "--radius-button",
+      "--radius-full",
+      "--radius-lg",
+      "--radius-md",
+      "--radius-none",
+      "--radius-sm",
+      "--radius-xl",
+      "--space-band",
+      "--space-block",
+      "--space-lg",
+      "--space-md",
+      "--space-section",
+      "--space-sm",
+      "--space-xl",
+      "--space-xs",
+      "--space-xxl",
+      "--space-xxs",
+      "--space-xxxl",
+      "--stone",
+      "--surface-card",
+      "--surface-deep",
+      "--surface-elevated",
+      "--surface-soft"
+    ],
+    "tokenKinds": {
+      "--font-display": "font",
+      "--font-body": "font",
+      "--primary": "color",
+      "--primary-bright": "color",
+      "--primary-deep": "color",
+      "--on-primary": "color",
+      "--canvas-light": "color",
+      "--canvas-dark": "color",
+      "--surface-soft": "color",
+      "--surface-card": "color",
+      "--surface-deep": "color",
+      "--surface-elevated": "color",
+      "--hairline-light": "color",
+      "--hairline-dark": "color",
+      "--hairline-strong": "color",
+      "--divider-soft": "color",
+      "--ink": "color",
+      "--body": "color",
+      "--charcoal": "color",
+      "--mute": "color",
+      "--ash": "color",
+      "--stone": "color",
+      "--faint": "color",
+      "--on-dark": "color",
+      "--on-dark-mute": "color",
+      "--accent-teal": "color",
+      "--accent-light-blue": "color",
+      "--accent-blue-link": "color",
+      "--accent-light-green": "color",
+      "--accent-green-text": "font",
+      "--accent-yellow": "color",
+      "--accent-warning": "color",
+      "--accent-pink": "color",
+      "--accent-danger": "color",
+      "--accent-deep-red": "color",
+      "--accent-brown": "color",
+      "--link": "color",
+      "--radius-none": "radius",
+      "--radius-sm": "radius",
+      "--radius-md": "radius",
+      "--radius-lg": "radius",
+      "--radius-xl": "radius",
+      "--radius-full": "radius",
+      "--radius-button": "radius",
+      "--space-xxs": "spacing",
+      "--space-xs": "spacing",
+      "--space-sm": "spacing",
+      "--space-md": "spacing",
+      "--space-lg": "spacing",
+      "--space-xl": "spacing",
+      "--space-xxl": "spacing",
+      "--space-xxxl": "spacing",
+      "--space-block": "spacing",
+      "--space-section": "spacing",
+      "--space-band": "spacing",
+      "--container-max": "spacing"
+    },
+    "fontFamilies": [
+      "Inter",
+      "SF Pro Display"
+    ]
+  }
+}

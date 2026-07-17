@@ -1,0 +1,220 @@
+/* =============================================================
+   REVOLUT DESIGN SYSTEM — Foundations
+   colors_and_type.css
+   -------------------------------------------------------------
+   Color + type tokens extracted from the Revolut marketing
+   canvas analysis (design-md/revolut). Two-mode canvas system:
+   true-black storytelling bands + white catalogue bands.
+
+   FONTS
+   - Body / UI: Inter (open-source, loaded from CDN).
+   - Display:  SF Pro Display — self-hosted from /fonts (user-supplied).
+   ============================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* ---------- SF Pro Display (self-hosted) ---------- */
+@font-face { font-family: 'SF Pro Display'; font-weight: 400; font-style: normal;
+  src: url('fonts/SFPRODISPLAYREGULAR.OTF') format('opentype'); font-display: swap; }
+@font-face { font-family: 'SF Pro Display'; font-weight: 500; font-style: normal;
+  src: url('fonts/SFPRODISPLAYMEDIUM.OTF') format('opentype'); font-display: swap; }
+@font-face { font-family: 'SF Pro Display'; font-weight: 700; font-style: normal;
+  src: url('fonts/SFPRODISPLAYBOLD.OTF') format('opentype'); font-display: swap; }
+@font-face { font-family: 'SF Pro Display'; font-weight: 100; font-style: italic;
+  src: url('fonts/SFPRODISPLAYTHINITALIC.OTF') format('opentype'); font-display: swap; }
+@font-face { font-family: 'SF Pro Display'; font-weight: 200; font-style: italic;
+  src: url('fonts/SFPRODISPLAYULTRALIGHTITALIC.OTF') format('opentype'); font-display: swap; }
+@font-face { font-family: 'SF Pro Display'; font-weight: 300; font-style: italic;
+  src: url('fonts/SFPRODISPLAYLIGHTITALIC.OTF') format('opentype'); font-display: swap; }
+@font-face { font-family: 'SF Pro Display'; font-weight: 600; font-style: italic;
+  src: url('fonts/SFPRODISPLAYSEMIBOLDITALIC.OTF') format('opentype'); font-display: swap; }
+@font-face { font-family: 'SF Pro Display'; font-weight: 800; font-style: italic;
+  src: url('fonts/SFPRODISPLAYHEAVYITALIC.OTF') format('opentype'); font-display: swap; }
+@font-face { font-family: 'SF Pro Display'; font-weight: 900; font-style: italic;
+  src: url('fonts/SFPRODISPLAYBLACKITALIC.OTF') format('opentype'); font-display: swap; }
+
+:root {
+  /* ---------- FONT FAMILIES ---------- */
+  --font-display: 'SF Pro Display', 'Aeonik Pro', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* ---------- BRAND ---------- */
+  --primary: #1b2c7a;          /* dark blue — the single brand stamp */
+  --primary-bright: #27379a;   /* link / accent-photo header */
+  --primary-deep: #121d54;     /* pressed dark blue */
+  --on-primary: #ffffff;
+
+  /* ---------- SURFACES ---------- */
+  --canvas-light: #ffffff;     /* white catalogue mode */
+  --canvas-dark: #000000;      /* true black — never near-black */
+  --surface-soft: #f4f4f4;     /* download tiles, soft buttons */
+  --surface-card: #ffffff;
+  --surface-deep: #0a0a0a;     /* inset card inside dark */
+  --surface-elevated: #16181a; /* plan cards on black */
+
+  /* ---------- HAIRLINES / DIVIDERS ---------- */
+  --hairline-light: #e2e2e7;
+  --hairline-dark: rgba(255, 255, 255, 0.12);
+  --hairline-strong: #191c1f;
+  --divider-soft: rgba(255, 255, 255, 0.06);
+
+  /* ---------- TEXT (on light) ---------- */
+  --ink: #191c1f;       /* primary text — warm near-black */
+  --body: #1f2226;      /* long-form body */
+  --charcoal: #3a3d40;  /* captions, secondary nav */
+  --mute: #505a63;      /* supporting text */
+  --ash: #5c5e60;       /* tertiary, footer */
+  --stone: #8d969e;     /* metadata */
+  --faint: #c9c9cd;     /* disabled fg, hairline replacement */
+
+  /* ---------- TEXT (on dark) ---------- */
+  --on-dark: #ffffff;
+  --on-dark-mute: rgba(255, 255, 255, 0.72);
+
+  /* ---------- ACCENTS (illustration / iconography only) ---------- */
+  --accent-teal: #00a87e;
+  --accent-light-blue: #007bc2;
+  --accent-blue-link: #376cd5;
+  --accent-light-green: #428619;
+  --accent-green-text: #006400;
+  --accent-yellow: #b09000;
+  --accent-warning: #ec7e00;
+  --accent-pink: #e61e49;
+  --accent-danger: #e23b4a;
+  --accent-deep-red: #8b0000;
+  --accent-brown: #936d62;
+  --link: #376cd5;
+
+  /* ---------- RADIUS ---------- */
+  --radius-none: 0px;
+  --radius-sm: 8px;     /* inline tags, chips */
+  --radius-md: 12px;    /* inputs, download tiles */
+  --radius-lg: 20px;    /* feature + plan cards */
+  --radius-xl: 28px;    /* product mockup containers */
+  --radius-full: 9999px;/* pills, badges */
+  --radius-button: 14px;/* buttons — rounded, not pill */
+
+  /* ---------- SPACING (4px base) ---------- */
+  --space-xxs: 4px;
+  --space-xs: 6px;
+  --space-sm: 8px;
+  --space-md: 14px;
+  --space-lg: 16px;
+  --space-xl: 24px;
+  --space-xxl: 32px;
+  --space-xxxl: 48px;
+  --space-block: 80px;
+  --space-section: 88px;
+  --space-band: 120px;
+
+  /* ---------- LAYOUT ---------- */
+  --container-max: 1200px;
+}
+
+/* =============================================================
+   TYPOGRAPHY — semantic classes mirror the token table.
+   Display sizes: --font-display @ 500, lineHeight 1.0, tight tracking.
+   Body: Inter @ 400/600 with positive tracking.
+   ============================================================= */
+
+.t-display-xxl {
+  font-family: var(--font-display);
+  font-size: 136px; font-weight: 500; line-height: 1.0; letter-spacing: -2.72px;
+}
+.t-display-xl {
+  font-family: var(--font-display);
+  font-size: 80px; font-weight: 500; line-height: 1.0; letter-spacing: -0.8px;
+}
+.t-display-lg {
+  font-family: var(--font-display);
+  font-size: 48px; font-weight: 500; line-height: 1.21; letter-spacing: -0.48px;
+}
+.t-display-md {
+  font-family: var(--font-display);
+  font-size: 40px; font-weight: 500; line-height: 1.2; letter-spacing: -0.4px;
+}
+.t-heading-lg {
+  font-family: var(--font-display);
+  font-size: 32px; font-weight: 500; line-height: 1.19; letter-spacing: -0.32px;
+}
+.t-heading-md {
+  font-family: var(--font-display);
+  font-size: 24px; font-weight: 500; line-height: 1.33;
+}
+.t-heading-sm {
+  font-family: var(--font-display);
+  font-size: 20px; font-weight: 500; line-height: 1.4;
+}
+.t-body-lg {
+  font-family: var(--font-body);
+  font-size: 18px; font-weight: 400; line-height: 1.56; letter-spacing: -0.09px;
+}
+.t-body-md {
+  font-family: var(--font-body);
+  font-size: 16px; font-weight: 400; line-height: 1.5; letter-spacing: 0.24px;
+}
+.t-body-md-bold {
+  font-family: var(--font-body);
+  font-size: 16px; font-weight: 600; line-height: 1.5; letter-spacing: 0.16px;
+}
+.t-body-sm {
+  font-family: var(--font-body);
+  font-size: 14px; font-weight: 400; line-height: 1.43;
+}
+.t-button-lg {
+  font-family: var(--font-display);
+  font-size: 20px; font-weight: 500; line-height: 1.4;
+}
+.t-button-md {
+  font-family: var(--font-body);
+  font-size: 16px; font-weight: 600; line-height: 1.5; letter-spacing: 0.24px;
+}
+.t-button-sm {
+  font-family: var(--font-body);
+  font-size: 14px; font-weight: 600; line-height: 1.43;
+}
+.t-caption {
+  font-family: var(--font-body);
+  font-size: 13px; font-weight: 400; line-height: 1.4;
+}
+.t-link-emph {
+  font-family: var(--font-body);
+  font-size: 16px; font-weight: 700; line-height: 1.5; letter-spacing: 0.24px;
+}
+
+/* =============================================================
+   PRIMITIVE HELPERS — buttons, pills, cards.
+   Use these as a base; UI-kit components extend them.
+   ============================================================= */
+
+.btn {
+  font-family: var(--font-body);
+  font-weight: 600; font-size: 16px; letter-spacing: 0.24px;
+  border-radius: var(--radius-button);
+  padding: 14px 28px; height: 48px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 0; cursor: pointer; white-space: nowrap;
+  transition: background-color .18s ease, color .18s ease, opacity .18s ease;
+}
+.btn-primary { background: var(--canvas-light); color: var(--canvas-dark); }
+.btn-primary:hover { background: #ececf1; }
+.btn-primary:active { background: var(--faint, #c9c9cd); }
+.btn-dark { background: var(--canvas-dark); color: var(--on-dark); }
+.btn-dark:hover { background: #1f2226; }
+.btn-soft { background: var(--surface-soft); color: var(--ink); }
+.btn-soft:hover { background: #e8e8ec; }
+.btn-outline-light { background: var(--canvas-light); color: var(--ink); border: 1px solid var(--hairline-strong); padding: 13px 27px; }
+.btn-outline-light:hover { background: var(--surface-soft); }
+.btn-outline-dark { background: var(--canvas-dark); color: var(--on-dark); border: 1px solid var(--on-dark); padding: 13px 27px; }
+.btn-outline-dark:hover { background: rgba(255,255,255,0.08); }
+.btn-pill-sm { height: 36px; padding: 8px 16px; font-size: 14px; background: var(--surface-soft); color: var(--ink); }
+
+.badge {
+  display: inline-flex; align-items: center;
+  border-radius: var(--radius-full); padding: 4px 12px;
+  font-family: var(--font-body); font-size: 13px; line-height: 1.4;
+}
+.badge-tag { background: var(--surface-soft); color: var(--ink); }
+.badge-feature { background: var(--primary); color: var(--on-primary); }
+
+a { color: var(--link); text-decoration: none; }

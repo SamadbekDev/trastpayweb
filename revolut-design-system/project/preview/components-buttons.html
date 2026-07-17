@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Components" name="Buttons" subtitle="Pill buttons on dark + light" viewport="700x150" -->
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{margin:0;font-family:var(--font-body);}
+  .wrap{display:grid;grid-template-columns:1fr 1fr;}
+  .pane{padding:26px 28px;display:flex;flex-wrap:wrap;gap:12px;align-content:flex-start;}
+  .light{background:var(--canvas-light);}
+  .dark{background:#000;}
+</style></head>
+<body><div class="wrap">
+  <div class="pane dark">
+    <button class="btn btn-primary">Get started</button>
+    <button class="btn btn-outline-dark">Learn more</button>
+    <button class="btn btn-pill-sm">Personal</button>
+  </div>
+  <div class="pane light">
+    <button class="btn btn-dark">Get started</button>
+    <button class="btn btn-outline-light">Compare plans</button>
+    <button class="btn btn-soft">View FAQs</button>
+  </div>
+</div></body></html>

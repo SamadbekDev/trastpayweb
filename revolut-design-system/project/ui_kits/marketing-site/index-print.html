@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Revolut — Marketing Site UI Kit (Print)</title>
+  <link rel="stylesheet" href="../../colors_and_type.css">
+  <link rel="stylesheet" href="kit.css">
+  <style>
+    /* ---------- PRINT-READY OVERRIDES ---------- */
+    @page { size: A4 portrait; margin: 0; }
+    html, body { background: #000; }
+
+    @media print {
+      * , *::before, *::after {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        animation-delay: -99s !important; animation-duration: .001s !important;
+        animation-iteration-count: 1 !important; animation-fill-mode: both !important;
+        animation-play-state: running !important; transition-duration: 0s !important;
+      }
+      /* Sticky nav must not repeat / float on every printed page */
+      .nav { position: static !important; }
+      /* Keep cohesive blocks from splitting across page breaks */
+      .feat-card, .plan-card, .faq-item, .phone, .dl-tile, .hero-stat,
+      .scr-card, .scr-list { break-inside: avoid; }
+      .feat-grid, .plan-grid { break-inside: avoid; }
+      /* Start the major bands on fresh pages for a clean paged document */
+      .features, .plans, .faq, .footer { break-before: page; }
+      /* Trim the very tall vertical band padding so each section fits a page */
+      .hero { padding-top: 40px; }
+      .hero-stats { padding-bottom: 48px; }
+      .features, .plans, .faq { padding: 56px 0; }
+      .plans { padding-bottom: 64px; }
+      .footer { padding: 56px 0 32px; }
+    }
+  </style>
+  <script src="../../assets/icons-sprite.js"></script>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel" src="components-core.jsx"></script>
+  <script type="text/babel" src="NavBar.jsx"></script>
+  <script type="text/babel" src="Hero.jsx"></script>
+  <script type="text/babel" src="Sections.jsx"></script>
+  <script type="text/babel">
+    function SubNav({ tab }) {
+      const sets = {
+        Personal: ["Spend", "Save", "Invest", "Crypto", "Insurance"],
+        Business: ["Accounts", "Payments", "Expenses", "Cards", "API"],
+        Company: ["About", "Careers", "Newsroom", "Investors"],
+      };
+      const pills = sets[tab] || sets.Personal;
+      return (
+        <div className="band band-dark">
+          <div className="inner">
+            <div className="subnav">
+              {pills.map((p, i) => (
+                <button key={p} className="btn btn-pill-sm"
+                  style={i === 0 ? { background: "#fff", color: "var(--ink)" } : { background: "var(--surface-elevated)", color: "#fff" }}>
+                  {p}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    function App() {
+      // Static, fully-expanded layout for print — no modal, no interaction.
+      const tab = "Personal";
+      const noop = () => {};
+      return (
+        <div className="site">
+          <NavBar tab={tab} setTab={noop} onGetStarted={noop} onLogin={noop} />
+          <Hero tab={tab} onGetStarted={noop} />
+          <SubNav tab={tab} />
+          <FeatureGrid />
+          <PlanGrid onChoose={noop} />
+          <FAQ />
+          <Footer />
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+
+    // Auto-print once React has mounted and fonts are ready.
+    (function () {
+      function ready() {
+        var fonts = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+        fonts.then(function () {
+          setTimeout(function () { window.print(); }, 500);
+        });
+      }
+      // Wait a tick for React to render the tree, then check.
+      function waitForMount(tries) {
+        if (document.querySelector('.footer') || tries <= 0) { ready(); }
+        else { setTimeout(function () { waitForMount(tries - 1); }, 100); }
+      }
+      window.addEventListener('load', function () { waitForMount(40); });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Brand" name="Logo" subtitle="Wordmark + glyph, light & dark (recreation)" viewport="700x130" -->
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{margin:0;font-family:var(--font-body);}
+  .wrap{display:grid;grid-template-columns:1fr 1fr;}
+  .pane{padding:30px 28px;display:flex;align-items:center;gap:20px;min-height:96px;}
+  .light{background:var(--canvas-light);color:var(--ink);}
+  .dark{background:#000;color:#fff;}
+  .glyph{width:48px;height:48px;flex:none;}
+  .wm{height:30px;}
+</style></head>
+<body><div class="wrap">
+  <div class="pane light">
+    <img class="glyph" src="../assets/logo-glyph.svg" alt="glyph">
+    <img class="wm" src="../assets/logo-wordmark.svg" alt="Revolut" style="filter:none;">
+  </div>
+  <div class="pane dark">
+    <img class="glyph" src="../assets/logo-glyph.svg" alt="glyph">
+    <span style="color:#fff;display:inline-flex"><img class="wm" src="../assets/logo-wordmark.svg" alt="Revolut" style="filter:invert(1)"></span>
+  </div>
+</div></body></html>

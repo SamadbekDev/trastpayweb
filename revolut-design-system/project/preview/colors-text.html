@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Colors" name="Text ladder" subtitle="ink → faint, 7-step warm grey" viewport="700x170" -->
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{margin:0;background:var(--canvas-light);color:var(--ink);font-family:var(--font-body);}
+  .wrap{padding:24px 32px;}
+  .ladder{display:flex;gap:0;border-radius:var(--radius-md);overflow:hidden;border:1px solid var(--hairline-light);}
+  .step{flex:1;height:56px;}
+  .labels{display:flex;margin-top:10px;}
+  .l{flex:1;font-size:11px;color:var(--mute);text-align:center;}
+  .l b{display:block;color:var(--ink);font-size:12px;}
+</style></head>
+<body><div class="wrap">
+  <div class="ladder">
+    <div class="step" style="background:#191c1f"></div>
+    <div class="step" style="background:#1f2226"></div>
+    <div class="step" style="background:#3a3d40"></div>
+    <div class="step" style="background:#505a63"></div>
+    <div class="step" style="background:#5c5e60"></div>
+    <div class="step" style="background:#8d969e"></div>
+    <div class="step" style="background:#c9c9cd"></div>
+  </div>
+  <div class="labels">
+    <span class="l"><b>ink</b>191c1f</span>
+    <span class="l"><b>body</b>1f2226</span>
+    <span class="l"><b>charcoal</b>3a3d40</span>
+    <span class="l"><b>mute</b>505a63</span>
+    <span class="l"><b>ash</b>5c5e60</span>
+    <span class="l"><b>stone</b>8d969e</span>
+    <span class="l"><b>faint</b>c9c9cd</span>
+  </div>
+</div></body></html>

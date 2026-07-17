@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<!-- @dsCard group="UI Kit — Marketing Site" name="Marketing site UI kit" subtitle="Interactive marketing canvas — nav, hero, plans, FAQ, footer" viewport="1280x800" -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Revolut — Marketing Site UI Kit</title>
+  <link rel="stylesheet" href="../../colors_and_type.css">
+  <link rel="stylesheet" href="kit.css">
+  <script src="../../assets/icons-sprite.js"></script>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel" src="components-core.jsx"></script>
+  <script type="text/babel" src="NavBar.jsx"></script>
+  <script type="text/babel" src="Hero.jsx"></script>
+  <script type="text/babel" src="Sections.jsx"></script>
+  <script type="text/babel">
+    function SubNav({ tab }) {
+      const sets = {
+        Personal: ["Spend", "Save", "Invest", "Crypto", "Insurance"],
+        Business: ["Accounts", "Payments", "Expenses", "Cards", "API"],
+        Company: ["About", "Careers", "Newsroom", "Investors"],
+      };
+      const pills = sets[tab] || sets.Personal;
+      return (
+        <div className="band band-dark">
+          <div className="inner">
+            <div className="subnav">
+              {pills.map((p, i) => (
+                <button key={p} className="btn btn-pill-sm"
+                  style={i === 0 ? { background: "#fff", color: "var(--ink)" } : { background: "var(--surface-elevated)", color: "#fff" }}>
+                  {p}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    function App() {
+      const [tab, setTab] = React.useState("Personal");
+      const [modal, setModal] = React.useState(false);
+      const open = () => setModal(true);
+      return (
+        <div className="site">
+          <NavBar tab={tab} setTab={setTab} onGetStarted={open} onLogin={open} />
+          <Hero tab={tab} onGetStarted={open} />
+          <SubNav tab={tab} />
+          <FeatureGrid />
+          <PlanGrid onChoose={open} />
+          <FAQ />
+          <Footer />
+          {modal && <SignupModal onClose={() => setModal(false)} />}
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>
