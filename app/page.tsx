@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import QuickTools from "@/components/QuickTools";
 import CardProducts from "@/components/CardProducts";
 import Features from "@/components/Features";
+import GetMore from "@/components/GetMore"
 import MobileApp from "@/components/MobileApp";
 import NewsSection from "@/components/NewsSection";
 import Footer from "@/components/layout/Footer";
@@ -18,11 +19,14 @@ export default function Home() {
         {/* Hero Slider with promotions */}
         <Hero />
         
+        <CardProducts />
+
+        <GetMore />
+
         {/* Quick calculators and Currency rates */}
         <QuickTools />
         
         {/* Cards Catalog */}
-        <CardProducts />
         
         {/* Features / Benefits Grid */}
         <Features />

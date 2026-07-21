@@ -86,11 +86,10 @@ export default function Header() {
   };
 
   return (
-    <header className="w-full bg-white border-b border-slate-100 text-[#08243f] z-50 relative">
-      <div className="mx-auto flex h-16 w-full max-w-[1300px] items-center justify-between px-6 lg:px-12">
+    <header className="w-full text-[#08243f] z-50 relative">
+      <div className="mx-auto flex w-full max-w-[1300px] items-center justify-between px-6 lg:px-12">
         <div className="flex items-center gap-8">
           <Logo />
-
           <nav
             className="hidden items-center gap-4 lg:flex h-full"
             aria-label="Category"
@@ -150,7 +149,7 @@ export default function Header() {
         </div>
       </div>
 
-      <div className="mx-auto flex w-full max-w-[882px] my-5 items-center justify-between px-6 lg:px-12">
+      <div className="mx-auto flex w-full max-w-[882px] my-6 items-center justify-between px-6 lg:px-12">
         <div className="flex py-1.5 w-full items-center justify-between rounded-2xl bg-[#EAEFF8] px-6 text-sm font-medium">
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -171,7 +170,7 @@ export default function Header() {
                 className={`relative px-4 py-3 rounded-xl text-sm font-bold transition-colors select-none cursor-pointer ${
                   activePill === link.id
                     ? "text-[#08243f]"
-                    : "text-slate-500 hover:text-[#08243f]"
+                    : "text-slate-500"
                 }`}
               >
                 {activePill === link.id && (
