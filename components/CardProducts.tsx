@@ -72,7 +72,7 @@ export default function CardProducts() {
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-10">
           <h2 className="text-[44px] font-bold text-black">Выбирайте лучшее</h2>
 
-          <div className="flex bg-[#f4f4f4] rounded-2xl p-1 border border-slate-200/50 mt-4 md:mt-0 max-w-fit">
+          <div className="flex justify-between bg-[#f4f4f4] rounded-2xl p-1 mt-4 md:mt-0 max-w-[398px] w-full min-h-[52px]">
             {[
               { id: "all", label: "Для физ лиц" },
               { id: "small-business", label: "Малому бизнесу" },
@@ -100,27 +100,27 @@ export default function CardProducts() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
           {productsData.map((prod) => (
             <div
               key={prod.id}
-              className="bg-white shadow-sm shadow-[#06347B1F] rounded-[20px] p-3 flex flex-col justify-between items-center text-center transition-all duration-300 hover:shadow-lg hover:-translate-y-1 group cursor-pointer"
+              className="bg-white max-w-[280px] max-h-[264px] w-full shadow-[0_0_25px_0_#06347B1F] rounded-[20px] p-3 flex flex-col justify-between items-center text-center transition-all duration-300 hover:-translate-y-1 group cursor-pointer"
             >
               <div className="w-full text-center">
-                <h3 className="text-[20px] font-bold text-slate-900 group-hover:text-primary transition-colors">
+                <h3 className="text-[20px] font-bold text-[#000000]">
                   {prod.title}
                 </h3>
-                <p className="text-[15px] text-slate-400 font-semibold mt-0.5">
+                <p className="text-[15px] text-[#00000099] font-medium mt-2">
                   {prod.subtitle}
                 </p>
               </div>
 
-              <div className="relative w-full aspect-square max-w-[226px] my-6 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
+              <div className="relative w-full aspect-square max-w-[226px] max-h-[160px] my-6 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
                 <Image
                   src={prod.imageSrc}
                   alt={prod.title}
                   fill
-                  sizes="(max-width: 768px) 100vw, 20vw"
+                  sizes="(max-width: 226px) 100vw, 20vw"
                   className="object-contain"
                   loading="lazy"
                 />

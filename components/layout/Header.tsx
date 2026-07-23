@@ -153,10 +153,10 @@ export default function Header() {
         <div className="flex py-1.5 w-full items-center justify-between rounded-2xl bg-[#EAEFF8] px-6 text-sm font-medium">
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="flex select-none items-center gap-3 text-slate-700 hover:text-[#08243f] font-semibold transition-colors cursor-pointer"
+            className="flex select-none items-center gap-3 text-[#172419] cursor-pointer"
           >
             <BurgerMenu size={20} strokeWidth={2.5} />
-            <span>Меню</span>
+            <span className="text-[14px] font-semibold">Меню</span>
           </button>
 
           <nav

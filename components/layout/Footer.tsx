@@ -27,7 +27,7 @@ export default function Footer() {
     <footer className="w-full bg-[#292929] pt-[32px] pb-[40px] text-[#FFFFFFB2]">
       <div className="max-w-[1104px] mx-auto px-4 md:px-0">
         <div className="flex flex-col md:flex-row justify-between items-start gap-8">
-          <div className="flex flex-wrap max-w-full md:max-w-[65%] gap-[8px]">
+          <div className="flex flex-wrap max-w-full md:max-w-[720px] gap-[8px]">
             {infoPills.map((pill) => (
               <Link
                 href={pill.link}

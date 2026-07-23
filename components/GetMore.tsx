@@ -59,7 +59,7 @@ export default function GetMore() {
   };
 
   return (
-    <section className="w-full mx-auto py-10 pl-6 md:pl-12 lg:pl-16 overflow-hidden">
+    <section className="w-full mx-auto py-10 pl-6 md:pl-12 lg:pl-16">
       <div className="flex justify-between items-center mb-6 pr-6 md:pr-12 lg:pr-16">
         <h2 className="text-black text-[44px] font-bold max-w-100 leading-12">
           Получайте больше с Трастбанком
@@ -103,29 +103,29 @@ export default function GetMore() {
         spaceBetween={12}
         slidesPerView="auto"
         grabCursor={true}
-        className="!p-6 !-m-6"
+        className="!p-8 !-m-6"
       >
         {productsData.map((product) => (
           <SwiperSlide
             key={product.id}
-            className="!w-[320px] sm:!w-[360px] md:!w-[380px] !h-auto"
+            className="!w-[380px] !h-[346px] shrink-0"
           >
-            <div className="bg-white rounded-[34px] p-3 shadow-[0_4px_24px_0_rgba(6,52,123,0.12)] flex flex-col items-center text-center transition-transform duration-300 hover:-translate-y-1 h-full select-none">
-              <div className="relative w-full h-[200px] rounded-[20px] overflow-hidden mb-[20px] shrink-0">
+            <div className="w-full h-full bg-white rounded-[34px] p-3 shadow-[0_4px_24px_0_rgba(6,52,123,0.12)] flex flex-col items-center text-center transition-transform duration-300 hover:-translate-y-1 select-none box-border">
+              <div className="relative w-full h-[180px] rounded-[22px] overflow-hidden mb-3 shrink-0">
                 <Image
                   src={product.imageSrc}
                   alt={product.title}
                   fill
                   className="object-cover"
-                  sizes="(max-width: 768px) 320px, 380px"
+                  sizes="380px"
                 />
               </div>
 
-              <div className="flex flex-col items-center gap-[12px] px-[12px] pb-[12px]">
-                <h3 className="text-[#000000] text-[24px] font-bold leading-tight">
+              <div className="flex flex-col items-center gap-2 px-2 my-auto">
+                <h3 className="text-[#000000] text-[22px] font-bold leading-tight line-clamp-1">
                   {product.title}
                 </h3>
-                <p className="text-[#00000099] text-[16px] font-medium leading-normal">
+                <p className="text-[#00000099] text-[14px] font-medium leading-snug line-clamp-3">
                   {product.description}
                 </p>
               </div>
