@@ -2,35 +2,37 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <section className="w-full pb-15 pt-8">
-      <div className="mx-auto w-full max-w-[1440px] px-6 lg:px-12">
-        <div className="relative mx-auto flex flex-col lg:flex-row items-center justify-between min-h-[620px] overflow-hidden rounded-[28px] lg:rounded-[36px] text-white shadow-2xl bg-gradient-to-r from-[#08243f] via-[#0f3d68] to-[#1b5a96]">
-          <div className="relative z-10 flex flex-col justify-center items-start w-full lg:w-[55%] h-full px-6 sm:px-12 lg:pl-[90px] lg:pr-0 py-12 lg:py-0">
-            <h1 className="font-display text-[32px] sm:text-[44px] lg:text-[52px] font-extrabold leading-[1.12] tracking-tight text-white mb-6">
-              Откройте банковский счет бесплатно
-              <br />
-              <span className="bg-gradient-to-r from-[#82c9ff] to-[#b3e0ff] bg-clip-text text-transparent">
-                в мобильном приложении
+    <section className="w-full mb-10 mt-15">
+      <div className="mx-auto w-full max-w-[1360px]">
+        <div className="relative mx-auto grid grid-cols-1 md:grid-cols-12 items-center min-h-[380px] lg:min-h-[440px] rounded-[28px] lg:rounded-[36px] bg-gradient-to-r from-[#0a2540] via-[#0d345a] to-[#124474] text-white shadow-xl overflow-hidden px-8 lg:px-16 py-10 lg:py-12">
+          <div className="md:col-span-7 flex flex-col justify-center z-10 gap-10">
+            <h1 className="font-display text-[32px] sm:text-[40px] lg:text-[48px] font-bold leading-[1.2] tracking-tight text-white">
+              Откройте банковский счет <br className="hidden sm:inline" />
+              бесплатно в{" "}
+              <span className="text-[#5fa2dd]">
+                мобильном
+                <br />
+                приложении
               </span>
             </h1>
 
             <a
               href="#mobile-app"
-              className="inline-flex h-[52px] items-center justify-center rounded-[14px] bg-white px-8 text-[16px] font-bold text-[#08243f] shadow-lg hover:shadow-xl hover:bg-[#f3f7fc] active:scale-95 transition-all duration-200"
+              className="inline-flex p-3 items-center self-start justify-center rounded-xl bg-white text-[15px] font-semibold text-[#0a2540] shadow-md hover:bg-slate-100 hover:shadow-lg active:scale-[0.98] transition-all duration-200"
             >
               Скачать приложение
             </a>
           </div>
 
-          <div className="relative w-full lg:w-[45%] h-[300px] sm:h-[380px] lg:h-full flex items-center justify-center px-6 lg:px-0 pb-8 lg:pb-0 z-10">
-            <div className="relative w-[320px] h-[260px] sm:w-[400px] sm:h-[330px] lg:w-[490px] lg:h-[460px] transition-transform duration-700 hover:scale-105">
+          <div className="md:col-span-5 relative h-full flex items-center justify-end mt-8 md:mt-0">
+            <div className="relative w-[300px] h-[300px] sm:w-[380px] sm:h-[380px] lg:w-[460px] lg:h-[460px] md:absolute md:-right-8 md:-bottom-12 lg:-right-10 lg:-bottom-16 transition-transform duration-500 hover:scale-105">
               <Image
                 src="/images/hero_bank_account.svg"
                 alt="Откройте банковский счет бесплатно"
                 fill
                 priority
-                sizes="(max-width: 1024px) 100vw, 490px"
-                className="object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.4)]"
+                sizes="(max-width: 768px) 100vw, 460px"
+                className="object-contain"
               />
             </div>
           </div>

@@ -149,7 +149,7 @@ export default function Header() {
         </div>
       </div>
 
-      <div className="mx-auto flex w-full max-w-[882px] my-6 items-center justify-between px-6 lg:px-12">
+      <div className="mx-auto flex w-full max-w-[882px] mt-6 items-center justify-between">
         <div className="flex py-1.5 w-full items-center justify-between rounded-2xl bg-[#EAEFF8] px-6 text-sm font-medium">
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}

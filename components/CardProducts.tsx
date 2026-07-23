@@ -70,9 +70,7 @@ export default function CardProducts() {
     <section id="cards" className="py-10 bg-white">
       <div className="container mx-auto px-4 lg:px-[130px]">
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-10">
-          <h2 className="text-[44px] font-bold text-black">
-            Выбирайте лучшее
-          </h2>
+          <h2 className="text-[44px] font-bold text-black">Выбирайте лучшее</h2>
 
           <div className="flex bg-[#f4f4f4] rounded-2xl p-1 border border-slate-200/50 mt-4 md:mt-0 max-w-fit">
             {[

@@ -1,0 +1,281 @@
+"use client";
+
+import { useMemo, useState } from "react";
+import { BadgeCheck, HelpCircle, TrendingUp, Calendar } from "lucide-react";
+
+const fmt = (n: number) =>
+  Math.round(n).toLocaleString("ru-RU").replace(/,/g, " ");
+
+const MONTH_MIN = 1;
+const MONTH_MAX = 24;
+const AMOUNT_MIN = 50000;
+const AMOUNT_MAX = 30000000;
+const BASE_RATE = 11;
+const UZS_RATE = 98.13;
+
+function calcPromoRate(months: number, replenishable: boolean) {
+  let bonus = 2.14 * Math.min(months / 6, 2);
+  if (replenishable) bonus += 0.5;
+  return +(BASE_RATE + bonus).toFixed(2);
+}
+
+function calcYield(rate: number) {
+  const y = (Math.pow(1 + rate / 100 / 12, 12) - 1) * 100;
+  return +y.toFixed(1);
+}
+
+export default function DepositCalculator() {
+  const [mode, setMode] = useState<"currency" | "amount">("currency");
+  const [months, setMonths] = useState(6);
+  const [amount, setAmount] = useState(1000000);
+  const [replenishable, setReplenishable] = useState(false);
+
+  const rate = useMemo(
+    () => calcPromoRate(months, replenishable),
+    [months, replenishable],
+  );
+  const yieldRate = useMemo(() => calcYield(rate), [rate]);
+
+  const profit = useMemo(
+    () => amount * (rate / 100) * (months / 12),
+    [amount, rate, months],
+  );
+  const endSum = amount + profit;
+  const endSumUzs = endSum * UZS_RATE;
+
+  return (
+    <div className="w-full flex items-center justify-center">
+      <div className="w-full max-w-[752px] rounded-[28px] bg-white p-10 shadow-[0_20px_60px_-8px_rgba(6,52,123,0.12)]">
+        <div className="flex items-center justify-between gap-3 rounded-2xl bg-slate-50 px-4 py-3">
+          <div className="flex items-center gap-2 text-[13px] text-[#244A7F0F]">
+            <BadgeCheck className="h-5 w-5 shrink-0 text-blue-600" />
+            <span className="text-[#333333]">
+              Ознакомьтесь с{" "}
+              <a
+                href="#"
+                className="text-blue-600 underline underline-offset-2"
+              >
+                Публичной офертой
+              </a>
+            </span>
+          </div>
+          <button className="shrink-0 rounded-lg bg-blue-700 px-4 py-1.5 text-[14px] font-semibold text-white hover:bg-blue-800 transition-colors">
+            Подробнее
+          </button>
+        </div>
+
+        <h1 className="mt-5 text-2xl font-bold text-slate-900">
+          Настройте вклад
+        </h1>
+
+        <div className="mt-5">
+          <p className="text-xs text-slate-400">
+            Выберите валюту<span className="text-red-500">*</span>
+          </p>
+          <div className="mt-2 flex gap-2">
+            <button
+              onClick={() => setMode("currency")}
+              className={`flex items-center gap-2 rounded-xl border px-4 py-2.5 text-sm font-medium transition-colors cursor-pointer ${
+                mode === "currency"
+                  ? "border-blue-600 text-blue-700 bg-blue-50"
+                  : "border-slate-200 text-slate-500"
+              }`}
+            >
+              <span
+                className={`flex h-4 w-4 items-center justify-center rounded-full border-2 ${
+                  mode === "currency" ? "border-blue-600" : "border-slate-300"
+                }`}
+              >
+                {mode === "currency" && (
+                  <span className="h-2 w-2 rounded-full bg-blue-600" />
+                )}
+              </span>
+              Валюта
+            </button>
+            <button
+              onClick={() => setMode("amount")}
+              className={`flex items-center gap-2 rounded-xl border px-4 py-2.5 text-sm font-medium transition-colors cursor-pointer ${
+                mode === "amount"
+                  ? "border-blue-600 text-blue-700 bg-blue-50"
+                  : "border-slate-200 text-slate-500"
+              }`}
+            >
+              <span
+                className={`flex h-4 w-4 items-center justify-center rounded-full border-2 ${
+                  mode === "amount" ? "border-blue-600" : "border-slate-300"
+                }`}
+              >
+                {mode === "amount" && (
+                  <span className="h-2 w-2 rounded-full bg-blue-600" />
+                )}
+              </span>
+              Суммы
+            </button>
+          </div>
+        </div>
+
+        <div className="mt-4 grid grid-cols-2 gap-3">
+          <div className="rounded-2xl bg-slate-50 p-4">
+            <p className="text-xs text-slate-400">Срок вклада</p>
+            <p className="mt-0.5 text-[15px] font-semibold text-slate-900">
+              {months} месяцев
+            </p>
+            <input
+              type="range"
+              min={MONTH_MIN}
+              max={MONTH_MAX}
+              value={months}
+              onChange={(e) => setMonths(Number(e.target.value))}
+              className="range-slider mt-3 w-full"
+              style={{
+                background: `linear-gradient(to right, #1d4ed8 ${
+                  ((months - MONTH_MIN) / (MONTH_MAX - MONTH_MIN)) * 100
+                }%, #e2e8f0 0%)`,
+              }}
+            />
+            <div className="mt-2 flex justify-between text-[11px] text-slate-400">
+              <span>1 месяц</span>
+              <span>24 месяца</span>
+            </div>
+          </div>
+
+          <div className="rounded-2xl bg-slate-50 p-4">
+            <p className="text-xs text-slate-400">Сумма вклада</p>
+            <p className="mt-0.5 text-[15px] font-semibold text-slate-900">
+              {fmt(amount)} ₽
+            </p>
+            <input
+              type="range"
+              min={AMOUNT_MIN}
+              max={AMOUNT_MAX}
+              step={10000}
+              value={amount}
+              onChange={(e) => setAmount(Number(e.target.value))}
+              className="range-slider mt-3 w-full"
+              style={{
+                background: `linear-gradient(to right, #1d4ed8 ${
+                  ((amount - AMOUNT_MIN) / (AMOUNT_MAX - AMOUNT_MIN)) * 100
+                }%, #e2e8f0 0%)`,
+              }}
+            />
+            <div className="mt-2 flex justify-between text-[11px] text-slate-400">
+              <span>{fmt(AMOUNT_MIN)}</span>
+              <span>{fmt(AMOUNT_MAX)}</span>
+            </div>
+          </div>
+        </div>
+
+        <label className="mt-4 flex items-center gap-2 cursor-pointer select-none">
+          <input
+            type="checkbox"
+            checked={replenishable}
+            onChange={(e) => setReplenishable(e.target.checked)}
+            className="h-5 w-5 rounded-md border-slate-300 text-blue-600 focus:ring-blue-500"
+          />
+          <span className="text-sm text-slate-700">Пополняемый вклад</span>
+          <HelpCircle className="h-4 w-4 text-slate-300" />
+        </label>
+
+        <div className="mt-4 rounded-2xl bg-blue-50 p-5">
+          <p className="text-xl font-bold text-blue-700">
+            Ставка {rate}%{" "}
+            <span className="ml-1 text-sm font-medium text-slate-400 line-through">
+              {BASE_RATE}%
+            </span>
+          </p>
+
+          <div className="mt-4 flex items-center justify-between">
+            <div>
+              <p className="text-lg font-bold text-slate-900">{yieldRate}%</p>
+              <p className="flex items-center gap-1 text-xs text-slate-500">
+                Доходность <HelpCircle className="h-3.5 w-3.5 text-slate-300" />
+              </p>
+            </div>
+            <div className="text-right">
+              <p className="flex items-center justify-end gap-2 text-lg font-bold text-slate-900">
+                {fmt(endSum)}
+                <span className="flex items-center gap-0.5 text-sm font-semibold text-emerald-500">
+                  <TrendingUp className="h-3.5 w-3.5" />
+                  {fmt(profit)}сум
+                </span>
+              </p>
+              <p className="flex items-center justify-end gap-1 text-xs text-slate-500">
+                Сумма в конце срока{" "}
+                <HelpCircle className="h-3.5 w-3.5 text-slate-300" />
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <p className="mt-3 text-xs text-slate-400">
+          Заполняя форму, я принимаю{" "}
+          <a href="#" className="text-blue-600 underline underline-offset-2">
+            условия передачи информации
+          </a>
+        </p>
+
+        <hr className="mt-5 border-slate-100" />
+
+        <p className="mt-5 text-lg font-semibold text-slate-900">
+          К моменту закрытия вклада на счету будет
+        </p>
+        <p className="mt-2 text-4xl font-extrabold tracking-tight text-slate-900">
+          {fmt(endSumUzs)}
+        </p>
+        <p className="text-lg font-bold text-slate-900">UZS*</p>
+
+        <div className="mt-4 flex items-center gap-3">
+          <p className="flex-1 text-[11px] leading-snug text-slate-400">
+            *Примерный расчёт суммы вклада в конце срока. Точный расчёт суммы
+            вклада можно узнать в приложении TRASTPAY
+          </p>
+          <button
+            aria-label="Открыть календарь"
+            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors"
+          >
+            <Calendar className="h-5 w-5" />
+          </button>
+          <button className="shrink-0 rounded-full bg-blue-700 px-6 py-3.5 text-xs font-bold tracking-wide text-white hover:bg-blue-800 transition-colors whitespace-nowrap">
+            ОТКРЫТЬ СРОЧНЫЙ ВКЛАД
+          </button>
+        </div>
+      </div>
+
+      <style jsx global>{`
+        .range-slider {
+          -webkit-appearance: none;
+          appearance: none;
+          height: 4px;
+          border-radius: 9999px;
+          outline: none;
+          cursor: pointer;
+        }
+        .range-slider::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          appearance: none;
+          height: 18px;
+          width: 18px;
+          border-radius: 9999px;
+          background: #1d4ed8;
+          border: 3px solid #ffffff;
+          box-shadow: 0 1px 4px rgba(15, 23, 42, 0.35);
+          cursor: pointer;
+        }
+        .range-slider::-moz-range-thumb {
+          height: 18px;
+          width: 18px;
+          border-radius: 9999px;
+          background: #1d4ed8;
+          border: 3px solid #ffffff;
+          box-shadow: 0 1px 4px rgba(15, 23, 42, 0.35);
+          cursor: pointer;
+        }
+        .range-slider::-moz-range-track {
+          height: 4px;
+          border-radius: 9999px;
+          background: transparent;
+        }
+      `}</style>
+    </div>
+  );
+}

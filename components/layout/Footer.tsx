@@ -1,173 +1,186 @@
-import React from "react";
 import Link from "next/link";
-import { 
-  Phone, 
-  Mail, 
-  MapPin, 
-  ShieldCheck, 
-  Send
-} from "lucide-react";
+
+const infoPills = [
+  { id: 1, text: "О Т-Банке", link: "#" },
+  { id: 2, text: "Новости", link: "#" },
+  { id: 3, text: "Блог", link: "#" },
+  { id: 4, text: "Работа", link: "#" },
+  { id: 5, text: "Точки пополнения", link: "#" },
+  { id: 6, text: "Банкоматы", link: "#" },
+  { id: 7, text: "Курсы валют", link: "#" },
+  { id: 8, text: "Контакты", link: "#" },
+  { id: 9, text: "Безопасность", link: "#" },
+  { id: 10, text: "Для инвесторов", link: "#" },
+];
+
+const servicesLinks = [
+  { id: 1, text: "Восстановите свой КБМ", link: "#" },
+  { id: 2, text: "Рейтинг и другие показатели Т‑Страхования", link: "#" },
+  { id: 3, text: "Условия акции «Бонус за покупку полиса»", link: "#" },
+  { id: 4, text: "Условия акции «Бонус за покупку ОСАГО»", link: "#" },
+  { id: 5, text: "Условия акции «Дополнительная защита»", link: "#" },
+  { id: 6, text: "Политика обработки персональных данных Т‑Банка", link: "#" },
+];
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-900 text-slate-300 pt-16 pb-8 border-t border-slate-800">
-      <div className="container mx-auto px-4 md:px-8">
-        
-        {/* Top footer grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 mb-12">
-          
-          {/* Logo and License Info (4 cols) */}
-          <div className="lg:col-span-4 space-y-6">
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-primary flex items-center justify-center rounded-lg shadow-md">
-                <svg viewBox="0 0 100 100" className="w-5 h-5 fill-white">
-                  <path d="M50,10 L85,25 L85,55 C85,75 70,90 50,95 C30,90 15,75 15,55 L15,25 L50,10 Z M50,22 C37.8,22 28,31.8 28,44 L38,44 C38,37.4 43.4,32 50,32 C56.6,32 62,37.4 62,44 L72,44 C72,31.8 62.2,22 50,22 Z" />
-                </svg>
+    <footer className="w-full bg-[#292929] pt-[32px] pb-[40px] text-[#FFFFFFB2]">
+      <div className="max-w-[1104px] mx-auto px-4 md:px-0">
+        <div className="flex flex-col md:flex-row justify-between items-start gap-8">
+          <div className="flex flex-wrap max-w-full md:max-w-[65%] gap-[8px]">
+            {infoPills.map((pill) => (
+              <Link
+                href={pill.link}
+                key={pill.id}
+                className="bg-[#000000] rounded-[16px] text-white py-[8px] px-[12px] text-[13px] hover:bg-[#1a1a1a] transition-colors"
+              >
+                {pill.text}
+              </Link>
+            ))}
+          </div>
+
+          <div className="flex items-start gap-10 text-white shrink-0">
+            <div>
+              <div className="font-bold text-[18px] leading-snug">
+                8 800 700-55-00
               </div>
-              <span className="text-lg font-bold tracking-tight text-white">TRASTBANK</span>
+              <div className="text-[12px] text-neutral-400">
+                Бесплатно для звонков
+                <br />
+                по России
+              </div>
             </div>
-            
-            <p className="text-xs text-slate-400 leading-relaxed max-w-sm">
-              Private Joint-Stock Bank &quot;Trustbank&quot; provides a full spectrum of high-fidelity banking services for private individuals and corporate entities throughout the Republic of Uzbekistan.
-            </p>
-
-            <div className="flex items-start space-x-2.5 text-xs text-slate-400">
-              <ShieldCheck className="text-primary h-4 w-4 shrink-0 mt-0.5" />
-              <span>Licensed by the Central Bank of the Republic of Uzbekistan No. 44. First issued on June 21, 1994.</span>
+            <div>
+              <div className="font-bold text-[18px] leading-snug">999</div>
+              <div className="text-[12px] text-neutral-400">
+                Короткий
+                <br />
+                номер
+              </div>
             </div>
-          </div>
-
-          {/* Links Column 1: Services (2.5 cols) */}
-          <div className="lg:col-span-2 lg:col-start-6 space-y-4">
-            <h4 className="text-xs uppercase tracking-wider font-extrabold text-white">
-              Banking Services
-            </h4>
-            <ul className="space-y-2.5 text-xs font-semibold">
-              <li>
-                <Link href="#loans" className="hover:text-primary transition-colors">Auto Loans</Link>
-              </li>
-              <li>
-                <Link href="#loans" className="hover:text-primary transition-colors">Microloans</Link>
-              </li>
-              <li>
-                <Link href="#loans" className="hover:text-primary transition-colors">Consumer Credits</Link>
-              </li>
-              <li>
-                <Link href="#cards" className="hover:text-primary transition-colors">Visa & Mastercard</Link>
-              </li>
-              <li>
-                <Link href="#cards" className="hover:text-primary transition-colors">Humo & Uzcard</Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Links Column 2: Tools & Tech (2.5 cols) */}
-          <div className="lg:col-span-2 space-y-4">
-            <h4 className="text-xs uppercase tracking-wider font-extrabold text-white">
-              Interactive Services
-            </h4>
-            <ul className="space-y-2.5 text-xs font-semibold">
-              <li>
-                <Link href="#calculator" className="hover:text-primary transition-colors">Loan Calculator</Link>
-              </li>
-              <li>
-                <Link href="#calculator" className="hover:text-primary transition-colors">Exchange Rates</Link>
-              </li>
-              <li>
-                <Link href="#mobile-app" className="hover:text-primary transition-colors">Trastpay Mobile App</Link>
-              </li>
-              <li>
-                <Link href="#features" className="hover:text-primary transition-colors">Card Applications</Link>
-              </li>
-              <li>
-                <Link href="#features" className="hover:text-primary transition-colors">Branch Locations</Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Links Column 3: Contact details (3 cols) */}
-          <div className="lg:col-span-3 space-y-4">
-            <h4 className="text-xs uppercase tracking-wider font-extrabold text-white">
-              Support & Contacts
-            </h4>
-            <ul className="space-y-3.5 text-xs font-medium text-slate-400">
-              <li className="flex items-start space-x-2.5">
-                <Phone className="text-primary h-4 w-4 shrink-0 mt-0.5" />
-                <div>
-                  <a href="tel:1287" className="font-bold text-white hover:text-primary block">1287</a>
-                  <span className="text-[10px] block">Single support hotline</span>
-                </div>
-              </li>
-              <li className="flex items-start space-x-2.5">
-                <Phone className="text-primary h-4 w-4 shrink-0 mt-0.5" />
-                <div>
-                  <a href="tel:+998712076200" className="text-white hover:text-primary font-bold block">+998 71 207-62-00</a>
-                  <span className="text-[10px] block">Headquarters Tashkent</span>
-                </div>
-              </li>
-              <li className="flex items-start space-x-2.5">
-                <Mail className="text-primary h-4 w-4 shrink-0 mt-0.5" />
-                <a href="mailto:info@trustbank.uz" className="text-white hover:text-primary block font-semibold">info@trustbank.uz</a>
-              </li>
-              <li className="flex items-start space-x-2.5">
-                <MapPin className="text-primary h-4 w-4 shrink-0 mt-0.5" />
-                <span>7 Navoiy Street, Tashkent, 100011, Republic of Uzbekistan</span>
-              </li>
-            </ul>
-          </div>
-
-        </div>
-
-        {/* Bottom bar (Copyright & Socials) */}
-        <div className="border-t border-slate-800 pt-8 mt-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-500">
-          <div className="text-center md:text-left mb-4 md:mb-0 leading-relaxed font-semibold">
-            <span>© 1994-2026 PJSB &quot;Trustbank&quot;. All rights reserved.</span>
-            <span className="block mt-1 text-[10px] text-slate-600 font-medium">Any use of website materials is subject to mandatory reference to trustbank.uz source.</span>
-          </div>
-
-          {/* Social icons */}
-          <div className="flex space-x-4">
-            <a 
-              href="#facebook"
-              className="w-8 h-8 rounded-lg bg-slate-800 hover:bg-primary hover:text-white flex items-center justify-center transition-colors"
-              aria-label="Follow us on Facebook"
-            >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
-                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-              </svg>
-            </a>
-            <a 
-              href="#telegram"
-              className="w-8 h-8 rounded-lg bg-slate-800 hover:bg-primary hover:text-white flex items-center justify-center transition-colors"
-              aria-label="Follow us on Telegram"
-            >
-              <Send size={15} />
-            </a>
-            <a 
-              href="#instagram"
-              className="w-8 h-8 rounded-lg bg-slate-800 hover:bg-primary hover:text-white flex items-center justify-center transition-colors"
-              aria-label="Follow us on Instagram"
-            >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-              </svg>
-            </a>
-            <a 
-              href="#linkedin"
-              className="w-8 h-8 rounded-lg bg-slate-800 hover:bg-primary hover:text-white flex items-center justify-center transition-colors"
-              aria-label="Follow us on LinkedIn"
-            >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
-                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                <rect x="2" y="9" width="4" height="12"></rect>
-                <circle cx="4" cy="4" r="2"></circle>
-              </svg>
-            </a>
           </div>
         </div>
 
+        <div className="flex flex-col gap-[6px] mt-[24px]">
+          <p className="text-[10.8px] leading-[16px]">
+            Акция «Бонус за покупку полиса» действует с 18.01.2024 г. —
+            бессрочно.
+          </p>
+          <p className="text-[10.8px] leading-[16px]">
+            Акция «Бонус за покупку ОСАГО» действует с 01.04.2026 по 10.05.2026.
+          </p>
+          <p className="text-[10.8px] leading-[16px]">
+            Страховщик АО «Т‑Страхование» осуществляет выплаты за 1 день = 24
+            часам при соблюдении всех условий: а) в ДТП ущерб причинен только
+            транспортным средствам; б) участники ДТП застрахованы по ОСАГО; в)
+            клиент направил необходимые документы и фотографии повреждений в
+            мобильное приложение Т‑Банка, заключил со страховщиком соглашение о
+            страховой выплате и предоставил оригиналы документов; г) выплата
+            производится в безналичном порядке на счет клиента в банке в течение
+            времени работы банка. АО «Т‑Страхование», ОГРН 1027739031540.
+          </p>
+          <p className="text-[10.8px] leading-[16px]">
+            Выгода до 54% — понижающий коэффициент при расчете страховой премии
+            в случае отсутствия страховых событий в предыдущем периоде КБМ
+            согласно Указанию Банка России от 09.10.2025 N 7204‑У «О страховых
+            тарифах по ОСАГО», максимальный размер которого (54%) достигается
+            при значении КБМ, равному 0,46 (класс КБМ 13). Услуги страхования
+            оказывает{" "}
+            <Link href="#" className="underline hover:text-white">
+              АО «Т‑Страхование»
+            </Link>
+            , Москва, ОГРН 1027739031540, а также партнеры{" "}
+            <Link href="#" className="underline hover:text-white">
+              ООО «Сравни.ру»
+            </Link>{" "}
+            и{" "}
+            <Link href="#" className="underline hover:text-white">
+              ООО «ИНСАП»
+            </Link>
+          </p>
+        </div>
+
+        <div className="flex flex-wrap gap-x-4 gap-y-2 mt-[20px] text-[12px]">
+          {servicesLinks.map((item) => (
+            <Link
+              key={item.id}
+              href={item.link}
+              className="text-white text-[11px] leading-[13px] font-normal"
+            >
+              {item.text}
+            </Link>
+          ))}
+        </div>
+
+        <div className="w-full h-[1px] bg-[#FFFFFF1F] my-[24px]" />
+
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-[12px]">
+          <p>
+            © 2006–2026, АО «ТБанк», официальный сайт, универсальная лицензия ЦБ
+            РФ № 2673
+          </p>
+
+          <div className="flex items-center gap-4 text-white">
+            <Link href="#" className="hover:opacity-80 transition-opacity">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+              </svg>
+            </Link>
+
+            <Link href="#" className="hover:opacity-80 transition-opacity">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path d="M15.684 0H8.316C3.724 0 0 3.724 0 8.316v7.368C0 20.276 3.724 24 8.316 24h7.368C20.276 24 24 20.276 24 15.684V8.316C24 3.724 20.276 0 15.684 0zm3.692 17.123h-1.644c-.623 0-.814-.496-1.93-1.614-1.028-1.002-1.464-1.134-1.722-1.134-.36 0-.464.103-.464.603v1.517c0 .413-.131.628-1.233.628-2.032 0-4.283-1.233-5.87-3.526-2.388-3.41-3.04-5.962-3.04-6.483 0-.258.103-.496.603-.496h1.644c.451 0 .619.206.792.688.868 2.52 2.32 4.728 2.915 4.728.223 0 .327-.103.327-.67V8.528c-.068-1.199-.696-1.299-.696-1.73 0-.206.173-.413.447-.413h2.589c.36 0 .49.19.49.619v3.313c0 .361.155.49.258.49.223 0 .412-.129.825-.542 1.285-1.442 2.199-3.666 2.199-3.666.121-.258.327-.496.773-.496h1.644c.49 0 .603.258.49.619-.206.953-2.217 3.821-2.217 3.821-.18.284-.258.413 0 .747.181.232.773.748 1.186 1.233.747.85 1.314 1.56 1.468 2.051.155.49-.077.747-.567.747z" />
+              </svg>
+            </Link>
+
+            <Link href="#" className="hover:opacity-80 transition-opacity">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 13a3 3 0 110-6 3 3 0 010 6z" />
+              </svg>
+            </Link>
+
+            <Link href="#" className="hover:opacity-80 transition-opacity">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.16l-2.02 9.51c-.15.68-.55.84-1.12.52l-3.1-2.28-1.5 1.44c-.17.17-.31.31-.63.31l.22-3.17 5.76-5.2c.25-.22-.05-.34-.39-.12l-7.12 4.48-3.08-.96c-.67-.21-.68-.67.14-.99l12.04-4.64c.56-.2 1.05.14.8 1.1z" />
+              </svg>
+            </Link>
+
+            <Link href="#" className="hover:opacity-80 transition-opacity">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path d="M12 10.25a3.25 3.25 0 100-6.5 3.25 3.25 0 000 6.5zm0-4.5a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5zm0 6.25c-2.3 0-4.44.88-5.83 2.12a1 1 0 101.33 1.5c.98-.87 2.54-1.62 4.5-1.62s3.52.75 4.5 1.62a1 1 0 101.33-1.5c-1.39-1.24-3.53-2.12-5.83-2.12zm4.33 5.42a1 1 0 00-1.41.08L12 20.6l-2.92-3.1a1 1 0 00-1.49 1.33l3.66 3.88a1 1 0 001.5 0l3.66-3.88a1 1 0 00-.08-1.41z" />
+              </svg>
+            </Link>
+          </div>
+        </div>
       </div>
     </footer>
   );

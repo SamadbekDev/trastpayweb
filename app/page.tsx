@@ -2,10 +2,10 @@ import Header from "@/components/layout/Header";
 import Hero from "@/components/Hero";
 import QuickTools from "@/components/QuickTools";
 import CardProducts from "@/components/CardProducts";
-import Features from "@/components/Features";
+import Features from "@/components/Services";
 import GetMore from "@/components/GetMore"
-import MobileApp from "@/components/MobileApp";
-import NewsSection from "@/components/NewsSection";
+import Trastpay from "@/components/Trastpay";
+import LinksFooter from "@/components/LinksFooter";
 import Footer from "@/components/layout/Footer";
 
 export default function Home() {
@@ -32,10 +32,10 @@ export default function Home() {
         <Features />
         
         {/* Mobile App Section */}
-        <MobileApp />
+        <Trastpay />
         
         {/* News & Tenders Panel */}
-        <NewsSection />
+        <LinksFooter />
       </main>
 
       {/* Main Bank Footer */}

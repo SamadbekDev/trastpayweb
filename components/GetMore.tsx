@@ -59,7 +59,7 @@ export default function GetMore() {
   };
 
   return (
-    <section className="w-full py-10 pl-6 md:pl-12 lg:pl-16 overflow-hidden">
+    <section className="w-full mx-auto py-10 pl-6 md:pl-12 lg:pl-16 overflow-hidden">
       <div className="flex justify-between items-center mb-6 pr-6 md:pr-12 lg:pr-16">
         <h2 className="text-black text-[44px] font-bold max-w-100 leading-12">
           Получайте больше с Трастбанком
