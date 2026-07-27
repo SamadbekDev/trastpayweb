@@ -2,30 +2,44 @@
 
 import { useMemo, useState } from "react";
 import { BadgeCheck, HelpCircle, TrendingUp, Calendar } from "lucide-react";
+import { DepositCalculatorConfig } from "@/types/pageConfig";
+import { getLocalizedText } from "@/utils/i18nHelper";
+import i18n from "@/i18n";
 
 const fmt = (n: number) =>
   Math.round(n).toLocaleString("ru-RU").replace(/,/g, " ");
 
-const MONTH_MIN = 1;
-const MONTH_MAX = 24;
-const AMOUNT_MIN = 50000;
-const AMOUNT_MAX = 30000000;
-const BASE_RATE = 11;
-const UZS_RATE = 98.13;
-
-function calcPromoRate(months: number, replenishable: boolean) {
-  let bonus = 2.14 * Math.min(months / 6, 2);
-  if (replenishable) bonus += 0.5;
-  return +(BASE_RATE + bonus).toFixed(2);
+interface DepositCalculatorProps {
+  config?: DepositCalculatorConfig;
 }
 
-function calcYield(rate: number) {
-  const y = (Math.pow(1 + rate / 100 / 12, 12) - 1) * 100;
-  return +y.toFixed(1);
-}
+export default function DepositCalculator({ config }: DepositCalculatorProps) {
+  const currentLang = i18n.language?.split("-")[0].toLowerCase() || "ru";
 
-export default function DepositCalculator() {
-  const [mode, setMode] = useState<"currency" | "amount">("currency");
+  const MONTH_MIN = 1;
+  const MONTH_MAX = 24;
+  const AMOUNT_MIN = 50000;
+  const AMOUNT_MAX = 30000000;
+  const BASE_RATE = 11;
+  const UZS_RATE = 98.13;
+
+  function calcPromoRate(months: number, replenishable: boolean) {
+    let bonus = 2.14 * Math.min(months / 6, 2);
+    if (replenishable) bonus += 0.5;
+    return +(BASE_RATE + bonus).toFixed(2);
+  }
+
+  function calcYield(rate: number) {
+    const y = (Math.pow(1 + rate / 100 / 12, 12) - 1) * 100;
+    return +y.toFixed(1);
+  }
+
+  const currencyOptions = config?.currencyOptions || [
+    { id: "cur-fx", label: { ru: "Валюта", uz: "Valyuta", en: "Currency" } },
+    { id: "cur-uzs", label: { ru: "Суммы", uz: "So'm", en: "UZS" } },
+  ];
+
+  const [activeCurrencyId, setActiveCurrencyId] = useState<string>(currencyOptions[0]?.id || "cur-fx");
   const [months, setMonths] = useState(6);
   const [amount, setAmount] = useState(1000000);
   const [replenishable, setReplenishable] = useState(false);
@@ -43,6 +57,8 @@ export default function DepositCalculator() {
   const endSum = amount + profit;
   const endSumUzs = endSum * UZS_RATE;
 
+  const rateBoxBgColor = config?.rateBoxColor || "#E8F1FF";
+
   return (
     <div className="w-full flex items-center justify-center">
       <div className="w-full max-w-[752px] rounded-[28px] bg-white p-10 shadow-[0_20px_60px_-8px_rgba(6,52,123,0.12)]">
@@ -50,73 +66,60 @@ export default function DepositCalculator() {
           <div className="flex items-center gap-2 text-[13px] text-[#244A7F0F]">
             <BadgeCheck className="h-5 w-5 shrink-0 text-blue-600" />
             <span className="text-[#333333]">
-              Ознакомьтесь с{" "}
+              {getLocalizedText(config?.offerBannerText, currentLang) || "Ознакомьтесь с "}
               <a
                 href="#"
                 className="text-blue-600 underline underline-offset-2"
               >
-                Публичной офертой
+                {getLocalizedText(config?.offerBannerButtonText, currentLang) || "Публичной офертой"}
               </a>
             </span>
           </div>
           <button className="shrink-0 rounded-lg bg-blue-700 px-4 py-1.5 text-[14px] font-semibold text-white hover:bg-blue-800 transition-colors">
-            Подробнее
+            {getLocalizedText(config?.offerBannerButtonText, currentLang) || "Подробнее"}
           </button>
         </div>
 
         <h1 className="mt-5 text-2xl font-bold text-slate-900">
-          Настройте вклад
+          {getLocalizedText(config?.title, currentLang) || "Настройте вклад"}
         </h1>
 
         <div className="mt-5">
           <p className="text-xs text-slate-400">
-            Выберите валюту<span className="text-red-500">*</span>
+            {getLocalizedText(config?.currencyLabel, currentLang) || "Выберите валюту"}
+            <span className="text-red-500">*</span>
           </p>
           <div className="mt-2 flex gap-2">
-            <button
-              onClick={() => setMode("currency")}
-              className={`flex items-center gap-2 rounded-xl border px-4 py-2.5 text-sm font-medium transition-colors cursor-pointer ${
-                mode === "currency"
-                  ? "border-blue-600 text-blue-700 bg-blue-50"
-                  : "border-slate-200 text-slate-500"
-              }`}
-            >
-              <span
-                className={`flex h-4 w-4 items-center justify-center rounded-full border-2 ${
-                  mode === "currency" ? "border-blue-600" : "border-slate-300"
+            {currencyOptions.map((opt) => (
+              <button
+                key={opt.id}
+                onClick={() => setActiveCurrencyId(opt.id)}
+                className={`flex items-center gap-2 rounded-xl border px-4 py-2.5 text-sm font-medium transition-colors cursor-pointer ${
+                  activeCurrencyId === opt.id
+                    ? "border-blue-600 text-blue-700 bg-blue-50"
+                    : "border-slate-200 text-slate-500"
                 }`}
               >
-                {mode === "currency" && (
-                  <span className="h-2 w-2 rounded-full bg-blue-600" />
-                )}
-              </span>
-              Валюта
-            </button>
-            <button
-              onClick={() => setMode("amount")}
-              className={`flex items-center gap-2 rounded-xl border px-4 py-2.5 text-sm font-medium transition-colors cursor-pointer ${
-                mode === "amount"
-                  ? "border-blue-600 text-blue-700 bg-blue-50"
-                  : "border-slate-200 text-slate-500"
-              }`}
-            >
-              <span
-                className={`flex h-4 w-4 items-center justify-center rounded-full border-2 ${
-                  mode === "amount" ? "border-blue-600" : "border-slate-300"
-                }`}
-              >
-                {mode === "amount" && (
-                  <span className="h-2 w-2 rounded-full bg-blue-600" />
-                )}
-              </span>
-              Суммы
-            </button>
+                <span
+                  className={`flex h-4 w-4 items-center justify-center rounded-full border-2 ${
+                    activeCurrencyId === opt.id ? "border-blue-600" : "border-slate-300"
+                  }`}
+                >
+                  {activeCurrencyId === opt.id && (
+                    <span className="h-2 w-2 rounded-full bg-blue-600" />
+                  )}
+                </span>
+                {getLocalizedText(opt.label, currentLang) || opt.id}
+              </button>
+            ))}
           </div>
         </div>
 
         <div className="mt-4 grid grid-cols-2 gap-3">
           <div className="rounded-2xl bg-slate-50 p-4">
-            <p className="text-xs text-slate-400">Срок вклада</p>
+            <p className="text-xs text-slate-400">
+              {getLocalizedText(config?.termLabel, currentLang) || "Срок вклада"}
+            </p>
             <p className="mt-0.5 text-[15px] font-semibold text-slate-900">
               {months} месяцев
             </p>
@@ -140,7 +143,9 @@ export default function DepositCalculator() {
           </div>
 
           <div className="rounded-2xl bg-slate-50 p-4">
-            <p className="text-xs text-slate-400">Сумма вклада</p>
+            <p className="text-xs text-slate-400">
+              {getLocalizedText(config?.amountLabel, currentLang) || "Сумма вклада"}
+            </p>
             <p className="mt-0.5 text-[15px] font-semibold text-slate-900">
               {fmt(amount)} ₽
             </p>
@@ -172,13 +177,15 @@ export default function DepositCalculator() {
             onChange={(e) => setReplenishable(e.target.checked)}
             className="h-5 w-5 rounded-md border-slate-300 text-blue-600 focus:ring-blue-500"
           />
-          <span className="text-sm text-slate-700">Пополняемый вклад</span>
+          <span className="text-sm text-slate-700">
+            {getLocalizedText(config?.replenishableLabel, currentLang) || "Пополняемый вклад"}
+          </span>
           <HelpCircle className="h-4 w-4 text-slate-300" />
         </label>
 
-        <div className="mt-4 rounded-2xl bg-blue-50 p-5">
+        <div className="mt-4 rounded-2xl p-5" style={{ backgroundColor: rateBoxBgColor }}>
           <p className="text-xl font-bold text-blue-700">
-            Ставка {rate}%{" "}
+            {getLocalizedText(config?.rateLabel, currentLang) || "Ставка"} {rate}%{" "}
             <span className="ml-1 text-sm font-medium text-slate-400 line-through">
               {BASE_RATE}%
             </span>
@@ -188,7 +195,8 @@ export default function DepositCalculator() {
             <div>
               <p className="text-lg font-bold text-slate-900">{yieldRate}%</p>
               <p className="flex items-center gap-1 text-xs text-slate-500">
-                Доходность <HelpCircle className="h-3.5 w-3.5 text-slate-300" />
+                {getLocalizedText(config?.yieldLabel, currentLang) || "Доходность"}{" "}
+                <HelpCircle className="h-3.5 w-3.5 text-slate-300" />
               </p>
             </div>
             <div className="text-right">
@@ -196,11 +204,11 @@ export default function DepositCalculator() {
                 {fmt(endSum)}
                 <span className="flex items-center gap-0.5 text-sm font-semibold text-emerald-500">
                   <TrendingUp className="h-3.5 w-3.5" />
-                  {fmt(profit)}сум
+                  {fmt(profit)} сум
                 </span>
               </p>
               <p className="flex items-center justify-end gap-1 text-xs text-slate-500">
-                Сумма в конце срока{" "}
+                {getLocalizedText(config?.endAmountLabel, currentLang) || "Сумма в конце срока"}{" "}
                 <HelpCircle className="h-3.5 w-3.5 text-slate-300" />
               </p>
             </div>
@@ -208,16 +216,13 @@ export default function DepositCalculator() {
         </div>
 
         <p className="mt-3 text-xs text-slate-400">
-          Заполняя форму, я принимаю{" "}
-          <a href="#" className="text-blue-600 underline underline-offset-2">
-            условия передачи информации
-          </a>
+          {getLocalizedText(config?.legalText, currentLang) || "Заполняя форму, я принимаю условия передачи информации"}
         </p>
 
         <hr className="mt-5 border-slate-100" />
 
         <p className="mt-5 text-lg font-semibold text-slate-900">
-          К моменту закрытия вклада на счету будет
+          {getLocalizedText(config?.resultLabel, currentLang) || "К моменту закрытия вклада на счету будет"}
         </p>
         <p className="mt-2 text-4xl font-extrabold tracking-tight text-slate-900">
           {fmt(endSumUzs)}
@@ -226,8 +231,8 @@ export default function DepositCalculator() {
 
         <div className="mt-4 flex items-center gap-3">
           <p className="flex-1 text-[11px] leading-snug text-slate-400">
-            *Примерный расчёт суммы вклада в конце срока. Точный расчёт суммы
-            вклада можно узнать в приложении TRASTPAY
+            {getLocalizedText(config?.resultNote, currentLang) ||
+              "*Примерный расчёт суммы вклада в конце срока. Точный расчёт суммы вклада можно узнать в приложении TRASTPAY"}
           </p>
           <button
             aria-label="Открыть календарь"
@@ -236,46 +241,10 @@ export default function DepositCalculator() {
             <Calendar className="h-5 w-5" />
           </button>
           <button className="shrink-0 rounded-full bg-blue-700 px-6 py-3.5 text-xs font-bold tracking-wide text-white hover:bg-blue-800 transition-colors whitespace-nowrap">
-            ОТКРЫТЬ СРОЧНЫЙ ВКЛАД
+            {getLocalizedText(config?.ctaText, currentLang) || "ОТКРЫТЬ СРОЧНЫЙ ВКЛАД"}
           </button>
         </div>
       </div>
-
-      <style jsx global>{`
-        .range-slider {
-          -webkit-appearance: none;
-          appearance: none;
-          height: 4px;
-          border-radius: 9999px;
-          outline: none;
-          cursor: pointer;
-        }
-        .range-slider::-webkit-slider-thumb {
-          -webkit-appearance: none;
-          appearance: none;
-          height: 18px;
-          width: 18px;
-          border-radius: 9999px;
-          background: #1d4ed8;
-          border: 3px solid #ffffff;
-          box-shadow: 0 1px 4px rgba(15, 23, 42, 0.35);
-          cursor: pointer;
-        }
-        .range-slider::-moz-range-thumb {
-          height: 18px;
-          width: 18px;
-          border-radius: 9999px;
-          background: #1d4ed8;
-          border: 3px solid #ffffff;
-          box-shadow: 0 1px 4px rgba(15, 23, 42, 0.35);
-          cursor: pointer;
-        }
-        .range-slider::-moz-range-track {
-          height: 4px;
-          border-radius: 9999px;
-          background: transparent;
-        }
-      `}</style>
     </div>
   );
 }

@@ -1,44 +1,46 @@
+"use client";
+
 import Header from "@/components/layout/Header";
 import Hero from "@/components/Hero";
 import QuickTools from "@/components/QuickTools";
 import CardProducts from "@/components/CardProducts";
 import Features from "@/components/Services";
-import GetMore from "@/components/GetMore"
+import GetMore from "@/components/GetMore";
 import Trastpay from "@/components/Trastpay";
 import LinksFooter from "@/components/LinksFooter";
 import Footer from "@/components/layout/Footer";
+import useHomePageConfig from "@/hooks/useHomePageConfig";
 
 export default function Home() {
+  const { config } = useHomePageConfig();
+
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Dynamic Main Header */}
-      <Header />
+      <Header config={config?.header} />
       
-      {/* Home Page Content */}
       <main className="flex-grow">
-        {/* Hero Slider with promotions */}
-        <Hero />
+        <Hero config={config?.hero} />
         
-        <CardProducts />
+        <CardProducts config={config?.productTabs} />
 
-        <GetMore />
+        <GetMore config={config?.promoCarousel} />
 
-        {/* Quick calculators and Currency rates */}
-        <QuickTools />
+        <QuickTools
+          calcTabsConfig={config?.calculatorTabs}
+          stepsConfig={config?.depositSteps}
+          calculatorConfig={config?.depositCalculator}
+        />
         
-        {/* Cards Catalog */}
+        <Features config={config?.services} />
         
-        {/* Features / Benefits Grid */}
-        <Features />
+        <Trastpay
+          instantCardConfig={config?.instantCard}
+          mobileAppConfig={config?.mobileApp}
+        />
         
-        {/* Mobile App Section */}
-        <Trastpay />
-        
-        {/* News & Tenders Panel */}
         <LinksFooter />
       </main>
 
-      {/* Main Bank Footer */}
       <Footer />
     </div>
   );

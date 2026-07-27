@@ -1,28 +1,44 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { InstantCardConfig, MobileAppConfig } from "@/types/pageConfig";
+import { getLocalizedText } from "@/utils/i18nHelper";
+import { getMediaUrl } from "@/utils/mediaHelper";
+import i18n from "@/i18n";
 
-const infoBlocks = [
-  {
-    id: 1,
-    title: "Удобно пополнять и выводить",
-    description:
-      "Пополняйте вклад с карты и получайте проценты на нее. Мгновенно и без комиссии",
-  },
-  {
-    id: 2,
-    title: "Бесплатное обслуживание",
-    description: "Для действующих вкладчиков",
-  },
-  {
-    id: 3,
-    title: "Помощь в управлении вкладом",
-    description:
-      "Следите за доходностью в приложении и личном кабинете, задавайте любые вопросы в чате 24/7",
-  },
-];
+interface TrastpayProps {
+  instantCardConfig?: InstantCardConfig;
+  mobileAppConfig?: MobileAppConfig;
+}
 
-export default function Trastpay() {
+export default function Trastpay({ instantCardConfig, mobileAppConfig }: TrastpayProps) {
+  const currentLang = i18n.language?.split("-")[0].toLowerCase() || "ru";
+
+  const cardTitle = getLocalizedText(instantCardConfig?.title, currentLang) || "Моментальная карта Trastpay";
+  const cardSubtitle = getLocalizedText(instantCardConfig?.subtitle, currentLang) || "Заказ карты доступен в приложении Trastpay";
+  const cardImage = getMediaUrl(instantCardConfig?.image, "/images/trastpay/moment.png");
+
+  const features = instantCardConfig?.features || [
+    {
+      id: "feat-1",
+      title: { ru: "Удобно пополнять и выводить", uz: "Qulay to'ldirish va yechish", en: "Convenient top-up and withdrawal" },
+      description: { ru: "Пополняйте вклад с карты мгновенно и без комиссии", uz: "Komissiyasiz zumda to'ldiring", en: "Instant fee-free top up" },
+    },
+  ];
+
+  const appTitle = getLocalizedText(mobileAppConfig?.title, currentLang) || "Мобильное приложение TrastPay";
+  const promoText = getLocalizedText(mobileAppConfig?.promoText, currentLang) || "Скачай сегодня и получи на баланс 50 000 сум";
+  const appBgColor = mobileAppConfig?.backgroundColor || "#E8EEF5";
+  const appIcon = getMediaUrl(mobileAppConfig?.icon, "/images/trastpay/trastpay_logo.svg");
+  const androidHref = mobileAppConfig?.androidHref || "https://play.google.com/store/apps/details?id=trastpay.uz&hl=ru";
+  const iosHref = mobileAppConfig?.iosHref || "https://apps.apple.com/uz/app/trastpay/id6443658536";
+  const mockups = mobileAppConfig?.mockups || [
+    "/images/trastpay/phone_1.svg",
+    "/images/trastpay/phone_2.svg",
+  ];
+
   return (
     <section
       id="trastpay"
@@ -30,56 +46,67 @@ export default function Trastpay() {
     >
       <div className="flex flex-col gap-[24px] items-center mt-[76px]">
         <h1 className="text-[48px] text-[#000000CC] font-bold leading-[48px]">
-          Моментальная карта Trastpay
+          {cardTitle}
         </h1>
-        <p className="text-[#000000CC] text-[14.6px] font-normal">
-          Заказ карты доступно в приложении Trastpay
-        </p>
+        {cardSubtitle && (
+          <p className="text-[#000000CC] text-[14.6px] font-normal">
+            {cardSubtitle}
+          </p>
+        )}
       </div>
 
       <div className="my-[24px] flex justify-center gap-[48px]">
         <div className="max-w-[720px] w-full object-cover">
           <Image
             className="rounded-[24px]"
-            src={"/images/trastpay/moment.png"}
-            alt="moment"
+            src={cardImage}
+            alt="Instant Card"
             width={720}
             height={560}
           />
         </div>
         <div className="max-w-[336px] w-full">
-          {infoBlocks.map((info) => (
-            <div key={info.id} className="mt-[32px] flex flex-col gap-[12px]">
-              <h1 className="text-[21px] text-[#000000CC] font-medium">
-                {info.title}
-              </h1>
-              <p className="text-[15px] text-[#000000CC] font-normal">
-                {info.description}
-              </p>
-            </div>
-          ))}
+          {features.map((info) => {
+            const fTitle = getLocalizedText(info.title, currentLang);
+            const fDesc = getLocalizedText(info.description, currentLang);
+
+            return (
+              <div key={info.id} className="mt-[32px] flex flex-col gap-[12px]">
+                {fTitle && (
+                  <h1 className="text-[21px] text-[#000000CC] font-medium">
+                    {fTitle}
+                  </h1>
+                )}
+                {fDesc && (
+                  <p className="text-[15px] text-[#000000CC] font-normal">
+                    {fDesc}
+                  </p>
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
 
-      <div className="relative my-[24px] bg-[#E8EEF8] max-w-[1104px] w-full mx-auto p-[48px] rounded-[24px] overflow-hidden flex">
+      <div
+        className="relative my-[24px] max-w-[1104px] w-full mx-auto p-[48px] rounded-[24px] overflow-hidden flex"
+        style={{ backgroundColor: appBgColor }}
+      >
         <div className="max-w-[428px] max-h-[412px] flex flex-col">
           <div className="mb-[70px]">
             <Image
-              src={"/images/trastpay/trastpay_logo.svg"}
-              alt="trastpay_logo"
+              src={appIcon}
+              alt="App Logo"
               width={120}
               height={120}
             />
           </div>
           <div className="mb-[40px] flex flex-col gap-[12px]">
-            <h1 className="text-[31.1px] text-[#333333] font-medium">Мобильное приложение TrastPay</h1>
-            <p className="text-[17px] text-[#333333] font-medium">Скачай сегодня и получи на баланс 50 000 сум</p>
+            <h1 className="text-[31.1px] text-[#333333] font-medium">{appTitle}</h1>
+            <p className="text-[17px] text-[#333333] font-medium">{promoText}</p>
           </div>
           <div className="flex gap-[12px]">
-            <Link
-              href="https://play.google.com/store/apps/details?id=trastpay.uz&hl=ru"
-              target="_blank"
-            >
+            <Link href={androidHref} target="_blank">
               <Image
                 src="/images/trastpay/android.svg"
                 alt="android"
@@ -87,10 +114,7 @@ export default function Trastpay() {
                 height={44}
               />
             </Link>
-            <Link
-              href="https://apps.apple.com/uz/app/trastpay/id6443658536"
-              target="_blank"
-            >
+            <Link href={iosHref} target="_blank">
               <Image
                 src="/images/trastpay/ios.svg"
                 alt="ios"
@@ -101,18 +125,15 @@ export default function Trastpay() {
           </div>
         </div>
         <div className="flex absolute bottom-0 right-13 gap-[14px]">
-          <Image 
-            src="/images/trastpay/phone_1.svg"
-            alt="phone_1"
-            width={236}
-            height={560}
-          />
-          <Image 
-            src="/images/trastpay/phone_2.svg"
-            alt="phone_1"
-            width={236}
-            height={560}
-          />
+          {mockups.map((mockup, idx) => (
+            <Image
+              key={idx}
+              src={getMediaUrl(mockup, "/images/trastpay/phone_1.svg")}
+              alt={`Phone Mockup ${idx + 1}`}
+              width={236}
+              height={560}
+            />
+          ))}
         </div>
       </div>
     </section>

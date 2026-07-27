@@ -10,45 +10,18 @@ import { Mousewheel } from "swiper/modules";
 import "swiper/css/mousewheel";
 import "swiper/css";
 
-interface CardProductItem {
-  id: number;
-  title: string;
-  description: string;
-  imageSrc: string;
+import { PromoCarouselConfig } from "@/types/pageConfig";
+import { getLocalizedText } from "@/utils/i18nHelper";
+import { getMediaUrl } from "@/utils/mediaHelper";
+import i18n from "@/i18n";
+
+interface GetMoreProps {
+  config?: PromoCarouselConfig;
 }
 
-const productsData: CardProductItem[] = [
-  {
-    id: 1,
-    title: "Денежные переводы",
-    description:
-      "Мгновенные международные переводы с гарантированной защитой и выдачей строго получателю».",
-    imageSrc: "/images/getmore/getmore_money.png",
-  },
-  {
-    id: 2,
-    title: "Высокие ставки в TrastPay",
-    description:
-      "Растим ваши накопления в долларах и в суммах с повышенной ставкой для вклада от Трастбанка",
-    imageSrc: "/images/getmore/getmore_security.png",
-  },
-  {
-    id: 3,
-    title: "Приводите в Trastpay всех",
-    description:
-      "Платим 100 000 сум за каждого, кто откроет счет и оформит карту банка",
-    imageSrc: "/images/getmore/getmore_trastpay.png",
-  },
-  {
-    id: 4,
-    title: "Автокредит",
-    description:
-      "Мгновенные международные переводы с гарантированной защитой и выдачей строго получателю».",
-    imageSrc: "/images/getmore/getmore_auto-credit.png",
-  },
-];
+export default function GetMore({ config }: GetMoreProps) {
+  const currentLang = i18n.language?.split("-")[0].toLowerCase() || "ru";
 
-export default function GetMore() {
   const swiperRef = useRef<SwiperType | null>(null);
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
@@ -58,11 +31,14 @@ export default function GetMore() {
     setIsEnd(swiper.isEnd);
   };
 
+  const titleText = getLocalizedText(config?.title, currentLang) || "Получайте больше с Трастбанком";
+  const slides = config?.slides || [];
+
   return (
-    <section className="w-full mx-auto py-10 pl-6 md:pl-12 lg:pl-16">
+    <section className="w-full container mx-auto py-10 pl-6 md:pl-12 lg:pl-16">
       <div className="flex justify-between items-center mb-6 pr-6 md:pr-12 lg:pr-16">
         <h2 className="text-black text-[44px] font-bold max-w-100 leading-12">
-          Получайте больше с Трастбанком
+          {titleText}
         </h2>
 
         <div className="flex items-center gap-2">
@@ -105,33 +81,43 @@ export default function GetMore() {
         grabCursor={true}
         className="!p-8 !-m-6"
       >
-        {productsData.map((product) => (
-          <SwiperSlide
-            key={product.id}
-            className="!w-[380px] !h-[346px] shrink-0"
-          >
-            <div className="w-full h-full bg-white rounded-[34px] p-3 shadow-[0_4px_24px_0_rgba(6,52,123,0.12)] flex flex-col items-center text-center transition-transform duration-300 hover:-translate-y-1 select-none box-border">
-              <div className="relative w-full h-[180px] rounded-[22px] overflow-hidden mb-3 shrink-0">
-                <Image
-                  src={product.imageSrc}
-                  alt={product.title}
-                  fill
-                  className="object-cover"
-                  sizes="380px"
-                />
-              </div>
+        {slides.map((slide) => {
+          const itemTitle = getLocalizedText(slide.title, currentLang);
+          const itemDescription = getLocalizedText(slide.description, currentLang);
+          const itemImg = getMediaUrl(slide.image, "/images/getmore/getmore_money.png");
 
-              <div className="flex flex-col items-center gap-2 px-2 my-auto">
-                <h3 className="text-[#000000] text-[22px] font-bold leading-tight line-clamp-1">
-                  {product.title}
-                </h3>
-                <p className="text-[#00000099] text-[14px] font-medium leading-snug line-clamp-3">
-                  {product.description}
-                </p>
+          return (
+            <SwiperSlide
+              key={slide.id}
+              className="!w-[380px] !h-[346px] shrink-0"
+            >
+              <div className="w-full h-full bg-white rounded-[34px] p-3 shadow-[0_4px_24px_0_rgba(6,52,123,0.12)] flex flex-col items-center text-center transition-transform duration-300 hover:-translate-y-1 select-none box-border">
+                <div className="relative w-full h-[180px] rounded-[22px] overflow-hidden mb-3 shrink-0">
+                  <Image
+                    src={itemImg}
+                    alt={itemTitle}
+                    fill
+                    className="object-cover"
+                    sizes="380px"
+                  />
+                </div>
+
+                <div className="flex flex-col items-center gap-2 px-2 my-auto">
+                  {itemTitle && (
+                    <h3 className="text-[#000000] text-[22px] font-bold leading-tight line-clamp-1">
+                      {itemTitle}
+                    </h3>
+                  )}
+                  {itemDescription && (
+                    <p className="text-[#00000099] text-[14px] font-medium leading-snug line-clamp-3">
+                      {itemDescription}
+                    </p>
+                  )}
+                </div>
               </div>
-            </div>
-          </SwiperSlide>
-        ))}
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
     </section>
   );
