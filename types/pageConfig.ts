@@ -21,6 +21,7 @@ export interface HeaderUtilityLink {
 export interface HeaderSecondaryNavItem {
   id: string;
   label: string;
+  href?: string;
 }
 
 export interface HeaderConfig {
@@ -139,7 +140,10 @@ export interface ServicesConfig {
   ratesTitle?: I18nText;
   ratesDropdownLabel?: I18nText;
   moreCurrenciesText?: I18nText;
+  moreCurrenciesHref?: string;
   ratesDisclaimer?: I18nText;
+  ratesDisclaimerLinkText?: I18nText;
+  ratesDisclaimerLinkHref?: string;
   currencies?: ServiceCurrencyItem[];
   cards?: ServiceCardItem[];
 }
