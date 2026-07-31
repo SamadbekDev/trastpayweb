@@ -2,8 +2,7 @@ import axios from 'axios';
 import i18n from 'i18next';
 import { Language } from '@/types/pageConfig';
 
-const baseURL =
-  process.env.NEXT_PUBLIC_API_URL
+const baseURL = process.env.NEXT_PUBLIC_API_URL || '/api';
 
 export const apiClient = axios.create({
   baseURL,

@@ -1,15 +1,16 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import DepositCalculator from "./DepositCalculator";
 import {
   CalculatorTabsConfig,
   DepositStepsConfig,
   DepositCalculatorConfig,
+  Language,
 } from "@/types/pageConfig";
 import { getLocalizedText } from "@/utils/i18nHelper";
-import i18n from "@/i18n";
 
 interface QuickToolsProps {
   calcTabsConfig?: CalculatorTabsConfig;
@@ -22,86 +23,95 @@ export default function QuickTools({
   stepsConfig,
   calculatorConfig,
 }: QuickToolsProps) {
-  const currentLang = i18n.language?.split("-")[0].toLowerCase() || "ru";
+  const { i18n } = useTranslation();
+  const currentLang = (i18n.language?.split("-")[0].toLowerCase() as Language) || "ru";
 
-  const calcTitle = getLocalizedText(calcTabsConfig?.title, currentLang) || "Быстрый расчёт Вклада";
+  const calcTitle = getLocalizedText(calcTabsConfig?.title, currentLang);
+  const tabs = calcTabsConfig?.tabs || [];
 
-  const tabs = calcTabsConfig?.tabs || [
-    { id: "calc-deposit", label: { ru: "Вклады", uz: "Omonatlar", en: "Deposits" } },
-    { id: "calc-loan", label: { ru: "Расчет кредита", uz: "Kredit hisobi", en: "Loan Calculator" } },
-    { id: "calc-card", label: { ru: "Заказ карты", uz: "Karta buyurtma", en: "Order Card" } },
-  ];
+  const [activeTabId, setActiveTabId] = useState<string>("");
 
-  const [activeTabId, setActiveTabId] = useState<string>(tabs[0]?.id || "calc-deposit");
+  useEffect(() => {
+    if (tabs.length > 0 && !activeTabId) {
+      setActiveTabId(tabs[0].id);
+    }
+  }, [tabs, activeTabId]);
 
-  const stepsTitle = getLocalizedText(stepsConfig?.title, currentLang) || "Открыть вклад легко";
-
-  const steps = stepsConfig?.steps || [
-    { id: "step-1", number: 1, text: { ru: "Заполните онлайн-заявку — посещать банк не нужно", uz: "Onlayn ariza to'ldiring", en: "Fill online application" } },
-    { id: "step-2", number: 2, text: { ru: "Бесплатно доставим договор и дебетовую карту", uz: "Shartnoma va kartani bepul yetkazamiz", en: "Free delivery" } },
-    { id: "step-3", number: 3, text: { ru: "Пополните вклад онлайн или наличными без комиссии", uz: "Omonatni komissiyasiz to'ldiring", en: "Top up online without fee" } },
-  ];
+  const stepsTitle = getLocalizedText(stepsConfig?.title, currentLang);
+  const steps = stepsConfig?.steps || [];
 
   return (
     <section
       id="calculator"
       className="py-10 relative overflow-hidden w-full"
     >
-      <div className="container flex justify-center items-center flex-col mx-auto gap-5">
-        <h1 className="text-center text-[#000000DE] text-[32px] font-semibold max-w-90 leading-10">
-          {calcTitle}
-        </h1>
-        <div className="flex bg-[#F3F4F7] rounded-2xl p-1 mt-4 md:mt-0 max-w-fit gap-1">
-          {tabs.map((tab) => {
-            const tabLabel = getLocalizedText(tab.label, currentLang) || tab.id;
+      {(calcTitle || tabs.length > 0) && (
+        <div className="container flex justify-center items-center flex-col mx-auto gap-5">
+          {calcTitle && (
+            <h1 className="text-center text-[#000000DE] text-[32px] font-semibold max-w-90 leading-10">
+              {calcTitle}
+            </h1>
+          )}
+          {tabs.length > 0 && (
+            <div className="flex bg-[#F3F4F7] rounded-2xl p-1 mt-4 md:mt-0 max-w-fit gap-1">
+              {tabs.map((tab) => {
+                const tabLabel = getLocalizedText(tab.label, currentLang);
+
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTabId(tab.id)}
+                    className={`relative px-5 py-2.5 rounded-xl text-[14px] font-semibold transition-colors cursor-pointer ${
+                      activeTabId === tab.id ? "text-[#262626]" : "text-[#262626CC]"
+                    }`}
+                  >
+                    {activeTabId === tab.id && (
+                      <motion.span
+                        layoutId="activeToolTabBg"
+                        className="absolute inset-0 bg-[#FFFFFF] rounded-xl shadow-sm"
+                        transition={{ type: "tween", stiffness: 400, damping: 30 }}
+                      />
+                    )}
+                    <span className="relative z-10">{tabLabel}</span>
+                  </button>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      )}
+
+      {stepsTitle && (
+        <div className="container mx-auto flex items-center justify-center mt-16">
+          <h1 className="text-center text-[40.9px] max-w-108.75 font-bold py-6">
+            {stepsTitle}
+          </h1>
+        </div>
+      )}
+
+      {steps.length > 0 && (
+        <div className="container mx-auto flex items-center justify-center mt-[52px] gap-12 flex-wrap">
+          {steps.map((item) => {
+            const stepText = getLocalizedText(item.text, currentLang);
 
             return (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTabId(tab.id)}
-                className={`relative px-5 py-2.5 rounded-xl text-[14px] font-semibold transition-colors cursor-pointer ${
-                  activeTabId === tab.id ? "text-[#262626]" : "text-[#262626CC]"
-                }`}
+              <div
+                key={item.id}
+                className="bg-[#F6F7F8] rounded-3xl relative w-full max-w-[336px] min-h-[160px] flex items-center justify-center"
               >
-                {activeTabId === tab.id && (
-                  <motion.span
-                    layoutId="activeToolTabBg"
-                    className="absolute inset-0 bg-[#FFFFFF] rounded-xl shadow-sm"
-                    transition={{ type: "tween", stiffness: 400, damping: 30 }}
-                  />
+                <div className="absolute -top-7 bg-[#126DF7] text-white text-[24px] rounded-[17.5px] font-medium w-[56px] h-[56px] flex items-center justify-center">
+                  {item.number}
+                </div>
+                {stepText && (
+                  <p className="text-[15px] font-normal max-w-[260px] text-center leading-[20px]">
+                    {stepText}
+                  </p>
                 )}
-                <span className="relative z-10">{tabLabel}</span>
-              </button>
+              </div>
             );
           })}
         </div>
-      </div>
-
-      <div className="container mx-auto flex items-center justify-center mt-16">
-        <h1 className="text-center text-[40.9px] max-w-108.75 font-bold py-6">
-          {stepsTitle}
-        </h1>
-      </div>
-
-      <div className="container mx-auto flex items-center justify-center mt-[52px] gap-12 flex-wrap">
-        {steps.map((item) => {
-          const stepText = getLocalizedText(item.text, currentLang);
-
-          return (
-            <div
-              key={item.id}
-              className="bg-[#F6F7F8] rounded-3xl relative w-full max-w-[336px] min-h-[160px] flex items-center justify-center"
-            >
-              <div className="absolute -top-7 bg-[#126DF7] text-white text-[24px] rounded-[17.5px] font-medium w-[56px] h-[56px] flex items-center justify-center">
-                {item.number}
-              </div>
-              <p className="text-[15px] font-normal max-w-[260px] text-center leading-[20px]">
-                {stepText}
-              </p>
-            </div>
-          );
-        })}
-      </div>
+      )}
 
       {/* Calculator */}
       <div className="container mx-auto mt-16">

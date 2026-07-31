@@ -10,9 +10,22 @@ import Trastpay from "@/components/Trastpay";
 import LinksFooter from "@/components/LinksFooter";
 import Footer from "@/components/layout/Footer";
 import useHomePageConfig from "@/hooks/useHomePageConfig";
+import { TrastbankLoader, TrastbankError } from "@/components/PageStatus";
 
 export default function Home() {
-  const { config } = useHomePageConfig();
+  const { config, loading, error, refetch } = useHomePageConfig();
+
+  if (loading) {
+    return <TrastbankLoader />;
+  }
+
+  if (error || !config) {
+    return (
+      <div className="min-h-screen w-full flex items-center justify-center bg-slate-50/50 p-4">
+        <TrastbankError onRetry={refetch} />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col">

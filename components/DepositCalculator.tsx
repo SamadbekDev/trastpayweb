@@ -2,9 +2,9 @@
 
 import { useMemo, useState } from "react";
 import { BadgeCheck, HelpCircle, TrendingUp, Calendar } from "lucide-react";
-import { DepositCalculatorConfig } from "@/types/pageConfig";
+import { useTranslation } from "react-i18next";
+import { DepositCalculatorConfig, Language } from "@/types/pageConfig";
 import { getLocalizedText } from "@/utils/i18nHelper";
-import i18n from "@/i18n";
 
 const fmt = (n: number) =>
   Math.round(n).toLocaleString("ru-RU").replace(/,/g, " ");
@@ -14,7 +14,8 @@ interface DepositCalculatorProps {
 }
 
 export default function DepositCalculator({ config }: DepositCalculatorProps) {
-  const currentLang = i18n.language?.split("-")[0].toLowerCase() || "ru";
+  const { i18n } = useTranslation();
+  const currentLang = (i18n.language?.split("-")[0].toLowerCase() as Language) || "ru";
 
   const MONTH_MIN = 1;
   const MONTH_MAX = 24;
@@ -34,12 +35,9 @@ export default function DepositCalculator({ config }: DepositCalculatorProps) {
     return +y.toFixed(1);
   }
 
-  const currencyOptions = config?.currencyOptions || [
-    { id: "cur-fx", label: { ru: "Валюта", uz: "Valyuta", en: "Currency" } },
-    { id: "cur-uzs", label: { ru: "Суммы", uz: "So'm", en: "UZS" } },
-  ];
+  const currencyOptions = config?.currencyOptions || [];
 
-  const [activeCurrencyId, setActiveCurrencyId] = useState<string>(currencyOptions[0]?.id || "cur-fx");
+  const [activeCurrencyId, setActiveCurrencyId] = useState<string>(currencyOptions[0]?.id || "");
   const [months, setMonths] = useState(6);
   const [amount, setAmount] = useState(1000000);
   const [replenishable, setReplenishable] = useState(false);
@@ -59,66 +57,98 @@ export default function DepositCalculator({ config }: DepositCalculatorProps) {
 
   const rateBoxBgColor = config?.rateBoxColor || "#E8F1FF";
 
+  const offerBannerText = getLocalizedText(config?.offerBannerText, currentLang);
+  const offerBannerBtn = getLocalizedText(config?.offerBannerButtonText, currentLang);
+  const titleText = getLocalizedText(config?.title, currentLang);
+  const currencyLabel = getLocalizedText(config?.currencyLabel, currentLang);
+  const termLabel = getLocalizedText(config?.termLabel, currentLang);
+  const amountLabel = getLocalizedText(config?.amountLabel, currentLang);
+  const replenishableLabel = getLocalizedText(config?.replenishableLabel, currentLang);
+  const rateLabel = getLocalizedText(config?.rateLabel, currentLang);
+  const yieldLabel = getLocalizedText(config?.yieldLabel, currentLang);
+  const endAmountLabel = getLocalizedText(config?.endAmountLabel, currentLang);
+  const legalText = getLocalizedText(config?.legalText, currentLang);
+  const resultLabel = getLocalizedText(config?.resultLabel, currentLang);
+  const resultNote = getLocalizedText(config?.resultNote, currentLang);
+  const ctaText = getLocalizedText(config?.ctaText, currentLang);
+
   return (
     <div className="w-full flex items-center justify-center">
       <div className="w-full max-w-[752px] rounded-[28px] bg-white p-10 shadow-[0_20px_60px_-8px_rgba(6,52,123,0.12)]">
-        <div className="flex items-center justify-between gap-3 rounded-2xl bg-slate-50 px-4 py-3">
-          <div className="flex items-center gap-2 text-[13px] text-[#244A7F0F]">
-            <BadgeCheck className="h-5 w-5 shrink-0 text-blue-600" />
-            <span className="text-[#333333]">
-              {getLocalizedText(config?.offerBannerText, currentLang) || "Ознакомьтесь с "}
-              <a
-                href="#"
-                className="text-blue-600 underline underline-offset-2"
-              >
-                {getLocalizedText(config?.offerBannerButtonText, currentLang) || "Публичной офертой"}
-              </a>
-            </span>
+        {(offerBannerText || offerBannerBtn) && (
+          <div className="flex items-center justify-between gap-3 rounded-2xl bg-slate-50 px-4 py-3">
+            <div className="flex items-center gap-2 text-[13px] text-[#244A7F0F]">
+              <BadgeCheck className="h-5 w-5 shrink-0 text-blue-600" />
+              <span className="text-[#333333]">
+                {offerBannerText}{" "}
+                {offerBannerBtn && (
+                  <a
+                    href="#"
+                    className="text-blue-600 underline underline-offset-2"
+                  >
+                    {offerBannerBtn}
+                  </a>
+                )}
+              </span>
+            </div>
+            {offerBannerBtn && (
+              <button className="shrink-0 rounded-lg bg-blue-700 px-4 py-1.5 text-[14px] font-semibold text-white hover:bg-blue-800 transition-colors">
+                {offerBannerBtn}
+              </button>
+            )}
           </div>
-          <button className="shrink-0 rounded-lg bg-blue-700 px-4 py-1.5 text-[14px] font-semibold text-white hover:bg-blue-800 transition-colors">
-            {getLocalizedText(config?.offerBannerButtonText, currentLang) || "Подробнее"}
-          </button>
-        </div>
+        )}
 
-        <h1 className="mt-5 text-2xl font-bold text-slate-900">
-          {getLocalizedText(config?.title, currentLang) || "Настройте вклад"}
-        </h1>
+        {titleText && (
+          <h1 className="mt-5 text-2xl font-bold text-slate-900">
+            {titleText}
+          </h1>
+        )}
 
         <div className="mt-5">
-          <p className="text-xs text-slate-400">
-            {getLocalizedText(config?.currencyLabel, currentLang) || "Выберите валюту"}
-            <span className="text-red-500">*</span>
-          </p>
-          <div className="mt-2 flex gap-2">
-            {currencyOptions.map((opt) => (
-              <button
-                key={opt.id}
-                onClick={() => setActiveCurrencyId(opt.id)}
-                className={`flex items-center gap-2 rounded-xl border px-4 py-2.5 text-sm font-medium transition-colors cursor-pointer ${
-                  activeCurrencyId === opt.id
-                    ? "border-blue-600 text-blue-700 bg-blue-50"
-                    : "border-slate-200 text-slate-500"
-                }`}
-              >
-                <span
-                  className={`flex h-4 w-4 items-center justify-center rounded-full border-2 ${
-                    activeCurrencyId === opt.id ? "border-blue-600" : "border-slate-300"
-                  }`}
-                >
-                  {activeCurrencyId === opt.id && (
-                    <span className="h-2 w-2 rounded-full bg-blue-600" />
-                  )}
-                </span>
-                {getLocalizedText(opt.label, currentLang) || opt.id}
-              </button>
-            ))}
-          </div>
+          {currencyLabel && (
+            <p className="text-xs text-slate-400">
+              {currencyLabel}
+              <span className="text-red-500">*</span>
+            </p>
+          )}
+          {currencyOptions.length > 0 && (
+            <div className="mt-2 flex gap-2">
+              {currencyOptions.map((opt) => {
+                const optLabel = getLocalizedText(opt.label, currentLang);
+                if (!optLabel) return null;
+
+                return (
+                  <button
+                    key={opt.id}
+                    onClick={() => setActiveCurrencyId(opt.id)}
+                    className={`flex items-center gap-2 rounded-xl border px-4 py-2.5 text-sm font-medium transition-colors cursor-pointer ${
+                      activeCurrencyId === opt.id
+                        ? "border-blue-600 text-blue-700 bg-blue-50"
+                        : "border-slate-200 text-slate-500"
+                    }`}
+                  >
+                    <span
+                      className={`flex h-4 w-4 items-center justify-center rounded-full border-2 ${
+                        activeCurrencyId === opt.id ? "border-blue-600" : "border-slate-300"
+                      }`}
+                    >
+                      {activeCurrencyId === opt.id && (
+                        <span className="h-2 w-2 rounded-full bg-blue-600" />
+                      )}
+                    </span>
+                    {optLabel}
+                  </button>
+                );
+              })}
+            </div>
+          )}
         </div>
 
         <div className="mt-4 grid grid-cols-2 gap-3">
           <div className="rounded-2xl bg-slate-50 p-4">
             <p className="text-xs text-slate-400">
-              {getLocalizedText(config?.termLabel, currentLang) || "Срок вклада"}
+              {termLabel || "Срок вклада"}
             </p>
             <p className="mt-0.5 text-[15px] font-semibold text-slate-900">
               {months} месяцев
@@ -144,7 +174,7 @@ export default function DepositCalculator({ config }: DepositCalculatorProps) {
 
           <div className="rounded-2xl bg-slate-50 p-4">
             <p className="text-xs text-slate-400">
-              {getLocalizedText(config?.amountLabel, currentLang) || "Сумма вклада"}
+              {amountLabel || "Сумма вклада"}
             </p>
             <p className="mt-0.5 text-[15px] font-semibold text-slate-900">
               {fmt(amount)} ₽
@@ -170,22 +200,24 @@ export default function DepositCalculator({ config }: DepositCalculatorProps) {
           </div>
         </div>
 
-        <label className="mt-4 flex items-center gap-2 cursor-pointer select-none">
-          <input
-            type="checkbox"
-            checked={replenishable}
-            onChange={(e) => setReplenishable(e.target.checked)}
-            className="h-5 w-5 rounded-md border-slate-300 text-blue-600 focus:ring-blue-500"
-          />
-          <span className="text-sm text-slate-700">
-            {getLocalizedText(config?.replenishableLabel, currentLang) || "Пополняемый вклад"}
-          </span>
-          <HelpCircle className="h-4 w-4 text-slate-300" />
-        </label>
+        {replenishableLabel && (
+          <label className="mt-4 flex items-center gap-2 cursor-pointer select-none">
+            <input
+              type="checkbox"
+              checked={replenishable}
+              onChange={(e) => setReplenishable(e.target.checked)}
+              className="h-5 w-5 rounded-md border-slate-300 text-blue-600 focus:ring-blue-500"
+            />
+            <span className="text-sm text-slate-700">
+              {replenishableLabel}
+            </span>
+            <HelpCircle className="h-4 w-4 text-slate-300" />
+          </label>
+        )}
 
         <div className="mt-4 rounded-2xl p-5" style={{ backgroundColor: rateBoxBgColor }}>
           <p className="text-xl font-bold text-blue-700">
-            {getLocalizedText(config?.rateLabel, currentLang) || "Ставка"} {rate}%{" "}
+            {rateLabel && `${rateLabel} `}{rate}%{" "}
             <span className="ml-1 text-sm font-medium text-slate-400 line-through">
               {BASE_RATE}%
             </span>
@@ -194,10 +226,12 @@ export default function DepositCalculator({ config }: DepositCalculatorProps) {
           <div className="mt-4 flex items-center justify-between">
             <div>
               <p className="text-lg font-bold text-slate-900">{yieldRate}%</p>
-              <p className="flex items-center gap-1 text-xs text-slate-500">
-                {getLocalizedText(config?.yieldLabel, currentLang) || "Доходность"}{" "}
-                <HelpCircle className="h-3.5 w-3.5 text-slate-300" />
-              </p>
+              {yieldLabel && (
+                <p className="flex items-center gap-1 text-xs text-slate-500">
+                  {yieldLabel}{" "}
+                  <HelpCircle className="h-3.5 w-3.5 text-slate-300" />
+                </p>
+              )}
             </div>
             <div className="text-right">
               <p className="flex items-center justify-end gap-2 text-lg font-bold text-slate-900">
@@ -207,42 +241,51 @@ export default function DepositCalculator({ config }: DepositCalculatorProps) {
                   {fmt(profit)} сум
                 </span>
               </p>
-              <p className="flex items-center justify-end gap-1 text-xs text-slate-500">
-                {getLocalizedText(config?.endAmountLabel, currentLang) || "Сумма в конце срока"}{" "}
-                <HelpCircle className="h-3.5 w-3.5 text-slate-300" />
-              </p>
+              {endAmountLabel && (
+                <p className="flex items-center justify-end gap-1 text-xs text-slate-500">
+                  {endAmountLabel}{" "}
+                  <HelpCircle className="h-3.5 w-3.5 text-slate-300" />
+                </p>
+              )}
             </div>
           </div>
         </div>
 
-        <p className="mt-3 text-xs text-slate-400">
-          {getLocalizedText(config?.legalText, currentLang) || "Заполняя форму, я принимаю условия передачи информации"}
-        </p>
+        {legalText && (
+          <p className="mt-3 text-xs text-slate-400">
+            {legalText}
+          </p>
+        )}
 
         <hr className="mt-5 border-slate-100" />
 
-        <p className="mt-5 text-lg font-semibold text-slate-900">
-          {getLocalizedText(config?.resultLabel, currentLang) || "К моменту закрытия вклада на счету будет"}
-        </p>
+        {resultLabel && (
+          <p className="mt-5 text-lg font-semibold text-slate-900">
+            {resultLabel}
+          </p>
+        )}
         <p className="mt-2 text-4xl font-extrabold tracking-tight text-slate-900">
           {fmt(endSumUzs)}
         </p>
         <p className="text-lg font-bold text-slate-900">UZS*</p>
 
         <div className="mt-4 flex items-center gap-3">
-          <p className="flex-1 text-[11px] leading-snug text-slate-400">
-            {getLocalizedText(config?.resultNote, currentLang) ||
-              "*Примерный расчёт суммы вклада в конце срока. Точный расчёт суммы вклада можно узнать в приложении TRASTPAY"}
-          </p>
+          {resultNote && (
+            <p className="flex-1 text-[11px] leading-snug text-slate-400">
+              {resultNote}
+            </p>
+          )}
           <button
             aria-label="Открыть календарь"
             className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors"
           >
             <Calendar className="h-5 w-5" />
           </button>
-          <button className="shrink-0 rounded-full bg-blue-700 px-6 py-3.5 text-xs font-bold tracking-wide text-white hover:bg-blue-800 transition-colors whitespace-nowrap">
-            {getLocalizedText(config?.ctaText, currentLang) || "ОТКРЫТЬ СРОЧНЫЙ ВКЛАД"}
-          </button>
+          {ctaText && (
+            <button className="shrink-0 rounded-full bg-blue-700 px-6 py-3.5 text-xs font-bold tracking-wide text-white hover:bg-blue-800 transition-colors whitespace-nowrap">
+              {ctaText}
+            </button>
+          )}
         </div>
       </div>
     </div>
