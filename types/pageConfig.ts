@@ -1,4 +1,4 @@
-export type Language = 'ru' | 'uz' | 'en';
+export type Language = "ru" | "uz" | "en";
 
 export interface I18nText {
   ru: string;
@@ -6,19 +6,13 @@ export interface I18nText {
   en: string;
 }
 
-export interface HeaderNavItem {
+export interface NavItem {
   id: string;
   label: string;
   href: string;
 }
 
-export interface HeaderUtilityLink {
-  id: string;
-  label: string;
-  href: string;
-}
-
-export interface HeaderSecondaryNavItem {
+export interface HeaderChip {
   id: string;
   label: string;
 }
@@ -26,158 +20,226 @@ export interface HeaderSecondaryNavItem {
 export interface HeaderConfig {
   logo?: string;
   logoText?: string;
-  navItems?: HeaderNavItem[];
-  utilityLinks?: HeaderUtilityLink[];
+  navItems?: NavItem[];
+  utilityLinks?: NavItem[];
   loginButtonText?: string;
-  language?: string;
   menuButtonText?: string;
-  secondaryNav?: HeaderSecondaryNavItem[];
+  chips?: HeaderChip[];
+}
+
+export interface HeroSideCard {
+  id: string;
+  title: I18nText;
+  subtitle?: I18nText;
+  buttonText?: I18nText;
+  buttonHref?: string;
+  badge?: I18nText;
+  linkText?: I18nText;
+  linkHref?: string;
+  image?: string;
+  backgroundColor?: string;
 }
 
 export interface HeroConfig {
-  title?: I18nText;
-  highlightText?: I18nText;
-  backgroundColor?: string;
-  image?: string;
-  buttonText?: I18nText;
-  buttonHref?: string;
-}
-
-export interface ProductCardItem {
-  id: string;
   title: I18nText;
   subtitle: I18nText;
-  image: string;
+  buttonText: I18nText;
+  buttonHref?: string;
+  image?: string;
+  backgroundColor?: string;
+  sideCards?: HeroSideCard[];
 }
 
-export interface ProductTabItem {
+export interface ProductItem {
   id: string;
   label: I18nText;
-  cards: ProductCardItem[];
+  icon: string;
+  href?: string;
+  featured?: boolean;
 }
 
-export interface ProductTabsConfig {
-  title?: I18nText;
-  tabs?: ProductTabItem[];
-}
-
-export interface PromoSlideItem {
-  id: string;
+export interface ProductsConfig {
   title: I18nText;
-  description: I18nText;
-  image: string;
+  items: ProductItem[];
 }
 
-export interface PromoCarouselConfig {
-  title?: I18nText;
-  slides?: PromoSlideItem[];
-}
-
-export interface CalculatorTabItem {
-  id: string;
-  label: I18nText;
-}
-
-export interface CalculatorTabsConfig {
-  title?: I18nText;
-  tabs?: CalculatorTabItem[];
-}
-
-export interface DepositStepItem {
-  id: string;
-  number: number;
-  text: I18nText;
-}
-
-export interface DepositStepsConfig {
-  title?: I18nText;
-  steps?: DepositStepItem[];
-}
-
-export interface CurrencyOption {
-  id: string;
-  label: I18nText;
-}
-
-export interface DepositCalculatorConfig {
-  offerBannerText?: I18nText;
-  offerBannerButtonText?: I18nText;
-  title?: I18nText;
-  currencyLabel?: I18nText;
-  currencyOptions?: CurrencyOption[];
-  termLabel?: I18nText;
-  amountLabel?: I18nText;
-  replenishableLabel?: I18nText;
-  rateBoxColor?: string;
-  rateLabel?: I18nText;
-  yieldLabel?: I18nText;
-  endAmountLabel?: I18nText;
-  legalText?: I18nText;
-  resultLabel?: I18nText;
-  resultNote?: I18nText;
-  ctaText?: I18nText;
-}
-
-export interface ServiceCurrencyItem {
+export interface CurrencyRateItem {
   id: string;
   code: string;
   name: I18nText;
-  sell: string;
-  buy: string;
+  rate: number;
   flag: string;
 }
 
-export interface ServiceCardItem {
-  id: string;
+export interface CurrencyConfig {
   title: I18nText;
-  description: I18nText;
-  icon: string;
+  haveLabel: I18nText;
+  wantLabel: I18nText;
+  amountLabel: I18nText;
+  currencyLabel: I18nText;
+  seeAllText: I18nText;
+  seeAllHref?: string;
+  defaultFrom: string;
+  defaultTo: string;
+  rates: CurrencyRateItem[];
 }
 
-export interface ServicesConfig {
-  title?: I18nText;
-  ratesTitle?: I18nText;
-  ratesDropdownLabel?: I18nText;
-  moreCurrenciesText?: I18nText;
-  ratesDisclaimer?: I18nText;
-  currencies?: ServiceCurrencyItem[];
-  cards?: ServiceCardItem[];
-}
-
-export interface InstantCardFeatureItem {
+export interface OfferSlide {
   id: string;
+  tag: I18nText;
   title: I18nText;
-  description: I18nText;
-}
-
-export interface InstantCardConfig {
-  title?: I18nText;
-  subtitle?: I18nText;
-  image?: string;
-  features?: InstantCardFeatureItem[];
-}
-
-export interface MobileAppConfig {
-  title?: I18nText;
-  promoText?: I18nText;
-  icon?: string;
+  image: string;
+  ctaText: I18nText;
+  href?: string;
   backgroundColor?: string;
-  androidButtonText?: I18nText;
-  iosButtonText?: I18nText;
-  androidHref?: string;
-  iosHref?: string;
-  mockups?: string[];
+}
+
+export interface OffersConfig {
+  title: I18nText;
+  slides: OfferSlide[];
+}
+
+export interface NewsItem {
+  id: string;
+  title: I18nText;
+  category: I18nText;
+  date: string;
+  href?: string;
+}
+
+export interface NewsPromo {
+  title: I18nText;
+  subtitle: I18nText;
+  ctaText: I18nText;
+  href?: string;
+  image?: string;
+}
+
+export interface NewsConfig {
+  title: I18nText;
+  items: NewsItem[];
+  promo: NewsPromo;
+}
+
+export interface CalculatorTab {
+  id: string;
+  label: I18nText;
+}
+
+export interface CalculatorToggle {
+  id: string;
+  label: I18nText;
+  defaultOn?: boolean;
+}
+
+export interface CalculatorConfig {
+  tabs: CalculatorTab[];
+  resultLabel: I18nText;
+  resultNote: I18nText;
+  amountLabel: I18nText;
+  termLabel: I18nText;
+  amountMin: number;
+  amountMax: number;
+  amountDefault: number;
+  termMinMonths: number;
+  termMaxMonths: number;
+  termDefaultMonths: number;
+  toggles: CalculatorToggle[];
+  primaryCta: I18nText;
+  secondaryCta: I18nText;
+  disclaimer: I18nText;
+  backgroundImage?: string;
+}
+
+export interface TrastpayConfig {
+  title: I18nText;
+  paragraphs: I18nText[];
+  ctaText: I18nText;
+  ctaHref?: string;
+  image?: string;
+}
+
+export interface FooterLink {
+  id: string;
+  label: string;
+  href: string;
+}
+
+export interface FooterColumn {
+  id: string;
+  title?: string;
+  links: FooterLink[];
+}
+
+export interface FooterPhone {
+  id: string;
+  number: string;
+  note: string;
+}
+
+export interface FooterSocial {
+  id: string;
+  label: string;
+  href: string;
+}
+
+export interface FooterQr {
+  id: string;
+  label: string;
+  image: string;
+}
+
+export interface FooterConfig {
+  phones: FooterPhone[];
+  socialLabel: string;
+  social: FooterSocial[];
+  columns: FooterColumn[];
+  mobileTitle: string;
+  qr: FooterQr[];
+  copyright: string;
+  license: string;
 }
 
 export interface HomePageConfig {
   header?: HeaderConfig;
   hero?: HeroConfig;
-  productTabs?: ProductTabsConfig;
-  promoCarousel?: PromoCarouselConfig;
-  calculatorTabs?: CalculatorTabsConfig;
-  depositSteps?: DepositStepsConfig;
-  depositCalculator?: DepositCalculatorConfig;
-  services?: ServicesConfig;
-  instantCard?: InstantCardConfig;
-  mobileApp?: MobileAppConfig;
+  products?: ProductsConfig;
+  /** @deprecated Prefer GET /content/published/deposits — kept for CMS draft only */
+  deposits?: {
+    title: I18nText;
+    tabs: {
+      id: string;
+      label: I18nText;
+      filter: "all" | "sum" | "fx" | "online";
+    }[];
+    groups: {
+      id: string;
+      category: "sum" | "fx" | "online";
+      title: I18nText;
+      badge: I18nText;
+    }[];
+    products: {
+      id: string;
+      category: "sum" | "fx" | "online";
+      title: I18nText;
+      description: I18nText;
+      rate: I18nText;
+      rateLabel: I18nText;
+      amount: I18nText;
+      amountLabel: I18nText;
+      term: I18nText;
+      termLabel: I18nText;
+      primaryCta: I18nText;
+      primaryHref?: string;
+      secondaryCta: I18nText;
+      secondaryHref?: string;
+      image: string;
+    }[];
+  };
+  currency?: CurrencyConfig;
+  offers?: OffersConfig;
+  news?: NewsConfig;
+  calculator?: CalculatorConfig;
+  trastpay?: TrastpayConfig;
+  footer?: FooterConfig;
 }
