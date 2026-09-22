@@ -3,18 +3,18 @@
 import { useEffect, useState, useCallback } from "react";
 import { HomePageConfig } from "@/types/pageConfig";
 import { getHomePageConfig } from "@/api/pageService";
-import { defaultHomePageConfig } from "@/mock/homePageConfig";
+import "@/i18n";
 
 interface UseHomePageConfigResult {
-  config: HomePageConfig;
+  config: HomePageConfig | null;
   loading: boolean;
   error: Error | null;
   refetch: () => Promise<void>;
 }
 
 export function useHomePageConfig(): UseHomePageConfigResult {
-  const [config, setConfig] = useState<HomePageConfig>(defaultHomePageConfig);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [config, setConfig] = useState<HomePageConfig | null>(null);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
   const fetchConfig = useCallback(async () => {
@@ -22,16 +22,13 @@ export function useHomePageConfig(): UseHomePageConfigResult {
     setError(null);
     try {
       const data = await getHomePageConfig();
-      if (data) {
-        setConfig(data);
-      }
+      setConfig(data);
     } catch (err) {
       setError(
         err instanceof Error
           ? err
           : new Error("Failed to load page configuration")
       );
-      setConfig(defaultHomePageConfig);
     } finally {
       setLoading(false);
     }
@@ -41,7 +38,12 @@ export function useHomePageConfig(): UseHomePageConfigResult {
     fetchConfig();
   }, [fetchConfig]);
 
-  return { config, loading, error, refetch: fetchConfig };
+  return {
+    config,
+    loading,
+    error,
+    refetch: fetchConfig,
+  };
 }
 
 export default useHomePageConfig;

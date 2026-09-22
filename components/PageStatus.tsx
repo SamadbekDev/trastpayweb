@@ -9,7 +9,7 @@ export function TrastbankLoader() {
       <div className="relative flex items-center justify-center">
         {/* Glowing animated spinner ring */}
         <div className="h-24 w-24 rounded-full border-4 border-slate-100 border-t-[#08243f] border-r-[#126df7] animate-spin" />
-        
+
         {/* Center Logo */}
         <div className="absolute inset-0 flex items-center justify-center">
           <Image
@@ -54,11 +54,12 @@ export function TrastbankError({ onRetry }: TrastbankErrorProps) {
       </div>
 
       <h2 className="text-2xl font-bold text-[#08243f] mb-3">
-        ╨б╨╡╤А╨▓╨╕╤Б ╨▓╤А╨╡╨╝╨╡╨╜╨╜╨╛ ╨╜╨╡╨┤╨╛╤Б╤В╤Г╨┐╨╡╨╜
+        Сервис временно недоступен
       </h2>
 
       <p className="text-slate-500 text-sm leading-relaxed mb-8">
-        ╨Ъ ╤Б╨╛╨╢╨░╨╗╨╡╨╜╨╕╤О, ╨╜╨╡ ╤Г╨┤╨░╨╗╨╛╤Б╤М ╨╖╨░╨│╤А╤Г╨╖╨╕╤В╤М ╨┤╨░╨╜╨╜╤Л╨╡ ╤Б╤В╤А╨░╨╜╨╕╤Ж╤Л. ╨Я╨╛╨╢╨░╨╗╤Г╨╣╤Б╤В╨░, ╨┐╤А╨╛╨▓╨╡╤А╤М╤В╨╡ ╨┐╨╛╨┤╨║╨╗╤О╤З╨╡╨╜╨╕╨╡ ╨║ ╤Б╨╡╤В╨╕ ╨╕╨╗╨╕ ╨┐╨╛╨▓╤В╨╛╤А╨╕╤В╨╡ ╨┐╨╛╨┐╤Л╤В╨║╤Г ╨┐╨╛╨╖╨╢╨╡.
+        К сожалению, не удалось загрузить данные страницы. Пожалуйста, проверьте
+        подключение к сети или повторите попытку позже.
       </p>
 
       <button
@@ -66,7 +67,7 @@ export function TrastbankError({ onRetry }: TrastbankErrorProps) {
         className="w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-[#08243f] text-white font-bold text-sm hover:bg-[#0c345a] active:scale-[0.98] transition-all cursor-pointer shadow-md"
       >
         <RefreshCw size={18} />
-        <span>╨Я╨╛╨▓╤В╨╛╤А╨╕╤В╤М ╨┐╨╛╨┐╤Л╤В╨║╤Г</span>
+        <span>Повторить попытку</span>
       </button>
     </div>
   );

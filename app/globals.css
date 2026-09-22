@@ -26,17 +26,24 @@
   --font-display: 'SF Pro Display', system-ui, sans-serif;
   --font-body:    'SF Pro Display', system-ui, -apple-system, sans-serif;
 
-  --primary:        #1b2c7a;
-  --primary-bright: #27379a;
-  --primary-deep:   #121d54;
-  --accent:         #ea580c;
+  --primary:        #2D68FF;
+  --primary-bright: #4B7FFF;
+  --primary-deep:   #1A4FD6;
+  --navy:           #0A2540;
+  --surface:        #F2F4F7;
+  --surface-blue:   #E8EEF8;
+  --accent:         #7C5CFF;
 
-  --text-muted: #505a63;
+  --text-muted: #6B7280;
 }
 
 @theme {
   --color-primary:       var(--primary);
   --color-primary-hover: var(--primary-bright);
+  --color-primary-deep:  var(--primary-deep);
+  --color-navy:          var(--navy);
+  --color-surface:       var(--surface);
+  --color-surface-blue:  var(--surface-blue);
   --color-accent:        var(--accent);
   --color-text-muted:    var(--text-muted);
 
@@ -46,37 +53,10 @@
 
 body {
   font-family: var(--font-body);
+  color: var(--navy);
+  background: #ffffff;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
-}
-
-
-@keyframes float-blob-1 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50%       { transform: translate(30px, -25px) scale(1.08); }
-}
-@keyframes float-blob-2 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50%       { transform: translate(-25px, 20px) scale(0.92); }
-}
-
-@keyframes wave-flow-1 {
-  0%, 100% { transform: translateY(0) skewY(0.2deg); }
-  50%       { transform: translateY(10px) skewY(-0.2deg) scaleY(1.05); }
-}
-@keyframes wave-flow-2 {
-  0%, 100% { transform: translateY(0) skewY(-0.2deg); }
-  50%       { transform: translateY(-8px) skewY(0.2deg) scaleY(1.03); }
-}
-
-@keyframes float-ring {
-  0%, 100% { transform: scale(1); opacity: 0.6; }
-  50%       { transform: scale(1.04); opacity: 0.4; }
-}
-
-@keyframes slide-up-fade {
-  from { opacity: 0; transform: translateY(28px); }
-  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fade-in-up {
@@ -85,24 +65,64 @@ body {
 }
 
 @layer utilities {
-  .anim-blob-1  { animation: float-blob-1  12s infinite ease-in-out; }
-  .anim-blob-2  { animation: float-blob-2  15s infinite ease-in-out; }
-  .anim-wave-1  { animation: wave-flow-1    8s infinite ease-in-out; transform-origin: center bottom; }
-  .anim-wave-2  { animation: wave-flow-2   11s infinite ease-in-out; transform-origin: center bottom; }
-  .anim-float   { animation: float-ring    6s infinite ease-in-out; }
-
-  .anim-slide-up {
-    animation: slide-up-fade 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
-  }
-
   .animate-fade-in-up {
     animation: fade-in-up 0.6s ease both;
   }
 
   .text-text-muted { color: var(--text-muted); }
+}
 
-  .bg-accent       { background-color: var(--accent); }
-  .hover\:bg-orange-600:hover { background-color: #dc4b09; }
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 999px;
+  background: #E5E7EB;
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid var(--primary);
+  box-shadow: 0 2px 8px rgba(45, 104, 255, 0.25);
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid var(--primary);
+  box-shadow: 0 2px 8px rgba(45, 104, 255, 0.25);
+  cursor: pointer;
+}
+
+/* Deposit calculator range — Figma: teal thumb */
+.deposit-calc-range {
+  height: 4px;
+  border-radius: 2px;
+}
+
+.deposit-calc-range::-webkit-slider-thumb {
+  width: 15px;
+  height: 15px;
+  border: 2.8px solid #ffffff;
+  background: #20b2c0;
+  box-shadow: 0 0 0 1px #0561ff;
+}
+
+.deposit-calc-range::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  border: 2.8px solid #ffffff;
+  background: #20b2c0;
+  box-shadow: 0 0 0 1px #0561ff;
 }
 
 ::-webkit-scrollbar       { width: 6px; height: 6px; }
