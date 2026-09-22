@@ -9,7 +9,7 @@ export function TrastbankLoader() {
       <div className="relative flex items-center justify-center">
         {/* Glowing animated spinner ring */}
         <div className="h-24 w-24 rounded-full border-4 border-slate-100 border-t-[#08243f] border-r-[#126df7] animate-spin" />
-        
+
         {/* Center Logo */}
         <div className="absolute inset-0 flex items-center justify-center">
           <Image
@@ -58,7 +58,8 @@ export function TrastbankError({ onRetry }: TrastbankErrorProps) {
       </h2>
 
       <p className="text-slate-500 text-sm leading-relaxed mb-8">
-        К сожалению, не удалось загрузить данные страницы. Пожалуйста, проверьте подключение к сети или повторите попытку позже.
+        К сожалению, не удалось загрузить данные страницы. Пожалуйста, проверьте
+        подключение к сети или повторите попытку позже.
       </p>
 
       <button

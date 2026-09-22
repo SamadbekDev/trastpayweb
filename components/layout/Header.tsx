@@ -1,14 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, Glasses, X, ChevronDown } from "lucide-react";
-import { RoundedUser, User, BurgerMenu, Search } from "@/components/Icons";
-import { motion } from "framer-motion";
+import { Menu, X, Search, Glasses } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { HeaderConfig, Language } from "@/types/pageConfig";
-import { getMediaUrl } from "@/utils/mediaHelper";
 
 interface HeaderProps {
   config?: HeaderConfig;
@@ -16,245 +13,224 @@ interface HeaderProps {
 
 export default function Header({ config }: HeaderProps) {
   const { i18n } = useTranslation();
-  const [activeTab, setActiveTab] = useState<string>("");
-  const [activePill, setActivePill] = useState<string>("");
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLangDropdownOpen, setIsLangDropdownOpen] = useState(false);
+  const [activeNav, setActiveNav] = useState(config?.navItems?.[0]?.id || "");
+  const [activeChip, setActiveChip] = useState(config?.chips?.[0]?.id || "");
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
 
-  const currentLang = (i18n.language?.split("-")[0].toLowerCase() as Language) || "ru";
+  const currentLang =
+    (i18n.language?.split("-")[0].toLowerCase() as Language) || "ru";
 
   const handleLanguageChange = (lang: Language) => {
     i18n.changeLanguage(lang);
-    setIsLangDropdownOpen(false);
+    setLangOpen(false);
   };
 
-  const closeAll = () => {
-    setIsMenuOpen(false);
-    setIsMobileMenuOpen(false);
-  };
-
-  const topLinks = config?.navItems || [];
-  const pillLinks = config?.secondaryNav || [];
-
-  const ratesLink = config?.utilityLinks?.find((u) => u.id === "util-1");
-  const branchesLink = config?.utilityLinks?.find((u) => u.id === "util-2");
-  const loginText = config?.loginButtonText;
-  const menuText = config?.menuButtonText;
-
-  const logoSrc = "/logo.svg";
-
-  // Auto-set default active items when loaded
-  useEffect(() => {
-    if (topLinks.length > 0 && !activeTab) {
-      setActiveTab(topLinks[0].id);
-    }
-  }, [topLinks, activeTab]);
-
-  useEffect(() => {
-    if (pillLinks.length > 0 && !activePill) {
-      setActivePill(pillLinks[0].id);
-    }
-  }, [pillLinks, activePill]);
-
-  const handlePillClick = (id: string, href?: string) => {
-    setActivePill(id);
-    const targetHref =
-      href ||
-      (id === "sec-1"
-        ? "#cards"
-        : id === "sec-2"
-        ? "#calculator"
-        : id === "sec-3"
-        ? "#trastpay"
-        : id === "sec-4"
-        ? "#services"
-        : `#${id}`);
-
-    if (targetHref && targetHref.startsWith("#") && targetHref.length > 1) {
-      const targetElement = document.querySelector(targetHref);
-      if (targetElement) {
-        targetElement.scrollIntoView({ behavior: "smooth" });
-      }
-    }
-  };
-
-  const handleTopTabClick = (id: string, href?: string) => {
-    setActiveTab(id);
-    if (href && href.startsWith("#") && href.length > 1) {
-      const targetElement = document.querySelector(href);
-      if (targetElement) {
-        targetElement.scrollIntoView({ behavior: "smooth" });
-      }
-    }
-  };
+  const navItems = config?.navItems || [];
+  const utilityLinks = config?.utilityLinks || [];
+  const chips = config?.chips || [];
 
   return (
-    <header className="w-full text-[#08243f] z-50 relative">
-      <div className="mx-auto flex w-full max-w-[1300px] items-center justify-between px-6 lg:px-12">
-        <div className="flex items-center gap-8">
-          <Link
-            href="/"
-            className="flex h-14 items-center shrink-0 gap-2"
-            aria-label="Trastbank"
-          >
-            {logoSrc && (
+    <header className="w-full bg-[#FAFAFA] relative z-50">
+      <div className="mx-auto w-full max-w-[1440px] px-4 lg:px-[120px]">
+        {/* Top bar — Figma: 8px 140px */}
+        <div className="flex items-center justify-between gap-4 h-16">
+          <div className="flex items-center gap-4 min-w-0">
+            <Link href="/" className="flex items-center shrink-0" aria-label="Trastbank">
               <Image
-                src={logoSrc}
-                alt={config?.logoText || "Trastbank"}
-                width={110}
-                height={40}
-                className="object-contain"
+                src={config?.logo || "/logo.svg"}
+                alt={config?.logoText || "TRASTBANK"}
+                width={50}
+                height={22}
+                className="h-[22px] w-auto object-contain"
                 unoptimized
-                priority
               />
-            )}
-            {!logoSrc && config?.logoText && (
-              <span className="font-bold text-xl text-[#08243f]">
-                {config.logoText}
-              </span>
-            )}
-          </Link>
-
-          <nav
-            className="hidden items-center gap-4 lg:flex h-full"
-            aria-label="Category"
-          >
-            {topLinks.map((link) => (
-              <button
-                key={link.id}
-                onClick={() => handleTopTabClick(link.id, link.href)}
-                className={`py-3.5 text-xs font-bold uppercase tracking-wider relative transition-colors select-none cursor-pointer ${
-                  activeTab === link.id
-                    ? "text-[#08243f]"
-                    : "text-slate-400 hover:text-slate-600"
-                }`}
-              >
-                {link.label}
-                {activeTab === link.id && (
-                  <span className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-[#08243f] rounded-t-full" />
-                )}
-              </button>
-            ))}
-          </nav>
-        </div>
-
-        <div className="hidden items-center gap-6 text-xs font-bold uppercase tracking-wider lg:flex">
-          {ratesLink && (
-            <Link href={ratesLink.href || "#rates"} className="text-[#110C30] transition-colors">
-              {ratesLink.label}
             </Link>
-          )}
-          {branchesLink && (
-            <Link href={branchesLink.href || "#branches"} className="text-[#110C30] transition-colors">
-              {branchesLink.label}
-            </Link>
-          )}
 
-          {/* Language Dropdown */}
-          <div className="relative">
-            <button
-              onClick={() => setIsLangDropdownOpen(!isLangDropdownOpen)}
-              className="flex items-center gap-1 text-[#110C30] transition-colors uppercase cursor-pointer font-bold"
-            >
-              <span>{currentLang.toUpperCase()}</span>
-              <ChevronDown size={14} />
-            </button>
-
-            {isLangDropdownOpen && (
-              <div className="absolute right-0 mt-2 w-20 bg-white rounded-xl shadow-lg border border-slate-100 py-1.5 z-50">
-                {(["ru", "uz", "en"] as Language[]).map((lang) => (
+            <nav className="hidden xl:flex items-center gap-4">
+              {navItems.map((item) => {
+                const isActive = activeNav === item.id;
+                return (
                   <button
-                    key={lang}
-                    onClick={() => handleLanguageChange(lang)}
-                    className={`w-full text-left px-3 py-1.5 text-xs font-bold uppercase hover:bg-slate-50 transition-colors ${
-                      currentLang === lang ? "text-blue-600 bg-blue-50" : "text-slate-700"
+                    key={item.id}
+                    type="button"
+                    onClick={() => setActiveNav(item.id)}
+                    className={`inline-flex items-center gap-1 py-3.5 text-[12px] leading-5 tracking-[0.6px] uppercase whitespace-nowrap transition-colors cursor-pointer ${
+                      isActive
+                        ? "font-bold text-[#110C30]"
+                        : "font-medium text-[rgba(17,12,48,0.5)] hover:text-[#110C30]"
                     }`}
                   >
-                    {lang.toUpperCase()}
+                    {item.label}
                   </button>
-                ))}
-              </div>
-            )}
+                );
+              })}
+            </nav>
           </div>
 
-          <button
-            aria-label="Версия для слабовидящих"
-            className="text-[#110C30]"
-          >
-            <Glasses size={20} />
-          </button>
+          <div className="flex items-center gap-4 shrink-0">
+            <div className="hidden lg:flex items-center gap-4">
+              {utilityLinks.map((link) => (
+                <Link
+                  key={link.id}
+                  href={link.href}
+                  className="text-[12px] font-medium leading-5 tracking-[0.6px] uppercase text-[#110C30] hover:opacity-70"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
 
-          {loginText && (
-            <Link
-              href="#signin"
-              className="flex items-center justify-center gap-2 px-4 py-2"
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setLangOpen((v) => !v)}
+                className="flex items-center py-3.5 text-[12px] font-bold leading-5 tracking-[0.6px] uppercase text-[#110C30] cursor-pointer"
+              >
+                {currentLang}
+              </button>
+              {langOpen && (
+                <div className="absolute right-0 top-full mt-1 bg-white rounded-xl shadow-lg border border-black/5 py-1 min-w-[64px] z-50">
+                  {(["ru", "uz", "en"] as Language[]).map((lang) => (
+                    <button
+                      key={lang}
+                      type="button"
+                      onClick={() => handleLanguageChange(lang)}
+                      className={`block w-full px-3 py-1.5 text-left text-[12px] font-semibold uppercase cursor-pointer ${
+                        currentLang === lang
+                          ? "text-[#1E54E0]"
+                          : "text-[#110C30] hover:bg-[#F2F4F7]"
+                      }`}
+                    >
+                      {lang}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <button
+              type="button"
+              aria-label="Размер текста"
+              className="hidden sm:flex w-8 h-8 items-center justify-center rounded-md text-[#110C30] cursor-pointer"
             >
-              <RoundedUser size={15} />
-              <span className="normal-case font-bold">{loginText}</span>
+              <Glasses size={18} />
+            </button>
+
+            <Link
+              href="#"
+              className="hidden sm:inline-flex items-center gap-2 text-[12px] font-medium leading-5 text-[#110C30]"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
+                <path
+                  d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4Z"
+                  fill="#110C30"
+                />
+                <path
+                  d="M4 20c0-2.21 3.58-4 8-4s8 1.79 8 4v1H4v-1Z"
+                  fill="#110C30"
+                />
+              </svg>
+              {config?.loginButtonText || "Войти"}
             </Link>
-          )}
+
+            <button
+              type="button"
+              className="xl:hidden p-2 text-[#110C30] cursor-pointer"
+              onClick={() => setMobileOpen((v) => !v)}
+              aria-label="Menu"
+            >
+              {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
         </div>
 
-        <div className="flex items-center gap-4 lg:hidden">
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label={isMobileMenuOpen ? "Закрыть меню" : "Открыть меню"}
-            className="p-2 hover:bg-slate-50 rounded-xl text-[#08243f] transition-colors"
+        {/* Secondary nav */}
+        <div className="flex justify-center pt-6 pb-0">
+          <div
+            className="flex w-full max-w-[883px] items-center justify-between gap-1.5 rounded-[20px] p-[6px] h-16"
+            style={{ backgroundColor: "#EAEFF8" }}
           >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+            <button
+              type="button"
+              className="hidden sm:inline-flex h-12 shrink-0 items-center justify-center gap-3 rounded-2xl px-4 text-[14px] font-semibold leading-[18px] tracking-[-0.2px] text-[#172419] cursor-pointer"
+            >
+              <Menu size={20} strokeWidth={2.2} className="text-black" />
+              {config?.menuButtonText || "Меню"}
+            </button>
+
+            <div
+              className="flex h-[52px] min-w-0 flex-1 items-center gap-2 overflow-x-auto rounded-2xl p-1 sm:max-w-[492px] sm:flex-none sm:gap-4"
+              style={{
+                background:
+                  "linear-gradient(90deg, #BBD8F2 0%, #D4DFF7 50%, #FFFFFF 100%)",
+              }}
+            >
+              {chips.map((chip) => {
+                const isActive = activeChip === chip.id;
+                return (
+                  <button
+                    key={chip.id}
+                    type="button"
+                    onClick={() => setActiveChip(chip.id)}
+                    className={`h-11 shrink-0 rounded-xl px-4 text-[14px] font-semibold leading-[18px] tracking-[-0.2px] transition-all cursor-pointer ${
+                      isActive
+                        ? "bg-white text-[#262626] shadow-[0_12px_64px_rgba(8,92,24,0.05),0_8px_32px_rgba(8,92,24,0.05)]"
+                        : "bg-transparent text-[rgba(38,38,38,0.8)] hover:text-[#262626]"
+                    }`}
+                  >
+                    {chip.label}
+                  </button>
+                );
+              })}
+            </div>
+
+            <button
+              type="button"
+              aria-label="Открыть поиск"
+              className="flex h-12 w-12 min-w-12 shrink-0 items-center justify-center text-[#172419] cursor-pointer"
+            >
+              <Search size={20} strokeWidth={2.2} />
+            </button>
+
+            <Link
+              href="#"
+              aria-label="Авторизоваться"
+              aria-label="Войти"className="flex h-12 w-12 min-w-12 max-w-12 shrink-0 items-center justify-center rounded-2xl bg-[#EFF7F7]"
+            >
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
+                  <path
+                    d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4Z"
+                    fill="#262626"
+                  />
+                  <path
+                    d="M12 14c-4.42 0-8 1.79-8 4v1h16v-1c0-2.21-3.58-4-8-4Z"
+                    fill="#262626"
+                  />
+                </svg>
+              </span>
+            </Link>
+          </div>
         </div>
       </div>
 
-      <div className="mx-auto flex w-full max-w-[882px] mt-6 items-center justify-between">
-        <div className="flex py-1.5 w-full items-center justify-between rounded-2xl bg-[#EAEFF8] px-6 text-sm font-medium">
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="flex select-none items-center gap-3 text-[#172419] cursor-pointer"
-          >
-            <BurgerMenu size={20} strokeWidth={2.5} />
-            {menuText && <span className="text-[14px] font-semibold">{menuText}</span>}
-          </button>
-
-          <nav
-            className="hidden items-center p-1 rounded-2xl gap-4 lg:flex bg-linear-to-r from-[#BBD8F2] via-[#D4DFF7] to-[#FFFFFF]"
-            aria-label="Quick links"
-          >
-            {pillLinks.map((link) => (
-              <button
-                key={link.id}
-                onClick={() => handlePillClick(link.id, link.href)}
-                className={`relative px-4 py-3 rounded-xl text-sm font-bold transition-colors select-none cursor-pointer ${
-                  activePill === link.id
-                    ? "text-[#08243f]"
-                    : "text-slate-500 hover:text-slate-800"
-                }`}
+      {mobileOpen && (
+        <div className="xl:hidden absolute inset-x-0 top-full bg-white border-t border-black/5 shadow-lg px-4 py-4 z-40">
+          <nav className="flex flex-col gap-3">
+            {navItems.map((item) => (
+              <a
+                key={item.id}
+                href={item.href}
+                className="text-[14px] font-semibold text-[#110C30] py-1"
+                onClick={() => setMobileOpen(false)}
               >
-                {activePill === link.id && (
-                  <motion.span
-                    layoutId="activePillBg"
-                    className="absolute inset-0 bg-white rounded-xl shadow-sm ring-1 ring-slate-100"
-                    transition={{ type: "tween", stiffness: 500, damping: 35 }}
-                  />
-                )}
-                <span className="relative z-10">{link.label}</span>
-              </button>
+                {item.label}
+              </a>
             ))}
           </nav>
-
-          <button aria-label="Поиск" className="text-[#172419]">
-            <Search size={20} />
-          </button>
-
-          <Link
-            href="#signin"
-            className=" text-[#262626] p-2 bg-white border-4 border-[#EFF7F7] rounded-xl"
-          >
-            <User />
-          </Link>
         </div>
-      </div>
+      )}
     </header>
   );
 }
