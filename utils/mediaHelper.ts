@@ -1,21 +1,32 @@
+import { getApiBaseUrl } from "@/api/client";
 
-export const getMediaUrl = (pathOrId?: string, fallback: string = '/images/hero_bank_account.svg'): string => {
-  if (!pathOrId || pathOrId.trim() === '') {
+/**
+ * Resolve media path / id / absolute URL for <Image> and CSS backgrounds.
+ * Bare ids are served via dashboard-api `GET /api/media/:id`.
+ */
+export const getMediaUrl = (
+  pathOrId?: string,
+  fallback: string = "https://placehold.co/600x400/e8eef5/0c3366?text=Image"
+): string => {
+  if (!pathOrId || pathOrId.trim() === "") {
     return fallback;
   }
 
   const cleanPath = pathOrId.trim();
 
   if (
-    cleanPath.startsWith('http://') ||
-    cleanPath.startsWith('https://') ||
-    cleanPath.startsWith('/')
+    cleanPath.startsWith("http://") ||
+    cleanPath.startsWith("https://") ||
+    cleanPath.startsWith("data:") ||
+    cleanPath.startsWith("blob:")
   ) {
     return cleanPath;
   }
 
-  const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
-  const cleanApiBase = apiBaseUrl.endsWith('/') ? apiBaseUrl.slice(0, -1) : apiBaseUrl;
+  if (cleanPath.startsWith("/")) {
+    return cleanPath;
+  }
 
-  return `${cleanApiBase}/media/${cleanPath}`;
+  const base = getApiBaseUrl();
+  return `${base}/media/${encodeURIComponent(cleanPath)}`;
 };
