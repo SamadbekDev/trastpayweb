@@ -39,7 +39,7 @@ export default function CardProductCard({ product }: CardProductCardProps) {
   ];
 
   return (
-    <article className="flex w-full flex-col items-stretch gap-6 rounded-[24px] bg-white px-6 py-8 shadow-[0px_10px_26px_rgba(26,38,77,0.05)] sm:px-8 lg:flex-row lg:items-center lg:gap-10 lg:px-10 lg:py-9">
+    <article className="flex h-full w-full flex-col items-stretch gap-6 rounded-[24px] bg-white px-6 py-8 shadow-[0px_10px_26px_rgba(26,38,77,0.05)] sm:px-8 lg:flex-row lg:items-center lg:gap-10 lg:px-10 lg:py-9">
       <div className="flex min-w-0 flex-1 flex-col gap-[22px]">
         <h3 className="text-[24px] font-bold leading-[34px] text-[#141433] lg:text-[28px]">
           <Link href={detailsHref} className="hover:text-[#1F3FBF]">

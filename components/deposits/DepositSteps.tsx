@@ -3,12 +3,12 @@
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { DepositDetailPageConfig } from "@/types/deposits";
-import { Language } from "@/types/pageConfig";
+import { DepositStep } from "@/types/deposits";
+import { I18nText, Language } from "@/types/pageConfig";
 import { getLocalizedText } from "@/utils/i18nHelper";
 
 interface DepositStepsProps {
-  config: DepositDetailPageConfig;
+  config: { stepsTitle: I18nText; steps: DepositStep[] };
 }
 
 export default function DepositSteps({ config }: DepositStepsProps) {
@@ -35,7 +35,7 @@ export default function DepositSteps({ config }: DepositStepsProps) {
                 <h3 className="text-[15px] font-semibold leading-5 text-[rgba(0,0,0,0.8)]">
                   {getLocalizedText(step.title, lang)}
                 </h3>
-                <p className="mt-2 text-[13px] leading-[15px] tracking-[-0.02em] text-[#797F8E]">
+                <p className="mt-2 align-middle font-[family-name:var(--font-roboto)] text-[13px] font-normal leading-[15px] tracking-[-0.02em] text-[#797F8E]">
                   {getLocalizedText(step.description, lang)}
                 </p>
                 {step.linkText && (

@@ -3,12 +3,16 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { DepositDetailPageConfig } from "@/types/deposits";
-import { Language } from "@/types/pageConfig";
+import { DepositFaqItem } from "@/types/deposits";
+import { I18nText, Language } from "@/types/pageConfig";
 import { getLocalizedText } from "@/utils/i18nHelper";
 
 interface DepositFaqProps {
-  config: DepositDetailPageConfig;
+  config: {
+    faqTitle: I18nText;
+    faq: DepositFaqItem[];
+    faqMoreText: I18nText;
+  };
 }
 
 export default function DepositFaq({ config }: DepositFaqProps) {

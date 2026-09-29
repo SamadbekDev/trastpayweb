@@ -28,7 +28,7 @@ export default function CardsPage() {
       <main className="flex-grow">
         <CardsCatalog config={config} />
       </main>
-      <Footer />
+      <Footer config={config.footer} />
     </div>
   );
 }

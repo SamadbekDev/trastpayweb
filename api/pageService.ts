@@ -4,6 +4,7 @@ import {
   DepositsPageConfig,
   OfficesPageConfig,
 } from "@/types/deposits";
+import { CardDetailPageConfig, CardsPageConfig } from "@/types/cards";
 import { apiFetch } from "@/api/client";
 
 type PublishedResponse<T> = {
@@ -37,25 +38,19 @@ async function parseContentResponse<T>(
   return data.content;
 }
 
-/**
- * Homepage SDUI config.
- */
+/** Homepage SDUI config. */
 export async function getHomePageConfig(): Promise<HomePageConfig> {
   const res = await apiFetch("/content/published");
   return parseContentResponse<HomePageConfig>(res, "главную");
 }
 
-/**
- * Deposits catalog page (/vklady).
- */
+/** Deposits catalog page (/vklady). */
 export async function getDepositsPage(): Promise<DepositsPageConfig> {
   const res = await apiFetch("/content/published/deposits");
   return parseContentResponse<DepositsPageConfig>(res, "каталог вкладов");
 }
 
-/**
- * Single deposit detail page (/vklady/[id]).
- */
+/** Single deposit detail page (/vklady/[id]). */
 export async function getDepositById(
   id: string
 ): Promise<DepositDetailPageConfig> {
@@ -65,12 +60,24 @@ export async function getDepositById(
   return parseContentResponse<DepositDetailPageConfig>(res, `вклад ${id}`);
 }
 
-/**
- * Offices / branches page (/filialy).
- */
+/** Offices / branches page (/filialy). */
 export async function getOfficesPage(): Promise<OfficesPageConfig> {
   const res = await apiFetch("/content/published/offices");
   return parseContentResponse<OfficesPageConfig>(res, "филиалы");
+}
+
+/** Cards catalog page (/karty). */
+export async function getCardsPage(): Promise<CardsPageConfig> {
+  const res = await apiFetch("/content/published/cards");
+  return parseContentResponse<CardsPageConfig>(res, "каталог карт");
+}
+
+/** Single card detail page (/karty/[id]). */
+export async function getCardById(id: string): Promise<CardDetailPageConfig> {
+  const res = await apiFetch(
+    `/content/published/cards/${encodeURIComponent(id)}`
+  );
+  return parseContentResponse<CardDetailPageConfig>(res, `карта ${id}`);
 }
 
 export const pageService = {
@@ -78,23 +85,8 @@ export const pageService = {
   getDepositsPage,
   getDepositById,
   getOfficesPage,
-  async getHomePageConfig(): Promise<HomePageConfig> {
-    const response = await apiClient.get<HomePageConfig>('/content/published');
-    return response.data;
-  },
-
-  async getCardsPage(): Promise<CardsPageConfig> {
-    const response = await apiClient.get<PublishedResponse<CardsPageConfig>>(
-      '/content/published/cards'
-    );
-    const data = response.data;
-    if (!data?.content || typeof data.content !== 'object') {
-      throw new Error('В ответе API нет поля content (каталог карт)');
-    }
-    return data.content;
-  },
+  getCardsPage,
+  getCardById,
 };
 
-export const getHomePageConfig = pageService.getHomePageConfig;
-export const getCardsPage = pageService.getCardsPage;
 export default pageService;
