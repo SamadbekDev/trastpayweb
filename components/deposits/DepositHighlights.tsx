@@ -2,7 +2,7 @@
 
 import { CalendarDays, Percent, ShieldCheck, Wallet } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { DepositDetailPageConfig } from "@/types/deposits";
+import { DepositHighlight } from "@/types/deposits";
 import { Language } from "@/types/pageConfig";
 import { getLocalizedText } from "@/utils/i18nHelper";
 
@@ -14,7 +14,7 @@ const icons = {
 };
 
 interface DepositHighlightsProps {
-  config: DepositDetailPageConfig;
+  config: { highlights: DepositHighlight[] };
 }
 
 export default function DepositHighlights({ config }: DepositHighlightsProps) {

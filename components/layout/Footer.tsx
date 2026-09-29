@@ -13,7 +13,7 @@ export default function Footer({ config }: FooterProps) {
   if (!config) return null;
 
   return (
-    <footer className="w-full bg-black text-white pt-12 pb-8">
+    <footer className="w-full bg-[#004B7C] text-white pt-12 pb-8">
       <div className="mx-auto w-full max-w-[1280px] px-4 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
           {/* Contacts + social */}

@@ -1,5 +1,13 @@
 import type { Metadata } from "next";
+import { Roboto } from "next/font/google";
 import "./globals.css";
+
+const roboto = Roboto({
+  weight: ["400"],
+  subsets: ["latin", "cyrillic"],
+  variable: "--font-roboto",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Trastbank | Private Joint-Stock Bank in Uzbekistan",
@@ -31,7 +39,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className={`scroll-smooth ${roboto.variable}`}>
       <body className="antialiased overflow-x-hidden text-[#08243f]">
         {children}
       </body>
