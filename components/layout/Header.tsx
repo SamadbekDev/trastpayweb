@@ -195,8 +195,8 @@ export default function Header({ config }: HeaderProps) {
 
             <Link
               href="#"
-              aria-label="Авторизоваться"
-              aria-label="Войти"className="flex h-12 w-12 min-w-12 max-w-12 shrink-0 items-center justify-center rounded-2xl bg-[#EFF7F7]"
+              aria-label="Войти"
+              className="flex h-12 w-12 min-w-12 max-w-12 shrink-0 items-center justify-center rounded-2xl bg-[#EFF7F7]"
             >
               <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
