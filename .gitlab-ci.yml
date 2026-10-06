@@ -1,0 +1,98 @@
+# ===================================================================
+# homepage (Trastbank public site, Next.js 15) — GitLab CI/CD
+#
+# Flow: default branch -> build image -> push to Harbor -> SSH to
+#       172.16.104.40, bump IMAGE_TAG in .env, compose up,
+#       health check :3000, auto-rollback on failure.
+#
+# Uses global CI/CD variables:
+#   HB_REGISTRY, HB_USERNAME, HB_PASSWORD  - Harbor
+#   SSH_PRIVATE_KEY                        - File type, runner's key
+#
+# NEXT_PUBLIC_API_URL is baked into the JS bundle at build time:
+# it must be the PUBLIC dashboard-api URL that browsers can reach.
+# ===================================================================
+
+variables:
+  DEPLOY_SERVER: '172.16.104.40'
+  DEPLOY_USER: 'runner'
+  DEPLOY_PATH: '/srv/project/homepage'
+  SERVICE_NAME: 'homepage'
+  HEALTH_URL: 'http://127.0.0.1:3000/'
+  IMAGE: "${HB_REGISTRY}/trastpay-v2/homepage"
+  NEXT_PUBLIC_API_URL: 'https://CHANGE_ME_API_DOMAIN/api'
+  NEXT_PUBLIC_ENV: 'production'
+  DOCKER_TLS_CERTDIR: ""
+  DOCKER_HOST: tcp://docker:2375
+
+.global_rules: &global_rules
+  - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+
+stages:
+  - image-push-stage
+  - deploy
+
+image_push_stage:
+  stage: image-push-stage
+  image: docker:latest
+  rules: *global_rules
+  services:
+    - name: docker:dind
+      command: ["--tls=false"]
+  before_script:
+    - echo "$HB_PASSWORD" | docker login "$HB_REGISTRY" -u "$HB_USERNAME" --password-stdin
+  script:
+    - docker pull "$IMAGE:latest" || true
+    - >
+      docker build
+      --cache-from "$IMAGE:latest"
+      --build-arg BUILDKIT_INLINE_CACHE=1
+      --build-arg NEXT_PUBLIC_API_URL="$NEXT_PUBLIC_API_URL"
+      --build-arg NEXT_PUBLIC_ENV="$NEXT_PUBLIC_ENV"
+      -t "$IMAGE:$CI_COMMIT_SHORT_SHA"
+      -t "$IMAGE:latest"
+      .
+    - docker push "$IMAGE:$CI_COMMIT_SHORT_SHA"
+    - docker push "$IMAGE:latest"
+  tags:
+    - runner-dind
+
+deploy:
+  stage: deploy
+  needs: [image_push_stage]
+  rules: *global_rules
+  environment:
+    name: production
+  before_script:
+    - chmod 600 "$SSH_PRIVATE_KEY"
+  script:
+    - |
+      printf '%s\n' "$HB_PASSWORD" | ssh -T -oStrictHostKeyChecking=no -i "$SSH_PRIVATE_KEY" "$DEPLOY_USER@$DEPLOY_SERVER" "
+        set -e
+        cd '$DEPLOY_PATH'
+        echo '🔑 Logging into Harbor...'
+        docker login '$HB_REGISTRY' -u '$HB_USERNAME' --password-stdin
+
+        PREV=\$(grep '^IMAGE_TAG=' .env | cut -d= -f2)
+        echo \"📥 Deploying $CI_COMMIT_SHORT_SHA (previous: \$PREV)\"
+        sed -i 's|^IMAGE_TAG=.*|IMAGE_TAG=$CI_COMMIT_SHORT_SHA|' .env
+        docker compose pull
+        docker compose up -d --remove-orphans
+
+        for i in \$(seq 1 30); do
+          if curl -fsS -o /dev/null '$HEALTH_URL'; then
+            echo '✅ Healthy: $CI_COMMIT_SHORT_SHA'
+            docker image prune -f >/dev/null
+            exit 0
+          fi
+          sleep 2
+        done
+
+        echo \"❌ Health check failed - rolling back to \$PREV\"
+        docker compose logs --tail=50 '$SERVICE_NAME'
+        sed -i \"s|^IMAGE_TAG=.*|IMAGE_TAG=\$PREV|\" .env
+        docker compose up -d
+        exit 1
+      "
+  tags:
+    - runner-dind
