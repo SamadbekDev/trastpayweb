@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import FintechRangeSlider from "@/components/ui/FintechRangeSlider";
 import { formatAmount } from "@/components/ui/AmountSlider";
 import { CreditCalculatorContent } from "@/types/credits";
@@ -13,6 +14,7 @@ export default function MicroLoanCalculator({
 }: {
   calc: CreditCalculatorContent;
 }) {
+  const { t } = useTranslation();
   const text = useCreditText();
   const tabs = calc.tabs || [];
   const collateral = calc.toggles || [];
@@ -193,20 +195,26 @@ export default function MicroLoanCalculator({
             <div className="h-px w-full max-w-[366px] bg-white/[0.18]" />
 
             <div className="flex w-full max-w-[366px] flex-col gap-3">
-              <ResultRow label="Сумма займа" value={`${formatAmount(amount)} сум`} />
               <ResultRow
-                label="Обеспечение"
+                label={t("microCalc.loanAmount")}
+                value={`${formatAmount(amount)} сум`}
+              />
+              <ResultRow
+                label={t("microCalc.collateral")}
                 value={
                   collateralId === "insurance"
-                    ? "Страховой полис"
-                    : "Поручительство"
+                    ? t("microCalc.insurance")
+                    : t("microCalc.guarantor")
                 }
               />
               <ResultRow
-                label="Ставка"
+                label={t("microCalc.rate")}
                 value={`${(rate * 100).toFixed(rate * 100 % 1 ? 1 : 0)}%`}
               />
-              <ResultRow label="Срок" value={`${months} месяцев`} />
+              <ResultRow
+                label={t("microCalc.term")}
+                value={t("microCalc.months", { count: months })}
+              />
             </div>
 
             <Link

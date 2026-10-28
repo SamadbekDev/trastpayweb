@@ -26,7 +26,6 @@ export default function DepositsCatalog({ config }: DepositsCatalogProps) {
           if (p.category !== group.category) return false;
           if (activeFilter === "all") return true;
           if (activeFilter === "online") {
-            // No dedicated online products in mock — show empty for now
             return p.category === "online";
           }
           return p.category === activeFilter;
