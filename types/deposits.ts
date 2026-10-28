@@ -25,6 +25,8 @@ export interface DepositProduct {
   secondaryCta: I18nText;
   secondaryHref?: string;
   image: string;
+  /** Optional CMS-provided detail payload for /vklady/[id] */
+  details?: DepositCmsDetails;
 }
 
 export interface DepositGroup {
@@ -151,10 +153,23 @@ export interface DepositDetailPageConfig {
   heroSecondaryCta: I18nText;
   heroSecondaryHref?: string;
   heroImage: string;
+  highlightsTitle?: I18nText;
   highlights: DepositHighlight[];
   benefits: DepositBenefitCard[];
   stepsTitle: I18nText;
+  stepsSubtitle?: I18nText;
+  stepsCta?: I18nText;
+  stepsCtaHref?: string;
+  stepsBannerImage?: string;
   steps: DepositStep[];
+  infoTitle?: I18nText;
+  infoImage?: string;
+  infoTabs?: { id: string; label: I18nText }[];
+  infoTabContent?: {
+    id: string;
+    title: I18nText;
+    items: I18nText[];
+  }[];
   calculatorTitle: I18nText;
   calculatorRate: number;
   calculatorRateCaption: I18nText;
@@ -192,8 +207,3 @@ export type DepositCmsDetails = Omit<
   | "footer"
   | "calculatorChannels"
 >;
-
-/** Optional CMS-provided detail payload for /vklady/[id] */
-export interface DepositProduct {
-  details?: DepositCmsDetails;
-}

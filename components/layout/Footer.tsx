@@ -1,9 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
+import { QRCodeSVG } from "qrcode.react";
 import { FooterConfig } from "@/types/pageConfig";
-import { getMediaUrl } from "@/utils/mediaHelper";
 
 interface FooterProps {
   config?: FooterConfig;
@@ -13,52 +12,56 @@ export default function Footer({ config }: FooterProps) {
   if (!config) return null;
 
   return (
-    <footer className="w-full bg-black text-white pt-12 pb-8">
-      <div className="mx-auto w-full max-w-[1280px] px-4 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+    <footer className="w-full bg-[#004B7C] text-white/87">
+      <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-8 px-4 py-8 lg:p-10">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
           {/* Contacts + social */}
-          <div>
-            <div className="flex flex-col gap-5">
-              {config.phones.map((phone) => (
-                <div key={phone.id}>
-                  <a
-                    href={`tel:${phone.number.replace(/\s/g, "")}`}
-                    className="text-[22px] font-bold tracking-tight hover:text-white/80"
-                  >
-                    {phone.number}
-                  </a>
-                  <p className="mt-1 text-[13px] text-white/50">{phone.note}</p>
-                </div>
-              ))}
-            </div>
-
-            <p className="mt-8 text-[13px] text-white/50 mb-3">{config.socialLabel}</p>
-            <div className="flex items-center gap-2">
-              {config.social.map((s) => (
-                <Link
-                  key={s.id}
-                  href={s.href}
-                  aria-label={s.label}
-                  className="w-9 h-9 rounded-full bg-white text-black flex items-center justify-center text-[11px] font-bold hover:bg-white/90"
+          <div className="flex flex-col gap-8 py-2">
+            {config.phones.map((phone) => (
+              <div key={phone.id} className="flex flex-col gap-1">
+                <a
+                  href={`tel:${phone.number.replace(/\s/g, "")}`}
+                  className="text-[16px] font-medium leading-6 hover:text-white"
                 >
-                  {s.label.slice(0, 2).toUpperCase()}
-                </Link>
-              ))}
+                  {phone.number}
+                </a>
+                {phone.note ? (
+                  <p className="text-[12px] leading-4 tracking-[0.4px]">{phone.note}</p>
+                ) : null}
+              </div>
+            ))}
+
+            <div className="flex flex-col">
+              {config.socialLabel ? (
+                <p className="pb-3 text-[14px] leading-5">{config.socialLabel}</p>
+              ) : null}
+              <div className="flex items-center gap-3">
+                {config.social.map((s) => (
+                  <Link
+                    key={s.id}
+                    href={s.href}
+                    aria-label={s.label}
+                    className="flex h-6 w-6 items-center justify-center rounded-full bg-white/87 text-[9px] font-bold text-[#1D1F38] hover:bg-white"
+                  >
+                    {s.label.slice(0, 2).toUpperCase()}
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
 
           {/* Link columns */}
           {config.columns.map((col) => (
-            <div key={col.id}>
-              {col.title && (
-                <p className="text-[14px] font-semibold mb-4 text-white/80">{col.title}</p>
-              )}
-              <ul className="flex flex-col gap-3">
+            <div key={col.id} className="flex flex-col">
+              {col.title ? (
+                <p className="pb-2 text-[14px] font-medium leading-5">{col.title}</p>
+              ) : null}
+              <ul className="flex flex-col">
                 {col.links.map((link) => (
-                  <li key={link.id}>
+                  <li key={link.id} className="py-2">
                     <Link
                       href={link.href}
-                      className="text-[14px] text-white/70 hover:text-white transition-colors"
+                      className="text-[14px] leading-5 transition-colors hover:text-white"
                     >
                       {link.label}
                     </Link>
@@ -69,30 +72,31 @@ export default function Footer({ config }: FooterProps) {
           ))}
 
           {/* Mobile / QR */}
-          <div>
-            <p className="text-[16px] font-bold mb-4">{config.mobileTitle}</p>
+          <div className="flex flex-col">
+            {config.mobileTitle ? (
+              <p className="pb-4 text-[16px] font-medium leading-6">{config.mobileTitle}</p>
+            ) : null}
             <div className="flex flex-col gap-4">
-              {config.qr.map((item) => (
-                <div key={item.id} className="flex items-center gap-3">
-                  <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-white shrink-0">
-                    <Image
-                      src={getMediaUrl(item.image)}
-                      alt={item.label}
-                      fill
-                      unoptimized
-                      className="object-contain p-1"
-                    />
+              {config.qr.map((item) => {
+                const url = (item.url ?? "").trim();
+                return (
+                  <div key={item.id} className="flex items-center gap-4">
+                    {url ? (
+                      <div className="flex h-[72px] w-[72px] shrink-0 items-center justify-center overflow-hidden rounded bg-white/87 p-1">
+                        <QRCodeSVG value={url} size={64} level="M" aria-label={item.label} />
+                      </div>
+                    ) : null}
+                    <span className="text-[14px] leading-5">{item.label}</span>
                   </div>
-                  <span className="text-[13px] text-white/70">{item.label}</span>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
 
-        <div className="mt-12 pt-6 border-t border-white/10 text-[12px] text-white/40 leading-relaxed max-w-[720px]">
+        <div className="max-w-[1360px] text-[12px] leading-4 tracking-[0.4px]">
           <p>{config.copyright}</p>
-          <p className="mt-2">{config.license}</p>
+          {config.license ? <p className="mt-1">{config.license}</p> : null}
         </div>
       </div>
     </footer>

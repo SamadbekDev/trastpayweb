@@ -9,9 +9,10 @@ import { HeaderConfig, Language } from "@/types/pageConfig";
 
 interface HeaderProps {
   config?: HeaderConfig;
+  showProductNav?: boolean;
 }
 
-export default function Header({ config }: HeaderProps) {
+export default function Header({ config, showProductNav = true }: HeaderProps) {
   const { i18n } = useTranslation();
   const [activeNav, setActiveNav] = useState(config?.navItems?.[0]?.id || "");
   const [activeChip, setActiveChip] = useState(config?.chips?.[0]?.id || "");
@@ -32,7 +33,7 @@ export default function Header({ config }: HeaderProps) {
 
   return (
     <header className="w-full bg-[#FAFAFA] relative z-50">
-      <div className="mx-auto w-full max-w-[1440px] px-4 lg:px-[120px]">
+      <div className="mx-auto w-full max-w-[1440px] px-4 lg:px-[140px]">
         {/* Top bar — Figma: 8px 140px */}
         <div className="flex items-center justify-between gap-4 h-16">
           <div className="flex items-center gap-4 min-w-0">
@@ -145,7 +146,7 @@ export default function Header({ config }: HeaderProps) {
           </div>
         </div>
 
-        {/* Secondary nav */}
+        {showProductNav && (
         <div className="flex justify-center pt-6 pb-0">
           <div
             className="flex w-full max-w-[883px] items-center justify-between gap-1.5 rounded-[20px] p-[6px] h-16"
@@ -195,8 +196,8 @@ export default function Header({ config }: HeaderProps) {
 
             <Link
               href="#"
-              aria-label="Авторизоваться"
-              aria-label="Войти"className="flex h-12 w-12 min-w-12 max-w-12 shrink-0 items-center justify-center rounded-2xl bg-[#EFF7F7]"
+              aria-label="Войти"
+              className="flex h-12 w-12 min-w-12 max-w-12 shrink-0 items-center justify-center rounded-2xl bg-[#EFF7F7]"
             >
               <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
@@ -213,21 +214,43 @@ export default function Header({ config }: HeaderProps) {
             </Link>
           </div>
         </div>
+        )}
       </div>
 
       {mobileOpen && (
         <div className="xl:hidden absolute inset-x-0 top-full bg-white border-t border-black/5 shadow-lg px-4 py-4 z-40">
-          <nav className="flex flex-col gap-3">
+          <nav className="flex flex-col gap-1">
             {navItems.map((item) => (
               <a
                 key={item.id}
                 href={item.href}
-                className="text-[14px] font-semibold text-[#110C30] py-1"
+                className="rounded-lg px-3 py-2.5 text-[14px] font-semibold text-[#110C30]"
                 onClick={() => setMobileOpen(false)}
               >
                 {item.label}
               </a>
             ))}
+            {utilityLinks.length > 0 && (
+              <div className="my-2 border-t border-black/5 pt-2 lg:hidden">
+                {utilityLinks.map((link) => (
+                  <Link
+                    key={link.id}
+                    href={link.href}
+                    className="block rounded-lg px-3 py-2.5 text-[14px] font-semibold uppercase tracking-[0.4px] text-[#110C30]"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+            )}
+            <Link
+              href="#"
+              className="mt-1 rounded-lg bg-[#2D6EE3] px-3 py-2.5 text-center text-[14px] font-semibold text-white sm:hidden"
+              onClick={() => setMobileOpen(false)}
+            >
+              {config?.loginButtonText || "Войти"}
+            </Link>
           </nav>
         </div>
       )}

@@ -29,7 +29,9 @@ export default function DepositDetailView({ config }: DepositDetailViewProps) {
         <DepositBenefits config={config} />
         <DepositSteps config={config} />
         <DepositCalculator config={config} />
-        <DepositConditions config={config} />
+        <div id="info">
+          <DepositConditions config={config} />
+        </div>
         <DepositDocuments config={config} />
         <DepositOffices config={config} />
         <OffersCarousel config={config.offers} />

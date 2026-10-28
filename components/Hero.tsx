@@ -24,7 +24,7 @@ export default function Hero({ config }: HeroProps) {
   const sideCards = config.sideCards || [];
 
   return (
-    <section className="w-full bg-[#FAFAFA] pt-8 pb-0">
+    <section className="w-full bg-[#FAFAFA] pb-0 pt-8">
       <div className="mx-auto w-full max-w-[1440px] px-4 lg:px-[60px]">
         <div className="flex flex-col lg:flex-row gap-6 items-stretch">
           {/* Main banner 880×400 */}

@@ -73,7 +73,7 @@ export function getDepositDetail(
 
   const suggested: DepositSuggestedProduct[] = products
     .filter((p) => p.id !== product.id)
-    .slice(0, 2)
+    .slice(0, 3)
     .map((p, index) => ({
       id: p.id,
       title: p.title,
@@ -83,8 +83,10 @@ export function getDepositDetail(
       badge:
         index === 0
           ? t("Рекомендуем", "Tavsiya etamiz", "Recommended")
-          : t("Новый продукт", "Yangi mahsulot", "New product"),
-      badgeColor: index === 0 ? "#56BB27" : "#56BB27",
+          : index === 1
+            ? t("Новый продукт", "Yangi mahsulot", "New product")
+            : undefined,
+      badgeColor: index === 0 ? "#2F6BF0" : index === 1 ? "#22C55E" : undefined,
       href: `/vklady/${p.id}`,
       image: p.image,
     }));
@@ -132,16 +134,19 @@ export function getDepositDetail(
     ],
     heroPrimaryCta: t("Стать клиентом", "Mijoz bo‘lish", "Become a client"),
     heroPrimaryHref: "#",
-    heroSecondaryCta: t("Открыть Онлайн вклад", "Onlayn omonat ochish", "Open online deposit"),
+    heroSecondaryCta: t(
+      "Открыть Онлайн вклад",
+      "Onlayn omonat ochish",
+      "Open online deposit"
+    ),
     heroSecondaryHref: "#calculator",
-    heroImage: ph(640, 480, "Safe", "2d6ee3", "ffffff"),
+    heroImage: "",
+    highlightsTitle: t(
+      "Условия открытия вклада",
+      "Omonat ochish shartlari",
+      "Deposit opening terms"
+    ),
     highlights: [
-      {
-        id: "rate",
-        icon: "rate",
-        value: product.rate,
-        label: product.rateLabel,
-      },
       {
         id: "amount",
         icon: "amount",
@@ -155,14 +160,10 @@ export function getDepositDetail(
         label: product.termLabel,
       },
       {
-        id: "safe",
-        icon: "safe",
-        value: t("Надежно", "Ishonchli", "Secure"),
-        label: t(
-          "Деньги застрахованы ЦБ",
-          "Pul MB tomonidan sug‘urtalangan",
-          "Funds insured by the CB"
-        ),
+        id: "rate",
+        icon: "rate",
+        value: product.rate,
+        label: product.rateLabel,
       },
     ],
     benefits: [
@@ -226,40 +227,64 @@ export function getDepositDetail(
         ),
       },
     ],
-    stepsTitle: t("Открыть вклад легко", "Omonat ochish oson", "Opening a deposit is easy"),
+    stepsTitle: t(
+      "Откройте вклад за 5 минут",
+      "Omonatni 5 daqiqada oching",
+      "Open a deposit in 5 minutes"
+    ),
+    stepsSubtitle: t(
+      "Рассчитайте доход, который вы можете получить",
+      "Olishingiz mumkin bo‘lgan daromadni hisoblang",
+      "Calculate the income you can earn"
+    ),
+    stepsCta: t("Открыть вклад", "Omonat ochish", "Open deposit"),
+    stepsCtaHref: "#calculator",
+    stepsBannerImage: ph(420, 352, "Coins", "4b8bff", "ffffff"),
     steps: [
       {
         id: "s1",
         number: "1",
-        title: t("Подайте заявку на вклад", "Omonat uchun ariza yuboring", "Submit a deposit application"),
+        title: t("Подайте заявку", "Ariza yuboring", "Submit an application"),
         description: t(
-          "Заполните онлайн-заявку — посещать банк не нужно, или можно оформить в филиале банка",
-          "Onlayn arizani to‘ldiring — bankka borish shart emas, yoki filialda rasmiylashtirish mumkin",
-          "Fill in an online application — no branch visit needed, or apply at a branch"
+          "После подачи заявки с вами свяжется оператор",
+          "Ariza yuborilgach operator bog‘lanadi",
+          "An operator will contact you after you apply"
         ),
-        linkText: t("Выбрать отделение", "Bo‘limni tanlash", "Choose a branch"),
-        href: "/filialy",
+        linkText: t("Оставить заявку", "Ariza qoldirish", "Leave a request"),
+        href: "#",
       },
       {
         id: "s2",
         number: "2",
-        title: t("Дождитесь одобрения банка", "Bank tasdiqlashini kuting", "Wait for bank approval"),
+        title: t("Получите консультацию", "Maslahat oling", "Get a consultation"),
         description: t(
-          "Оформление за несколько минут, а пока можете выбрать удобный вам вклад банка",
-          "Rasmiylashtirish bir necha daqiqada, shu orada qulay omonatni tanlashingiz mumkin",
-          "Processed in minutes — meanwhile you can pick a convenient deposit"
+          "Проконсультируем по продукту и документам",
+          "Mahsulot va hujjatlar bo‘yicha maslahat beramiz",
+          "We will advise on the product and documents"
         ),
-        linkText: t("Выбрать вклад", "Omonat tanlash", "Choose a deposit"),
-        href: "/vklady",
+        linkText: t("Подробнее", "Batafsil", "Learn more"),
+        href: "#info",
       },
       {
         id: "s3",
         number: "3",
-        title: t("Откройте вклад", "Omonatni oching", "Open the deposit"),
+        title: t("Подготовьте документ", "Hujjat tayyorlang", "Prepare documents"),
         description: t(
-          "Преумножайте свои вклады, и также можете мониторить свои вклады в приложении банка.",
-          "Omonatlaringizni ko‘paytiring va bank ilovasida kuzatib boring.",
-          "Grow your deposits and track them in the bank app."
+          "И посетите офис банка",
+          "Va bank ofisiga boring",
+          "And visit a bank office"
+        ),
+        linkText: t("Найти отделение", "Bo‘lim topish", "Find a branch"),
+        href: "/filialy",
+      },
+      {
+        id: "s4",
+        number: "4",
+        title: t("Узнайте решение", "Qarorni biling", "Get the decision"),
+        description: t(
+          "После подачи документов, в мобильное приложении",
+          "Hujjatlar topshirilgach — mobil ilovada",
+          "After submitting documents — in the mobile app"
         ),
         linkText: t("Скачать приложение", "Ilovani yuklab olish", "Download the app"),
         href: "#",
@@ -272,10 +297,16 @@ export function getDepositDetail(
       "foizlarni qoldirsangiz, yillik",
       "per year if interest is left on the deposit"
     ),
-    calculatorImage: ph(803, 496, "Coins", "186bed", "ffffff"),
+    calculatorImage: "",
     calculatorChannels: [
-      { id: "online", label: t("Онлайн", "Onlayn", "Online") },
-      { id: "office", label: t("В отделение банка", "Bank bo‘limida", "At a branch") },
+      {
+        id: "online",
+        label: t("Онлайн вклад", "Onlayn omonat", "Online deposit"),
+      },
+      {
+        id: "office",
+        label: t("В отделении офиса", "Ofisda", "At a branch"),
+      },
     ],
     calculatorTerms: terms,
     calculatorMin: minAmount,
@@ -283,6 +314,84 @@ export function getDepositDetail(
     calculatorDefault: defaultAmount,
     calculatorCurrency: currency,
     suggested,
+    infoTitle: t("Полезная информация", "Foydali ma’lumot", "Useful information"),
+    infoImage: ph(480, 360, "Docs", "3261ec", "ffffff"),
+    infoTabs: [
+      { id: "terms", label: t("Условия", "Shartlar", "Terms") },
+      { id: "rates", label: t("Ставки", "Stavkalar", "Rates") },
+      { id: "docs", label: t("Документы", "Hujjatlar", "Documents") },
+      {
+        id: "max",
+        label: t("Услуга «Максимум выгоды»", "«Maksimum foyda» xizmati", "Maximum benefit service"),
+      },
+    ],
+    infoTabContent: [
+      {
+        id: "terms",
+        title: t(
+          "Условия получения вклада",
+          "Omonat olish shartlari",
+          "Deposit eligibility terms"
+        ),
+        items: [
+          t("Гражданство Республики Узбекистан", "O‘zbekiston Respublikasi fuqaroligi", "Citizenship of Uzbekistan"),
+          t(
+            "Возраст от 18 лет",
+            "Yoshi 18 dan yuqori",
+            "Age from 18 years"
+          ),
+          t(
+            "Документ, удостоверяющий личность",
+            "Shaxsni tasdiqlovchi hujjat",
+            "Identity document"
+          ),
+          t(
+            "Открытие вклада онлайн или в отделении банка",
+            "Omonatni onlayn yoki bank bo‘limida ochish",
+            "Open a deposit online or at a branch"
+          ),
+        ],
+      },
+      {
+        id: "rates",
+        title: t("Процентные ставки", "Foiz stavkalari", "Interest rates"),
+        items: [
+          t(
+            `Базовая ставка до ${String(rate).replace(".", ",")} годовых`,
+            `Asosiy stavka yillik ${String(rate).replace(".", ",")} gacha`,
+            `Base rate up to ${rate}% per year`
+          ),
+          t(
+            "Повышенная ставка для зарплатных и пенсионных клиентов",
+            "Maosh va pensiya mijozlari uchun oshirilgan stavka",
+            "Higher rate for salary and pension clients"
+          ),
+        ],
+      },
+      {
+        id: "docs",
+        title: t("Необходимые документы", "Kerakli hujjatlar", "Required documents"),
+        items: [
+          t("Паспорт или ID-карта", "Pasport yoki ID-karta", "Passport or ID card"),
+          t(
+            "Договор вклада (оформляется в банке или онлайн)",
+            "Omonat shartnomasi (bankda yoki onlayn rasmiylashtiriladi)",
+            "Deposit agreement (issued at the bank or online)"
+          ),
+        ],
+      },
+      {
+        id: "max",
+        title: t("Услуга «Максимум выгоды»", "«Maksimum foyda» xizmati", "Maximum benefit service"),
+        items: [
+          t(
+            "Дополнительная надбавка к ставке при выполнении условий акции",
+            "Aksiya shartlari bajarilganda stavkaga qo‘shimcha ustama",
+            "Extra rate boost when promo conditions are met"
+          ),
+        ],
+      },
+    ],
     conditionsTitle: t("Условия", "Shartlar", "Terms"),
     conditions: [
       {
@@ -361,51 +470,40 @@ export function getDepositDetail(
         value: t("В офисе банка", "Bank ofisida", "At a bank office"),
       },
     ],
-    documentsTitle: t("Документы", "Hujjatlar", "Documents"),
+    documentsTitle: t("Документы и образцы", "Hujjatlar va namunalar", "Documents and samples"),
     documents: [
       {
         id: "d1",
         title: t(
-          "Условия по вкладу без пополнения и снятия",
-          "To‘ldirish va yechib olishsiz omonat shartlari",
-          "Terms for a deposit without top-ups or withdrawals"
+          "Образец договора вклада",
+          "Omonat shartnomasi namunasi",
+          "Sample deposit agreement"
         ),
-        date: t("Действует с 01.09.2026", "01.09.2026 dan amal qiladi", "Effective from 01.09.2026"),
+        date: t("PDF · скачать", "PDF · yuklab olish", "PDF · download"),
         href: "#",
       },
       {
         id: "d2",
         title: t(
-          "Условия по вкладу с пополнением",
-          "To‘ldirish bilan omonat shartlari",
-          "Terms for a deposit with top-ups"
+          "Информационный лист об основных условиях вклада",
+          "Omonatning asosiy shartlari haqida axborot varaqasi",
+          "Key deposit terms information sheet"
         ),
-        date: t("Действует с 01.09.2026", "01.09.2026 dan amal qiladi", "Effective from 01.09.2026"),
+        date: t("PDF · скачать", "PDF · yuklab olish", "PDF · download"),
         href: "#",
       },
       {
         id: "d3",
         title: t(
-          "Условия по вкладу с пополнением и снятием",
-          "To‘ldirish va yechib olish bilan omonat shartlari",
-          "Terms for a deposit with top-ups and withdrawals"
+          "Чек-лист до оформления договора вклада",
+          "Omonat shartnomasini rasmiylashtirishdan oldingi chek-list",
+          "Checklist before signing a deposit agreement"
         ),
-        date: t("Действует с 01.09.2026", "01.09.2026 dan amal qiladi", "Effective from 01.09.2026"),
+        date: t("PDF · скачать", "PDF · yuklab olish", "PDF · download"),
         href: "#",
       },
     ],
-    documentLinks: [
-      {
-        id: "dl1",
-        label: t("Правила оформления вкладов", "Omonatlarni rasmiylashtirish qoidalari", "Deposit processing rules"),
-        href: "#",
-      },
-      {
-        id: "dl2",
-        label: t("Сборник тарифов", "Tariflar to‘plami", "Tariff booklet"),
-        href: "#",
-      },
-    ],
+    documentLinks: [],
     ...officesPageConfig,
     offers: {
       title: t("Предложения для вас", "Siz uchun takliflar", "Offers for you"),
@@ -553,14 +651,94 @@ export function getDepositDetail(
   const details = product.details;
   if (!details) return generated;
 
+  return mergeDepositDetail(
+    {
+      ...generated,
+      ...details,
+      product,
+      breadcrumbs: generated.breadcrumbs,
+      suggested: generated.suggested,
+      offers: generated.offers,
+      footer: generated.footer,
+      calculatorChannels: generated.calculatorChannels,
+    },
+    generated
+  );
+}
+
+function hasText(value: unknown): boolean {
+  if (value == null) return false;
+  if (typeof value === "string") return value.trim().length > 0;
+  if (typeof value === "object") {
+    const o = value as Record<string, unknown>;
+    return Boolean(
+      (typeof o.ru === "string" && o.ru.trim()) ||
+        (typeof o.uz === "string" && o.uz.trim()) ||
+        (typeof o.en === "string" && o.en.trim())
+    );
+  }
+  return false;
+}
+
+/**
+ * Prefer CMS values; fill empty info / documents (and other blanks) from Figma defaults.
+ * API often ships without «Полезная информация» and «Документы и образцы».
+ */
+export function mergeDepositDetail(
+  page: DepositDetailPageConfig,
+  defaults?: DepositDetailPageConfig | null
+): DepositDetailPageConfig {
+  const base =
+    defaults ||
+    getDepositDetail(page.product?.id || "", [page.product].filter(Boolean)) ||
+    getDepositDetail(depositsPageConfig.products[0]?.id || "");
+
+  if (!base) return page;
+
+  const pickArray = <T>(
+    fromCms: T[] | undefined | null,
+    fromDefault: T[] | undefined | null
+  ): T[] =>
+    fromCms && fromCms.length > 0
+      ? fromCms
+      : fromDefault && fromDefault.length > 0
+        ? fromDefault
+        : fromCms || [];
+
+  const pickText = <T>(fromCms: T | undefined | null, fromDefault: T): T =>
+    hasText(fromCms) ? (fromCms as T) : fromDefault;
+
   return {
-    ...generated,
-    ...details,
-    product,
-    breadcrumbs: generated.breadcrumbs,
-    suggested: generated.suggested,
-    offers: generated.offers,
-    footer: generated.footer,
-    calculatorChannels: generated.calculatorChannels,
+    ...base,
+    ...page,
+    product: page.product || base.product,
+    breadcrumbs: pickArray(page.breadcrumbs, base.breadcrumbs),
+    highlights: pickArray(page.highlights, base.highlights),
+    benefits: pickArray(page.benefits, base.benefits),
+    steps: pickArray(page.steps, base.steps),
+    calculatorTerms: pickArray(page.calculatorTerms, base.calculatorTerms),
+    calculatorChannels: pickArray(page.calculatorChannels, base.calculatorChannels),
+    suggested: pickArray(page.suggested, base.suggested),
+    conditions: pickArray(page.conditions, base.conditions),
+    documents: pickArray(page.documents, base.documents),
+    documentLinks: pickArray(page.documentLinks, base.documentLinks),
+    infoTabs: pickArray(page.infoTabs, base.infoTabs),
+    infoTabContent: pickArray(page.infoTabContent, base.infoTabContent),
+    faq: pickArray(page.faq, base.faq),
+    offices: pickArray(page.offices, base.offices),
+    atms: pickArray(page.atms, base.atms),
+    infoTitle: pickText(page.infoTitle, base.infoTitle),
+    infoImage: page.infoImage || base.infoImage,
+    documentsTitle: pickText(page.documentsTitle, base.documentsTitle),
+    conditionsTitle: pickText(page.conditionsTitle, base.conditionsTitle),
+    calculatorTitle: pickText(page.calculatorTitle, base.calculatorTitle),
+    heroTitle: pickText(page.heroTitle, base.heroTitle),
+    heroSubtitle: pickText(page.heroSubtitle, base.heroSubtitle),
+    stepsTitle: pickText(page.stepsTitle, base.stepsTitle),
+    faqTitle: pickText(page.faqTitle, base.faqTitle),
+    officesTitle: pickText(page.officesTitle, base.officesTitle),
+    city: pickText(page.city, base.city),
+    offers: page.offers?.slides?.length ? page.offers : base.offers,
+    footer: page.footer || base.footer,
   };
 }

@@ -24,14 +24,14 @@ export default function DepositOffices({ config }: DepositOfficesProps) {
   });
 
   return (
-    <section id="offices" className="w-full bg-[#FAFAFA] px-4 py-10 lg:px-[120px]">
+    <section id="offices" className="w-full bg-white px-4 py-9 lg:px-[120px]">
       <div className="mx-auto w-full max-w-[1200px]">
-        <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <h2 className="text-[32px] font-bold leading-[48px] text-[#0F172A] lg:text-[40px]">
+        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between lg:mb-9">
+          <h2 className="text-[28px] font-bold leading-[36px] text-[#0F172A] lg:text-[36px] lg:leading-[44px]">
             {getLocalizedText(config.officesTitle, lang)}
           </h2>
-          <div className="flex items-center gap-4">
-            <span className="inline-flex items-center gap-2 text-[15px] font-medium text-[#0F172A]">
+          <div className="flex items-center gap-3.5">
+            <span className="inline-flex items-center gap-2 text-[14px] font-medium leading-[18px] text-[#0F172A]">
               <ChevronLeft size={16} className="text-[#64748B]" />
               {getLocalizedText(config.city, lang)}
             </span>
@@ -45,8 +45,8 @@ export default function DepositOffices({ config }: DepositOfficesProps) {
           </div>
         </div>
 
-        <div className="flex min-h-[665px] overflow-hidden rounded-[22px] border border-[#E7EAF0] bg-white shadow-[0px_9px_28px_rgba(26,38,64,0.06)]">
-          <div className="flex w-full flex-col border-r border-[#E7EAF0] p-[18px] lg:w-[351px]">
+        <div className="flex min-h-[480px] overflow-hidden rounded-[22px] border border-[#E7EAF0] bg-white shadow-[0px_9px_28px_rgba(26,38,64,0.06)] sm:min-h-[560px] lg:min-h-[665px]">
+          <div className="flex w-full min-w-0 flex-col border-r border-[#E7EAF0] p-[18px] lg:w-[351px] lg:shrink-0">
             <div className="flex rounded-[15px] bg-[#F1F5F9] p-1">
               <TabButton
                 active={tab === "offices"}
@@ -60,18 +60,18 @@ export default function DepositOffices({ config }: DepositOfficesProps) {
               />
             </div>
 
-            <label className="mt-4 flex h-[41px] items-center gap-2 rounded-[13px] border border-[#E7EAF0] px-3">
+            <label className="mt-3.5 flex h-10 items-center gap-2 rounded-[13px] border border-[#E7EAF0] px-3.5">
               <Search size={16} className="text-[#94A3B8]" />
               <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder={lang === "uz" ? "Qidiruv" : lang === "en" ? "Search" : "Поиск"}
-                className="w-full bg-transparent text-[14px] text-[#0F172A] outline-none placeholder:text-[#94A3B8]"
+                className="w-full bg-transparent text-[13px] leading-[17px] text-[#0F172A] outline-none placeholder:text-[#94A3B8]"
               />
             </label>
 
-            <p className="mt-3 flex items-center gap-2 text-[12px] text-[#94A3B8]">
-              <Clock size={14} />
+            <p className="mt-3.5 flex items-center gap-2 py-1 text-[12px] leading-[15px] text-[#94A3B8]">
+              <Clock size={14} className="shrink-0" />
               {lang === "uz"
                 ? "du–ju: 09:00–17:00; shanba, yakshanba: dam olish"
                 : lang === "en"
@@ -79,7 +79,7 @@ export default function DepositOffices({ config }: DepositOfficesProps) {
                   : "пн–пт: 09:00–17:00; сб, вс: выходной"}
             </p>
 
-            <div className="mt-2 flex-1 overflow-y-auto">
+            <div className="mt-2 min-h-0 flex-1 overflow-y-auto">
               {items.map((item) => (
                 <OfficeRow
                   key={item.id}
@@ -90,9 +90,19 @@ export default function DepositOffices({ config }: DepositOfficesProps) {
                 />
               ))}
             </div>
+
+            <a
+              href={config.mapEmbedUrl || "https://yandex.ru/maps"}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-4 inline-flex h-12 w-full items-center justify-center gap-2 rounded-[11px] bg-[#0F172A] px-4 text-[14px] font-semibold text-white lg:hidden"
+            >
+              <span className="h-3 w-3 rounded-full bg-[#F43F5E]" />
+              {lang === "uz" ? "Xaritada ochish" : lang === "en" ? "Open on map" : "Открыть на карте"}
+            </a>
           </div>
 
-          <div className="relative hidden flex-1 bg-[#EEF0E9] lg:block">
+          <div className="relative hidden min-w-0 flex-1 bg-[#EEF0E9] lg:block">
             <iframe
               title="Map"
               src={config.mapEmbedUrl}
@@ -102,7 +112,7 @@ export default function DepositOffices({ config }: DepositOfficesProps) {
               href="https://yandex.ru/maps"
               target="_blank"
               rel="noreferrer"
-              className="absolute bottom-6 left-4 inline-flex items-center gap-2 rounded-[11px] bg-white px-4 py-2.5 text-[13px] font-semibold text-[#0F172A] shadow-[0px_4px_11px_rgba(26,38,64,0.18)]"
+              className="absolute bottom-[22px] left-[18px] inline-flex items-center gap-2 rounded-[11px] bg-white py-[11px] pl-[15px] pr-4 text-[13px] font-semibold leading-4 text-[#0F172A] shadow-[0px_4px_11px_rgba(26,38,64,0.18)]"
             >
               <span className="h-4 w-3 rounded-full bg-[#F43F5E]" />
               {lang === "uz" ? "Yandex Xaritalarni ochish" : lang === "en" ? "Open Yandex Maps" : "Открыть Яндекс Карты"}
@@ -127,8 +137,8 @@ function TabButton({
     <button
       type="button"
       onClick={onClick}
-      className={`h-[37px] flex-1 rounded-[11px] text-[14px] font-semibold cursor-pointer ${
-        active ? "bg-[#2D6EE3] text-white" : "text-[#64748B]"
+      className={`h-[37px] flex-1 cursor-pointer rounded-[11px] border-2 text-[13px] font-semibold leading-[17px] ${
+        active ? "border-[#3B82F6] bg-[#2D6EE3] text-white" : "border-transparent text-[#64748B]"
       }`}
     >
       {label}
@@ -155,12 +165,12 @@ function OfficeRow({
         active ? "rounded-[15px] bg-[#F1F5F9]" : ""
       }`}
     >
-      <p className="text-[16px] font-semibold text-[#0F172A]">{getLocalizedText(item.name, lang)}</p>
-      <p className="mt-2 text-[12px] leading-[18px] text-[#64748B]">
+      <p className="text-[15px] font-semibold leading-5 text-[#0F172A]">{getLocalizedText(item.name, lang)}</p>
+      <p className="mt-[7px] text-[12px] leading-[18px] text-[#64748B]">
         {getLocalizedText(item.address, lang)}
       </p>
-      <p className="mt-2 flex items-center gap-2 text-[12px] text-[#64748B]">
-        <Clock size={14} />
+      <p className="mt-[7px] flex items-center gap-[7px] text-[12px] leading-[15px] text-[#64748B]">
+        <Clock size={14} className="shrink-0" />
         {getLocalizedText(item.hours, lang)}
       </p>
     </button>

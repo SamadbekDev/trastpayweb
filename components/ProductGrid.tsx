@@ -20,8 +20,8 @@ export default function ProductGrid({ config }: ProductGridProps) {
   const title = getLocalizedText(config.title, lang);
 
   return (
-    <section className="w-full bg-[#FAFAFA] px-4 py-8 lg:px-[120px] lg:pb-10 lg:pt-8">
-      <div className="mx-auto w-full max-w-[1200px] flex flex-col gap-7">
+    <section className="w-full bg-[#FAFAFA]">
+      <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-7 px-4 lg:px-[60px]">
         {title && (
           <h2 className="text-[28px] lg:text-[34px] font-bold leading-[41px] text-[#1A1A2E]">
             {title}

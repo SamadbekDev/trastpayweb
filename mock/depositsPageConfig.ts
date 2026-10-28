@@ -2,9 +2,6 @@ import { DepositsPageConfig } from "@/types/deposits";
 
 const t = (ru: string, uz: string, en: string) => ({ ru, uz, en });
 
-const ph = (w: number, h: number, text: string, bg = "dbe7ff", fg = "1f3fbf") =>
-  `https://placehold.co/${w}x${h}/${bg}/${fg}?text=${encodeURIComponent(text)}`;
-
 const rateLabel = t("Ставка, годовых", "Yillik stavka", "Annual rate");
 const amountLabel = t("Сумма вклада", "Omonat summasi", "Deposit amount");
 const termLabel = t("Срок", "Muddat", "Term");
@@ -91,7 +88,7 @@ export const depositsPageConfig: DepositsPageConfig = {
       primaryHref: undefined,
       secondaryCta,
       secondaryHref: "#",
-      image: ph(260, 218, "Safe+", "cfe0ff", "1a4fd6"),
+      image: "",
     },
     {
       id: "standart",
@@ -112,7 +109,7 @@ export const depositsPageConfig: DepositsPageConfig = {
       primaryHref: undefined,
       secondaryCta,
       secondaryHref: "#",
-      image: ph(260, 218, "%", "cfe0ff", "1a4fd6"),
+      image: "",
     },
     {
       id: "universal",
@@ -133,7 +130,7 @@ export const depositsPageConfig: DepositsPageConfig = {
       primaryHref: undefined,
       secondaryCta,
       secondaryHref: "#",
-      image: ph(260, 218, "Scarf", "d4e8d4", "2d6a4f"),
+      image: "",
     },
     {
       id: "navruz",
@@ -154,7 +151,7 @@ export const depositsPageConfig: DepositsPageConfig = {
       primaryHref: undefined,
       secondaryCta,
       secondaryHref: "#",
-      image: ph(260, 218, "Wallet", "ffe0e8", "c2185b"),
+      image: "",
     },
     {
       id: "zamin",
@@ -175,7 +172,7 @@ export const depositsPageConfig: DepositsPageConfig = {
       primaryHref: undefined,
       secondaryCta,
       secondaryHref: "#",
-      image: ph(260, 218, "Hearts", "e8d4ff", "6b3fa0"),
+      image: "",
     },
     {
       id: "imkon-3",
@@ -196,7 +193,7 @@ export const depositsPageConfig: DepositsPageConfig = {
       primaryHref: undefined,
       secondaryCta,
       secondaryHref: "#",
-      image: ph(260, 218, "Bear", "fff0d6", "c47a00"),
+      image: "",
     },
     {
       id: "kulay-sarmoya",
@@ -217,7 +214,7 @@ export const depositsPageConfig: DepositsPageConfig = {
       primaryHref: undefined,
       secondaryCta,
       secondaryHref: "#",
-      image: ph(260, 218, "USD Safe", "cfe8d4", "1b5e20"),
+      image: "",
     },
     {
       id: "istiklol",
@@ -238,7 +235,7 @@ export const depositsPageConfig: DepositsPageConfig = {
       primaryHref: undefined,
       secondaryCta,
       secondaryHref: "#",
-      image: ph(260, 218, "USD+", "cfe0ff", "1a4fd6"),
+      image: "",
     },
   ],
 
@@ -283,12 +280,12 @@ export const depositsPageConfig: DepositsPageConfig = {
       {
         id: "qr1",
         label: "Для iOS и Android",
-        image: ph(80, 80, "QR", "ffffff", "000000"),
+        url: "https://trastbank.uz/app",
       },
       {
         id: "qr2",
         label: "Для HarmonyOS",
-        image: ph(80, 80, "QR2", "ffffff", "000000"),
+        url: "https://trastbank.uz/app/harmony",
       },
     ],
     copyright: "© 2026 АО «TRASTBANK»",

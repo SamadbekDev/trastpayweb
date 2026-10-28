@@ -8,13 +8,13 @@ import { useTranslation } from "react-i18next";
 import { CalculatorConfig, Language } from "@/types/pageConfig";
 import { getLocalizedText } from "@/utils/i18nHelper";
 import { getMediaUrl } from "@/utils/mediaHelper";
+import FintechRangeSlider from "@/components/ui/FintechRangeSlider";
+import { formatAmount } from "@/components/ui/AmountSlider";
 
 interface LoanCalculatorProps {
   config?: CalculatorConfig;
+  embedded?: boolean;
 }
-
-const fmt = (n: number) =>
-  Math.round(n).toLocaleString("ru-RU").replace(/,/g, " ");
 
 function formatTerm(months: number, lang: Language) {
   if (months >= 12 && months % 12 === 0) {
@@ -28,7 +28,10 @@ function formatTerm(months: number, lang: Language) {
   return `${months} мес.`;
 }
 
-export default function LoanCalculator({ config }: LoanCalculatorProps) {
+export default function LoanCalculator({
+  config,
+  embedded: _embedded = false,
+}: LoanCalculatorProps) {
   const { i18n } = useTranslation();
   const lang = (i18n.language?.split("-")[0].toLowerCase() as Language) || "ru";
 
@@ -44,15 +47,28 @@ export default function LoanCalculator({ config }: LoanCalculatorProps) {
     return init;
   });
   const [optionsOpen, setOptionsOpen] = useState(true);
+  const [selectId, setSelectId] = useState(() => {
+    const list = config?.toggles || [];
+    return list.find((t) => t.defaultOn)?.id || list[0]?.id || "";
+  });
 
   const monthly = useMemo(() => {
-    let rate = 0.22;
-    if (toggles.salary) rate -= 0.02;
-    if (toggles.pensioner) rate -= 0.01;
+    let rate = config?.baseRate ?? 0.22;
+    if (config?.togglesAsSelect) {
+      const selected = config.toggles?.find((t) => t.id === selectId);
+      if (selected?.rate != null) rate = selected.rate;
+      else if (selectId === "insurance") rate += 0.01;
+    } else {
+      if (toggles.salary) rate -= 0.02;
+      if (toggles.pensioner) rate -= 0.01;
+    }
+    if (activeTab === "salary") rate = Math.max(0.01, rate - 0.04);
     const r = rate / 12;
     if (r === 0) return amount / months;
-    return (amount * r * Math.pow(1 + r, months)) / (Math.pow(1 + r, months) - 1);
-  }, [amount, months, toggles]);
+    return (
+      (amount * r * Math.pow(1 + r, months)) / (Math.pow(1 + r, months) - 1)
+    );
+  }, [amount, months, toggles, selectId, activeTab, config?.baseRate, config?.togglesAsSelect, config?.toggles]);
 
   if (!config) return null;
 
@@ -69,53 +85,54 @@ export default function LoanCalculator({ config }: LoanCalculatorProps) {
   const termMin = config.termMinMonths || 6;
   const termMax = config.termMaxMonths || 60;
 
-  const amountPct = ((amount - amountMin) / (amountMax - amountMin)) * 100;
-  const termPct = ((months - termMin) / (termMax - termMin)) * 100;
-
   return (
     <section
       id="calculator"
-      className="relative w-full overflow-hidden my-[100px] py-14"
+      className="relative w-full overflow-hidden py-12 lg:py-16"
       style={{
-        background: "linear-gradient(138.81deg, #5A93EC 10%, #C6DAF6 76.67%)",
+        background:
+          "linear-gradient(135deg, #4B7FE8 0%, #7BA3F0 42%, #C8B896 78%, #E8D4A8 100%)",
       }}
     >
       {config.backgroundImage && (
-        <div className="pointer-events-none absolute inset-0 opacity-40">
+        <div className="pointer-events-none absolute inset-0">
           <Image
             src={getMediaUrl(config.backgroundImage)}
             alt=""
             fill
             unoptimized
-            className="object-cover"
+            className="object-cover opacity-50 blur-[2px] scale-105"
           />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#5A93EC]/55 via-[#8EB0F0]/35 to-[#D4C09A]/45" />
         </div>
       )}
 
-      <div className="relative z-10 mx-auto w-full max-w-[980px] px-4">
+      <div className="relative z-10 mx-auto w-full max-w-[1440px] px-4 lg:px-[60px]">
         <div
-          className="flex flex-col gap-2.5 rounded-[40px] p-6 sm:p-10"
+          className="mx-auto flex w-full max-w-[920px] flex-col gap-3 rounded-[28px] p-5 sm:gap-4 sm:rounded-[32px] sm:p-8"
           style={{
             background:
-              "linear-gradient(109.17deg, rgba(255,255,255,0.32) -3.74%, rgba(255,255,255,0.2) 107.99%)",
-            backdropFilter: "blur(42px)",
-            WebkitBackdropFilter: "blur(42px)",
+              "linear-gradient(145deg, rgba(255,255,255,0.38) 0%, rgba(255,255,255,0.18) 100%)",
+            backdropFilter: "blur(48px)",
+            WebkitBackdropFilter: "blur(48px)",
+            boxShadow: "0 8px 40px rgba(15, 40, 90, 0.12)",
           }}
         >
           {/* Tabs */}
-          <div className="mb-2 flex justify-center">
-            <div className="inline-flex gap-1 rounded-[14px] bg-[#F1F5F9] p-1">
+          <div className="flex justify-center">
+            <div className="inline-flex max-w-full gap-0.5 overflow-x-auto rounded-[16px] bg-white/35 p-1 backdrop-blur-sm">
               {tabs.map((tab) => {
                 const label = getLocalizedText(tab.label, lang);
+                const active = activeTab === tab.id;
                 return (
                   <button
                     key={tab.id}
                     type="button"
                     onClick={() => setActiveTab(tab.id)}
-                    className={`rounded-[10px] px-[18px] py-2.5 text-[14px] font-medium leading-[120%] cursor-pointer ${
-                      activeTab === tab.id
-                        ? "bg-white text-[#0F172A] shadow-[0_1px_2px_rgba(15,23,42,0.05)]"
-                        : "text-[#64748B]"
+                    className={`shrink-0 rounded-[12px] px-3 py-2.5 text-[13px] font-medium leading-[120%] transition-colors cursor-pointer sm:px-[18px] sm:text-[14px] ${
+                      active
+                        ? "bg-white text-[#0F172A] shadow-[0_2px_8px_rgba(15,23,42,0.08)]"
+                        : "text-[#1A1A2E]/65 hover:text-[#0F172A]"
                     }`}
                   >
                     {label}
@@ -125,91 +142,92 @@ export default function LoanCalculator({ config }: LoanCalculatorProps) {
             </div>
           </div>
 
-          {/* Result — white on glass */}
-          <div className="mb-4 flex flex-col items-center gap-1.5 py-2 text-center">
-            <p className="text-[18px] font-medium leading-[22px] text-white">{resultLabel}</p>
-            <p className="flex items-baseline gap-2">
-              <span className="text-[48px] sm:text-[64px] font-bold leading-none text-white">
-                {fmt(monthly)}
+          {/* Result */}
+          <div className="flex flex-col items-center gap-1 py-1 text-center sm:py-2">
+            <p className="text-[16px] font-medium leading-[20px] text-white/95 sm:text-[18px] sm:leading-[22px]">
+              {resultLabel}
+            </p>
+            <p className="flex items-baseline justify-center gap-2">
+              <span className="text-[40px] font-bold leading-none tracking-tight text-white sm:text-[56px] lg:text-[64px]">
+                {formatAmount(monthly)}
               </span>
-              <span className="text-[36px] sm:text-[56px] font-bold leading-none text-white/55">
+              <span className="text-[28px] font-bold leading-none text-white/50 sm:text-[44px] lg:text-[56px]">
                 сум
               </span>
             </p>
             {resultNote && (
-              <div className="mt-2 flex items-start gap-3 text-left">
-                <span className="mt-0.5 h-[42px] w-[3px] rounded bg-white/70" />
-                <div>
-                  <p className="text-[14px] text-white/95">Вам понадобится</p>
-                  <p className="text-[14px] font-medium text-white">
+              <div className="mt-3 flex max-w-[320px] items-start gap-3 text-left">
+                <span className="mt-1 h-10 w-[2px] shrink-0 rounded-full bg-white/75" />
+                <p className="text-[13px] leading-[18px] text-white/95 sm:text-[14px]">
+                  <span className="text-white/80">Вам понадобится</span>
+                  <br />
+                  <span className="font-medium text-white">
                     — Паспорт или ID карта
-                  </p>
-                </div>
+                  </span>
+                </p>
               </div>
             )}
           </div>
 
-          {/* Inputs */}
-          <div className="bg-white rounded-[24px] p-5 sm:p-6 mb-4 grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div>
-              <p className="text-[13px] text-navy/50 mb-1">{amountLabel}</p>
-              <p className="text-[22px] font-bold text-navy mb-4">
-                {fmt(amount)} сум
-              </p>
-              <input
-                type="range"
-                min={amountMin}
-                max={amountMax}
-                step={100_000}
-                value={amount}
-                onChange={(e) => setAmount(Number(e.target.value))}
-                className="w-full"
-                style={{
-                  background: `linear-gradient(to right, #2F6BF0 ${amountPct}%, #E3E8F0 ${amountPct}%)`,
-                }}
-              />
-              <div className="flex justify-between text-[11px] text-navy/40 mt-2">
-                <span>от {fmt(amountMin)} сум</span>
-                <span>до {fmt(amountMax)} сум</span>
-              </div>
-            </div>
-
-            <div>
-              <p className="text-[13px] text-navy/50 mb-1">{termLabel}</p>
-              <p className="text-[22px] font-bold text-navy mb-4">
-                {formatTerm(months, lang)}
-              </p>
-              <input
-                type="range"
-                min={termMin}
-                max={termMax}
-                step={1}
-                value={months}
-                onChange={(e) => setMonths(Number(e.target.value))}
-                className="w-full"
-                style={{
-                  background: `linear-gradient(to right, #2F6BF0 ${termPct}%, #E3E8F0 ${termPct}%)`,
-                }}
-              />
-              <div className="flex justify-between text-[11px] text-navy/40 mt-2">
-                <span>от {formatTerm(termMin, lang)}</span>
-                <span>до {formatTerm(termMax, lang)}</span>
-              </div>
-            </div>
+          {/* Sliders — Figma: 900×171, pad 24×28, gap 40, radius 18, bg #fff */}
+          <div className="box-border flex w-full max-w-[900px] flex-col gap-10 self-center rounded-[18px] bg-white px-5 py-6 sm:h-[171px] sm:flex-row sm:items-start sm:gap-10 sm:px-7 sm:py-6">
+            <FintechRangeSlider
+              label={amountLabel}
+              value={amount}
+              min={amountMin}
+              max={amountMax}
+              step={500_000}
+              displayValue={`${formatAmount(amount)} сум`}
+              minLabel={`от ${formatAmount(amountMin)} сум`}
+              maxLabel={`до ${formatAmount(amountMax)} сум`}
+              onChange={setAmount}
+            />
+            <FintechRangeSlider
+              label={termLabel}
+              value={months}
+              min={termMin}
+              max={termMax}
+              step={1}
+              displayValue={formatTerm(months, lang)}
+              minLabel={`от ${formatTerm(termMin, lang)}`}
+              maxLabel={`до ${formatTerm(termMax, lang)}`}
+              onChange={setMonths}
+            />
           </div>
 
-          {/* Toggles */}
-          {(config.toggles?.length || 0) > 0 && (
-            <div className="bg-white rounded-[24px] p-5 sm:p-6 mb-6">
+          {/* Rate options / collateral */}
+          {(config.toggles?.length || 0) > 0 && config.togglesAsSelect ? (
+            <div className="rounded-[18px] bg-white px-5 py-4 sm:px-7">
+              <label className="flex flex-col gap-2">
+                <span className="text-[14px] font-medium text-[#6B7280]">
+                  {getLocalizedText(config.togglesLabel, lang) || "Вид обеспечения"}
+                </span>
+                <select
+                  className="h-12 cursor-pointer rounded-xl border border-[#E5E7EB] bg-white px-4 text-[15px] font-medium text-[#1A1A2E] outline-none"
+                  value={selectId}
+                  onChange={(e) => setSelectId(e.target.value)}
+                >
+                  {config.toggles.map((toggle) => (
+                    <option key={toggle.id} value={toggle.id}>
+                      {getLocalizedText(toggle.label, lang)}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
+          ) : (config.toggles?.length || 0) > 0 ? (
+            <div className="rounded-[20px] bg-white p-5 sm:rounded-[24px] sm:p-6">
               <button
                 type="button"
                 onClick={() => setOptionsOpen((v) => !v)}
-                className="w-full flex items-center justify-between text-[15px] font-bold text-navy cursor-pointer"
+                className="flex w-full cursor-pointer items-center justify-between text-[15px] font-bold text-[#1A1A2E]"
               >
-                Снизить ставку
+                {getLocalizedText(config.togglesLabel, lang) || "Снизить ставку"}
                 <ChevronUp
                   size={18}
-                  className={`transition-transform ${optionsOpen ? "" : "rotate-180"}`}
+                  className={`text-[#6B7280] transition-transform ${
+                    optionsOpen ? "" : "rotate-180"
+                  }`}
                 />
               </button>
               {optionsOpen && (
@@ -220,9 +238,11 @@ export default function LoanCalculator({ config }: LoanCalculatorProps) {
                     return (
                       <label
                         key={toggle.id}
-                        className="flex items-center justify-between gap-4 cursor-pointer"
+                        className="flex cursor-pointer items-center justify-between gap-4"
                       >
-                        <span className="text-[14px] text-navy/80">{label}</span>
+                        <span className="text-[14px] leading-5 text-[#374151]">
+                          {label}
+                        </span>
                         <button
                           type="button"
                           role="switch"
@@ -233,12 +253,12 @@ export default function LoanCalculator({ config }: LoanCalculatorProps) {
                               [toggle.id]: !prev[toggle.id],
                             }))
                           }
-                          className={`relative w-12 h-7 rounded-full transition-colors cursor-pointer ${
-                            on ? "bg-[#2F6BF0]" : "bg-[#C9D0DB]"
+                          className={`relative h-7 w-12 shrink-0 cursor-pointer rounded-full transition-colors ${
+                            on ? "bg-[#535BF1]" : "bg-[#D1D5DB]"
                           }`}
                         >
                           <span
-                            className={`absolute top-0.5 left-0.5 w-6 h-6 rounded-full bg-white shadow transition-transform ${
+                            className={`absolute top-0.5 left-0.5 h-6 w-6 rounded-full bg-white shadow transition-transform ${
                               on ? "translate-x-5" : ""
                             }`}
                           />
@@ -249,33 +269,35 @@ export default function LoanCalculator({ config }: LoanCalculatorProps) {
                 </div>
               )}
             </div>
-          )}
+          ) : null}
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-3">
+          <div className="flex flex-col gap-3 sm:flex-row">
             <Link
               href="#"
-              className="flex-1 inline-flex items-center justify-center rounded-2xl bg-[#2F6BF0] px-6 py-[22px] text-[17px] font-semibold text-white hover:bg-[#2559d4] transition-colors"
+              className="inline-flex flex-1 items-center justify-center rounded-2xl bg-[#535BF1] px-6 py-[18px] text-[16px] font-semibold text-white transition-colors hover:bg-[#454ce0] sm:py-[20px] sm:text-[17px]"
             >
               {primaryCta}
             </Link>
             <Link
               href="#"
-              className="flex-1 inline-flex items-center justify-center rounded-2xl bg-white/55 px-6 py-[22px] text-[17px] font-semibold text-[#2F6BF0] hover:bg-white/70 transition-colors"
+              className="inline-flex flex-1 items-center justify-center rounded-2xl bg-white/50 px-6 py-[18px] text-[16px] font-semibold text-[#535BF1] backdrop-blur-sm transition-colors hover:bg-white/70 sm:py-[20px] sm:text-[17px]"
             >
               {secondaryCta}
             </Link>
             <button
               type="button"
               aria-label="Calendar"
-              className="w-[76px] h-[68px] rounded-2xl bg-white/55 text-[#2F6BFF] flex items-center justify-center hover:bg-white/70 cursor-pointer shrink-0 self-center sm:self-auto"
+              className="flex h-[56px] w-full shrink-0 cursor-pointer items-center justify-center self-stretch rounded-2xl bg-white/50 text-[#535BF1] backdrop-blur-sm transition-colors hover:bg-white/70 sm:h-auto sm:w-[68px]"
             >
-              <Calendar size={20} />
+              <Calendar size={22} />
             </button>
           </div>
 
           {disclaimer && (
-            <p className="mt-5 text-center text-[14px] text-white/90">{disclaimer}</p>
+            <p className="text-center text-[13px] leading-5 text-white/85 sm:text-[14px]">
+              {disclaimer}
+            </p>
           )}
         </div>
       </div>

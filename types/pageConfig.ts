@@ -130,6 +130,7 @@ export interface CalculatorToggle {
   id: string;
   label: I18nText;
   defaultOn?: boolean;
+  rate?: number;
 }
 
 export interface CalculatorConfig {
@@ -145,10 +146,15 @@ export interface CalculatorConfig {
   termMaxMonths: number;
   termDefaultMonths: number;
   toggles: CalculatorToggle[];
+  /** Label above toggles; default «Снизить ставку» */
+  togglesLabel?: I18nText;
+  /** Render toggles as a single-select «Вид обеспечения» */
+  togglesAsSelect?: boolean;
   primaryCta: I18nText;
   secondaryCta: I18nText;
   disclaimer: I18nText;
   backgroundImage?: string;
+  baseRate?: number;
 }
 
 export interface TrastpayConfig {
@@ -186,7 +192,7 @@ export interface FooterSocial {
 export interface FooterQr {
   id: string;
   label: string;
-  image: string;
+  url: string;
 }
 
 export interface FooterConfig {
