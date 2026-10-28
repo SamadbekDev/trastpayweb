@@ -24,8 +24,8 @@ export default function NewsGrid({ config }: NewsGridProps) {
   const promoCta = getLocalizedText(config.promo?.ctaText, lang);
 
   return (
-    <section className="w-full bg-[#FAFAFA] px-4 py-10 lg:px-[120px]">
-      <div className="mx-auto flex w-full max-w-[1212px] flex-col gap-10">
+    <section className="w-full bg-[#FAFAFA]">
+      <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-10 px-4 lg:px-[60px]">
         {title && (
           <h2 className="text-[28px] lg:text-[34px] font-bold leading-[41px] text-[#1A1A2E]">
             {title}

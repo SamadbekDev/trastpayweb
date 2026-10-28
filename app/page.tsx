@@ -9,6 +9,7 @@ import NewsGrid from "@/components/NewsGrid";
 import LoanCalculator from "@/components/LoanCalculator";
 import Trastpay from "@/components/Trastpay";
 import Footer from "@/components/layout/Footer";
+import SectionSpacer from "@/components/SectionSpacer";
 import useHomePageConfig from "@/hooks/useHomePageConfig";
 import { TrastbankLoader, TrastbankError } from "@/components/PageStatus";
 
@@ -33,12 +34,19 @@ export default function Home() {
 
       <main className="flex-grow bg-[#FAFAFA]">
         <Hero config={config.hero} />
+        <SectionSpacer />
         <ProductGrid config={config.products} />
+        <SectionSpacer />
         <CurrencyConverter config={config.currency} />
-        <OffersCarousel config={config.offers} />
-        <NewsGrid config={config.news} />
+        <SectionSpacer />
         <LoanCalculator config={config.calculator} />
+        <SectionSpacer />
+        <NewsGrid config={config.news} />
+        <SectionSpacer />
+        <OffersCarousel config={config.offers} />
+        <SectionSpacer />
         <Trastpay config={config.trastpay} />
+        <SectionSpacer />
       </main>
 
       <Footer config={config.footer} />

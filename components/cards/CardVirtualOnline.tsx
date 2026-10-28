@@ -63,7 +63,7 @@ export default function CardVirtualOnline({ config }: CardVirtualOnlineProps) {
               {config.steps.map((step, index) => (
                 <article key={step.id} className="relative pt-7">
                   <div
-                    className={`absolute top-0 z-10 flex h-14 w-14 items-center justify-center rounded-[17.5px] bg-[#2D6EE3] text-[24px] font-medium text-white ${
+                    className={`absolute top-0 z-10 flex h-14 w-14 items-center justify-center rounded-[18px] bg-[#2D6EE3] text-[24px] font-medium text-white ${
                       index === 0
                         ? "left-8"
                         : index === 2

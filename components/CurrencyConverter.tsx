@@ -120,8 +120,8 @@ export default function CurrencyConverter({ config }: CurrencyConverterProps) {
   );
 
   return (
-    <section id="currency" className="w-full bg-[#FAFAFA] px-4 py-10 lg:px-[120px]">
-      <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-5">
+    <section id="currency" className="w-full bg-[#FAFAFA]">
+      <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-5 px-4 lg:px-[60px]">
         {title && (
           <h2 className="text-[26px] font-bold leading-[31px] text-[#1A1A2E]">{title}</h2>
         )}

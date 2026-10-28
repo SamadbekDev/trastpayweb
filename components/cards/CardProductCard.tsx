@@ -56,7 +56,7 @@ export default function CardProductCard({ product }: CardProductCardProps) {
               <p className="text-[22px] font-bold leading-[31px] text-[#1F3FBF] lg:text-[26px]">
                 {stat.value}
               </p>
-              <p className="text-[13px] leading-4 text-[#6B7280]">{stat.label}</p>
+              <p className="text-[14px] leading-4 text-[#6B7280]">{stat.label}</p>
             </div>
           ))}
         </div>

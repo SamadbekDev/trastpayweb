@@ -102,11 +102,25 @@ export default function CardsHeader({ config }: CardsHeaderProps) {
                   setActiveNav(item.id);
                   setMobileOpen(false);
                 }}
-                className="rounded-lg px-3 py-2 text-[14px] font-semibold uppercase tracking-[0.6px] text-[#110C30]"
+                className="rounded-lg px-3 py-2.5 text-[14px] font-semibold uppercase tracking-[0.6px] text-[#110C30]"
               >
                 {item.label}
               </Link>
             ))}
+            <Link
+              href={config.becomeClientHref || "#"}
+              onClick={() => setMobileOpen(false)}
+              className="rounded-lg px-3 py-2.5 text-[14px] font-semibold text-[#110C30]"
+            >
+              {config.becomeClientText}
+            </Link>
+            <Link
+              href={config.loginHref || "#"}
+              onClick={() => setMobileOpen(false)}
+              className="rounded-lg bg-[#2D6EE3] px-3 py-2.5 text-center text-[14px] font-semibold text-white"
+            >
+              {config.loginButtonText}
+            </Link>
           </nav>
         </div>
       )}

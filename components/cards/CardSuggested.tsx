@@ -32,8 +32,8 @@ export default function CardSuggested({ title, products }: CardSuggestedProps) {
   if (!products.length) return null;
 
   return (
-    <section className="w-full bg-[#FAFAFA] py-12">
-      <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-6 pl-4 pr-0 lg:pl-20">
+    <section className="w-full overflow-x-hidden bg-[#FAFAFA] py-12">
+      <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-6 pl-4 pr-4 lg:pl-20 lg:pr-0">
         <h2 className="pr-4 text-[32px] font-bold leading-[48px] text-[rgba(0,0,0,0.8)] lg:pr-20 lg:text-[40px]">
           {getLocalizedText(title, lang)}
         </h2>

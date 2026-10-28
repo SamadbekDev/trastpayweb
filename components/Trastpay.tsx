@@ -26,8 +26,8 @@ export default function Trastpay({ config }: TrastpayProps) {
     .join(" ");
 
   return (
-    <section id="trastpay" className="w-full bg-[#FAFAFA] px-4 pb-[100px] pt-0 lg:px-[84px]">
-      <div className="mx-auto flex w-full max-w-[1272px] flex-col items-stretch gap-6 lg:flex-row lg:gap-6">
+    <section id="trastpay" className="w-full bg-[#FAFAFA]">
+      <div className="mx-auto flex w-full max-w-[1440px] flex-col items-stretch gap-6 px-4 lg:flex-row lg:gap-6 lg:px-[60px]">
         <div className="relative min-h-[320px] w-full overflow-hidden rounded-[32px] lg:h-[515px] lg:w-[848px] lg:min-h-0">
           {config.image && (
             <Image

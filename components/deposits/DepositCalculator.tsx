@@ -3,8 +3,9 @@
 import { useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Calendar, Check } from "lucide-react";
+import { Calendar, ChevronUp } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import FintechRangeSlider from "@/components/ui/FintechRangeSlider";
 import { DepositDetailPageConfig } from "@/types/deposits";
 import { Language } from "@/types/pageConfig";
 import { getLocalizedText } from "@/utils/i18nHelper";
@@ -16,26 +17,72 @@ interface DepositCalculatorProps {
 
 const fmt = (n: number) => Math.round(n).toLocaleString("ru-RU").replace(/,/g, " ");
 
-const AD_GRADIENTS = [
-  "linear-gradient(135deg, #3B1F6E 0%, #1A1035 100%)",
-  "linear-gradient(135deg, #5B1A4A 0%, #2A0F28 100%)",
+const SUGGESTED_GRADIENTS = [
+  "linear-gradient(119.05deg, #7A3FF2 0%, #9D5CF5 71.43%)",
+  "linear-gradient(119.05deg, #3A0B3F 0%, #A01A7D 71.43%)",
+  "linear-gradient(119.05deg, #1958D6 0%, #3E86F5 71.43%)",
 ];
 
+function monthsLabel(months: number, lang: Language) {
+  if (lang === "en") return `${months} months`;
+  if (lang === "uz") return `${months} oy`;
+  const n = Math.abs(months) % 100;
+  const n1 = n % 10;
+  if (n > 10 && n < 20) return `${months} месяцев`;
+  if (n1 === 1) return `${months} месяц`;
+  if (n1 > 1 && n1 < 5) return `${months} месяца`;
+  return `${months} месяцев`;
+}
+
+function Toggle({
+  on,
+  onChange,
+}: {
+  on: boolean;
+  onChange: (value: boolean) => void;
+}) {
+  return (
+    <button
+      type="button"
+      role="switch"
+      aria-checked={on}
+      onClick={() => onChange(!on)}
+      className={`relative flex h-[30px] w-[52px] shrink-0 cursor-pointer items-center rounded-[15px] px-[3px] transition-colors ${
+        on ? "justify-end bg-[#2F6BF0]" : "justify-start bg-[#C9D0DB]"
+      }`}
+    >
+      <span className="h-6 w-6 rounded-full bg-white shadow-[0px_1px_3px_rgba(26,51,102,0.2)]" />
+    </button>
+  );
+}
+
+/** Figma «Калькулятор вклада — стекло» */
 export default function DepositCalculator({ config }: DepositCalculatorProps) {
   const { i18n } = useTranslation();
   const lang = (i18n.language?.split("-")[0].toLowerCase() as Language) || "ru";
+
+  const termMin = Math.min(...config.calculatorTerms.map((t) => t.months), 3);
+  const termMax = Math.max(...config.calculatorTerms.map((t) => t.months), 24);
+  const defaultMonths =
+    config.calculatorTerms.find((t) => t.months === 3)?.months ||
+    config.calculatorTerms[0]?.months ||
+    termMin;
+
   const [channel, setChannel] = useState<"online" | "office">("online");
-  const [termId, setTermId] = useState(config.calculatorTerms[0]?.id || "");
   const [amount, setAmount] = useState(config.calculatorDefault);
-  const [currency, setCurrency] = useState<"UZS" | "USD">(config.calculatorCurrency);
+  const [months, setMonths] = useState(defaultMonths);
   const [topUp, setTopUp] = useState(true);
   const [partial, setPartial] = useState(false);
+  const [paramsOpen, setParamsOpen] = useState(true);
 
-  const selected =
-    config.calculatorTerms.find((term) => term.id === termId) ||
-    config.calculatorTerms[0];
-  const rate = selected?.rate || config.calculatorRate;
-  const months = selected?.months || 12;
+  const selected = useMemo(() => {
+    const sorted = [...config.calculatorTerms].sort(
+      (a, b) => Math.abs(a.months - months) - Math.abs(b.months - months)
+    );
+    return sorted[0] || { months, rate: config.calculatorRate };
+  }, [config.calculatorRate, config.calculatorTerms, months]);
+
+  const rate = selected.rate || config.calculatorRate;
 
   const finalAmount = useMemo(() => {
     const yearly = rate / 100;
@@ -45,356 +92,355 @@ export default function DepositCalculator({ config }: DepositCalculatorProps) {
     return result;
   }, [amount, months, rate, topUp, partial]);
 
-  const range = Math.max(config.calculatorMax - config.calculatorMin, 1);
-  const pct = ((amount - config.calculatorMin) / range) * 100;
+  const currencyLabel = config.calculatorCurrency === "USD" ? "$" : "сум";
   const rateLabel = String(rate).replace(".", ",");
-  const sideImage = config.calculatorImage
+  const coinsSrc = config.calculatorImage?.trim()
     ? getMediaUrl(config.calculatorImage)
     : "";
 
+  const amountMinLabel =
+    lang === "en"
+      ? `from ${fmt(config.calculatorMin)} ${currencyLabel}`
+      : lang === "uz"
+        ? `${fmt(config.calculatorMin)} ${currencyLabel} dan`
+        : `от ${fmt(config.calculatorMin)} ${currencyLabel}`;
+  const amountMaxLabel =
+    lang === "en"
+      ? `to ${fmt(config.calculatorMax)} ${currencyLabel}`
+      : lang === "uz"
+        ? `${fmt(config.calculatorMax)} ${currencyLabel} gacha`
+        : `до ${fmt(config.calculatorMax)} ${currencyLabel}`;
+  const termMinLabel =
+    lang === "en"
+      ? `from ${termMin} months`
+      : lang === "uz"
+        ? `${termMin} oydan`
+        : `от ${termMin} месяцев`;
+  const termMaxLabel =
+    lang === "en"
+      ? `to ${termMax} months`
+      : lang === "uz"
+        ? `${termMax} oygacha`
+        : `до ${termMax} месяцев`;
+
+  const [whole, fraction] = fmt(finalAmount).includes(",")
+    ? fmt(finalAmount).split(",")
+    : [fmt(finalAmount), ""];
+
   return (
-    <section id="calculator" className="w-full bg-[#FAFAFA] py-12 lg:py-16">
-      <div className="mx-auto w-full max-w-[1280px] px-4 lg:px-0">
-        {/* Калькулятор вклада (TBC) */}
-        <div className="flex flex-col overflow-hidden rounded-[26px] border border-black/10 bg-white shadow-[0px_18.55px_46.38px_rgba(26,38,64,0.08)] lg:min-h-[916px] lg:flex-row lg:items-stretch">
-          {/* Left Frame — #186BED */}
-          <div className="relative isolate flex min-h-[360px] w-full flex-col justify-end overflow-hidden bg-[#186BED] px-[45px] pb-[52px] pt-12 lg:w-[427px] lg:min-h-[916px] lg:shrink-0 lg:gap-[13px]">
-            {/* image 7919 — coins: visible in panel, slight overflow right */}
-            {sideImage ? (
-              <div
-                className="pointer-events-none absolute z-0"
-                style={{
-                  width: 520,
-                  height: 520,
-                  left: "50%",
-                  top: 24,
-                  transform: "translateX(-48%)",
-                }}
-              >
-                <Image
-                  src={sideImage}
-                  alt=""
-                  fill
-                  unoptimized
-                  className="object-contain object-center"
-                  sizes="520px"
-                />
-              </div>
-            ) : null}
+    <section
+      id="calculator"
+      className="relative w-full overflow-hidden"
+      style={{
+        background: "linear-gradient(138.81deg, #5A93EC 10%, #C6DAF6 76.67%)",
+        minHeight: 1085,
+      }}
+    >
+      {coinsSrc ? (
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <Image
+            src={coinsSrc}
+            alt=""
+            fill
+            unoptimized
+            className="object-cover object-center mix-blend-screen opacity-95"
+            sizes="100vw"
+            priority
+          />
+        </div>
+      ) : null}
 
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-[48%] bg-gradient-to-t from-[#186BED] via-[#186BED]/75 to-transparent" />
-
-            <div className="relative z-[1] flex flex-col gap-[13px]">
-              <p className="text-[72px] font-bold leading-none tracking-[-2.78px] text-[#BECFFF] sm:text-[96px] lg:h-[135px] lg:text-[111px] lg:leading-[135px]">
-                {rateLabel}%
-              </p>
-              <p className="max-w-[338px] text-[20px] font-semibold leading-7 text-white sm:text-[22px]">
-                {getLocalizedText(config.calculatorRateCaption, lang)}
-              </p>
+      <div className="relative z-10 mx-auto flex w-full max-w-[1440px] items-center justify-center px-4 py-10 lg:py-12">
+        <div
+          className="flex w-full max-w-[980px] flex-col items-start gap-2.5 rounded-[40px] p-5 sm:p-10"
+          style={{
+            background:
+              "linear-gradient(109.17deg, rgba(255, 255, 255, 0.32) -3.74%, rgba(255, 255, 255, 0.2) 107.99%)",
+            backdropFilter: "blur(42px)",
+            WebkitBackdropFilter: "blur(42px)",
+          }}
+        >
+          {/* Tabs */}
+          <div className="flex w-full flex-col items-center py-3">
+            <div className="flex items-start gap-1 rounded-[14px] bg-[#F1F5F9] p-1">
+              {config.calculatorChannels.map((item) => {
+                const active = channel === item.id;
+                return (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => setChannel(item.id)}
+                    className={`cursor-pointer rounded-[10px] px-[18px] py-2.5 text-[14px] font-medium leading-[120%] ${
+                      active
+                        ? "bg-white text-[#0F172A] shadow-[0px_1px_2px_rgba(15,23,42,0.05)]"
+                        : "text-[#64748B]"
+                    }`}
+                  >
+                    {getLocalizedText(item.label, lang)}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
-          {/* Right Frame */}
-          <div className="flex flex-1 flex-col gap-[26px] bg-white px-5 py-8 sm:px-[45px] sm:pb-[37px] sm:pt-[41px]">
-            {/* Если вы откроете вклад */}
-            <div className="flex flex-col gap-[15px]">
-              <h2 className="text-[24px] font-bold leading-7 text-black">
-                {getLocalizedText(config.calculatorTitle, lang)}
-              </h2>
-              <div className="flex flex-wrap gap-[11px]">
-                {config.calculatorChannels.map((item) => {
-                  const active = channel === item.id;
-                  return (
-                    <button
-                      key={item.id}
-                      type="button"
-                      onClick={() => setChannel(item.id)}
-                      className={`rounded-[13px] px-[17px] py-[11px] text-[14px] font-semibold leading-[17px] cursor-pointer ${
-                        active
-                          ? "bg-[#0561FF] text-white"
-                          : "border border-[#E4E7EC] bg-white text-[#1A1A2E]"
-                      }`}
-                    >
-                      {getLocalizedText(item.label, lang)}
-                    </button>
-                  );
-                })}
-              </div>
+          {/* Result */}
+          <div className="flex w-full flex-col items-center gap-1.5">
+            <p className="text-[18px] font-medium leading-[22px] text-white">
+              {lang === "uz"
+                ? "Muddat oxiridagi summa"
+                : lang === "en"
+                  ? "Amount at maturity"
+                  : "Сумма в конце срока"}
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              <span className="text-[40px] font-bold leading-none text-white sm:text-[58px] sm:leading-[70px]">
+                {whole}
+                {fraction ? `,${fraction}` : ""}
+              </span>
+              <span className="text-[34px] font-bold leading-none text-white/55 sm:text-[50px] sm:leading-[62px]">
+                {currencyLabel}
+              </span>
             </div>
-
-            {/* На срок */}
-            <div className="flex flex-col gap-[15px]">
-              <h3 className="text-[24px] font-bold leading-7 text-black">
-                {lang === "uz" ? "Muddat" : lang === "en" ? "Term" : "На срок"}
-              </h3>
-              <div className="flex flex-wrap gap-[11px]">
-                {config.calculatorTerms.map((term) => {
-                  const active = term.id === termId;
-                  const label =
-                    lang === "en"
-                      ? `${term.months} mo. (${term.rate}%)`
-                      : lang === "uz"
-                        ? `${term.months} oy (${term.rate}%)`
-                        : `${term.months} мес. (${term.rate}%)`;
-                  return (
-                    <button
-                      key={term.id}
-                      type="button"
-                      onClick={() => setTermId(term.id)}
-                      className={`rounded-[13px] px-[17px] py-[11px] text-[14px] font-semibold leading-[17px] cursor-pointer ${
-                        active
-                          ? "bg-[#0561FF] text-white"
-                          : "border border-[#E4E7EC] bg-white text-[#1A1A2E]"
-                      }`}
-                    >
-                      {label}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* И пополните его на */}
-            <div className="flex flex-col gap-[15px]">
-              <h3 className="text-[24px] font-bold leading-7 text-black">
+            <div className="mt-1 flex max-w-full items-center gap-2 rounded-full bg-white/25 px-[18px] py-[9px]">
+              <span className="h-[9px] w-[9px] shrink-0 rounded-full bg-[#EAFFF4]" />
+              <span className="truncate text-[13px] font-semibold leading-[18px] text-white sm:text-[15px]">
                 {lang === "uz"
-                  ? "Va uni to‘ldirasiz"
+                  ? `${rateLabel}% yillik — maksimal muddat va kapitallashtirishda`
                   : lang === "en"
-                    ? "And top it up with"
-                    : "И пополните его на"}
-              </h3>
-              <div className="rounded-[20px] bg-[#FAFAFA] px-[22px] py-[19px]">
-                <div className="flex items-center justify-between gap-4">
-                  <div className="flex flex-col gap-[4px]">
-                    <p className="text-[12px] font-medium leading-[15px] text-[#9AA0A6]">
-                      {lang === "en" ? "Max." : lang === "uz" ? "Maks." : "Макс."}{" "}
-                      {fmt(config.calculatorMax)}
-                    </p>
-                    <p className="text-[24px] font-bold leading-[29px] text-[#0561FF]">
-                      {fmt(amount)}
-                    </p>
-                  </div>
-                  <div className="flex rounded-[11px] bg-white p-1">
-                    {(["UZS", "USD"] as const).map((code) => (
-                      <button
-                        key={code}
-                        type="button"
-                        onClick={() => setCurrency(code)}
-                        className={`rounded-[8px] px-[15px] py-[7px] text-[13px] font-bold leading-4 cursor-pointer ${
-                          currency === code
-                            ? "bg-[#0561FF] text-white"
-                            : "text-[#1A1A2E]"
-                        }`}
-                      >
-                        {code}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-                <div className="relative mt-[19px] h-[13px]">
-                  <input
-                    type="range"
-                    min={config.calculatorMin}
-                    max={config.calculatorMax}
-                    step={currency === "USD" ? 100 : 100_000}
-                    value={amount}
-                    onChange={(e) => setAmount(Number(e.target.value))}
-                    className="deposit-calc-range w-full"
-                    style={{
-                      background: `linear-gradient(to right, #20B2C0 0%, #20B2C0 ${pct}%, #D7DBE0 ${pct}%, #D7DBE0 100%)`,
-                    }}
-                    aria-label={
-                      lang === "en"
-                        ? "Deposit amount"
-                        : lang === "uz"
-                          ? "Omonat summasi"
-                          : "Сумма вклада"
-                    }
-                  />
-                </div>
+                    ? `${rateLabel}% per year — at max term and capitalization`
+                    : `${rateLabel}% годовых — при максимальном сроке и капитализации`}
+              </span>
+            </div>
+            <div className="mt-1 flex items-start gap-3">
+              <span className="mt-0.5 h-[42px] w-[3px] shrink-0 rounded-[2px] bg-white/70" />
+              <div className="flex flex-col gap-0.5">
+                <span className="text-[14px] leading-[17px] text-white/95">
+                  {lang === "uz"
+                    ? "Sizga kerak bo‘ladi"
+                    : lang === "en"
+                      ? "You will need"
+                      : "Вам понадобится"}
+                </span>
+                <span className="text-[14px] font-medium leading-[17px] text-white">
+                  {lang === "uz"
+                    ? "— Pasport yoki ID-karta"
+                    : lang === "en"
+                      ? "— Passport or ID card"
+                      : "— Паспорт или ID карта"}
+                </span>
               </div>
             </div>
+          </div>
 
-            {/* Options */}
-            <div className="flex flex-col gap-[13px]">
-              <label className="flex items-center gap-[11px] text-[14px] font-medium leading-[17px] text-[#110C30]">
-                <button
-                  type="button"
-                  onClick={() => setTopUp((v) => !v)}
-                  className={`flex h-[22px] w-[22px] items-center justify-center rounded-[6.5px] cursor-pointer ${
-                    topUp ? "bg-[#0561FF]" : "border-[1.5px] border-[#C7CBD1] bg-white"
-                  }`}
-                  aria-pressed={topUp}
-                >
-                  {topUp && <Check size={14} className="text-white" strokeWidth={3} />}
-                </button>
-                <span>
-                  {lang === "uz"
-                    ? "Omonatni to‘ldirish"
-                    : lang === "en"
-                      ? "Deposit top-up"
-                      : "Пополнение вклада"}
-                </span>
-                <span className="flex h-4 w-4 items-center justify-center rounded-full border border-[#9AA0A6] text-[10px] font-bold text-[#9AA0A6]">
-                  i
-                </span>
-              </label>
-              <label className="flex items-center gap-[11px] text-[14px] leading-[17px] text-[#9AA0A6]">
-                <button
-                  type="button"
-                  onClick={() => setPartial((v) => !v)}
-                  className={`flex h-[22px] w-[22px] items-center justify-center rounded-[6.5px] cursor-pointer ${
-                    partial
-                      ? "bg-[#0561FF] text-white"
-                      : "border-[1.5px] border-[#C7CBD1] bg-white"
-                  }`}
-                  aria-pressed={partial}
-                >
-                  {partial && <Check size={14} className="text-white" strokeWidth={3} />}
-                </button>
-                <span className={partial ? "font-medium text-[#110C30]" : "font-normal"}>
-                  {lang === "uz"
-                    ? "Qisman yechib olish"
-                    : lang === "en"
-                      ? "Partial withdrawal"
-                      : "Частичное снятие"}
-                </span>
-                <span className="flex h-4 w-4 items-center justify-center rounded-full border border-[#9AA0A6] text-[10px] font-bold text-[#9AA0A6]">
-                  i
-                </span>
-              </label>
-            </div>
+          {/* Sliders */}
+          <div className="mt-1 flex w-full flex-col gap-10 rounded-[18px] bg-white px-5 py-6 sm:flex-row sm:gap-10 sm:px-7 sm:py-6">
+            <FintechRangeSlider
+              value={amount}
+              min={config.calculatorMin}
+              max={config.calculatorMax}
+              step={config.calculatorCurrency === "USD" ? 100 : 100_000}
+              label={
+                lang === "uz"
+                  ? "Qancha summa kiritmoqchisiz?"
+                  : lang === "en"
+                    ? "How much do you want to invest?"
+                    : "Какую сумму хотите вложить?"
+              }
+              displayValue={`${fmt(amount)} ${currencyLabel}`}
+              minLabel={amountMinLabel}
+              maxLabel={amountMaxLabel}
+              onChange={setAmount}
+            />
+            <FintechRangeSlider
+              value={months}
+              min={termMin}
+              max={termMax}
+              step={1}
+              label={
+                lang === "uz"
+                  ? "Qancha muddatga ochmoqchisiz?"
+                  : lang === "en"
+                    ? "For what term do you want to open a deposit?"
+                    : "На какой срок хотите открыть вклад?"
+              }
+              displayValue={monthsLabel(months, lang)}
+              minLabel={termMinLabel}
+              maxLabel={termMaxLabel}
+              onChange={setMonths}
+            />
+          </div>
 
-            {/* Вам также подойдет + Frame 2131333208 */}
-            {config.suggested.length > 0 && (
+          {/* Parameters */}
+          <div className="flex w-full flex-col gap-5 rounded-[18px] bg-white px-5 py-6 sm:px-7">
+            <button
+              type="button"
+              onClick={() => setParamsOpen((v) => !v)}
+              className="flex w-full cursor-pointer items-center justify-between"
+            >
+              <span className="text-[20px] font-semibold leading-6 text-[#1A2233]">
+                {lang === "uz"
+                  ? "Omonat parametrlari"
+                  : lang === "en"
+                    ? "Deposit parameters"
+                    : "Параметры вклада"}
+              </span>
+              <ChevronUp
+                size={20}
+                className={`text-[#1A2233] transition-transform ${paramsOpen ? "" : "rotate-180"}`}
+              />
+            </button>
+            {paramsOpen ? (
               <>
-                <h3 className="-mt-3 -mb-3 text-[24px] font-bold leading-7 text-black">
+                <div className="flex items-center justify-between gap-4">
+                  <span className="text-[17px] leading-[21px] text-[#1A2233]">
+                    {lang === "uz"
+                      ? "Omonatni to‘ldirish"
+                      : lang === "en"
+                        ? "Deposit top-up"
+                        : "Пополнение вклада"}
+                  </span>
+                  <Toggle on={topUp} onChange={setTopUp} />
+                </div>
+                <div className="flex items-center justify-between gap-4">
+                  <span className="text-[17px] leading-[21px] text-[#1A2233]">
+                    {lang === "uz"
+                      ? "Qisman yechib olish"
+                      : lang === "en"
+                        ? "Partial withdrawal"
+                        : "Частичное снятие"}
+                  </span>
+                  <Toggle on={partial} onChange={setPartial} />
+                </div>
+              </>
+            ) : null}
+          </div>
+
+          {/* Suggested */}
+          {config.suggested.length > 0 ? (
+            <div className="flex w-full flex-col gap-3.5 py-3">
+              <div className="flex flex-wrap items-center gap-2.5">
+                <h3 className="text-[20px] font-semibold leading-6 text-white">
                   {lang === "uz"
                     ? "Sizga ham mos keladi"
                     : lang === "en"
-                      ? "You may also like"
-                      : "Вам также подойдет"}
+                      ? "Also suitable for you"
+                      : "Вам также подойдёт"}
                 </h3>
-                <div className="-mt-3 flex w-full max-w-[750px] flex-row items-start">
-                  {config.suggested.slice(0, 2).map((item, index) => (
-                    <div
-                      key={item.id}
-                      className={`relative isolate flex w-1/2 flex-col ${
-                        index === 0 ? "py-3 pl-0 pr-2" : "p-3"
-                      }`}
-                    >
-                      <Link
-                        href={item.href}
-                        className="relative isolate flex h-[105px] w-full items-center overflow-hidden rounded-[20px] p-4 text-white shadow-[0px_1px_8px_rgba(2,132,199,0.08)]"
-                        style={{ background: AD_GRADIENTS[index % AD_GRADIENTS.length] }}
-                      >
-                        {item.image ? (
-                          <>
-                            <Image
-                              src={getMediaUrl(item.image)}
-                              alt=""
-                              fill
-                              unoptimized
-                              className="object-cover opacity-60"
-                            />
-                            <div className="absolute inset-0 bg-black/20" />
-                          </>
-                        ) : null}
-                        {item.badge && (
-                          <span
-                            className="absolute z-[1] rounded-lg px-1.5 py-1 text-[14px] font-medium leading-5 text-white"
-                            style={{
-                              right: 8,
-                              top: 4,
-                              backgroundColor: item.badgeColor || "#56BB27",
-                            }}
-                          >
-                            {getLocalizedText(item.badge, lang)}
-                          </span>
-                        )}
-                        <div className="relative z-[1] flex w-full flex-col gap-4 pr-6">
-                          <p className="truncate text-[17px] font-semibold leading-5">
-                            {getLocalizedText(item.title, lang)}
-                          </p>
-                          <div className="flex flex-row items-start gap-4 text-[12px] leading-[14px] text-white">
-                            <div className="flex min-w-0 flex-col gap-1">
-                              <p className="text-[14px] font-bold leading-[17px]">
-                                {getLocalizedText(item.rate, lang)}
-                              </p>
-                              <p className="opacity-90">
-                                {getLocalizedText(config.product.rateLabel, lang)}
-                              </p>
-                            </div>
-                            <div className="flex min-w-0 flex-col gap-1">
-                              <p className="text-[14px] font-bold leading-[17px]">
-                                {getLocalizedText(item.amount, lang)}
-                              </p>
-                              <p className="opacity-90">
-                                {getLocalizedText(config.product.amountLabel, lang)}
-                              </p>
-                            </div>
-                            <div className="flex min-w-0 flex-col gap-1">
-                              <p className="text-[16px] font-bold leading-[19px]">
-                                {getLocalizedText(item.term, lang)}
-                              </p>
-                              <p className="opacity-90">
-                                {getLocalizedText(config.product.termLabel, lang)}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </Link>
-                    </div>
-                  ))}
-                </div>
-              </>
-            )}
-
-            {/* Result */}
-            <div className="mt-auto flex flex-col gap-[13px]">
-              <h3 className="text-[24px] font-bold leading-7 text-black">
-                {lang === "uz"
-                  ? "Muddat oxirida omonat summasi"
-                  : lang === "en"
-                    ? "At maturity the deposit will be"
-                    : "То в конце срока сумма вклада будет"}
-              </h3>
-              <div className="h-px w-full bg-[#E4E7EC]" />
-              <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-                <div className="flex max-w-[390px] flex-col gap-2">
-                  <p className="text-[32px] font-bold leading-[41px] text-black sm:text-[41px] sm:leading-[49px]">
-                    {fmt(finalAmount)} {currency}*
-                  </p>
-                  <p className="text-[12px] leading-[17px] text-[#9AA0A6]">
-                    {lang === "uz"
-                      ? "*Muddat oxiridagi taxminiy hisob. Aniq hisobni ilovada bilish mumkin"
-                      : lang === "en"
-                        ? "*Estimated amount at maturity. Exact calculation is available in the app"
-                        : "*Примерный расчёт суммы вклада в конце срока. Точный расчёт можно узнать в приложении TBC UZ"}
-                  </p>
-                </div>
-                <div className="flex items-center gap-[13px]">
-                  <button
-                    type="button"
-                    className="flex h-14 w-14 items-center justify-center rounded-[15px] bg-[#EEF0F2] cursor-pointer"
-                    aria-label="Calendar"
-                  >
-                    <Calendar size={24} className="text-black" />
-                  </button>
+                <span className="text-[15px] leading-[18px] text-white/80">
+                  {lang === "uz"
+                    ? "summangiz va muddatingiz bo‘yicha"
+                    : lang === "en"
+                      ? "for your amount and term"
+                      : "по вашей сумме и сроку"}
+                </span>
+              </div>
+              <div className="flex gap-4 overflow-x-auto pb-1">
+                {config.suggested.slice(0, 3).map((item, index) => (
                   <Link
-                    href="#"
-                    className="inline-flex h-14 items-center justify-center rounded-[15px] bg-[#0561FF] px-7 text-[12px] font-bold uppercase tracking-[0.46px] text-white"
+                    key={item.id}
+                    href={item.href}
+                    className="flex min-w-[280px] flex-1 flex-col gap-3.5 rounded-[18px] px-5 py-[18px] text-white sm:min-w-[300px]"
+                    style={{
+                      background:
+                        SUGGESTED_GRADIENTS[index % SUGGESTED_GRADIENTS.length],
+                    }}
                   >
-                    {lang === "uz"
-                      ? "Muddatli omonat ochish"
-                      : lang === "en"
-                        ? "Open a term deposit"
-                        : "Открыть срочный вклад"}
+                    <div className="flex items-center justify-between gap-2">
+                      <p className="truncate text-[17px] font-semibold leading-[21px]">
+                        {getLocalizedText(item.title, lang)}
+                      </p>
+                      {item.badge || index === 2 ? (
+                        <span
+                          className={`shrink-0 rounded-lg px-2.5 py-1 text-[12px] font-semibold leading-[15px] ${
+                            index === 2
+                              ? "bg-white text-[#1958D6]"
+                              : index === 1
+                                ? "bg-[#22C55E] text-white"
+                                : "bg-[#2F6BF0] text-white"
+                          }`}
+                        >
+                          {index === 2
+                            ? getLocalizedText(item.rate, lang)
+                            : getLocalizedText(item.badge!, lang)}
+                        </span>
+                      ) : null}
+                    </div>
+                    <div className="flex gap-3.5">
+                      <div className="min-w-0 flex-1">
+                        <p className="text-[15px] font-bold leading-[18px]">
+                          {getLocalizedText(item.rate, lang)}
+                        </p>
+                        <p className="mt-0.5 text-[11px] leading-[13px] text-white/72">
+                          {lang === "uz"
+                            ? "Stavka, yillik"
+                            : lang === "en"
+                              ? "Rate, annual"
+                              : "Ставка, годовых"}
+                        </p>
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate text-[15px] font-bold leading-[18px]">
+                          {getLocalizedText(item.amount, lang)}
+                        </p>
+                        <p className="mt-0.5 text-[11px] leading-[13px] text-white/72">
+                          {lang === "uz"
+                            ? "Omonat summasi"
+                            : lang === "en"
+                              ? "Deposit amount"
+                              : "Сумма вклада"}
+                        </p>
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-[15px] font-bold leading-[18px]">
+                          {getLocalizedText(item.term, lang)}
+                        </p>
+                        <p className="mt-0.5 text-[11px] leading-[13px] text-white/72">
+                          {lang === "uz" ? "Muddat" : lang === "en" ? "Term" : "Срок"}
+                        </p>
+                      </div>
+                    </div>
                   </Link>
-                </div>
+                ))}
               </div>
             </div>
+          ) : null}
+
+          {/* Actions */}
+          <div className="flex w-full flex-col items-stretch gap-4 sm:flex-row sm:items-center">
+            <Link
+              href={config.product.primaryHref || "#"}
+              className="flex h-[65px] flex-1 items-center justify-center rounded-2xl bg-[#2F6BF0] text-[17px] font-semibold leading-[21px] text-white"
+            >
+              {getLocalizedText(config.product.primaryCta, lang) ||
+                (lang === "uz"
+                  ? "Omonat ochish"
+                  : lang === "en"
+                    ? "Open deposit"
+                    : "Открыть вклад")}
+            </Link>
+            <Link
+              href={config.product.secondaryHref || "#info"}
+              className="flex h-[65px] flex-1 items-center justify-center rounded-2xl bg-white/55 text-[17px] font-semibold leading-[21px] text-[#2F6BF0]"
+            >
+              {getLocalizedText(config.product.secondaryCta, lang) ||
+                (lang === "uz" ? "Batafsil" : lang === "en" ? "Details" : "Подробнее")}
+            </Link>
+            <button
+              type="button"
+              className="flex h-[68px] w-full shrink-0 cursor-pointer items-center justify-center rounded-2xl bg-white/55 sm:w-[76px]"
+              aria-label="Calendar"
+            >
+              <Calendar size={32} className="text-[#2F6BFF]" />
+            </button>
           </div>
+
+          <p className="w-full text-center text-[14px] leading-[14px] text-white/90">
+            {lang === "uz"
+              ? "Dastlabki hisob. Oferta hisoblanmaydi."
+              : lang === "en"
+                ? "Preliminary calculation. Not an offer."
+                : "Предварительный расчёт. Не является офертой."}
+          </p>
         </div>
       </div>
     </section>

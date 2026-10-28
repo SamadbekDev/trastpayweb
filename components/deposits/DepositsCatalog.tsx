@@ -26,7 +26,6 @@ export default function DepositsCatalog({ config }: DepositsCatalogProps) {
           if (p.category !== group.category) return false;
           if (activeFilter === "all") return true;
           if (activeFilter === "online") {
-            // No dedicated online products in mock — show empty for now
             return p.category === "online";
           }
           return p.category === activeFilter;
@@ -51,7 +50,7 @@ export default function DepositsCatalog({ config }: DepositsCatalogProps) {
                 key={tab.id}
                 type="button"
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex h-[37px] flex-1 items-center justify-center rounded-[10px] px-3 text-[13px] font-medium leading-[120%] transition-colors sm:px-[18px] sm:text-[14px] cursor-pointer ${
+                className={`flex h-10 flex-1 cursor-pointer items-center justify-center rounded-[10px] px-3 text-[14px] font-medium leading-[120%] transition-colors sm:px-[18px] ${
                   isActive
                     ? "bg-[#2D6EE3] text-white shadow-[0px_1px_2px_rgba(15,23,42,0.05)]"
                     : "bg-transparent text-[#64748B] hover:text-[#110C30]"

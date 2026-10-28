@@ -5,6 +5,7 @@ import {
   OfficesPageConfig,
 } from "@/types/deposits";
 import { CardDetailPageConfig, CardsPageConfig } from "@/types/cards";
+import { CreditDetailConfig, CreditsPageConfig } from "@/types/credits";
 import { apiFetch } from "@/api/client";
 
 type PublishedResponse<T> = {
@@ -57,13 +58,29 @@ export async function getDepositById(
   const res = await apiFetch(
     `/content/published/deposits/${encodeURIComponent(id)}`
   );
-  return parseContentResponse<DepositDetailPageConfig>(res, `вклад ${id}`);
+  return parseContentResponse<DepositDetailPageConfig>(
+    res,
+    `вклад ${id}`
+  );
 }
 
-/** Offices / branches page (/filialy). */
-export async function getOfficesPage(): Promise<OfficesPageConfig> {
-  const res = await apiFetch("/content/published/offices");
-  return parseContentResponse<OfficesPageConfig>(res, "филиалы");
+/** Credits catalog page (/kredity). */
+export async function getCreditsPage(): Promise<CreditsPageConfig> {
+  const res = await apiFetch("/content/published/credits");
+  return parseContentResponse<CreditsPageConfig>(res, "каталог кредитов");
+}
+
+/** Single credit detail page (/kredity/[id]). */
+export async function getCreditById(id: string): Promise<CreditDetailConfig> {
+  const res = await apiFetch(
+    `/content/published/credits/${encodeURIComponent(id)}`
+  );
+  if (res.status === 404) {
+    const error = new Error("not-found") as Error & { status?: number };
+    error.status = 404;
+    throw error;
+  }
+  return parseContentResponse<CreditDetailConfig>(res, `кредит ${id}`);
 }
 
 /** Cards catalog page (/karty). */
@@ -77,16 +94,29 @@ export async function getCardById(id: string): Promise<CardDetailPageConfig> {
   const res = await apiFetch(
     `/content/published/cards/${encodeURIComponent(id)}`
   );
+  if (res.status === 404) {
+    const error = new Error("not-found") as Error & { status?: number };
+    error.status = 404;
+    throw error;
+  }
   return parseContentResponse<CardDetailPageConfig>(res, `карта ${id}`);
+}
+
+/** Offices / branches page (/filialy). */
+export async function getOfficesPage(): Promise<OfficesPageConfig> {
+  const res = await apiFetch("/content/published/offices");
+  return parseContentResponse<OfficesPageConfig>(res, "филиалы");
 }
 
 export const pageService = {
   getHomePageConfig,
   getDepositsPage,
   getDepositById,
-  getOfficesPage,
+  getCreditsPage,
+  getCreditById,
   getCardsPage,
   getCardById,
+  getOfficesPage,
 };
 
 export default pageService;

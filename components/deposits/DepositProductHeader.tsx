@@ -52,7 +52,7 @@ export default function DepositProductHeader({
 
   return (
     <header className="relative z-50 w-full bg-white">
-      <div className="mx-auto flex h-[82px] w-full max-w-[1440px] items-center justify-between gap-4 px-5">
+      <div className="mx-auto flex h-[82px] w-full max-w-[1440px] items-center justify-between gap-4 px-5 xl:px-10 min-[1400px]:px-[132px]">
         <div className="flex min-w-0 items-center gap-4">
           <Link href="/" className="flex shrink-0 items-center" aria-label="Trastbank">
             <Image

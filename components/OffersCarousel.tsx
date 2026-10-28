@@ -29,10 +29,10 @@ export default function OffersCarousel({ config }: OffersCarouselProps) {
   const title = getLocalizedText(config.title, lang);
 
   return (
-    <section className="w-full bg-[#FAFAFA] py-2.5 pl-4 pr-0 lg:pl-[120px]">
-      <div className="mx-auto flex w-full max-w-[1310px] flex-col gap-10">
+    <section className="w-full bg-[#FAFAFA] py-8 lg:py-10">
+      <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-8 pl-4 pr-0 lg:gap-9 lg:pl-[120px] lg:pr-[10px]">
         {title && (
-          <h2 className="text-[28px] lg:text-[34px] font-bold leading-[41px] text-[#1A1A2E]">
+          <h2 className="px-0 text-[28px] font-bold leading-[36px] text-[#1A1A2E] lg:px-3 lg:text-[36px] lg:leading-[44px]">
             {title}
           </h2>
         )}
@@ -61,8 +61,8 @@ export default function OffersCarousel({ config }: OffersCarouselProps) {
             const cta = getLocalizedText(slide.ctaText, lang);
 
             return (
-              <SwiperSlide key={slide.id} className="!w-[360px] max-w-[85vw]">
-                <div className="relative flex h-[400px] flex-col justify-between overflow-hidden rounded-2xl p-5 text-white sm:p-6">
+              <SwiperSlide key={slide.id} className="!w-[340px] max-w-[85vw]">
+                <div className="relative flex h-[380px] flex-col justify-between overflow-hidden rounded-2xl px-6 py-5 text-white">
                   <Image
                     src={getMediaUrl(slide.image)}
                     alt=""
@@ -74,9 +74,9 @@ export default function OffersCarousel({ config }: OffersCarouselProps) {
 
                   <div className="relative z-10 flex flex-col gap-1">
                     {tag && (
-                      <p className="text-[17px] font-bold leading-[22px] text-white">{tag}</p>
+                      <p className="text-[16px] font-bold leading-[20px] text-white">{tag}</p>
                     )}
-                    <h3 className="text-[22px] font-medium leading-[144%] text-white max-w-[312px]">
+                    <h3 className="max-w-[312px] text-[20px] font-medium leading-[140%] text-white">
                       {slideTitle}
                     </h3>
                   </div>
