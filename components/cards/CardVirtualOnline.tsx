@@ -77,7 +77,7 @@ export default function CardVirtualOnline({ config }: CardVirtualOnlineProps) {
                     <h4 className="text-[15px] font-semibold leading-5 text-[rgba(0,0,0,0.8)]">
                       {getLocalizedText(step.title, lang)}
                     </h4>
-                    <p className="mt-2 align-middle text-[13px] font-normal leading-[15px] tracking-[-0.02em] text-[#797F8E]">
+                    <p className="mt-2 align-middle font-[family-name:var(--font-roboto)] text-[13px] font-normal leading-[15px] tracking-[-0.02em] text-[#797F8E]">
                       {getLocalizedText(step.description, lang)}
                     </p>
                     {step.linkText ? (

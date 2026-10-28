@@ -39,25 +39,19 @@ async function parseContentResponse<T>(
   return data.content;
 }
 
-/**
- * Homepage SDUI config.
- */
+/** Homepage SDUI config. */
 export async function getHomePageConfig(): Promise<HomePageConfig> {
   const res = await apiFetch("/content/published");
   return parseContentResponse<HomePageConfig>(res, "главную");
 }
 
-/**
- * Deposits catalog page (/vklady).
- */
+/** Deposits catalog page (/vklady). */
 export async function getDepositsPage(): Promise<DepositsPageConfig> {
   const res = await apiFetch("/content/published/deposits");
   return parseContentResponse<DepositsPageConfig>(res, "каталог вкладов");
 }
 
-/**
- * Single deposit detail page (/vklady/[id]).
- */
+/** Single deposit detail page (/vklady/[id]). */
 export async function getDepositById(
   id: string
 ): Promise<DepositDetailPageConfig> {
@@ -70,14 +64,13 @@ export async function getDepositById(
   );
 }
 
-/**
- * Offices / branches page (/filialy).
- */
+/** Credits catalog page (/kredity). */
 export async function getCreditsPage(): Promise<CreditsPageConfig> {
   const res = await apiFetch("/content/published/credits");
   return parseContentResponse<CreditsPageConfig>(res, "каталог кредитов");
 }
 
+/** Single credit detail page (/kredity/[id]). */
 export async function getCreditById(id: string): Promise<CreditDetailConfig> {
   const res = await apiFetch(
     `/content/published/credits/${encodeURIComponent(id)}`
@@ -90,11 +83,13 @@ export async function getCreditById(id: string): Promise<CreditDetailConfig> {
   return parseContentResponse<CreditDetailConfig>(res, `кредит ${id}`);
 }
 
+/** Cards catalog page (/karty). */
 export async function getCardsPage(): Promise<CardsPageConfig> {
   const res = await apiFetch("/content/published/cards");
   return parseContentResponse<CardsPageConfig>(res, "каталог карт");
 }
 
+/** Single card detail page (/karty/[id]). */
 export async function getCardById(id: string): Promise<CardDetailPageConfig> {
   const res = await apiFetch(
     `/content/published/cards/${encodeURIComponent(id)}`
@@ -107,6 +102,7 @@ export async function getCardById(id: string): Promise<CardDetailPageConfig> {
   return parseContentResponse<CardDetailPageConfig>(res, `карта ${id}`);
 }
 
+/** Offices / branches page (/filialy). */
 export async function getOfficesPage(): Promise<OfficesPageConfig> {
   const res = await apiFetch("/content/published/offices");
   return parseContentResponse<OfficesPageConfig>(res, "филиалы");
@@ -116,11 +112,11 @@ export const pageService = {
   getHomePageConfig,
   getDepositsPage,
   getDepositById,
-  getOfficesPage,
   getCreditsPage,
   getCreditById,
   getCardsPage,
   getCardById,
+  getOfficesPage,
 };
 
 export default pageService;
