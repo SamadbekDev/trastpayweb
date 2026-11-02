@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+/* Keep Chrome/dev tooling profiles out of Tailwind content scan (locks Turbopack). */
+@source not "../.chrome-profile";
+@source not "../.next";
+@source not "../node_modules";
+
 @font-face {
   font-family: 'SF Pro Display';
   font-weight: 400;
@@ -26,17 +31,24 @@
   --font-display: 'SF Pro Display', system-ui, sans-serif;
   --font-body:    'SF Pro Display', system-ui, -apple-system, sans-serif;
 
-  --primary:        #1b2c7a;
-  --primary-bright: #27379a;
-  --primary-deep:   #121d54;
-  --accent:         #ea580c;
+  --primary:        #2D68FF;
+  --primary-bright: #4B7FFF;
+  --primary-deep:   #1A4FD6;
+  --navy:           #0A2540;
+  --surface:        #F2F4F7;
+  --surface-blue:   #E8EEF8;
+  --accent:         #7C5CFF;
 
-  --text-muted: #505a63;
+  --text-muted: #6B7280;
 }
 
 @theme {
   --color-primary:       var(--primary);
   --color-primary-hover: var(--primary-bright);
+  --color-primary-deep:  var(--primary-deep);
+  --color-navy:          var(--navy);
+  --color-surface:       var(--surface);
+  --color-surface-blue:  var(--surface-blue);
   --color-accent:        var(--accent);
   --color-text-muted:    var(--text-muted);
 
@@ -46,37 +58,10 @@
 
 body {
   font-family: var(--font-body);
+  color: var(--navy);
+  background: #ffffff;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
-}
-
-
-@keyframes float-blob-1 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50%       { transform: translate(30px, -25px) scale(1.08); }
-}
-@keyframes float-blob-2 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50%       { transform: translate(-25px, 20px) scale(0.92); }
-}
-
-@keyframes wave-flow-1 {
-  0%, 100% { transform: translateY(0) skewY(0.2deg); }
-  50%       { transform: translateY(10px) skewY(-0.2deg) scaleY(1.05); }
-}
-@keyframes wave-flow-2 {
-  0%, 100% { transform: translateY(0) skewY(-0.2deg); }
-  50%       { transform: translateY(-8px) skewY(0.2deg) scaleY(1.03); }
-}
-
-@keyframes float-ring {
-  0%, 100% { transform: scale(1); opacity: 0.6; }
-  50%       { transform: scale(1.04); opacity: 0.4; }
-}
-
-@keyframes slide-up-fade {
-  from { opacity: 0; transform: translateY(28px); }
-  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fade-in-up {
@@ -85,24 +70,207 @@ body {
 }
 
 @layer utilities {
-  .anim-blob-1  { animation: float-blob-1  12s infinite ease-in-out; }
-  .anim-blob-2  { animation: float-blob-2  15s infinite ease-in-out; }
-  .anim-wave-1  { animation: wave-flow-1    8s infinite ease-in-out; transform-origin: center bottom; }
-  .anim-wave-2  { animation: wave-flow-2   11s infinite ease-in-out; transform-origin: center bottom; }
-  .anim-float   { animation: float-ring    6s infinite ease-in-out; }
-
-  .anim-slide-up {
-    animation: slide-up-fade 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
-  }
-
   .animate-fade-in-up {
     animation: fade-in-up 0.6s ease both;
   }
 
   .text-text-muted { color: var(--text-muted); }
+}
 
-  .bg-accent       { background-color: var(--accent); }
-  .hover\:bg-orange-600:hover { background-color: #dc4b09; }
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 44px;
+  border-radius: 999px;
+  background: transparent;
+  outline: none;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 999px;
+  background: #E5E7EB;
+}
+
+input[type="range"]::-moz-range-track {
+  height: 4px;
+  border-radius: 999px;
+  background: #E5E7EB;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 28px;
+  height: 28px;
+  margin-top: -12px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid var(--primary);
+  box-shadow: 0 2px 8px rgba(45, 104, 255, 0.25);
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid var(--primary);
+  box-shadow: 0 2px 8px rgba(45, 104, 255, 0.25);
+  cursor: pointer;
+}
+
+/*
+ * Fintech amount/term range.
+ * Track is drawn in JSX (5px). Input is transparent — only the flat thumb shows.
+ * Higher specificity than global input[type=range] so styles actually apply.
+ */
+/* Figma slider frame: 26px tall; thumb top: 2px */
+input[type="range"].amount-slider-range,
+input[type="range"].loan-calc-range {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  width: 100%;
+  height: 26px !important;
+  margin: 0;
+  padding: 0;
+  border-radius: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  outline: none;
+  cursor: pointer;
+}
+
+input[type="range"].amount-slider-range::-webkit-slider-runnable-track,
+input[type="range"].loan-calc-range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 2.5px;
+  background: transparent !important;
+}
+
+input[type="range"].amount-slider-range::-moz-range-track,
+input[type="range"].loan-calc-range::-moz-range-track {
+  height: 5px;
+  border-radius: 2.5px;
+  background: transparent !important;
+}
+
+input[type="range"].amount-slider-range::-moz-range-progress,
+input[type="range"].loan-calc-range::-moz-range-progress {
+  height: 5px;
+  background: transparent !important;
+}
+
+/*
+ * Thumb (Figma):
+ * width 40 · height 22 · top 2 · radius 11 · border 1
+ * + border #D7DEEA · shadow 0 2 6 rgba(26,51,102,0.25)
+ */
+input[type="range"].amount-slider-range::-webkit-slider-thumb,
+input[type="range"].loan-calc-range::-webkit-slider-thumb {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  box-sizing: border-box !important;
+  width: 40px !important;
+  height: 22px !important;
+  /* track 5px centered in 26px → thumb top ≈ 2px */
+  margin-top: -8.5px;
+  border-radius: 11px !important;
+  background: #ffffff !important;
+  border: 1px solid #d7deea !important;
+  box-shadow: 0px 2px 6px rgba(26, 51, 102, 0.25) !important;
+  cursor: pointer;
+}
+
+input[type="range"].amount-slider-range::-moz-range-thumb,
+input[type="range"].loan-calc-range::-moz-range-thumb {
+  box-sizing: border-box !important;
+  width: 40px !important;
+  height: 22px !important;
+  border-radius: 11px !important;
+  background: #ffffff !important;
+  border: 1px solid #d7deea !important;
+  box-shadow: 0px 2px 6px rgba(26, 51, 102, 0.25) !important;
+  cursor: pointer;
+}
+
+/* Deposit calculator range — larger touch target, teal thumb */
+.deposit-calc-range {
+  height: 44px;
+}
+
+.deposit-calc-range::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 2px;
+}
+
+.deposit-calc-range::-moz-range-track {
+  height: 4px;
+  border-radius: 2px;
+}
+
+.deposit-calc-range::-webkit-slider-thumb {
+  width: 28px;
+  height: 28px;
+  margin-top: -12px;
+  border: 2.8px solid #ffffff;
+  background: #20b2c0;
+  box-shadow: 0 0 0 1px #0561ff;
+}
+
+.deposit-calc-range::-moz-range-thumb {
+  width: 28px;
+  height: 28px;
+  border: 2.8px solid #ffffff;
+  background: #20b2c0;
+  box-shadow: 0 0 0 1px #0561ff;
+}
+
+@media (min-width: 1024px) {
+  section.credit-calc-frame {
+    height: 620px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+
+/* Credit calculators — pill thumb with 44px vertical hit area */
+input.credit-calc-range {
+  height: 44px;
+  background: transparent;
+}
+
+input.credit-calc-range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 2.5px;
+  background: #E3E8F0;
+}
+
+input.credit-calc-range::-moz-range-track {
+  height: 5px;
+  border-radius: 2.5px;
+  background: #E3E8F0;
+}
+
+input.credit-calc-range::-webkit-slider-thumb {
+  width: 44px;
+  height: 28px;
+  margin-top: -11.5px;
+  border-radius: 14px;
+  background: #ffffff;
+  border: 1px solid #D7DEEA;
+  box-shadow: 0 2px 6px rgba(26, 51, 102, 0.25);
+}
+
+input.credit-calc-range::-moz-range-thumb {
+  width: 44px;
+  height: 28px;
+  border-radius: 14px;
+  background: #ffffff;
+  border: 1px solid #D7DEEA;
+  box-shadow: 0 2px 6px rgba(26, 51, 102, 0.25);
 }
 
 ::-webkit-scrollbar       { width: 6px; height: 6px; }

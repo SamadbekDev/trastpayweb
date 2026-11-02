@@ -1,10 +1,12 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import { HeroConfig, Language } from "@/types/pageConfig";
 import { getLocalizedText } from "@/utils/i18nHelper";
 import { getMediaUrl } from "@/utils/mediaHelper";
+import i18n from "@/i18n";
 
 interface HeroProps {
   config?: HeroConfig;
@@ -12,84 +14,114 @@ interface HeroProps {
 
 export default function Hero({ config }: HeroProps) {
   const { i18n } = useTranslation();
-  const currentLang = (i18n.language?.split("-")[0].toLowerCase() as Language) || "ru";
-
-  const titleText = getLocalizedText(config?.title, currentLang);
-  const highlightText = getLocalizedText(config?.highlightText, currentLang);
-  const buttonText = getLocalizedText(config?.buttonText, currentLang);
-  const buttonHref = config?.buttonHref || "#trastpay";
-  const imageSrc = config?.image ? getMediaUrl(config.image) : "";
-
-  // Parse background gradient colors if provided (e.g. "#08192B #1B5491")
-  const colors = config?.backgroundColor?.trim().split(/\s+/).filter(Boolean) || ["#08192B", "#1B5491"];
-  const bgStyle =
-    colors.length > 1
-      ? { background: `linear-gradient(135deg, ${colors.join(", ")})` }
-      : { backgroundColor: colors[0] || "#08192B" };
-
-  const renderTitle = () => {
-    if (!titleText) {
-      return null;
-    }
-
-    if (highlightText && titleText.includes(highlightText)) {
-      const parts = titleText.split(highlightText);
-      return (
-        <>
-          {parts[0]}
-          <span className="text-[#5fa2dd]">{highlightText}</span>
-          {parts[1]}
-        </>
-      );
-    }
-
-    return (
-      <>
-        {titleText}
-        {highlightText && <span className="text-[#5fa2dd]"> {highlightText}</span>}
-      </>
-    );
-  };
+  const lang = (i18n.language?.split("-")[0].toLowerCase() as Language) || "ru";
 
   if (!config) return null;
 
-  return (
-    <section className="w-full mb-10 mt-15">
-      <div className="mx-auto w-full max-w-[1360px]">
-        <div
-          style={bgStyle}
-          className="relative mx-auto grid grid-cols-1 md:grid-cols-12 items-center min-h-[380px] lg:min-h-[440px] rounded-[28px] lg:rounded-[36px] text-white shadow-xl overflow-hidden px-8 lg:px-16 py-10 lg:py-12"
-        >
-          <div className="md:col-span-7 flex flex-col justify-center z-10 gap-10">
-            <h1 className="font-display text-[32px] sm:text-[40px] lg:text-[48px] font-bold leading-[1.2] tracking-tight text-white">
-              {renderTitle()}
-            </h1>
+  const title = getLocalizedText(config.title, lang);
+  const subtitle = getLocalizedText(config.subtitle, lang);
+  const buttonText = getLocalizedText(config.buttonText, lang);
+  const sideCards = config.sideCards || [];
 
-            {buttonText && (
-              <a
-                href={buttonHref}
-                className="inline-flex p-3 items-center self-start justify-center rounded-xl bg-white text-[15px] font-semibold text-[#0a2540] shadow-md hover:bg-slate-100 hover:shadow-lg active:scale-[0.98] transition-all duration-200"
-              >
-                {buttonText}
-              </a>
+  return (
+    <section className="w-full bg-[#FAFAFA] pb-0 pt-8">
+      <div className="mx-auto w-full max-w-[1440px] px-4 lg:px-[60px]">
+        <div className="flex flex-col lg:flex-row gap-6 items-stretch">
+          {/* Main banner 880×400 */}
+          <div
+            className="relative w-full lg:max-w-[880px] lg:flex-1 overflow-hidden rounded-[20px] min-h-[320px] lg:h-[400px] p-8 lg:pl-10 lg:pt-[50px]"
+            style={{ backgroundColor: config.backgroundColor || "#D6E6FF" }}
+          >
+            {config.image && (
+              <Image
+                src={getMediaUrl(config.image)}
+                alt=""
+                fill
+                unoptimized
+                className="object-cover object-right"
+                sizes="880px"
+                priority
+              />
             )}
+            <div className="relative z-10 flex flex-col gap-4 max-w-[519px]">
+              <div className="flex flex-col gap-4">
+                <h1 className="text-[32px] sm:text-[40px] lg:text-[44px] font-semibold leading-[1.2] text-[#4981DA]">
+                  {title}
+                </h1>
+                <p className="text-[18px] lg:text-[20px] font-normal leading-6 text-[#4981DA]">
+                  {subtitle}
+                </p>
+              </div>
+              {buttonText && (
+                <Link
+                  href={
+                    !config.buttonHref ||
+                    config.buttonHref === "#" ||
+                    config.buttonHref === "#calculator"
+                      ? "/vklady"
+                      : config.buttonHref
+                  }
+                  className="mt-[31px] inline-flex w-fit items-center justify-center rounded-xl bg-[#1E54E0] px-5 py-4 text-[15px] font-medium leading-5 text-white hover:bg-[#1E54E0]/90 transition-colors"
+                >
+                  {buttonText}
+                </Link>
+              )}
+            </div>
           </div>
 
-          {imageSrc && (
-            <div className="md:col-span-5 relative h-full flex items-center justify-end mt-8 md:mt-0">
-              <div className="relative w-[300px] h-[300px] sm:w-[380px] sm:h-[380px] lg:w-[460px] lg:h-[460px] md:absolute md:-right-8 md:-bottom-12 lg:-right-10 lg:-bottom-16 transition-transform duration-500 hover:scale-105">
-                <Image
-                  src={imageSrc}
-                  alt="Hero Image"
-                  fill
-                  priority
-                  unoptimized
-                  sizes="(max-width: 768px) 100vw, 460px"
-                  className="object-contain"
-                />
-              </div>
-            </div>
-          )}
+          {/* Side cards column 416×400, gap 24 */}
+          <div className="flex w-full lg:w-[416px] shrink-0 flex-col gap-6">
+            {sideCards.map((card) => {
+              const cardTitle = getLocalizedText(card.title, lang);
+              const cardSubtitle = getLocalizedText(card.subtitle, lang);
+              const btn = getLocalizedText(card.buttonText, lang);
+              const badge = getLocalizedText(card.badge, lang);
+
+              return (
+                <div
+                  key={card.id}
+                  className="relative flex h-auto min-h-[188px] lg:h-[188px] overflow-hidden rounded-[20px] px-5 py-6"
+                  style={{ backgroundColor: card.backgroundColor || "#F0F5F9" }}
+                >
+                  <div className="relative z-10 flex max-w-[257px] flex-col gap-2.5">
+                    <h2 className="text-[19px] font-bold leading-[23px] text-[#1A1A2E]">
+                      {cardTitle}
+                    </h2>
+                    {cardSubtitle && (
+                      <p className="flex-1 text-[13px] font-normal leading-4 text-[#6B7280]">
+                        {cardSubtitle}
+                      </p>
+                    )}
+                    {btn && (
+                      <Link
+                        href={card.buttonHref || "#"}
+                        className="mt-auto inline-flex h-8 w-fit items-center rounded-lg bg-[#1E54E0] px-6 text-[12px] font-semibold leading-[15px] text-white hover:bg-[#1848c4]"
+                      >
+                        {btn}
+                      </Link>
+                    )}
+                    {badge && (
+                      <span className="mt-auto inline-flex h-[27px] w-fit items-center rounded-full bg-[#EDE9FF] px-3 text-[12px] font-semibold leading-[15px] text-[#6B4EFF]">
+                        {badge}
+                      </span>
+                    )}
+                  </div>
+
+                  {card.image && (
+                    <div className="pointer-events-none absolute -bottom-5 right-0 h-[158px] w-[156px]">
+                      <Image
+                        src={getMediaUrl(card.image)}
+                        alt=""
+                        fill
+                        unoptimized
+                        className="object-contain object-right-bottom"
+                      />
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

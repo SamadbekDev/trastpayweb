@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 
-const backendUrl = process.env.BACKEND_API_URL || "http://192.168.18.204:4000/api";
+const backendApiUrl = (
+  process.env.BACKEND_API_URL || "http://localhost:4000/api"
+).replace(/\/$/, "");
 
 const nextConfig: NextConfig = {
   images: {
@@ -11,20 +13,22 @@ const nextConfig: NextConfig = {
         hostname: "placehold.co",
       },
       {
-        protocol: "http",
-        hostname: "localhost",
-      },
-      {
-        protocol: "http",
-        hostname: "192.168.18.204",
-      },
-      {
-        protocol: "http",
-        hostname: "*",
+        protocol: "https",
+        hostname: "images.unsplash.com",
       },
       {
         protocol: "https",
-        hostname: "*",
+        hostname: "api-cs.trastpay.uz",
+      },
+      {
+        protocol: "http",
+        hostname: "localhost",
+        port: "4000",
+      },
+      {
+        protocol: "http",
+        hostname: "localhost",
+        port: "9000",
       },
     ],
   },
@@ -32,7 +36,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/api/:path*",
-        destination: `${backendUrl}/:path*`,
+        destination: `${backendApiUrl}/:path*`,
       },
     ];
   },
