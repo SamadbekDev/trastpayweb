@@ -345,12 +345,16 @@ export default function DepositCalculator({ config }: DepositCalculatorProps) {
                   const badgeText = item.badge
                     ? getLocalizedText(item.badge, lang)
                     : "";
-                  const badgeClass =
-                    index === 1
+                  const badgeStyle = item.badgeColor
+                    ? { backgroundColor: item.badgeColor, color: "#fff" }
+                    : undefined;
+                  const badgeClass = !item.badgeColor
+                    ? index === 1
                       ? "bg-[#22C55E] text-white"
                       : index === 0
                         ? "bg-[#2F6BF0] text-white"
-                        : "bg-white text-[#1958D6]";
+                        : "bg-white text-[#1958D6]"
+                    : "";
                   return (
                     <Link
                       key={item.id}
@@ -370,6 +374,7 @@ export default function DepositCalculator({ config }: DepositCalculatorProps) {
                         {badgeText ? (
                           <span
                             className={`shrink-0 rounded-lg px-2.5 py-1 text-[12px] font-semibold leading-[15px] ${badgeClass}`}
+                            style={badgeStyle}
                           >
                             {badgeText}
                           </span>

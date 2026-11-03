@@ -202,7 +202,6 @@ export type DepositCmsDetails = Omit<
   DepositDetailPageConfig,
   | "product"
   | "breadcrumbs"
-  | "suggested"
   | "offers"
   | "footer"
   | "calculatorChannels"
