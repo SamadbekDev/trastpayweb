@@ -10,6 +10,7 @@ import DepositSteps from "@/components/deposits/DepositSteps";
 import DepositOffices from "@/components/deposits/DepositOffices";
 import DepositFaq from "@/components/deposits/DepositFaq";
 import Footer from "@/components/layout/Footer";
+import ContentReveal from "@/components/motion/ContentReveal";
 import "@/i18n";
 
 interface CardDetailViewProps {
@@ -18,7 +19,7 @@ interface CardDetailViewProps {
 
 export default function CardDetailView({ config }: CardDetailViewProps) {
   return (
-    <div className="flex min-h-screen flex-col bg-[#FFFAFA]">
+    <ContentReveal className="flex min-h-screen flex-col bg-[#FFFAFA]">
       <CardsHeader config={config.header} />
       <main className="flex-grow">
         <CardDetailHero config={config} />
@@ -30,6 +31,6 @@ export default function CardDetailView({ config }: CardDetailViewProps) {
         <DepositFaq config={config} />
       </main>
       <Footer config={config.footer} />
-    </div>
+    </ContentReveal>
   );
 }

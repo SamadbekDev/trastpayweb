@@ -9,6 +9,7 @@ import CreditAutoView from "@/components/credits/CreditAutoView";
 import CreditDetailView from "@/components/credits/CreditDetailView";
 import CreditMicroView from "@/components/credits/CreditMicroView";
 import CreditMortgageView from "@/components/credits/CreditMortgageView";
+import ContentReveal from "@/components/motion/ContentReveal";
 import { TrastbankError, TrastbankLoader } from "@/components/PageStatus";
 import { useCreditDetail, useCreditsPageConfig } from "@/hooks/useCreditsPageConfig";
 import useHomePageConfig from "@/hooks/useHomePageConfig";
@@ -63,7 +64,7 @@ export default function CreditDetailPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-white">
+    <ContentReveal className="flex min-h-screen flex-col bg-white">
       {config?.header ? <Header config={config.header} showProductNav={false} /> : null}
       <main className="flex-grow bg-white">
         {page ? (
@@ -111,6 +112,6 @@ export default function CreditDetailPage() {
         )}
       </main>
       {page && config?.footer ? <Footer config={config.footer} /> : null}
-    </div>
+    </ContentReveal>
   );
 }

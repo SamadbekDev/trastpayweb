@@ -13,6 +13,7 @@ import DepositOffices from "./DepositOffices";
 import DepositFaq from "./DepositFaq";
 import OffersCarousel from "@/components/OffersCarousel";
 import Footer from "@/components/layout/Footer";
+import ContentReveal from "@/components/motion/ContentReveal";
 import "@/i18n";
 
 interface DepositDetailViewProps {
@@ -21,7 +22,7 @@ interface DepositDetailViewProps {
 
 export default function DepositDetailView({ config }: DepositDetailViewProps) {
   return (
-    <div className="flex min-h-screen flex-col bg-white">
+    <ContentReveal className="flex min-h-screen flex-col bg-white">
       <DepositProductHeader />
       <main className="flex-grow">
         <DepositDetailHero config={config} />
@@ -38,6 +39,6 @@ export default function DepositDetailView({ config }: DepositDetailViewProps) {
         <DepositFaq config={config} />
       </main>
       <Footer config={config.footer} />
-    </div>
+    </ContentReveal>
   );
 }

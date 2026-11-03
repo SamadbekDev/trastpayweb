@@ -1,7 +1,9 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import { pageTransition } from "@/components/motion/pageTransition";
 import { DepositsPageConfig } from "@/types/deposits";
 import { Language } from "@/types/pageConfig";
 import { getLocalizedText } from "@/utils/i18nHelper";
@@ -63,34 +65,45 @@ export default function DepositsCatalog({ config }: DepositsCatalogProps) {
         </div>
       </div>
 
-      {visibleGroups.length === 0 ? (
-        <p className="py-16 text-center text-[16px] text-[#6B7280]">
-          {lang === "en"
-            ? "No deposits in this category yet."
-            : lang === "uz"
-              ? "Bu toifada omonatlar yo‘q."
-              : "В этой категории пока нет вкладов."}
-        </p>
-      ) : (
-        visibleGroups.map(({ group, products }) => (
-          <section key={group.id} className="flex flex-col gap-6">
-            <div className="flex flex-wrap items-center gap-3">
-              <h2 className="text-[24px] font-bold leading-9 text-[#1A1A2E] lg:text-[30px]">
-                {getLocalizedText(group.title, lang)}
-              </h2>
-              <span className="inline-flex h-[26px] items-center rounded-[20px] bg-[#E3E9F5] px-3 text-[13px] font-semibold leading-4 text-[#1F3FBF]">
-                {getLocalizedText(group.badge, lang)}
-              </span>
-            </div>
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={activeTab}
+          className="flex flex-col gap-10 will-change-transform"
+          initial={pageTransition.initial}
+          animate={pageTransition.animate}
+          exit={pageTransition.exit}
+          transition={pageTransition.transition}
+        >
+          {visibleGroups.length === 0 ? (
+            <p className="py-16 text-center text-[16px] text-[#6B7280]">
+              {lang === "en"
+                ? "No deposits in this category yet."
+                : lang === "uz"
+                  ? "Bu toifada omonatlar yo‘q."
+                  : "В этой категории пока нет вкладов."}
+            </p>
+          ) : (
+            visibleGroups.map(({ group, products }) => (
+              <section key={group.id} className="flex flex-col gap-6">
+                <div className="flex flex-wrap items-center gap-3">
+                  <h2 className="text-[24px] font-bold leading-9 text-[#1A1A2E] lg:text-[30px]">
+                    {getLocalizedText(group.title, lang)}
+                  </h2>
+                  <span className="inline-flex h-[26px] items-center rounded-[20px] bg-[#E3E9F5] px-3 text-[13px] font-semibold leading-4 text-[#1F3FBF]">
+                    {getLocalizedText(group.badge, lang)}
+                  </span>
+                </div>
 
-            <div className="flex flex-col gap-6">
-              {products.map((product) => (
-                <DepositCard key={product.id} product={product} />
-              ))}
-            </div>
-          </section>
-        ))
-      )}
+                <div className="flex flex-col gap-6">
+                  {products.map((product) => (
+                    <DepositCard key={product.id} product={product} />
+                  ))}
+                </div>
+              </section>
+            ))
+          )}
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }
