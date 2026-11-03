@@ -5,12 +5,12 @@ import { AnimatePresence, motion } from "framer-motion";
 import { pageTransition } from "@/components/motion/pageTransition";
 import {
   TariffAudience,
-  TariffsAudienceContent,
+  TariffsAudienceView,
 } from "@/types/tariffs";
 
 interface TariffsHeroProps {
   audience: TariffAudience;
-  content: TariffsAudienceContent;
+  content: TariffsAudienceView;
   onAudienceChange: (audience: TariffAudience) => void;
 }
 

@@ -6,6 +6,7 @@ import {
 } from "@/types/deposits";
 import { CardDetailPageConfig, CardsPageConfig } from "@/types/cards";
 import { CreditDetailConfig, CreditsPageConfig } from "@/types/credits";
+import { TariffsPageConfig } from "@/types/tariffs";
 import { apiFetch } from "@/api/client";
 
 type PublishedResponse<T> = {
@@ -108,6 +109,12 @@ export async function getOfficesPage(): Promise<OfficesPageConfig> {
   return parseContentResponse<OfficesPageConfig>(res, "филиалы");
 }
 
+/** Tariffs page (/tarify). */
+export async function getTariffsPage(): Promise<TariffsPageConfig> {
+  const res = await apiFetch("/content/published/tariffs");
+  return parseContentResponse<TariffsPageConfig>(res, "тарифы");
+}
+
 export const pageService = {
   getHomePageConfig,
   getDepositsPage,
@@ -117,6 +124,7 @@ export const pageService = {
   getCardsPage,
   getCardById,
   getOfficesPage,
+  getTariffsPage,
 };
 
 export default pageService;

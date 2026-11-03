@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { TariffsAudienceContent } from "@/types/tariffs";
+import { TariffsAudienceView } from "@/types/tariffs";
 
 interface TariffsGridProps {
-  content: TariffsAudienceContent;
+  content: TariffsAudienceView;
   detailLinkLabel: string;
 }
 
