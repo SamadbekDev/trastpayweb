@@ -5,13 +5,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { Calendar, ChevronUp } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { CalculatorConfig, Language } from "@/types/pageConfig";
-import { DepositProduct } from "@/types/deposits";
+import {
+  CalculatorConfig,
+  CalculatorSuggestedCard,
+  Language,
+} from "@/types/pageConfig";
+import { CreditProduct } from "@/types/credits";
 import { getLocalizedText } from "@/utils/i18nHelper";
 import { getMediaUrl } from "@/utils/mediaHelper";
 import FintechRangeSlider from "@/components/ui/FintechRangeSlider";
 import { formatAmount } from "@/components/ui/AmountSlider";
-import { getDepositsPage } from "@/api/pageService";
+import { getCreditsPage, getDepositsPage } from "@/api/pageService";
 import { useDragScroll } from "@/hooks/useDragScroll";
 
 interface LoanCalculatorProps {
@@ -19,11 +23,24 @@ interface LoanCalculatorProps {
   embedded?: boolean;
 }
 
+type CatalogMode = "deposit" | "credit" | "auto" | "mortgage" | null;
+
 const SUGGESTED_GRADIENTS = [
   "linear-gradient(119.05deg, #7A3FF2 0%, #9D5CF5 71.43%)",
   "linear-gradient(119.05deg, #3A0B3F 0%, #A01A7D 71.43%)",
   "linear-gradient(119.05deg, #1958D6 0%, #3E86F5 71.43%)",
 ];
+
+const BADGE_RECOMMENDED = {
+  ru: "Рекомендуем",
+  uz: "Tavsiya etamiz",
+  en: "Recommended",
+};
+const BADGE_NEW = {
+  ru: "Новый продукт",
+  uz: "Yangi mahsulot",
+  en: "New product",
+};
 
 function formatTerm(months: number, lang: Language) {
   if (months >= 12 && months % 12 === 0) {
@@ -48,8 +65,56 @@ function monthsLabel(months: number, lang: Language) {
   return `${months} месяцев`;
 }
 
-function isDepositTab(tabId: string) {
-  return tabId === "loan" || tabId === "deposits" || tabId === "deposit";
+function resolveCatalogMode(tabId: string, embedded: boolean): CatalogMode {
+  if (embedded) return null;
+  if (tabId === "loan" || tabId === "deposits" || tabId === "deposit") {
+    return "deposit";
+  }
+  if (tabId === "auto") return "auto";
+  if (tabId === "mortgage" || tabId === "ipoteka") return "mortgage";
+  if (
+    tabId === "credit" ||
+    tabId === "credits" ||
+    tabId === "loan-credit" ||
+    tabId === "consumer"
+  ) {
+    return "credit";
+  }
+  return null;
+}
+
+function matchesCreditTab(product: CreditProduct, mode: CatalogMode) {
+  if (mode === "auto") {
+    return product.template === "auto" || product.groupId === "auto";
+  }
+  if (mode === "mortgage") {
+    return product.template === "mortgage" || product.groupId === "mortgage";
+  }
+  if (mode === "credit") {
+    return (
+      product.template !== "auto" &&
+      product.template !== "mortgage" &&
+      product.groupId !== "auto" &&
+      product.groupId !== "mortgage"
+    );
+  }
+  return false;
+}
+
+function mapCreditSuggested(
+  products: CreditProduct[]
+): CalculatorSuggestedCard[] {
+  return products.map((p, index) => ({
+    id: p.id,
+    title: p.title,
+    rate: p.rate,
+    amount: p.amount,
+    term: p.term,
+    badge: index === 0 ? BADGE_RECOMMENDED : index === 1 ? BADGE_NEW : undefined,
+    badgeColor: index === 0 ? "#2F6BF0" : index === 1 ? "#22C55E" : "",
+    href: `/kredity/${p.id}`,
+    image: p.image,
+  }));
 }
 
 function Toggle({
@@ -83,14 +148,15 @@ export default function LoanCalculator({
 
   const tabs = config?.tabs || [];
   const [activeTab, setActiveTab] = useState(tabs[0]?.id || "");
-  const depositMode = !embedded && isDepositTab(activeTab);
+  const catalogMode = resolveCatalogMode(activeTab, embedded);
+  const depositMode = catalogMode === "deposit";
+  const creditMode =
+    catalogMode === "credit" ||
+    catalogMode === "auto" ||
+    catalogMode === "mortgage";
 
-  const [amount, setAmount] = useState(
-    depositMode ? 100_000_000 : config?.amountDefault || 5_000_000
-  );
-  const [months, setMonths] = useState(
-    depositMode ? 3 : config?.termDefaultMonths || 60
-  );
+  const [amount, setAmount] = useState(config?.amountDefault || 5_000_000);
+  const [months, setMonths] = useState(config?.termDefaultMonths || 60);
   const [toggles, setToggles] = useState<Record<string, boolean>>(() => {
     const init: Record<string, boolean> = {};
     config?.toggles?.forEach((t) => {
@@ -106,34 +172,80 @@ export default function LoanCalculator({
   const [topUp, setTopUp] = useState(true);
   const [partial, setPartial] = useState(false);
   const [paramsOpen, setParamsOpen] = useState(true);
-  const [suggested, setSuggested] = useState<DepositProduct[]>([]);
+  const [suggested, setSuggested] = useState<CalculatorSuggestedCard[]>([]);
   const dragScroll = useDragScroll<HTMLDivElement>();
 
   useEffect(() => {
-    if (!depositMode) return;
+    if (!catalogMode) {
+      setSuggested([]);
+      return;
+    }
     let cancelled = false;
-    void getDepositsPage()
-      .then((page) => {
-        if (!cancelled) setSuggested(page.products || []);
-      })
-      .catch(() => {
-        if (!cancelled) setSuggested([]);
-      });
+
+    if (catalogMode === "deposit") {
+      void getDepositsPage()
+        .then((page) => {
+          if (cancelled) return;
+          setSuggested(
+            (page.products || []).map((p, index) => ({
+              id: p.id,
+              title: p.title,
+              rate: p.rate,
+              amount: p.amount,
+              term: p.term,
+              badge:
+                index === 0
+                  ? BADGE_RECOMMENDED
+                  : index === 1
+                    ? BADGE_NEW
+                    : undefined,
+              badgeColor:
+                index === 0 ? "#2F6BF0" : index === 1 ? "#22C55E" : "",
+              href:
+                p.primaryHref && p.primaryHref !== "#"
+                  ? p.primaryHref
+                  : `/vklady/${p.id}`,
+              image: p.image,
+            }))
+          );
+        })
+        .catch(() => {
+          if (!cancelled) setSuggested([]);
+        });
+    } else {
+      void getCreditsPage()
+        .then((page) => {
+          if (cancelled) return;
+          const all = page.products || [];
+          const filtered = all.filter((p) => matchesCreditTab(p, catalogMode));
+          setSuggested(mapCreditSuggested(filtered.length ? filtered : all));
+        })
+        .catch(() => {
+          if (!cancelled) setSuggested([]);
+        });
+    }
+
     return () => {
       cancelled = true;
     };
-  }, [depositMode]);
+  }, [catalogMode]);
 
   useEffect(() => {
     if (!config) return;
     if (depositMode) {
       setAmount(100_000_000);
       setMonths(3);
+    } else if (catalogMode === "auto") {
+      setAmount(150_000_000);
+      setMonths(36);
+    } else if (catalogMode === "mortgage") {
+      setAmount(300_000_000);
+      setMonths(120);
     } else {
       setAmount(config.amountDefault || 5_000_000);
       setMonths(config.termDefaultMonths || 60);
     }
-  }, [activeTab, depositMode, config]);
+  }, [activeTab, catalogMode, depositMode, config]);
 
   const rate = useMemo(() => {
     let value = config?.baseRate ?? 0.22;
@@ -143,6 +255,8 @@ export default function LoanCalculator({
       if (partial) value -= 0.003;
       return value;
     }
+    if (catalogMode === "auto") value = 0.24;
+    if (catalogMode === "mortgage") value = 0.18;
     if (config?.togglesAsSelect) {
       const selected = config.toggles?.find((t) => t.id === selectId);
       if (selected?.rate != null) value = selected.rate;
@@ -151,10 +265,9 @@ export default function LoanCalculator({
       if (toggles.salary) value -= 0.02;
       if (toggles.pensioner) value -= 0.01;
     }
-    if (activeTab === "salary") value = Math.max(0.01, value - 0.04);
     return value;
   }, [
-    activeTab,
+    catalogMode,
     config?.baseRate,
     config?.togglesAsSelect,
     config?.toggles,
@@ -189,6 +302,7 @@ export default function LoanCalculator({
         ? "Amount at maturity"
         : "Сумма в конце срока"
     : getLocalizedText(config.resultLabel, lang);
+
   const amountLabel = depositMode
     ? lang === "uz"
       ? "Qancha summa kiritmoqchisiz?"
@@ -196,6 +310,7 @@ export default function LoanCalculator({
         ? "How much do you want to invest?"
         : "Какую сумму хотите вложить?"
     : getLocalizedText(config.amountLabel, lang);
+
   const termLabel = depositMode
     ? lang === "uz"
       ? "Qancha muddatga ochmoqchisiz?"
@@ -203,6 +318,7 @@ export default function LoanCalculator({
         ? "For what term do you want to open a deposit?"
         : "На какой срок хотите открыть вклад?"
     : getLocalizedText(config.termLabel, lang);
+
   const primaryCta = depositMode
     ? lang === "uz"
       ? "Omonat ochish"
@@ -213,22 +329,72 @@ export default function LoanCalculator({
   const secondaryCta = getLocalizedText(config.secondaryCta, lang);
   const disclaimer = getLocalizedText(config.disclaimer, lang);
 
-  const amountMin = depositMode ? 1_000_000 : config.amountMin || 1_000_000;
+  const amountMin = depositMode
+    ? 1_000_000
+    : catalogMode === "mortgage"
+      ? 50_000_000
+      : catalogMode === "auto"
+        ? 10_000_000
+        : config.amountMin || 1_000_000;
   const amountMax = depositMode
     ? 5_000_000_000
-    : config.amountMax || 50_000_000;
-  const termMin = depositMode ? 3 : config.termMinMonths || 6;
-  const termMax = depositMode ? 24 : config.termMaxMonths || 60;
+    : catalogMode === "mortgage"
+      ? 5_000_000_000
+      : catalogMode === "auto"
+        ? 1_000_000_000
+        : config.amountMax || 50_000_000;
+  const termMin = depositMode
+    ? 3
+    : catalogMode === "mortgage"
+      ? 12
+      : catalogMode === "auto"
+        ? 12
+        : config.termMinMonths || 6;
+  const termMax = depositMode
+    ? 24
+    : catalogMode === "mortgage"
+      ? 240
+      : catalogMode === "auto"
+        ? 60
+        : config.termMaxMonths || 60;
   const rateLabel = (rate * 100).toFixed(1).replace(".", ",");
+
+  const catalogHref =
+    catalogMode === "deposit" ? "/vklady" : creditMode ? "/kredity" : "#";
+
+  const amountStatLabel = depositMode
+    ? lang === "uz"
+      ? "Omonat summasi"
+      : lang === "en"
+        ? "Deposit amount"
+        : "Сумма вклада"
+    : lang === "uz"
+      ? "Kredit summasi"
+      : lang === "en"
+        ? "Loan amount"
+        : "Сумма кредита";
+
+  const ratePillText = depositMode
+    ? lang === "uz"
+      ? `${rateLabel}% yillik — maksimal muddat va kapitallashtirishda`
+      : lang === "en"
+        ? `${rateLabel}% per year — at max term and capitalization`
+        : `${rateLabel}% годовых — при максимальном сроке и капитализации`
+    : lang === "uz"
+      ? `${rateLabel}% yillik — tanlangan shartlar bo‘yicha`
+      : lang === "en"
+        ? `${rateLabel}% per year — for selected terms`
+        : `${rateLabel}% годовых — по выбранным условиям`;
 
   return (
     <section
       id="calculator"
       className="relative w-full overflow-hidden py-12 lg:py-16"
       style={{
-        background: depositMode
-          ? "linear-gradient(138.81deg, #5A93EC 10%, #C6DAF6 76.67%)"
-          : "linear-gradient(135deg, #4B7FE8 0%, #7BA3F0 42%, #C8B896 78%, #E8D4A8 100%)",
+        background:
+          catalogMode
+            ? "linear-gradient(138.81deg, #5A93EC 10%, #C6DAF6 76.67%)"
+            : "linear-gradient(135deg, #4B7FE8 0%, #7BA3F0 42%, #C8B896 78%, #E8D4A8 100%)",
       }}
     >
       {config.backgroundImage && (
@@ -291,15 +457,11 @@ export default function LoanCalculator({
                 сум
               </span>
             </div>
-            {depositMode ? (
+            {catalogMode ? (
               <div className="mt-1 flex max-w-full items-center gap-2 rounded-full bg-white/25 px-[18px] py-[9px]">
                 <span className="h-[9px] w-[9px] shrink-0 rounded-full bg-[#EAFFF4]" />
                 <span className="truncate text-[13px] font-semibold leading-[18px] text-white sm:text-[15px]">
-                  {lang === "uz"
-                    ? `${rateLabel}% yillik — maksimal muddat va kapitallashtirishda`
-                    : lang === "en"
-                      ? `${rateLabel}% per year — at max term and capitalization`
-                      : `${rateLabel}% годовых — при максимальном сроке и капитализации`}
+                  {ratePillText}
                 </span>
               </div>
             ) : null}
@@ -483,8 +645,8 @@ export default function LoanCalculator({
             </div>
           ) : null}
 
-          {/* Suggested deposits — dynamic + horizontal scroll */}
-          {depositMode && suggested.length > 0 ? (
+          {/* Suggested products from catalog */}
+          {catalogMode && suggested.length > 0 ? (
             <div className="flex w-full flex-col gap-3.5 py-3">
               <div className="flex flex-wrap items-center gap-2.5">
                 <h3 className="text-[20px] font-semibold leading-6 text-white">
@@ -508,32 +670,21 @@ export default function LoanCalculator({
                 style={{ WebkitOverflowScrolling: "touch" }}
               >
                 {suggested.map((item, index) => {
-                  const badge =
-                    index === 0
-                      ? lang === "uz"
-                        ? "Tavsiya etamiz"
-                        : lang === "en"
-                          ? "Recommended"
-                          : "Рекомендуем"
-                      : index === 1
-                        ? lang === "uz"
-                          ? "Yangi mahsulot"
-                          : lang === "en"
-                            ? "New product"
-                            : "Новый продукт"
-                        : "";
-                  const badgeClass =
-                    index === 1
+                  const badge = item.badge
+                    ? getLocalizedText(item.badge, lang)
+                    : "";
+                  const badgeStyle = item.badgeColor
+                    ? { backgroundColor: item.badgeColor, color: "#fff" }
+                    : undefined;
+                  const badgeClass = !item.badgeColor
+                    ? index === 1
                       ? "bg-[#22C55E] text-white"
-                      : "bg-[#2F6BF0] text-white";
-                  const href =
-                    item.primaryHref && item.primaryHref !== "#"
-                      ? item.primaryHref
-                      : `/vklady/${item.id}`;
+                      : "bg-[#2F6BF0] text-white"
+                    : "";
                   return (
                     <Link
                       key={item.id}
-                      href={href}
+                      href={item.href || catalogHref}
                       className="flex w-[min(344px,82vw)] shrink-0 snap-start flex-col gap-3.5 rounded-[18px] px-5 py-[18px] text-white"
                       style={{
                         background:
@@ -549,6 +700,7 @@ export default function LoanCalculator({
                         {badge ? (
                           <span
                             className={`shrink-0 rounded-lg px-2.5 py-1 text-[12px] font-semibold leading-[15px] ${badgeClass}`}
+                            style={badgeStyle}
                           >
                             {badge}
                           </span>
@@ -572,11 +724,7 @@ export default function LoanCalculator({
                             {getLocalizedText(item.amount, lang)}
                           </p>
                           <p className="mt-0.5 text-[11px] leading-[13px] text-white/72">
-                            {lang === "uz"
-                              ? "Omonat summasi"
-                              : lang === "en"
-                                ? "Deposit amount"
-                                : "Сумма вклада"}
+                            {amountStatLabel}
                           </p>
                         </div>
                         <div className="min-w-0 flex-1">
@@ -602,13 +750,13 @@ export default function LoanCalculator({
           {/* CTAs */}
           <div className="flex w-full flex-col items-stretch gap-4 sm:flex-row sm:items-center">
             <Link
-              href={depositMode ? "/vklady" : "#"}
+              href={catalogHref}
               className="flex h-[65px] flex-1 items-center justify-center rounded-2xl bg-[#2F6BF0] text-[17px] font-semibold leading-[21px] text-white"
             >
               {primaryCta}
             </Link>
             <Link
-              href={depositMode ? "/vklady" : "#"}
+              href={catalogHref}
               className="flex h-[65px] flex-1 items-center justify-center rounded-2xl bg-white/55 text-[17px] font-semibold leading-[21px] text-[#2F6BF0]"
             >
               {secondaryCta}

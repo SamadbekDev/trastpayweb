@@ -133,6 +133,18 @@ export interface CalculatorToggle {
   rate?: number;
 }
 
+export interface CalculatorSuggestedCard {
+  id: string;
+  title: I18nText;
+  rate: I18nText;
+  amount: I18nText;
+  term: I18nText;
+  badge?: I18nText;
+  badgeColor?: string;
+  href: string;
+  image?: string;
+}
+
 export interface CalculatorConfig {
   tabs: CalculatorTab[];
   resultLabel: I18nText;
@@ -155,6 +167,8 @@ export interface CalculatorConfig {
   disclaimer: I18nText;
   backgroundImage?: string;
   baseRate?: number;
+  /** «Вам также подойдёт» cards for deposits tab (from CMS). */
+  suggested?: CalculatorSuggestedCard[];
 }
 
 export interface TrastpayConfig {
