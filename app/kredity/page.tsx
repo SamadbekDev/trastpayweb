@@ -2,6 +2,7 @@
 
 import Header from "@/components/layout/Header";
 import CreditsCatalog from "@/components/credits/CreditsCatalog";
+import ContentReveal from "@/components/motion/ContentReveal";
 import { TrastbankError, TrastbankLoader } from "@/components/PageStatus";
 import useCreditsPageConfig from "@/hooks/useCreditsPageConfig";
 import useHomePageConfig from "@/hooks/useHomePageConfig";
@@ -24,11 +25,11 @@ export default function CreditsPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#FAFAFA]">
+    <ContentReveal className="flex min-h-screen flex-col bg-[#FAFAFA]">
       {home?.header ? <Header config={home.header} showProductNav={false} /> : null}
       <main className="flex-grow bg-[#FAFAFA]">
         <CreditsCatalog config={config} />
       </main>
-    </div>
+    </ContentReveal>
   );
 }

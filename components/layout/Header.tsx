@@ -1,23 +1,37 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu, X, Search, Glasses } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { HeaderConfig, Language } from "@/types/pageConfig";
+import { HeaderChip, HeaderConfig, Language } from "@/types/pageConfig";
 
 interface HeaderProps {
   config?: HeaderConfig;
   showProductNav?: boolean;
+  activeChipId?: string;
+  /** Return true if the chip was handled (skip default navigation). */
+  onChipSelect?: (chip: HeaderChip) => boolean | void;
 }
 
-export default function Header({ config, showProductNav = true }: HeaderProps) {
+export default function Header({
+  config,
+  showProductNav = true,
+  activeChipId,
+  onChipSelect,
+}: HeaderProps) {
   const { i18n } = useTranslation();
   const [activeNav, setActiveNav] = useState(config?.navItems?.[0]?.id || "");
-  const [activeChip, setActiveChip] = useState(config?.chips?.[0]?.id || "");
+  const [activeChip, setActiveChip] = useState(
+    activeChipId || config?.chips?.[0]?.id || ""
+  );
   const [mobileOpen, setMobileOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
+
+  useEffect(() => {
+    if (activeChipId) setActiveChip(activeChipId);
+  }, [activeChipId]);
 
   const currentLang =
     (i18n.language?.split("-")[0].toLowerCase() as Language) || "ru";
@@ -169,16 +183,21 @@ export default function Header({ config, showProductNav = true }: HeaderProps) {
             >
               {chips.map((chip) => {
                 const isActive = activeChip === chip.id;
+                const chipClass = `inline-flex h-11 shrink-0 items-center rounded-xl px-4 text-[14px] font-semibold leading-[18px] tracking-[-0.2px] transition-all ${
+                  isActive
+                    ? "bg-white text-[#262626] shadow-[0_12px_64px_rgba(8,92,24,0.05),0_8px_32px_rgba(8,92,24,0.05)]"
+                    : "bg-transparent text-[rgba(38,38,38,0.8)] hover:text-[#262626]"
+                }`;
+
                 return (
                   <button
                     key={chip.id}
                     type="button"
-                    onClick={() => setActiveChip(chip.id)}
-                    className={`h-11 shrink-0 rounded-xl px-4 text-[14px] font-semibold leading-[18px] tracking-[-0.2px] transition-all cursor-pointer ${
-                      isActive
-                        ? "bg-white text-[#262626] shadow-[0_12px_64px_rgba(8,92,24,0.05),0_8px_32px_rgba(8,92,24,0.05)]"
-                        : "bg-transparent text-[rgba(38,38,38,0.8)] hover:text-[#262626]"
-                    }`}
+                    onClick={() => {
+                      setActiveChip(chip.id);
+                      onChipSelect?.(chip);
+                    }}
+                    className={`${chipClass} cursor-pointer`}
                   >
                     {chip.label}
                   </button>

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CreditAutoView from "@/components/credits/CreditAutoView";
+import ContentReveal from "@/components/motion/ContentReveal";
 import { TrastbankError, TrastbankLoader } from "@/components/PageStatus";
 import { getCreditById, getCreditsPage } from "@/api/pageService";
 import useHomePageConfig from "@/hooks/useHomePageConfig";
@@ -105,7 +106,7 @@ export default function BrandCreditPage({ brand }: { brand: AutoBrandSlug }) {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-white">
+    <ContentReveal className="flex min-h-screen flex-col bg-white">
       {config?.header ? <Header config={config.header} showProductNav={false} /> : null}
       <main className="flex-grow bg-white">
         <CreditAutoView
@@ -117,6 +118,6 @@ export default function BrandCreditPage({ brand }: { brand: AutoBrandSlug }) {
         />
       </main>
       {config?.footer ? <Footer config={config.footer} /> : null}
-    </div>
+    </ContentReveal>
   );
 }
