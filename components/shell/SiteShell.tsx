@@ -14,6 +14,7 @@ import {
 } from "@/components/shell/sectionChips";
 import { pageTransition } from "@/components/motion/pageTransition";
 import useHomePageConfig from "@/hooks/useHomePageConfig";
+import { prefetchTariffsPage } from "@/hooks/useTariffsPageConfig";
 import { TrastbankError, TrastbankLoader } from "@/components/PageStatus";
 import { HeaderChip } from "@/types/pageConfig";
 import "@/i18n";
@@ -44,6 +45,11 @@ export default function SiteShell({
     return () => window.removeEventListener("popstate", onPopState);
   }, []);
 
+  // Warm tariffs cache while home is visible — no mock, pure API data.
+  useEffect(() => {
+    void prefetchTariffsPage().catch(() => undefined);
+  }, []);
+
   const handleChipSelect = useCallback((chip: HeaderChip) => {
     const next = resolveChipSection(chip);
     if (!next) return false;
@@ -53,7 +59,8 @@ export default function SiteShell({
     if (window.location.pathname !== path) {
       window.history.replaceState(null, "", path);
     }
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    // Instant scroll — smooth scroll fights section fade and feels like a jerk.
+    window.scrollTo(0, 0);
     return true;
   }, []);
 
@@ -81,7 +88,7 @@ export default function SiteShell({
         <AnimatePresence mode="wait" initial={false}>
           <motion.main
             key={section}
-            className="flex-grow will-change-transform"
+            className="flex-grow"
             initial={pageTransition.initial}
             animate={pageTransition.animate}
             exit={pageTransition.exit}

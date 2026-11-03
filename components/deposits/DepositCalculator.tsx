@@ -10,6 +10,7 @@ import { DepositDetailPageConfig } from "@/types/deposits";
 import { Language } from "@/types/pageConfig";
 import { getLocalizedText } from "@/utils/i18nHelper";
 import { getMediaUrl } from "@/utils/mediaHelper";
+import { useDragScroll } from "@/hooks/useDragScroll";
 
 interface DepositCalculatorProps {
   config: DepositDetailPageConfig;
@@ -74,6 +75,7 @@ export default function DepositCalculator({ config }: DepositCalculatorProps) {
   const [topUp, setTopUp] = useState(true);
   const [partial, setPartial] = useState(false);
   const [paramsOpen, setParamsOpen] = useState(true);
+  const dragScroll = useDragScroll<HTMLDivElement>();
 
   const selected = useMemo(() => {
     const sorted = [...config.calculatorTerms].sort(
@@ -315,7 +317,7 @@ export default function DepositCalculator({ config }: DepositCalculatorProps) {
             ) : null}
           </div>
 
-          {/* Suggested */}
+          {/* Suggested — Figma: 344×106 cards, gap 16, horizontal scroll */}
           {config.suggested.length > 0 ? (
             <div className="flex w-full flex-col gap-3.5 py-3">
               <div className="flex flex-wrap items-center gap-2.5">
@@ -334,73 +336,86 @@ export default function DepositCalculator({ config }: DepositCalculatorProps) {
                       : "по вашей сумме и сроку"}
                 </span>
               </div>
-              <div className="flex gap-4 overflow-x-auto pb-1">
-                {config.suggested.slice(0, 3).map((item, index) => (
-                  <Link
-                    key={item.id}
-                    href={item.href}
-                    className="flex min-w-[280px] flex-1 flex-col gap-3.5 rounded-[18px] px-5 py-[18px] text-white sm:min-w-[300px]"
-                    style={{
-                      background:
-                        SUGGESTED_GRADIENTS[index % SUGGESTED_GRADIENTS.length],
-                    }}
-                  >
-                    <div className="flex items-center justify-between gap-2">
-                      <p className="truncate text-[17px] font-semibold leading-[21px]">
-                        {getLocalizedText(item.title, lang)}
-                      </p>
-                      {item.badge || index === 2 ? (
-                        <span
-                          className={`shrink-0 rounded-lg px-2.5 py-1 text-[12px] font-semibold leading-[15px] ${
-                            index === 2
-                              ? "bg-white text-[#1958D6]"
-                              : index === 1
-                                ? "bg-[#22C55E] text-white"
-                                : "bg-[#2F6BF0] text-white"
-                          }`}
-                        >
-                          {index === 2
-                            ? getLocalizedText(item.rate, lang)
-                            : getLocalizedText(item.badge!, lang)}
-                        </span>
-                      ) : null}
-                    </div>
-                    <div className="flex gap-3.5">
-                      <div className="min-w-0 flex-1">
-                        <p className="text-[15px] font-bold leading-[18px]">
-                          {getLocalizedText(item.rate, lang)}
+              <div
+                ref={dragScroll.ref}
+                className={`${dragScroll.className} -mx-1 flex gap-4 overflow-x-auto px-1 pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden`}
+                style={{ WebkitOverflowScrolling: "touch" }}
+              >
+                {config.suggested.map((item, index) => {
+                  const badgeText = item.badge
+                    ? getLocalizedText(item.badge, lang)
+                    : "";
+                  const badgeClass =
+                    index === 1
+                      ? "bg-[#22C55E] text-white"
+                      : index === 0
+                        ? "bg-[#2F6BF0] text-white"
+                        : "bg-white text-[#1958D6]";
+                  return (
+                    <Link
+                      key={item.id}
+                      href={item.href}
+                      className="flex w-[min(344px,82vw)] shrink-0 snap-start flex-col gap-3.5 rounded-[18px] px-5 py-[18px] text-white"
+                      style={{
+                        background:
+                          SUGGESTED_GRADIENTS[
+                            index % SUGGESTED_GRADIENTS.length
+                          ],
+                      }}
+                    >
+                      <div className="flex items-center justify-between gap-2">
+                        <p className="truncate text-[17px] font-semibold leading-[21px]">
+                          {getLocalizedText(item.title, lang)}
                         </p>
-                        <p className="mt-0.5 text-[11px] leading-[13px] text-white/72">
-                          {lang === "uz"
-                            ? "Stavka, yillik"
-                            : lang === "en"
-                              ? "Rate, annual"
-                              : "Ставка, годовых"}
-                        </p>
+                        {badgeText ? (
+                          <span
+                            className={`shrink-0 rounded-lg px-2.5 py-1 text-[12px] font-semibold leading-[15px] ${badgeClass}`}
+                          >
+                            {badgeText}
+                          </span>
+                        ) : null}
                       </div>
-                      <div className="min-w-0 flex-1">
-                        <p className="truncate text-[15px] font-bold leading-[18px]">
-                          {getLocalizedText(item.amount, lang)}
-                        </p>
-                        <p className="mt-0.5 text-[11px] leading-[13px] text-white/72">
-                          {lang === "uz"
-                            ? "Omonat summasi"
-                            : lang === "en"
-                              ? "Deposit amount"
-                              : "Сумма вклада"}
-                        </p>
+                      <div className="flex gap-3.5">
+                        <div className="min-w-0 flex-1">
+                          <p className="text-[15px] font-bold leading-[18px]">
+                            {getLocalizedText(item.rate, lang)}
+                          </p>
+                          <p className="mt-0.5 text-[11px] leading-[13px] text-white/72">
+                            {lang === "uz"
+                              ? "Stavka, yillik"
+                              : lang === "en"
+                                ? "Rate, annual"
+                                : "Ставка, годовых"}
+                          </p>
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <p className="truncate text-[15px] font-bold leading-[18px]">
+                            {getLocalizedText(item.amount, lang)}
+                          </p>
+                          <p className="mt-0.5 text-[11px] leading-[13px] text-white/72">
+                            {lang === "uz"
+                              ? "Omonat summasi"
+                              : lang === "en"
+                                ? "Deposit amount"
+                                : "Сумма вклада"}
+                          </p>
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <p className="text-[15px] font-bold leading-[18px]">
+                            {getLocalizedText(item.term, lang)}
+                          </p>
+                          <p className="mt-0.5 text-[11px] leading-[13px] text-white/72">
+                            {lang === "uz"
+                              ? "Muddat"
+                              : lang === "en"
+                                ? "Term"
+                                : "Срок"}
+                          </p>
+                        </div>
                       </div>
-                      <div className="min-w-0 flex-1">
-                        <p className="text-[15px] font-bold leading-[18px]">
-                          {getLocalizedText(item.term, lang)}
-                        </p>
-                        <p className="mt-0.5 text-[11px] leading-[13px] text-white/72">
-                          {lang === "uz" ? "Muddat" : lang === "en" ? "Term" : "Срок"}
-                        </p>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           ) : null}

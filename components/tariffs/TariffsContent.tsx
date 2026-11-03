@@ -61,13 +61,20 @@ export default function TariffsContent({
   }, [config, lang]);
 
   if (loading && !config) {
-    return <TrastbankLoader />;
+    return (
+      <div className="flex min-h-[50vh] items-center justify-center bg-[#FAFAFA]">
+        <TrastbankLoader />
+      </div>
+    );
   }
 
   if (!config || !content) {
     return (
-      <div className="flex min-h-[40vh] w-full items-center justify-center p-4">
+      <div className="flex min-h-[50vh] w-full items-center justify-center bg-[#FAFAFA] p-4">
         <TrastbankError onRetry={refetch} />
+        {error ? (
+          <span className="sr-only">{error.message}</span>
+        ) : null}
       </div>
     );
   }
@@ -80,22 +87,20 @@ export default function TariffsContent({
         content={content}
         onAudienceChange={setAudience}
       />
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.div
-          key={`${audience}-${lang}`}
-          initial={pageTransition.initial}
-          animate={pageTransition.animate}
-          exit={pageTransition.exit}
-          transition={pageTransition.transition}
-        >
-          <TariffsGrid content={content} detailLinkLabel={detailLinkLabel} />
-        </motion.div>
-      </AnimatePresence>
-      {error ? (
-        <p className="px-4 pb-4 text-center text-xs text-slate-400">
-          Показан резервный контент (API тарифов недоступен)
-        </p>
-      ) : null}
+      <div className="relative">
+        <AnimatePresence mode="sync" initial={false}>
+          <motion.div
+            key={`${audience}-${lang}`}
+            className="w-full"
+            initial={pageTransition.initial}
+            animate={pageTransition.animate}
+            exit={pageTransition.exit}
+            transition={pageTransition.transition}
+          >
+            <TariffsGrid content={content} detailLinkLabel={detailLinkLabel} />
+          </motion.div>
+        </AnimatePresence>
+      </div>
     </div>
   );
 }

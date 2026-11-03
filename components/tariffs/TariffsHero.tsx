@@ -58,12 +58,12 @@ export default function TariffsHero({
           </div>
         </div>
 
-        {/* Content row — 1200×340, space-between */}
-        <div className="relative w-full max-w-[1200px] self-stretch lg:h-[340px]">
+        {/* Content row — fixed height so fade doesn't collapse layout */}
+        <div className="relative w-full max-w-[1200px] self-stretch min-h-[280px] lg:h-[340px]">
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={audience}
-              className="flex w-full flex-col items-start justify-between gap-8 lg:h-[340px] lg:flex-row lg:items-center lg:gap-[328px]"
+              className="flex w-full flex-col items-start justify-between gap-8 lg:absolute lg:inset-0 lg:h-[340px] lg:flex-row lg:items-center lg:gap-[328px]"
               initial={pageTransition.initial}
               animate={pageTransition.animate}
               exit={pageTransition.exit}
