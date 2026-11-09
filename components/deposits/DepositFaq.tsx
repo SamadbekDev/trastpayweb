@@ -20,7 +20,9 @@ export default function DepositFaq({ config }: DepositFaqProps) {
   const lang = (i18n.language?.split("-")[0].toLowerCase() as Language) || "ru";
   const [openId, setOpenId] = useState<string | null>(null);
   const [showAll, setShowAll] = useState(false);
-  const visible = showAll ? config.faq : config.faq.slice(0, 7);
+  const faq = config.faq ?? [];
+  if (!faq.length) return null;
+  const visible = showAll ? faq : faq.slice(0, 7);
 
   return (
     <section className="w-full bg-[#FAFAFA] py-12">
@@ -58,7 +60,7 @@ export default function DepositFaq({ config }: DepositFaqProps) {
             );
           })}
         </div>
-        {!showAll && (
+        {!showAll && faq.length > 7 ? (
           <button
             type="button"
             onClick={() => setShowAll(true)}
@@ -66,7 +68,7 @@ export default function DepositFaq({ config }: DepositFaqProps) {
           >
             {getLocalizedText(config.faqMoreText, lang)}
           </button>
-        )}
+        ) : null}
       </div>
     </section>
   );
