@@ -6,8 +6,10 @@ FROM ${NODE_IMAGE} AS build
 WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 
-# NEXT_PUBLIC_* are baked into the browser bundle at BUILD time
-ARG NEXT_PUBLIC_API_URL
+# NEXT_PUBLIC_API_URL is built as a PLACEHOLDER and replaced at container
+# start by docker-entrypoint.sh from the runtime env -> one image, any domain.
+# NEXT_PUBLIC_ENV stays build-time (may be used in compile-time conditions).
+ARG NEXT_PUBLIC_API_URL=__NEXT_PUBLIC_API_URL__
 ARG NEXT_PUBLIC_ENV=production
 ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL} \
     NEXT_PUBLIC_ENV=${NEXT_PUBLIC_ENV}
@@ -34,11 +36,14 @@ COPY --from=build --chown=node:node /app/next.config.ts ./
 COPY --from=build --chown=node:node /app/node_modules ./node_modules
 COPY --from=build --chown=node:node /app/public ./public
 COPY --from=build --chown=node:node /app/.next ./.next
+COPY --chown=node:node docker-entrypoint.sh /app/docker-entrypoint.sh
+RUN chmod 755 /app/docker-entrypoint.sh
 
 USER node
 EXPOSE 3000
 
-HEALTHCHECK --interval=30s --timeout=5s --start-period=30s --retries=3 \
+HEALTHCHECK --interval=30s --timeout=5s --start-period=40s --retries=3 \
   CMD wget -q --spider "http://127.0.0.1:${PORT}/" || exit 1
 
+ENTRYPOINT ["/app/docker-entrypoint.sh"]
 CMD ["sh", "-c", "exec node_modules/.bin/next start -H 0.0.0.0 -p ${PORT}"]

@@ -9,8 +9,9 @@
 #   HB_REGISTRY, HB_USERNAME, HB_PASSWORD  - Harbor
 #   SSH_PRIVATE_KEY                        - File type, runner's key
 #
-# NEXT_PUBLIC_API_URL is baked into the JS bundle at build time:
-# it must be the PUBLIC dashboard-api URL that browsers can reach.
+# NEXT_PUBLIC_API_URL is NOT baked in: the image is built with a
+# placeholder and docker-entrypoint.sh injects the value from the
+# server's docker-compose.yml at container start.
 # ===================================================================
 
 variables:
@@ -20,7 +21,6 @@ variables:
   SERVICE_NAME: 'homepage'
   HEALTH_URL: 'http://127.0.0.1:3000/'
   IMAGE: "${HB_REGISTRY}/trastpay-v2/homepage"
-  NEXT_PUBLIC_API_URL: 'https://CHANGE_ME_API_DOMAIN/api'
   NEXT_PUBLIC_ENV: 'production'
   DOCKER_TLS_CERTDIR: ""
   DOCKER_HOST: tcp://docker:2375
@@ -47,7 +47,6 @@ image_push_stage:
       docker build
       --cache-from "$IMAGE:latest"
       --build-arg BUILDKIT_INLINE_CACHE=1
-      --build-arg NEXT_PUBLIC_API_URL="$NEXT_PUBLIC_API_URL"
       --build-arg NEXT_PUBLIC_ENV="$NEXT_PUBLIC_ENV"
       -t "$IMAGE:$CI_COMMIT_SHORT_SHA"
       -t "$IMAGE:latest"
