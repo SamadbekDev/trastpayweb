@@ -1,7 +1,7 @@
 "use client";
 
 import DepositProductHeader from "@/components/deposits/DepositProductHeader";
-import DepositOffices from "@/components/deposits/DepositOffices";
+import BranchesMapSection from "@/components/branches/BranchesMapSection";
 import Footer from "@/components/layout/Footer";
 import useOfficesPageConfig from "@/hooks/useOfficesPageConfig";
 import { TrastbankLoader, TrastbankError } from "@/components/PageStatus";
@@ -26,7 +26,7 @@ export default function BranchesPage() {
     <div className="flex min-h-screen flex-col bg-[#FAFAFA]">
       <DepositProductHeader header={config.header} />
       <main className="flex-grow">
-        <DepositOffices config={config} />
+        <BranchesMapSection config={config} />
       </main>
       <Footer config={config.footer} />
     </div>

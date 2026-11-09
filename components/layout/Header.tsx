@@ -15,6 +15,16 @@ interface HeaderProps {
   onChipSelect?: (chip: HeaderChip) => boolean | void;
 }
 
+/** CMS often ships placeholder `#` — map known utility labels to real routes. */
+function resolveUtilityHref(link: { label: string; href: string }): string {
+  const href = (link.href || "").trim();
+  if (href && href !== "#") return href;
+  const label = link.label.toLowerCase();
+  if (/филиал|filial|branch/.test(label)) return "/filialy";
+  if (/^1287$/.test(label.trim())) return "tel:1287";
+  return href || "#";
+}
+
 export default function Header({
   config,
   showProductNav = true,
@@ -42,7 +52,10 @@ export default function Header({
   };
 
   const navItems = config?.navItems || [];
-  const utilityLinks = config?.utilityLinks || [];
+  const utilityLinks = (config?.utilityLinks || []).map((link) => ({
+    ...link,
+    href: resolveUtilityHref(link),
+  }));
   const chips = config?.chips || [];
 
   return (

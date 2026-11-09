@@ -1,20 +1,13 @@
 import { notFound } from "next/navigation";
-import { getCardById, getCardsPage } from "@/api/pageService";
+import { getCardById } from "@/api/pageService";
 import CardDetailView from "@/components/cards/CardDetailView";
 
+/** Always render on demand — CI build has no dashboard-api. */
 export const dynamic = "force-dynamic";
+export const dynamicParams = true;
 
 interface CardPageProps {
   params: Promise<{ id: string }>;
-}
-
-export async function generateStaticParams() {
-  try {
-    const page = await getCardsPage();
-    return (page.products || []).map((p) => ({ id: p.id }));
-  } catch {
-    return [];
-  }
 }
 
 export default async function CardDetailPage({ params }: CardPageProps) {

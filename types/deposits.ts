@@ -121,13 +121,19 @@ export interface DepositOffice {
   name: I18nText;
   address: I18nText;
   hours: I18nText;
+  city?: I18nText;
+  lat?: number;
+  lng?: number;
+  type?: "office" | "atm";
 }
 
 export interface OfficesMapConfig {
   officesTitle: I18nText;
   city: I18nText;
+  defaultCity?: I18nText;
   offices: DepositOffice[];
   atms: DepositOffice[];
+  locations?: DepositOffice[];
   mapEmbedUrl: string;
 }
 
