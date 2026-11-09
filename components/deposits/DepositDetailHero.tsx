@@ -74,9 +74,9 @@ export default function DepositDetailHero({ config }: DepositDetailHeroProps) {
               <span className={crumbSlash}>/</span>
             </span>
 
-            {config.breadcrumbs.map((item, index) => {
+            {(config.breadcrumbs ?? []).map((item, index) => {
               const label = getLocalizedText(item.label, lang);
-              const isLast = index === config.breadcrumbs.length - 1;
+              const isLast = index === (config.breadcrumbs?.length || 0) - 1;
 
               return (
                 <span

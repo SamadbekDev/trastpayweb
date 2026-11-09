@@ -19,9 +19,9 @@ const textCls = "break-words [overflow-wrap:anywhere]";
 export default function DepositBenefits({ config }: DepositBenefitsProps) {
   const { i18n } = useTranslation();
   const lang = (i18n.language?.split("-")[0].toLowerCase() as Language) || "ru";
-  const [flex, online, paperless, protectedCard, term] = config.benefits;
-
-  if (!config.benefits?.length) return null;
+  const benefits = config.benefits ?? [];
+  if (!benefits.length) return null;
+  const [flex, online, paperless, protectedCard, term] = benefits;
 
   return (
     <section className="w-full bg-white px-4 py-9 lg:px-[120px]">

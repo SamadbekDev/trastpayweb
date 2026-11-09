@@ -62,11 +62,14 @@ export default function DepositCalculator({ config }: DepositCalculatorProps) {
   const { i18n } = useTranslation();
   const lang = (i18n.language?.split("-")[0].toLowerCase() as Language) || "ru";
 
-  const termMin = Math.min(...config.calculatorTerms.map((t) => t.months), 3);
-  const termMax = Math.max(...config.calculatorTerms.map((t) => t.months), 24);
+  const calculatorTerms = config.calculatorTerms ?? [];
+  const calculatorChannels = config.calculatorChannels ?? [];
+  const suggested = config.suggested ?? [];
+  const termMin = Math.min(...calculatorTerms.map((t) => t.months), 3);
+  const termMax = Math.max(...calculatorTerms.map((t) => t.months), 24);
   const defaultMonths =
-    config.calculatorTerms.find((t) => t.months === 3)?.months ||
-    config.calculatorTerms[0]?.months ||
+    calculatorTerms.find((t) => t.months === 3)?.months ||
+    calculatorTerms[0]?.months ||
     termMin;
 
   const [channel, setChannel] = useState<"online" | "office">("online");
@@ -78,11 +81,11 @@ export default function DepositCalculator({ config }: DepositCalculatorProps) {
   const dragScroll = useDragScroll<HTMLDivElement>();
 
   const selected = useMemo(() => {
-    const sorted = [...config.calculatorTerms].sort(
+    const sorted = [...calculatorTerms].sort(
       (a, b) => Math.abs(a.months - months) - Math.abs(b.months - months)
     );
     return sorted[0] || { months, rate: config.calculatorRate };
-  }, [config.calculatorRate, config.calculatorTerms, months]);
+  }, [calculatorTerms, config.calculatorRate, months]);
 
   const rate = selected.rate || config.calculatorRate;
 
@@ -165,7 +168,7 @@ export default function DepositCalculator({ config }: DepositCalculatorProps) {
           {/* Tabs */}
           <div className="flex w-full flex-col items-center py-3">
             <div className="flex items-start gap-1 rounded-[14px] bg-[#F1F5F9] p-1">
-              {config.calculatorChannels.map((item) => {
+              {calculatorChannels.map((item) => {
                 const active = channel === item.id;
                 return (
                   <button
@@ -318,7 +321,7 @@ export default function DepositCalculator({ config }: DepositCalculatorProps) {
           </div>
 
           {/* Suggested — Figma: 344×106 cards, gap 16, horizontal scroll */}
-          {config.suggested.length > 0 ? (
+          {suggested.length > 0 ? (
             <div className="flex w-full flex-col gap-3.5 py-3">
               <div className="flex flex-wrap items-center gap-2.5">
                 <h3 className="text-[20px] font-semibold leading-6 text-white">
@@ -341,7 +344,7 @@ export default function DepositCalculator({ config }: DepositCalculatorProps) {
                 className={`${dragScroll.className} -mx-1 flex gap-4 overflow-x-auto px-1 pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden`}
                 style={{ WebkitOverflowScrolling: "touch" }}
               >
-                {config.suggested.map((item, index) => {
+                {suggested.map((item, index) => {
                   const badgeText = item.badge
                     ? getLocalizedText(item.badge, lang)
                     : "";

@@ -16,9 +16,11 @@ export default function DepositOffices({ config }: DepositOfficesProps) {
   const lang = (i18n.language?.split("-")[0].toLowerCase() as Language) || "ru";
   const [tab, setTab] = useState<"offices" | "atms">("offices");
   const [query, setQuery] = useState("");
-  const [activeId, setActiveId] = useState(config.offices[0]?.id || "");
+  const offices = config.offices ?? [];
+  const atms = config.atms ?? [];
+  const [activeId, setActiveId] = useState(offices[0]?.id || "");
 
-  const items = (tab === "offices" ? config.offices : config.atms).filter((item) => {
+  const items = (tab === "offices" ? offices : atms).filter((item) => {
     const haystack = `${getLocalizedText(item.name, lang)} ${getLocalizedText(item.address, lang)}`.toLowerCase();
     return haystack.includes(query.toLowerCase());
   });
