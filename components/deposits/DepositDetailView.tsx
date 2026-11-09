@@ -34,11 +34,19 @@ export default function DepositDetailView({ config }: DepositDetailViewProps) {
           <DepositConditions config={config} />
         </div>
         <DepositDocuments config={config} />
-        <DepositOffices config={config} />
-        <OffersCarousel config={config.offers} />
+        <DepositOffices
+          config={{
+            officesTitle: config.officesTitle,
+            city: config.city,
+            offices: config.offices ?? [],
+            atms: config.atms ?? [],
+            mapEmbedUrl: config.mapEmbedUrl || "",
+          }}
+        />
+        {config.offers ? <OffersCarousel config={config.offers} /> : null}
         <DepositFaq config={config} />
       </main>
-      <Footer config={config.footer} />
+      {config.footer ? <Footer config={config.footer} /> : null}
     </ContentReveal>
   );
 }

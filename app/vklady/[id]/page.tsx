@@ -1,18 +1,13 @@
 import { notFound } from "next/navigation";
-import { getDepositById, getDepositsPage } from "@/api/pageService";
+import { getDepositById } from "@/api/pageService";
 import DepositDetailView from "@/components/deposits/DepositDetailView";
+
+/** Always render on demand — CI build has no dashboard-api. */
+export const dynamic = "force-dynamic";
+export const dynamicParams = true;
 
 interface DepositPageProps {
   params: Promise<{ id: string }>;
-}
-
-export async function generateStaticParams() {
-  try {
-    const page = await getDepositsPage();
-    return (page.products || []).map((p) => ({ id: p.id }));
-  } catch {
-    return [];
-  }
 }
 
 export default async function DepositDetailPage({ params }: DepositPageProps) {
@@ -20,7 +15,8 @@ export default async function DepositDetailPage({ params }: DepositPageProps) {
   try {
     const config = await getDepositById(id);
     return <DepositDetailView config={config} />;
-  } catch {
+  } catch (err) {
+    console.error(`[vklady/${id}]`, err);
     notFound();
   }
 }
