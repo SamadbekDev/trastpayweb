@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { Menu, X, Search, Glasses } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import BrandLogo from "@/components/BrandLogo";
 import { HeaderChip, HeaderConfig, Language } from "@/types/pageConfig";
 
 interface HeaderProps {
@@ -62,18 +62,13 @@ export default function Header({
     <header className="w-full bg-[#FAFAFA] relative z-50">
       <div className="mx-auto w-full max-w-[1440px] px-4 lg:px-[140px]">
         {/* Top bar — Figma: 8px 140px */}
-        <div className="flex items-center justify-between gap-4 h-16">
-          <div className="flex items-center gap-4 min-w-0">
-            <Link href="/" className="flex items-center shrink-0" aria-label="Trastbank">
-              <Image
-                src={config?.logo || "/logo.svg"}
-                alt={config?.logoText || "TRASTBANK"}
-                width={50}
-                height={22}
-                className="h-[22px] w-auto object-contain"
-                unoptimized
-              />
-            </Link>
+        <div className="flex h-16 items-center justify-between gap-4">
+          <div className="flex min-w-0 items-center gap-4">
+            <BrandLogo
+              src={config?.logo}
+              alt={config?.logoText || "TRASTBANK"}
+              priority
+            />
 
             <nav className="hidden xl:flex items-center gap-4">
               {navItems.map((item) => {

@@ -3,6 +3,7 @@
 import DepositProductHeader from "@/components/deposits/DepositProductHeader";
 import BranchesMapSection from "@/components/branches/BranchesMapSection";
 import Footer from "@/components/layout/Footer";
+import { SiteBrandingProvider } from "@/components/SiteBranding";
 import useOfficesPageConfig from "@/hooks/useOfficesPageConfig";
 import { TrastbankLoader, TrastbankError } from "@/components/PageStatus";
 import "@/i18n";
@@ -23,12 +24,17 @@ export default function BranchesPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#FAFAFA]">
-      <DepositProductHeader header={config.header} />
-      <main className="flex-grow">
-        <BranchesMapSection config={config} />
-      </main>
-      <Footer config={config.footer} />
-    </div>
+    <SiteBrandingProvider
+      logo={config.header?.logo}
+      logoText={config.header?.logoText}
+    >
+      <div className="flex min-h-screen flex-col bg-[#FAFAFA]">
+        <DepositProductHeader header={config.header} />
+        <main className="flex-grow">
+          <BranchesMapSection config={config} />
+        </main>
+        <Footer config={config.footer} />
+      </div>
+    </SiteBrandingProvider>
   );
 }

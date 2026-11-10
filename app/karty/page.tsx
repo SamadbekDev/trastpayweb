@@ -4,6 +4,7 @@ import CardsHeader from "@/components/cards/CardsHeader";
 import CardsCatalog from "@/components/cards/CardsCatalog";
 import Footer from "@/components/layout/Footer";
 import ContentReveal from "@/components/motion/ContentReveal";
+import { SiteBrandingProvider } from "@/components/SiteBranding";
 import useCardsPageConfig from "@/hooks/useCardsPageConfig";
 import { TrastbankLoader, TrastbankError } from "@/components/PageStatus";
 import "@/i18n";
@@ -24,12 +25,17 @@ export default function CardsPage() {
   }
 
   return (
-    <ContentReveal className="flex min-h-screen flex-col bg-[#FAFAFA]">
-      <CardsHeader config={config.header} />
-      <main className="flex-grow">
-        <CardsCatalog config={config} />
-      </main>
-      <Footer config={config.footer} />
-    </ContentReveal>
+    <SiteBrandingProvider
+      logo={config.header?.logo}
+      logoText={config.header?.logoText}
+    >
+      <ContentReveal className="flex min-h-screen flex-col bg-[#FAFAFA]">
+        <CardsHeader config={config.header} />
+        <main className="flex-grow">
+          <CardsCatalog config={config} />
+        </main>
+        <Footer config={config.footer} />
+      </ContentReveal>
+    </SiteBrandingProvider>
   );
 }

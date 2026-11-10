@@ -1,30 +1,20 @@
 ﻿"use client";
 
-import Image from "next/image";
 import { AlertCircle, RefreshCw } from "lucide-react";
+import BrandLogo from "@/components/BrandLogo";
 
 export function TrastbankLoader() {
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-white/95 backdrop-blur-md">
       <div className="relative flex items-center justify-center">
-        {/* Glowing animated spinner ring */}
-        <div className="h-24 w-24 rounded-full border-4 border-slate-100 border-t-[#08243f] border-r-[#126df7] animate-spin" />
-
-        {/* Center Logo */}
+        <div className="h-28 w-28 rounded-full border-4 border-slate-100 border-t-[#08243f] border-r-[#126df7] animate-spin" />
         <div className="absolute inset-0 flex items-center justify-center">
-          <Image
-            src="/logo.svg"
-            alt="Trastbank Logo"
-            width={48}
-            height={48}
-            className="object-contain animate-pulse"
-            priority
-          />
+          <BrandLogo link={false} className="animate-pulse" priority />
         </div>
       </div>
 
       <div className="mt-6 flex flex-col items-center gap-1.5">
-        <h3 className="font-bold text-[#08243f] text-lg tracking-wide uppercase">
+        <h3 className="text-lg font-bold tracking-wide text-[#08243f] uppercase">
           TRASTBANK
         </h3>
       </div>
@@ -40,13 +30,7 @@ export function TrastbankError({ onRetry }: TrastbankErrorProps) {
   return (
     <div className="w-full max-w-md bg-white rounded-3xl p-8 shadow-[0_20px_60px_-15px_rgba(8,36,63,0.12)] border border-slate-100 flex flex-col items-center text-center">
       <div className="mb-6 flex items-center gap-2">
-        <Image
-          src="/logo.svg"
-          alt="Trastbank Logo"
-          width={110}
-          height={36}
-          className="object-contain"
-        />
+        <BrandLogo link={false} />
       </div>
 
       <div className="h-16 w-16 rounded-2xl bg-red-50 text-red-500 flex items-center justify-center mb-6">
