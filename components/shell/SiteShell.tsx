@@ -6,6 +6,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import HomeContent from "@/components/shell/HomeContent";
 import TariffsContent from "@/components/tariffs/TariffsContent";
+import { SiteBrandingProvider } from "@/components/SiteBranding";
 import {
   findChipIdForSection,
   resolveChipSection,
@@ -77,33 +78,38 @@ export default function SiteShell({
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#FAFAFA]">
-      <Header
-        config={config.header}
-        activeChipId={findChipIdForSection(config.header?.chips, section)}
-        onChipSelect={handleChipSelect}
-      />
+    <SiteBrandingProvider
+      logo={config.header?.logo}
+      logoText={config.header?.logoText}
+    >
+      <div className="flex min-h-screen flex-col bg-[#FAFAFA]">
+        <Header
+          config={config.header}
+          activeChipId={findChipIdForSection(config.header?.chips, section)}
+          onChipSelect={handleChipSelect}
+        />
 
-      <div className="relative flex-grow">
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.main
-            key={section}
-            className="flex-grow"
-            initial={pageTransition.initial}
-            animate={pageTransition.animate}
-            exit={pageTransition.exit}
-            transition={pageTransition.transition}
-          >
-            {section === "products" ? (
-              <HomeContent config={config} />
-            ) : (
-              <TariffsContent />
-            )}
-          </motion.main>
-        </AnimatePresence>
+        <div className="relative flex-grow">
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.main
+              key={section}
+              className="flex-grow"
+              initial={pageTransition.initial}
+              animate={pageTransition.animate}
+              exit={pageTransition.exit}
+              transition={pageTransition.transition}
+            >
+              {section === "products" ? (
+                <HomeContent config={config} />
+              ) : (
+                <TariffsContent />
+              )}
+            </motion.main>
+          </AnimatePresence>
+        </div>
+
+        <Footer config={config.footer} />
       </div>
-
-      <Footer config={config.footer} />
-    </div>
+    </SiteBrandingProvider>
   );
 }

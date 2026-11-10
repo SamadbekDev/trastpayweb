@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, Search, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import BrandLogo from "@/components/BrandLogo";
 import { Language, NavItem } from "@/types/pageConfig";
 import { DepositsPageConfig } from "@/types/deposits";
 
@@ -54,16 +54,11 @@ export default function DepositProductHeader({
     <header className="relative z-50 w-full bg-white">
       <div className="mx-auto flex h-[82px] w-full max-w-[1440px] items-center justify-between gap-4 px-5 xl:px-10 min-[1400px]:px-[132px]">
         <div className="flex min-w-0 items-center gap-4">
-          <Link href="/" className="flex shrink-0 items-center" aria-label="Trastbank">
-            <Image
-              src={config.logo || "/logo.svg"}
-              alt={config.logoText || "TRASTBANK"}
-              width={82}
-              height={32}
-              className="h-8 w-auto object-contain"
-              unoptimized
-            />
-          </Link>
+          <BrandLogo
+            src={config.logo}
+            alt={config.logoText || "TRASTBANK"}
+            priority
+          />
 
           <nav className="hidden items-center gap-4 xl:flex">
             {navItems.map((item) => {

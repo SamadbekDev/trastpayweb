@@ -149,6 +149,7 @@ export interface DepositFaqItem {
 }
 
 export interface DepositDetailPageConfig {
+  header?: DepositsPageConfig["header"];
   product: DepositProduct;
   breadcrumbs: DepositBreadcrumb[];
   heroTitle: I18nText;

@@ -10,6 +10,7 @@ import CreditDetailView from "@/components/credits/CreditDetailView";
 import CreditMicroView from "@/components/credits/CreditMicroView";
 import CreditMortgageView from "@/components/credits/CreditMortgageView";
 import ContentReveal from "@/components/motion/ContentReveal";
+import { SiteBrandingProvider } from "@/components/SiteBranding";
 import { TrastbankError, TrastbankLoader } from "@/components/PageStatus";
 import { useCreditDetail, useCreditsPageConfig } from "@/hooks/useCreditsPageConfig";
 import useHomePageConfig from "@/hooks/useHomePageConfig";
@@ -64,54 +65,59 @@ export default function CreditDetailPage() {
   }
 
   return (
-    <ContentReveal className="flex min-h-screen flex-col bg-white">
-      {config?.header ? <Header config={config.header} showProductNav={false} /> : null}
-      <main className="flex-grow bg-white">
-        {page ? (
-          page.template === "mortgage" ? (
-            <CreditMortgageView
-              page={page}
-              product={detail?.product}
-              statLabels={catalog?.statLabels}
-            />
-          ) : page.template === "auto" ? (
-            <CreditAutoView
-              page={page}
-              product={detail?.product}
-              image={page.heroImage}
-              heroVariant="showcase"
-              statLabels={catalog?.statLabels}
-            />
-          ) : page.template === "micro" || isMicroProduct(detail?.product) ? (
-            <CreditMicroView
-              page={page}
-              product={
-                detail?.product
-                  ? { ...detail.product, template: "micro" }
-                  : undefined
-              }
-              statLabels={catalog?.statLabels}
-            />
+    <SiteBrandingProvider
+      logo={config?.header?.logo}
+      logoText={config?.header?.logoText}
+    >
+      <ContentReveal className="flex min-h-screen flex-col bg-white">
+        {config?.header ? <Header config={config.header} showProductNav={false} /> : null}
+        <main className="flex-grow bg-white">
+          {page ? (
+            page.template === "mortgage" ? (
+              <CreditMortgageView
+                page={page}
+                product={detail?.product}
+                statLabels={catalog?.statLabels}
+              />
+            ) : page.template === "auto" ? (
+              <CreditAutoView
+                page={page}
+                product={detail?.product}
+                image={page.heroImage}
+                heroVariant="showcase"
+                statLabels={catalog?.statLabels}
+              />
+            ) : page.template === "micro" || isMicroProduct(detail?.product) ? (
+              <CreditMicroView
+                page={page}
+                product={
+                  detail?.product
+                    ? { ...detail.product, template: "micro" }
+                    : undefined
+                }
+                statLabels={catalog?.statLabels}
+              />
+            ) : (
+              <CreditDetailView
+                page={page}
+                product={detail?.product}
+                statLabels={catalog?.statLabels}
+              />
+            )
           ) : (
-            <CreditDetailView
-              page={page}
-              product={detail?.product}
-              statLabels={catalog?.statLabels}
-            />
-          )
-        ) : (
-          <div className="mx-auto w-full max-w-[1440px] px-4 py-16 lg:px-20">
-            <p className="text-[16px] text-[#5B6B85]">Такого кредита нет в каталоге.</p>
-            <Link
-              href="/kredity"
-              className="mt-6 inline-flex rounded-[10px] bg-[#0F1F3D] px-[26px] py-[14px] text-[15px] font-semibold leading-[18px] text-white"
-            >
-              Все кредиты
-            </Link>
-          </div>
-        )}
-      </main>
-      {page && config?.footer ? <Footer config={config.footer} /> : null}
-    </ContentReveal>
+            <div className="mx-auto w-full max-w-[1440px] px-4 py-16 lg:px-20">
+              <p className="text-[16px] text-[#5B6B85]">Такого кредита нет в каталоге.</p>
+              <Link
+                href="/kredity"
+                className="mt-6 inline-flex rounded-[10px] bg-[#0F1F3D] px-[26px] py-[14px] text-[15px] font-semibold leading-[18px] text-white"
+              >
+                Все кредиты
+              </Link>
+            </div>
+          )}
+        </main>
+        {page && config?.footer ? <Footer config={config.footer} /> : null}
+      </ContentReveal>
+    </SiteBrandingProvider>
   );
 }

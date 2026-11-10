@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { Menu, X, Search } from "lucide-react";
+import BrandLogo from "@/components/BrandLogo";
 import { DepositsPageConfig } from "@/types/deposits";
 
 interface DepositsHeaderProps {
@@ -18,16 +18,11 @@ export default function DepositsHeader({ config }: DepositsHeaderProps) {
     <header className="w-full bg-[#FAFAFA] relative z-50">
       <div className="mx-auto flex h-16 w-full max-w-[1440px] items-center justify-between gap-4 px-4 lg:px-[120px]">
         <div className="flex min-w-0 items-center gap-4">
-          <Link href="/" className="flex shrink-0 items-center" aria-label="Trastbank">
-            <Image
-              src={config.logo || "/logo.svg"}
-              alt={config.logoText || "TRASTBANK"}
-              width={78}
-              height={32}
-              className="h-8 w-auto object-contain"
-              unoptimized
-            />
-          </Link>
+          <BrandLogo
+            src={config.logo}
+            alt={config.logoText || "TRASTBANK"}
+            priority
+          />
 
           <nav className="hidden items-center gap-4 xl:flex">
             {config.navItems.map((item) => {
