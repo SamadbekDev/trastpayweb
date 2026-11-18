@@ -6,7 +6,6 @@ import { useTranslation } from "react-i18next";
 import { HeroConfig, Language } from "@/types/pageConfig";
 import { getLocalizedText } from "@/utils/i18nHelper";
 import { getMediaUrl } from "@/utils/mediaHelper";
-import i18n from "@/i18n";
 
 interface HeroProps {
   config?: HeroConfig;

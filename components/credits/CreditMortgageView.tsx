@@ -314,6 +314,7 @@ export default function CreditMortgageView({
                   <div key={item.id} className="rounded-2xl bg-white shadow-[0px_2px_20px_rgba(21,93,241,0.05)]">
                     <button
                       type="button"
+                      aria-expanded={open}
                       onClick={() => setOpenFaq(open ? null : index)}
                       className="flex w-full cursor-pointer items-start justify-between gap-4 px-8 py-6 text-left"
                     >

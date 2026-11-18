@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { pageTransition } from "@/components/motion/pageTransition";
+import { pageTransition } from "@/components/motion/transitions";
 
 /** Smooth enter when content appears (e.g. after data load / opening a page). */
 export default function ContentReveal({

@@ -19,6 +19,72 @@ const fmt = (n: number) =>
     minimumFractionDigits: n % 1 === 0 ? 0 : 2,
   });
 
+function Field({
+  label,
+  children,
+}: {
+  label: string;
+  children: ReactNode;
+}) {
+  return (
+    <div className="flex flex-1 flex-col gap-2">
+      <p className="text-[14px] font-semibold leading-[17px] text-[#1A1A2E]">{label}</p>
+      <div className="flex h-[65px] items-center rounded-[14px] bg-white">{children}</div>
+    </div>
+  );
+}
+
+function CurrencySelect({
+  value,
+  codes,
+  currencyLabel,
+  open,
+  setOpen,
+  onSelect,
+}: {
+  value: string;
+  codes: string[];
+  currencyLabel: string;
+  open: boolean;
+  setOpen: (v: boolean) => void;
+  onSelect: (c: string) => void;
+}) {
+  return (
+    <div className="relative flex h-full items-center gap-2 px-[18px] py-3.5">
+      <div className="flex flex-col gap-0.5">
+        <span className="text-[11px] leading-[13px] text-[#6B7280]">{currencyLabel}</span>
+        <span className="text-[18px] font-bold leading-[22px] text-[#1A1A2E]">{value}</span>
+      </div>
+      <button
+        type="button"
+        onClick={() => setOpen(!open)}
+        className="flex h-6 w-6 items-center justify-center rounded-full bg-[#E7E7EA] cursor-pointer"
+      >
+        <ChevronDown size={14} className="text-black" />
+      </button>
+      {open && (
+        <div className="absolute right-0 top-full z-20 mt-2 min-w-[100px] rounded-xl border border-black/5 bg-white py-1 shadow-lg">
+          {codes.map((c) => (
+            <button
+              key={c}
+              type="button"
+              onClick={() => {
+                onSelect(c);
+                setOpen(false);
+              }}
+              className={`block w-full px-3 py-1.5 text-left text-[13px] font-semibold cursor-pointer ${
+                c === value ? "text-[#1E54E0]" : "text-[#1A1A2E] hover:bg-[#F2F3F5]"
+              }`}
+            >
+              {c}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function CurrencyConverter({ config }: CurrencyConverterProps) {
   const { i18n } = useTranslation();
   const lang = (i18n.language?.split("-")[0].toLowerCase() as Language) || "ru";
@@ -61,64 +127,6 @@ export default function CurrencyConverter({ config }: CurrencyConverterProps) {
     setToCode(fromCode);
   };
 
-  const Field = ({
-    label,
-    children,
-  }: {
-    label: string;
-    children: ReactNode;
-  }) => (
-    <div className="flex flex-1 flex-col gap-2">
-      <p className="text-[14px] font-semibold leading-[17px] text-[#1A1A2E]">{label}</p>
-      <div className="flex h-[65px] items-center rounded-[14px] bg-white">{children}</div>
-    </div>
-  );
-
-  const CurrencySelect = ({
-    value,
-    open,
-    setOpen,
-    onSelect,
-  }: {
-    value: string;
-    open: boolean;
-    setOpen: (v: boolean) => void;
-    onSelect: (c: string) => void;
-  }) => (
-    <div className="relative flex h-full items-center gap-2 px-[18px] py-3.5">
-      <div className="flex flex-col gap-0.5">
-        <span className="text-[11px] leading-[13px] text-[#6B7280]">{currencyLabel}</span>
-        <span className="text-[18px] font-bold leading-[22px] text-[#1A1A2E]">{value}</span>
-      </div>
-      <button
-        type="button"
-        onClick={() => setOpen(!open)}
-        className="flex h-6 w-6 items-center justify-center rounded-full bg-[#E7E7EA] cursor-pointer"
-      >
-        <ChevronDown size={14} className="text-black" />
-      </button>
-      {open && (
-        <div className="absolute right-0 top-full z-20 mt-2 min-w-[100px] rounded-xl border border-black/5 bg-white py-1 shadow-lg">
-          {codes.map((c) => (
-            <button
-              key={c}
-              type="button"
-              onClick={() => {
-                onSelect(c);
-                setOpen(false);
-              }}
-              className={`block w-full px-3 py-1.5 text-left text-[13px] font-semibold cursor-pointer ${
-                c === value ? "text-[#1E54E0]" : "text-[#1A1A2E] hover:bg-[#F2F3F5]"
-              }`}
-            >
-              {c}
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-
   return (
     <section id="currency" className="w-full bg-[#FAFAFA]">
       <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-5 px-4 lg:px-[60px]">
@@ -141,6 +149,8 @@ export default function CurrencyConverter({ config }: CurrencyConverterProps) {
               <div className="h-11 w-px bg-[#E8EAF0]" />
               <CurrencySelect
                 value={fromCode}
+                codes={codes}
+                currencyLabel={currencyLabel}
                 open={fromOpen}
                 setOpen={(v) => {
                   setFromOpen(v);
@@ -169,6 +179,8 @@ export default function CurrencyConverter({ config }: CurrencyConverterProps) {
               <div className="h-11 w-px bg-[#E8EAF0]" />
               <CurrencySelect
                 value={toCode}
+                codes={codes}
+                currencyLabel={currencyLabel}
                 open={toOpen}
                 setOpen={(v) => {
                   setToOpen(v);

@@ -70,7 +70,7 @@ export default function CreditDetailPage() {
       logoText={config?.header?.logoText}
     >
       <ContentReveal className="flex min-h-screen flex-col bg-white">
-        {config?.header ? <Header config={config.header} showProductNav={false} /> : null}
+        {config?.header ? <Header config={config.header} showProductNav /> : null}
         <main className="flex-grow bg-white">
           {page ? (
             page.template === "mortgage" ? (

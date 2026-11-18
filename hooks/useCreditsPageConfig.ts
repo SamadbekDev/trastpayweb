@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { getCreditById, getCreditsPage } from "@/api/pageService";
 import { CreditDetailConfig, CreditsPageConfig } from "@/types/credits";
 import "@/i18n";
@@ -50,8 +50,10 @@ export function useCreditDetail(id: string | undefined): UseCreditDetailResult {
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
   const [error, setError] = useState<Error | null>(null);
+  const requestSeqRef = useRef(0);
 
   const fetchDetail = useCallback(async () => {
+    const reqId = ++requestSeqRef.current;
     if (!id) {
       setDetail(null);
       setNotFound(true);
@@ -62,8 +64,11 @@ export function useCreditDetail(id: string | undefined): UseCreditDetailResult {
     setError(null);
     setNotFound(false);
     try {
-      setDetail(await getCreditById(id));
+      const data = await getCreditById(id);
+      if (reqId !== requestSeqRef.current) return;
+      setDetail(data);
     } catch (err) {
+      if (reqId !== requestSeqRef.current) return;
       setDetail(null);
       const status = err instanceof Error ? (err as Error & { status?: number }).status : undefined;
       if (status === 404) {
@@ -73,7 +78,9 @@ export function useCreditDetail(id: string | undefined): UseCreditDetailResult {
         setError(err instanceof Error ? err : new Error("Failed to load credit"));
       }
     } finally {
-      setLoading(false);
+      if (reqId === requestSeqRef.current) {
+        setLoading(false);
+      }
     }
   }, [id]);
 

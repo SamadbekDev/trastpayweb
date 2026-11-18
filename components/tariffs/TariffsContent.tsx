@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import TariffsHero from "@/components/tariffs/TariffsHero";
 import TariffsGrid from "@/components/tariffs/TariffsGrid";
-import { pageTransition } from "@/components/motion/pageTransition";
+import { pageTransition } from "@/components/motion/transitions";
 import { TrastbankError, TrastbankLoader } from "@/components/PageStatus";
 import useTariffsPageConfig from "@/hooks/useTariffsPageConfig";
 import {

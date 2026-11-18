@@ -27,8 +27,11 @@ export async function apiFetch(
     ? path
     : `${base}${path.startsWith("/") ? path : `/${path}`}`;
 
+  const signal = init?.signal ?? AbortSignal.timeout(15_000);
+
   return fetch(url, {
     ...init,
+    signal,
     headers: {
       Accept: "application/json",
       ...(init?.headers || {}),
