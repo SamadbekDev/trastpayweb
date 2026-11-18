@@ -31,7 +31,7 @@ export default function CreditsPage() {
       logoText={home?.header?.logoText}
     >
       <ContentReveal className="flex min-h-screen flex-col bg-[#FAFAFA]">
-        {home?.header ? <Header config={home.header} showProductNav={false} /> : null}
+        {home?.header ? <Header config={home.header} showProductNav /> : null}
         <main className="flex-grow bg-[#FAFAFA]">
           <CreditsCatalog config={config} />
         </main>

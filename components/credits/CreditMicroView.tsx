@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 import { I18nText } from "@/types/pageConfig";
@@ -277,11 +278,12 @@ export default function CreditMicroView({
                     className="flex flex-col items-start gap-3 rounded-2xl bg-[#F4F6F9] px-6 py-[26px]"
                   >
                     {icon ? (
-                      <img
+                      <Image
                         src={icon}
                         alt=""
                         width={36}
                         height={36}
+                        unoptimized
                         className="h-9 w-9 object-contain"
                       />
                     ) : null}
@@ -579,6 +581,7 @@ export default function CreditMicroView({
                   >
                     <button
                       type="button"
+                      aria-expanded={open}
                       onClick={() => setOpenFaq(open ? null : index)}
                       className="flex w-full cursor-pointer items-start justify-between gap-4 px-8 py-6 text-left"
                     >

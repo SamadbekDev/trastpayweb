@@ -107,7 +107,7 @@ export default function BrandCreditPage({ brand }: { brand: AutoBrandSlug }) {
 
   return (
     <ContentReveal className="flex min-h-screen flex-col bg-white">
-      {config?.header ? <Header config={config.header} showProductNav={false} /> : null}
+      {config?.header ? <Header config={config.header} showProductNav /> : null}
       <main className="flex-grow bg-white">
         <CreditAutoView
           page={page}

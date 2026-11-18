@@ -29,8 +29,8 @@ export default function BranchesMapSection({ config }: BranchesMapSectionProps) 
   const [cityFilter, setCityFilter] = useState<string>("all");
   const [cityOpen, setCityOpen] = useState(false);
 
-  const offices = config.offices ?? [];
-  const atms = config.atms ?? [];
+  const offices = useMemo(() => config.offices ?? [], [config.offices]);
+  const atms = useMemo(() => config.atms ?? [], [config.atms]);
   const allItems = useMemo(
     () => [...offices, ...atms, ...(config.locations ?? [])],
     [offices, atms, config.locations],

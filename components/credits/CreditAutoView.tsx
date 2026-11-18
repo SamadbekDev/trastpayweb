@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 import {
@@ -178,7 +179,7 @@ export default function CreditAutoView({
               {text(page.whyTitle) || "Почему удобно"}
             </h2>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-              {page.benefits.slice(0, 3).map((item, index) => {
+              {page.benefits.slice(0, 3).map((item) => {
                 const icon = item.image?.trim() ? getMediaUrl(item.image) : "";
                 return (
                   <article
@@ -187,11 +188,12 @@ export default function CreditAutoView({
                   >
                     <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#E8EEF8]">
                       {icon ? (
-                        <img
+                        <Image
                           src={icon}
                           alt=""
                           width={28}
                           height={28}
+                          unoptimized
                           className="h-7 w-7 object-contain"
                         />
                       ) : null}
@@ -261,7 +263,7 @@ export default function CreditAutoView({
                 return (
                   <article key={item.id} className="flex flex-col items-start gap-3 rounded-2xl bg-[#F4F6F9] px-6 py-[26px]">
                     {icon ? (
-                      <img src={icon} alt="" width={36} height={36} className="h-9 w-9 object-contain" />
+                      <Image src={icon} alt="" width={36} height={36} unoptimized className="h-9 w-9 object-contain" />
                     ) : null}
                     <h3 className="text-[18px] font-semibold leading-[22px] text-[#12122B]">{text(item.title)}</h3>
                     <p className="text-[14px] leading-[1.45] text-[#6B7280]">{text(item.text)}</p>
@@ -481,7 +483,7 @@ export default function CreditAutoView({
                 const open = openFaq === index;
                 return (
                   <div key={item.id} className="rounded-2xl bg-white shadow-[0px_2px_20px_rgba(21,93,241,0.05)]">
-                    <button type="button" onClick={() => setOpenFaq(open ? null : index)} className="flex w-full cursor-pointer items-start justify-between gap-4 px-8 py-6 text-left">
+                    <button type="button" aria-expanded={open} onClick={() => setOpenFaq(open ? null : index)} className="flex w-full cursor-pointer items-start justify-between gap-4 px-8 py-6 text-left">
                       <span className="text-[18px] leading-[30px] tracking-[-0.6px] text-[#2F3441] lg:text-[24px]">{text(item.question)}</span>
                       <ChevronDown size={28} className={`mt-1 shrink-0 text-[#606981] transition-transform ${open ? "rotate-180" : ""}`} />
                     </button>

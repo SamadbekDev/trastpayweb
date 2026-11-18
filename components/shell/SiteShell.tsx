@@ -13,7 +13,7 @@ import {
   sectionPath,
   SiteSection,
 } from "@/components/shell/sectionChips";
-import { pageTransition } from "@/components/motion/pageTransition";
+import { pageTransition } from "@/components/motion/transitions";
 import useHomePageConfig from "@/hooks/useHomePageConfig";
 import { prefetchTariffsPage } from "@/hooks/useTariffsPageConfig";
 import { TrastbankError, TrastbankLoader } from "@/components/PageStatus";

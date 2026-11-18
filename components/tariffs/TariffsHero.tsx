@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { pageTransition } from "@/components/motion/pageTransition";
+import { pageTransition } from "@/components/motion/transitions";
 import {
   TariffAudience,
   TariffsAudienceView,

@@ -45,7 +45,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`scroll-smooth ${roboto.variable}`}>
+    <html lang="ru" className={`scroll-smooth ${roboto.variable}`}>
       <body className="antialiased overflow-x-hidden text-[#08243f] [padding:env(safe-area-inset-top)_env(safe-area-inset-right)_env(safe-area-inset-bottom)_env(safe-area-inset-left)]">
         {children}
       </body>

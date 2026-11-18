@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { pageTransition } from "@/components/motion/pageTransition";
+import { pageTransition } from "@/components/motion/transitions";
 import { CreditsPageConfig } from "@/types/credits";
 import { useCreditText } from "./text";
 import CreditProductCard from "./CreditProductCard";

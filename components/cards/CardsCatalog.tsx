@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { pageTransition } from "@/components/motion/pageTransition";
+import { pageTransition } from "@/components/motion/transitions";
 import { CardsPageConfig } from "@/types/cards";
 import { Language } from "@/types/pageConfig";
 import { getLocalizedText } from "@/utils/i18nHelper";

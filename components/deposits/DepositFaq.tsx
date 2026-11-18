@@ -40,6 +40,7 @@ export default function DepositFaq({ config }: DepositFaqProps) {
               >
                 <button
                   type="button"
+                  aria-expanded={open}
                   onClick={() => setOpenId(open ? null : item.id)}
                   className="flex w-full cursor-pointer items-center justify-between gap-4 px-6 py-5 text-left lg:px-8 lg:py-[22px]"
                 >

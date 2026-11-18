@@ -7,7 +7,19 @@ import {
 import { CardDetailPageConfig, CardsPageConfig } from "@/types/cards";
 import { CreditDetailConfig, CreditsPageConfig } from "@/types/credits";
 import { TariffsPageConfig } from "@/types/tariffs";
+import { TransfersPageConfig } from "@/types/transfers";
+import type { I18nText } from "@/types/pageConfig";
 import { apiFetch } from "@/api/client";
+
+export type AppBannerConfig = {
+  title: I18nText;
+  text: I18nText;
+  primary: I18nText;
+  primaryHref: string;
+  secondary: I18nText;
+  secondaryHref: string;
+  image?: string;
+};
 
 type PublishedResponse<T> = {
   content?: T;
@@ -113,6 +125,18 @@ export async function getOfficesPage(): Promise<OfficesPageConfig> {
 export async function getTariffsPage(): Promise<TariffsPageConfig> {
   const res = await apiFetch("/content/published/tariffs");
   return parseContentResponse<TariffsPageConfig>(res, "тарифы");
+}
+
+/** International transfers page (/perevody). */
+export async function getTransfersPage(): Promise<TransfersPageConfig> {
+  const res = await apiFetch("/content/published/transfers");
+  return parseContentResponse<TransfersPageConfig>(res, "переводы");
+}
+
+/** Shared mobile app banner across product & transfer pages. */
+export async function getAppBanner(): Promise<AppBannerConfig> {
+  const res = await apiFetch("/content/published/app-banner");
+  return parseContentResponse<AppBannerConfig>(res, "баннер приложения");
 }
 
 export const pageService = {

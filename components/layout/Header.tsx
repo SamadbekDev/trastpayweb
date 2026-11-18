@@ -2,9 +2,15 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Menu, X, Search, Glasses } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import BrandLogo from "@/components/BrandLogo";
+import MegaMenu from "@/components/layout/MegaMenu";
+import {
+  resolveChipSection,
+  sectionPath,
+} from "@/components/shell/sectionChips";
 import { HeaderChip, HeaderConfig, Language } from "@/types/pageConfig";
 
 interface HeaderProps {
@@ -32,16 +38,31 @@ export default function Header({
   onChipSelect,
 }: HeaderProps) {
   const { i18n } = useTranslation();
+  const router = useRouter();
   const [activeNav, setActiveNav] = useState(config?.navItems?.[0]?.id || "");
   const [activeChip, setActiveChip] = useState(
     activeChipId || config?.chips?.[0]?.id || ""
   );
   const [mobileOpen, setMobileOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
+  const [megaOpen, setMegaOpen] = useState(false);
 
   useEffect(() => {
     if (activeChipId) setActiveChip(activeChipId);
   }, [activeChipId]);
+
+  useEffect(() => {
+    if (!megaOpen && !langOpen && !mobileOpen) return;
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        setMegaOpen(false);
+        setLangOpen(false);
+        setMobileOpen(false);
+      }
+    }
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [megaOpen, langOpen, mobileOpen]);
 
   const currentLang =
     (i18n.language?.split("-")[0].toLowerCase() as Language) || "ru";
@@ -169,79 +190,140 @@ export default function Header({
         </div>
 
         {showProductNav && (
-        <div className="flex justify-center pt-6 pb-0">
-          <div
-            className="flex w-full max-w-[883px] items-center justify-between gap-1.5 rounded-[20px] p-[6px] h-16"
-            style={{ backgroundColor: "#EAEFF8" }}
-          >
-            <button
-              type="button"
-              className="hidden sm:inline-flex h-12 shrink-0 items-center justify-center gap-3 rounded-2xl px-4 text-[14px] font-semibold leading-[18px] tracking-[-0.2px] text-[#172419] cursor-pointer"
-            >
-              <Menu size={20} strokeWidth={2.2} className="text-black" />
-              {config?.menuButtonText || "Меню"}
-            </button>
+          /* Figma Section: padding 12px 0 0 · Nav 1197×64 · gap 24 · radius 20 */
+          <div className="flex w-full flex-col items-center justify-center pt-3">
+            <div className="flex w-full max-w-[1197px] flex-col items-start p-3">
+              <div
+                className="flex h-16 w-full items-center gap-3 rounded-[20px] p-1.5 sm:gap-6"
+                style={{ backgroundColor: "#EAEFF8" }}
+              >
+                <button
+                  type="button"
+                  aria-expanded={megaOpen}
+                  aria-controls="site-mega-menu"
+                  onClick={() => {
+                    setLangOpen(false);
+                    setMobileOpen(false);
+                    setMegaOpen((v) => !v);
+                  }}
+                  className={`inline-flex h-12 w-[114px] shrink-0 cursor-pointer items-center justify-center gap-3 rounded-2xl px-4 text-[14px] font-semibold leading-[18px] tracking-[-0.2px] text-[#172419] ${
+                    megaOpen
+                      ? "bg-white shadow-[0_8px_24px_rgba(8,92,24,0.08)]"
+                      : ""
+                  }`}
+                >
+                  {megaOpen ? (
+                    <X size={20} strokeWidth={2.2} className="text-black" />
+                  ) : (
+                    <Menu size={20} strokeWidth={2.2} className="text-black" />
+                  )}
+                  <span>{config?.menuButtonText || "Меню"}</span>
+                </button>
 
-            <div
-              className="flex h-[52px] min-w-0 flex-1 items-center gap-2 overflow-x-auto rounded-2xl p-1 sm:max-w-[492px] sm:flex-none sm:gap-4"
-              style={{
-                background:
-                  "linear-gradient(90deg, #BBD8F2 0%, #D4DFF7 50%, #FFFFFF 100%)",
-              }}
-            >
-              {chips.map((chip) => {
-                const isActive = activeChip === chip.id;
-                const chipClass = `inline-flex h-11 shrink-0 items-center rounded-xl px-4 text-[14px] font-semibold leading-[18px] tracking-[-0.2px] transition-all ${
-                  isActive
-                    ? "bg-white text-[#262626] shadow-[0_12px_64px_rgba(8,92,24,0.05),0_8px_32px_rgba(8,92,24,0.05)]"
-                    : "bg-transparent text-[rgba(38,38,38,0.8)] hover:text-[#262626]"
-                }`;
+                <div
+                  className="flex h-[52px] min-w-0 flex-1 items-center gap-4 overflow-x-auto rounded-2xl p-1 sm:max-w-[492px] sm:flex-none"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, #BBD8F2 0%, #D4DFF7 50%, #FFFFFF 100%)",
+                  }}
+                >
+                  {chips.map((chip) => {
+                    const isActive = activeChip === chip.id;
+                    return (
+                      <button
+                        key={chip.id}
+                        type="button"
+                        onClick={() => {
+                          setActiveChip(chip.id);
+                          const handled = onChipSelect?.(chip);
+                          if (handled) return;
+                          const section = resolveChipSection(chip);
+                          if (section) {
+                            router.push(sectionPath(section));
+                          }
+                        }}
+                        className={`inline-flex h-11 shrink-0 cursor-pointer items-center justify-center rounded-xl px-4 text-[14px] font-semibold leading-[18px] tracking-[-0.2px] transition-all ${
+                          isActive
+                            ? "bg-white text-[#262626] shadow-[0_12px_64px_rgba(8,92,24,0.05),0_8px_32px_rgba(8,92,24,0.05)]"
+                            : "bg-transparent text-[rgba(38,38,38,0.8)] hover:text-[#262626]"
+                        }`}
+                      >
+                        {chip.label}
+                      </button>
+                    );
+                  })}
+                </div>
 
-                return (
-                  <button
-                    key={chip.id}
-                    type="button"
-                    onClick={() => {
-                      setActiveChip(chip.id);
-                      onChipSelect?.(chip);
-                    }}
-                    className={`${chipClass} cursor-pointer`}
+                <label className="hidden h-[50px] w-[261px] shrink-0 items-center gap-3 rounded-[14px] border border-[#E8EFEB] bg-[#F0F7FF] py-3 pl-4 pr-6 lg:flex">
+                  <Search
+                    size={24}
+                    className="shrink-0 text-[#9AA6AE]"
+                    strokeWidth={2.1}
+                  />
+                  <input
+                    type="search"
+                    placeholder="Поиск по сайту банка"
+                    className="w-full min-w-0 bg-transparent text-[17px] font-medium leading-[22px] text-[#110C30] outline-none placeholder:text-[#9AA6AE]"
+                  />
+                </label>
+
+                <button
+                  type="button"
+                  aria-label="Поиск"
+                  className="flex h-12 w-12 shrink-0 items-center justify-center text-[#172419] lg:hidden"
+                >
+                  <Search size={20} strokeWidth={2.2} />
+                </button>
+
+                <Link
+                  href="#"
+                  className="hidden h-[52px] w-[246px] shrink-0 items-center justify-center gap-2 rounded-[14px] py-3.5 pl-6 pr-4 text-[20px] font-medium leading-6 text-white shadow-[0_1px_12px_rgba(6,52,123,0.08)] md:inline-flex"
+                  style={{
+                    background:
+                      "linear-gradient(100.51deg, #2D6EE3 -14.62%, #12388C 112.09%)",
+                  }}
+                >
+                  <span className="whitespace-nowrap">Онлайн банкинг</span>
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    aria-hidden
                   >
-                    {chip.label}
-                  </button>
-                );
-              })}
+                    <rect
+                      x="6.5"
+                      y="3.5"
+                      width="11"
+                      height="17"
+                      rx="2"
+                      stroke="white"
+                      strokeWidth="1.7"
+                    />
+                    <path
+                      d="M11 17.5h2"
+                      stroke="white"
+                      strokeWidth="1.7"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </Link>
+              </div>
             </div>
-
-            <button
-              type="button"
-              aria-label="Открыть поиск"
-              className="flex h-12 w-12 min-w-12 shrink-0 items-center justify-center text-[#172419] cursor-pointer"
-            >
-              <Search size={20} strokeWidth={2.2} />
-            </button>
-
-            <Link
-              href="#"
-              aria-label="Войти"
-              className="flex h-12 w-12 min-w-12 max-w-12 shrink-0 items-center justify-center rounded-2xl bg-[#EFF7F7]"
-            >
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
-                  <path
-                    d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4Z"
-                    fill="#262626"
-                  />
-                  <path
-                    d="M12 14c-4.42 0-8 1.79-8 4v1h16v-1c0-2.21-3.58-4-8-4Z"
-                    fill="#262626"
-                  />
-                </svg>
-              </span>
-            </Link>
           </div>
-        </div>
         )}
+      </div>
+
+      <div id="site-mega-menu">
+        <MegaMenu
+          open={megaOpen}
+          onClose={() => setMegaOpen(false)}
+          logoSrc={config?.logo}
+          phone={
+            utilityLinks.find((l) => /^1287$/.test(l.label.trim()))?.label ||
+            "1287"
+          }
+        />
       </div>
 
       {mobileOpen && (
@@ -271,6 +353,18 @@ export default function Header({
                 ))}
               </div>
             )}
+            <div className="my-2 border-t border-black/5 pt-2 sm:hidden">
+              <button
+                type="button"
+                className="w-full rounded-lg px-3 py-2.5 text-left text-[14px] font-semibold text-[#110C30]"
+                onClick={() => {
+                  setMobileOpen(false);
+                  setMegaOpen(true);
+                }}
+              >
+                {config?.menuButtonText || "Меню"}
+              </button>
+            </div>
             <Link
               href="#"
               className="mt-1 rounded-lg bg-[#2D6EE3] px-3 py-2.5 text-center text-[14px] font-semibold text-white sm:hidden"

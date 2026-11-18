@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { pageTransition } from "@/components/motion/pageTransition";
+import { pageTransition } from "@/components/motion/transitions";
 
 /** Enter animation for App Router `template.tsx` (remounts on navigation). */
 export default function PageTransition({

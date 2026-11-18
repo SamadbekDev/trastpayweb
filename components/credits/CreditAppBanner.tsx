@@ -1,15 +1,21 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { useTranslation } from "react-i18next";
+import { useAppBannerConfig } from "@/hooks/useAppBannerConfig";
+import { getLocalizedText } from "@/utils/i18nHelper";
 import { getMediaUrl } from "@/utils/mediaHelper";
 
 interface CreditAppBannerProps {
-  title: string;
-  text: string;
-  primary: string;
-  secondary: string;
-  primaryHref: string;
-  secondaryHref: string;
+  title?: string;
+  text?: string;
+  primary?: string;
+  secondary?: string;
+  primaryHref?: string;
+  secondaryHref?: string;
   image?: string;
+  bgClassName?: string;
 }
 
 /** Break after «Мобильное приложение» like Figma */
@@ -64,20 +70,34 @@ function TextLines({ text }: { text: string }) {
  * Subtitle 740×58 · 24/400/120%
  */
 export default function CreditAppBanner({
-  title,
-  text,
-  primary,
-  secondary,
-  primaryHref,
-  secondaryHref,
-  image,
+  title: propTitle = "",
+  text: propText = "",
+  primary: propPrimary = "",
+  secondary: propSecondary = "",
+  primaryHref: propPrimaryHref = "#",
+  secondaryHref: propSecondaryHref = "/",
+  image: propImage,
+  bgClassName = "bg-white",
 }: CreditAppBannerProps) {
+  const { i18n } = useTranslation();
+  const lang = i18n.language || "ru";
+  const shared = useAppBannerConfig();
+
+  const title = (shared?.title ? getLocalizedText(shared.title, lang) : "") || propTitle;
+  const text = (shared?.text ? getLocalizedText(shared.text, lang) : "") || propText;
+  const primary = (shared?.primary ? getLocalizedText(shared.primary, lang) : "") || propPrimary;
+  const secondary =
+    (shared?.secondary ? getLocalizedText(shared.secondary, lang) : "") || propSecondary;
+  const primaryHref = shared?.primaryHref || propPrimaryHref;
+  const secondaryHref = shared?.secondaryHref || propSecondaryHref;
+  const image = shared?.image || propImage;
+
   if (!title) return null;
 
   const src = image?.trim() ? getMediaUrl(image) : "";
 
   return (
-    <section className="bg-white px-4 py-10 lg:px-[120px]">
+    <section className={`${bgClassName} px-4 py-10 lg:px-[120px]`}>
       <div
         className="relative mx-auto w-full max-w-[1200px] rounded-[24px] max-md:min-h-[360px] max-md:h-auto md:h-[432px]"
         style={{

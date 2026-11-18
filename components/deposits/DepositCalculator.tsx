@@ -62,7 +62,10 @@ export default function DepositCalculator({ config }: DepositCalculatorProps) {
   const { i18n } = useTranslation();
   const lang = (i18n.language?.split("-")[0].toLowerCase() as Language) || "ru";
 
-  const calculatorTerms = config.calculatorTerms ?? [];
+  const calculatorTerms = useMemo(
+    () => config.calculatorTerms ?? [],
+    [config.calculatorTerms]
+  );
   const calculatorChannels = config.calculatorChannels ?? [];
   const suggested = config.suggested ?? [];
   const termMin = Math.min(...calculatorTerms.map((t) => t.months), 3);
