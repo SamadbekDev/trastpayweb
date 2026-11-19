@@ -92,3 +92,78 @@ export const MEGA_MENU_COLUMNS: MegaMenuColumn[] = [
     ],
   },
 ];
+
+export const CORPORATE_MEGA_MENU_COLUMNS: MegaMenuColumn[] = [
+  {
+    id: "corp-accounts",
+    title: "Счета и РКО",
+    links: [
+      { label: "Расчётный счёт", href: "#" },
+      { label: "Открыть счёт", href: "#" },
+      { label: "Расчётно-кассовое обслуживание", href: "#" },
+      { label: "Наличные операции", href: "#" },
+    ],
+  },
+  {
+    id: "corp-credits",
+    title: "Кредитование",
+    links: [
+      { label: "Все бизнес-кредиты", href: "/kredity" },
+      { label: "Оборотные средства", href: "/kredity" },
+      { label: "Инвестиционный кредит", href: "/kredity" },
+      { label: "Бизнес-ипотека", href: "/kredity" },
+      { label: "Автокредиты для бизнеса", href: "/kredity" },
+      { label: "Микрокредитование", href: "/kredity" },
+      { label: "Факторинг", href: "/kredity" },
+      { label: "Зелёное финансирование", href: "/kredity" },
+      { label: "Отраслевые кредиты", href: "/kredity" },
+    ],
+  },
+  {
+    id: "corp-cards",
+    title: "Платежи и карты",
+    links: [
+      { label: "Корпоративные карты", href: "/karty" },
+      { label: "Зарплатный проект", href: "/karty" },
+      { label: "Торговые терминалы", href: "#" },
+      { label: "Приём безналичных платежей", href: "#" },
+    ],
+  },
+  {
+    id: "corp-ved",
+    title: "ВЭД и валюта",
+    links: [
+      { label: "Экспортные операции", href: "#" },
+      { label: "Импортные операции", href: "#" },
+      { label: "Валютные расчёты", href: "#" },
+      { label: "Внешнеторговые контракты", href: "#" },
+      { label: "Иностранные кредитные линии", href: "#" },
+    ],
+  },
+  {
+    id: "corp-deposits",
+    title: "Депозиты и гарантии",
+    links: [
+      { label: "Депозитные операции", href: "/vklady" },
+      { label: "Банковские гарантии", href: "#" },
+      { label: "Поручительства", href: "#" },
+      { label: "Лизинг", href: "#" },
+      { label: "Операции с ценными бумагами", href: "#" },
+    ],
+  },
+  {
+    id: "corp-services",
+    title: "Сервисы и тарифы",
+    links: [
+      { label: "Все тарифы", href: "/tarify" },
+      { label: "Exclusive", href: "/tarify" },
+      { label: "Standart", href: "/tarify" },
+      { label: "Валютный", href: "/tarify" },
+      { label: "UzEX", href: "/tarify" },
+      { label: "Тариф «БХМ»", href: "/tarify" },
+      { label: "Цифровой филиал", href: "#" },
+      { label: "Интернет-банк", href: "#" },
+      { label: "SMS-Bank", href: "#" },
+    ],
+  },
+];

@@ -1,11 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { Search, X } from "lucide-react";
-import { MEGA_MENU_COLUMNS } from "@/data/megaMenu";
+import {
+  CORPORATE_MEGA_MENU_COLUMNS,
+  MEGA_MENU_COLUMNS,
+} from "@/data/megaMenu";
 import { useSiteBranding } from "@/components/SiteBranding";
 
 type MegaMenuProps = {
@@ -31,7 +34,42 @@ export default function MegaMenu({
   const [audience, setAudience] = useState<(typeof AUDIENCE_TABS)[number]["id"]>(
     "individuals"
   );
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!open) {
+      setSearchOpen(false);
+      setSearchQuery("");
+    }
+  }, [open]);
+
+  useEffect(() => {
+    if (searchOpen) {
+      const id = requestAnimationFrame(() => searchInputRef.current?.focus());
+      return () => cancelAnimationFrame(id);
+    }
+    setSearchQuery("");
+  }, [searchOpen]);
+
   const mark = logoSrc?.trim() || branding.logo || "/logo.svg";
+  const columns =
+    audience === "corporate" ? CORPORATE_MEGA_MENU_COLUMNS : MEGA_MENU_COLUMNS;
+
+  const filteredColumns = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    if (!q) return columns;
+    return columns
+      .map((col) => {
+        const titleMatches = col.title.toLowerCase().includes(q);
+        const matchingLinks = titleMatches
+          ? col.links
+          : col.links.filter((link) => link.label.toLowerCase().includes(q));
+        return { ...col, links: matchingLinks };
+      })
+      .filter((col) => col.links.length > 0);
+  }, [columns, searchQuery]);
 
   return (
     <AnimatePresence>
@@ -63,7 +101,7 @@ export default function MegaMenu({
               transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
             >
               {/* Top bar — Figma Nav */}
-              <div className="flex w-full flex-col gap-2.5 py-3">
+              <div className="flex w-full flex-col py-3">
                 <div className="flex w-full flex-wrap items-center gap-2 rounded-[20px] bg-white p-1.5 shadow-[0_0_24px_rgba(6,52,123,0.12)] sm:gap-3 sm:px-2 sm:py-1.5 lg:flex-nowrap">
                   <Link
                     href="tel:1287"
@@ -108,14 +146,19 @@ export default function MegaMenu({
                     })}
                   </div>
 
-                  <label className="flex h-[50px] w-full max-w-[160px] shrink-0 items-center gap-3 rounded-[14px] border border-[#E8EFEB] bg-[#F0F7FF] px-4 sm:w-[144px]">
-                    <Search size={20} className="shrink-0 text-[#9AA6AE]" strokeWidth={2.2} />
-                    <input
-                      type="search"
-                      placeholder="Поиск"
-                      className="w-full min-w-0 bg-transparent text-[17px] font-medium leading-[22px] text-[#110C30] outline-none placeholder:text-[#9AA6AE]"
-                    />
-                  </label>
+                  <button
+                    type="button"
+                    aria-label="Поиск"
+                    aria-expanded={searchOpen}
+                    onClick={() => setSearchOpen((v) => !v)}
+                    className={`flex h-[50px] w-[50px] shrink-0 cursor-pointer items-center justify-center rounded-[14px] border transition-colors ${
+                      searchOpen
+                        ? "border-[#2D6EE3]/30 bg-[#E6F0FF] text-[#2D6EE3]"
+                        : "border-[#E8EFEB] bg-[#F0F7FF] text-[#110C30] hover:bg-[#E4F0FF]"
+                    }`}
+                  >
+                    <Search size={20} strokeWidth={2} />
+                  </button>
 
                   <Link
                     href="#"
@@ -149,45 +192,96 @@ export default function MegaMenu({
                     <X size={28} strokeWidth={1.8} />
                   </button>
                 </div>
+
+                <AnimatePresence initial={false}>
+                  {searchOpen ? (
+                    <motion.div
+                      key="mega-search-bar"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 62, opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <div className="pt-3.5">
+                        <label className="flex h-[48px] w-full items-center gap-3 rounded-[14px] border border-[#E2E8F0] bg-[#F8FAFC] px-4 transition-colors focus-within:border-[#2D6EE3] focus-within:bg-white">
+                          <Search
+                            size={18}
+                            className="shrink-0 text-[#9AA6AE]"
+                            strokeWidth={1.8}
+                          />
+                          <input
+                            ref={searchInputRef}
+                            type="search"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            placeholder="Поиск по разделам..."
+                            className="w-full min-w-0 bg-transparent text-[15px] font-normal leading-[20px] text-[#110C30] outline-none placeholder:font-normal placeholder:text-[#9AA6AE]"
+                          />
+                          {searchQuery ? (
+                            <button
+                              type="button"
+                              aria-label="Очистить поиск"
+                              onClick={() => {
+                                setSearchQuery("");
+                                searchInputRef.current?.focus();
+                              }}
+                              className="flex h-7 w-7 shrink-0 cursor-pointer items-center justify-center rounded-lg text-[#9AA6AE] hover:bg-[#EAEFF8] hover:text-[#110C30]"
+                            >
+                              <X size={16} strokeWidth={2} />
+                            </button>
+                          ) : null}
+                        </label>
+                      </div>
+                    </motion.div>
+                  ) : null}
+                </AnimatePresence>
               </div>
 
               {/* Columns */}
               <motion.div
+                key={audience}
                 className="grid grid-cols-2 gap-x-6 gap-y-8 md:grid-cols-3 xl:grid-cols-6"
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.06, duration: 0.24, ease: "easeOut" }}
               >
-                {MEGA_MENU_COLUMNS.map((column, columnIndex) => (
-                  <motion.div
-                    key={column.id}
-                    className="flex w-full max-w-[184px] flex-col gap-3"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{
-                      delay: 0.08 + columnIndex * 0.03,
-                      duration: 0.22,
-                      ease: "easeOut",
-                    }}
-                  >
-                    <h3 className="text-base font-bold leading-5 text-[#1A1A1A]">
-                      {column.title}
-                    </h3>
-                    <ul className="flex flex-col gap-3">
-                      {column.links.map((link) => (
-                        <li key={`${column.id}-${link.label}`}>
-                          <Link
-                            href={link.href}
-                            onClick={onClose}
-                            className="block text-[14px] font-medium leading-[18px] text-[#7B8088] transition-colors hover:text-[#2D6EE3]"
-                          >
-                            {link.label}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </motion.div>
-                ))}
+                {filteredColumns.length > 0 ? (
+                  filteredColumns.map((column, columnIndex) => (
+                    <motion.div
+                      key={column.id}
+                      className="flex w-full max-w-[184px] flex-col gap-3"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{
+                        delay: 0.08 + columnIndex * 0.03,
+                        duration: 0.22,
+                        ease: "easeOut",
+                      }}
+                    >
+                      <h3 className="text-base font-bold leading-5 text-[#1A1A1A]">
+                        {column.title}
+                      </h3>
+                      <ul className="flex flex-col gap-3">
+                        {column.links.map((link) => (
+                          <li key={`${column.id}-${link.label}`}>
+                            <Link
+                              href={link.href}
+                              onClick={onClose}
+                              className="block text-[14px] font-medium leading-[18px] text-[#7B8088] transition-colors hover:text-[#2D6EE3]"
+                            >
+                              {link.label}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </motion.div>
+                  ))
+                ) : (
+                  <p className="col-span-full py-6 text-center text-[15px] font-normal text-[#7B8088]">
+                    По запросу «{searchQuery.trim()}» ничего не найдено
+                  </p>
+                )}
               </motion.div>
             </motion.nav>
           </div>
