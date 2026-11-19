@@ -1,6 +1,7 @@
 "use client";
 
 import { Fragment, useMemo, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -78,9 +79,70 @@ function BenefitIcon({ index }: { index: number }) {
   );
 }
 
+type UiLang = "ru" | "uz" | "en";
+
+const UI_LABELS: Record<
+  UiLang,
+  {
+    filters: ReadonlyArray<readonly [TransferSystemFilter, string]>;
+    speed: string;
+    currency: string;
+    send: string;
+    geo: string;
+    fee: string;
+    details: string;
+  }
+> = {
+  ru: {
+    filters: [
+      ["all", "Все системы"],
+      ["cis", "Россия и СНГ"],
+      ["world", "Весь мир"],
+    ],
+    speed: "Скорость",
+    currency: "Валюта",
+    send: "Отправка",
+    geo: "География",
+    fee: "Комиссия",
+    details: "Подробнее →",
+  },
+  uz: {
+    filters: [
+      ["all", "Barcha tizimlar"],
+      ["cis", "Rossiya va MDH"],
+      ["world", "Butun dunyo"],
+    ],
+    speed: "Tezlik",
+    currency: "Valyuta",
+    send: "Yuborish",
+    geo: "Geografiya",
+    fee: "Komissiya",
+    details: "Batafsil →",
+  },
+  en: {
+    filters: [
+      ["all", "All systems"],
+      ["cis", "Russia & CIS"],
+      ["world", "Worldwide"],
+    ],
+    speed: "Speed",
+    currency: "Currency",
+    send: "Sending",
+    geo: "Geography",
+    fee: "Fee",
+    details: "Details →",
+  },
+};
+
 export default function TransfersPageView({ config: data, header, footer }: Props) {
   const { i18n } = useTranslation();
   const lang = i18n.language || "ru";
+  const uiLang: UiLang = lang.startsWith("uz")
+    ? "uz"
+    : lang.startsWith("en")
+      ? "en"
+      : "ru";
+  const labels = UI_LABELS[uiLang];
   const t = (val?: I18nText | string | null) => getLocalizedText(val, lang);
 
   const [systemFilter, setSystemFilter] = useState<TransferSystemFilter>("all");
@@ -97,32 +159,6 @@ export default function TransfersPageView({ config: data, header, footer }: Prop
 
   const faqItems = data.faq?.items || [];
   const visibleFaq = showAllFaq ? faqItems : faqItems.slice(0, 4);
-
-  const filterLabels: ReadonlyArray<readonly [TransferSystemFilter, string]> =
-    lang.startsWith("uz")
-      ? [
-          ["all", "Barcha tizimlar"],
-          ["cis", "Rossiya va MDH"],
-          ["world", "Butun dunyo"],
-        ]
-      : lang.startsWith("en")
-        ? [
-            ["all", "All systems"],
-            ["cis", "Russia & CIS"],
-            ["world", "Worldwide"],
-          ]
-        : [
-            ["all", "Все системы"],
-            ["cis", "Россия и СНГ"],
-            ["world", "Весь мир"],
-          ];
-
-  const speedLabel = lang.startsWith("uz") ? "Tezlik" : lang.startsWith("en") ? "Speed" : "Скорость";
-  const currencyLabel = lang.startsWith("uz") ? "Valyuta" : lang.startsWith("en") ? "Currency" : "Валюта";
-  const sendLabel = lang.startsWith("uz") ? "Yuborish" : lang.startsWith("en") ? "Sending" : "Отправка";
-  const geoLabel = lang.startsWith("uz") ? "Geografiya" : lang.startsWith("en") ? "Geography" : "География";
-  const feeLabel = lang.startsWith("uz") ? "Komissiya" : lang.startsWith("en") ? "Fee" : "Комиссия";
-  const detailsLabel = lang.startsWith("uz") ? "Batafsil →" : lang.startsWith("en") ? "Details →" : "Подробнее →";
 
   const heroImageUrl = data.hero?.visualImage
     ? getMediaUrl(data.hero.visualImage, "")
@@ -171,9 +207,12 @@ export default function TransfersPageView({ config: data, header, footer }: Prop
             }}
           >
             {heroImageUrl ? (
-              <img
+              <Image
                 src={heroImageUrl}
                 alt={t(data.hero?.title)}
+                width={1200}
+                height={480}
+                unoptimized
                 className="h-full w-full object-cover"
               />
             ) : null}
@@ -265,9 +304,12 @@ export default function TransfersPageView({ config: data, header, footer }: Prop
                 </div>
               </div>
               {howToSendImageUrl ? (
-                <img
+                <Image
                   src={howToSendImageUrl}
                   alt=""
+                  width={409}
+                  height={299}
+                  unoptimized
                   aria-hidden
                   className="pointer-events-none hidden md:block md:absolute md:-right-6 md:-top-[2px] md:z-0 md:h-[299px] md:w-[409px] md:object-contain lg:left-[855px] lg:right-auto"
                 />
@@ -344,7 +386,7 @@ export default function TransfersPageView({ config: data, header, footer }: Prop
                 <p className="text-base text-white/80">{t(data.systemsSubtitle)}</p>
               </div>
               <div className="flex w-fit gap-1 rounded-[14px] bg-[#F1F5F9] p-1">
-                {filterLabels.map(([id, label]) => (
+                {labels.filters.map(([id, label]) => (
                   <button
                     key={id}
                     type="button"
@@ -393,26 +435,26 @@ export default function TransfersPageView({ config: data, header, footer }: Prop
                   </div>
                   <div className="flex flex-col gap-2.5 text-sm">
                     <div className="flex justify-between">
-                      <span className="text-[#8A93A3]">{speedLabel}</span>
+                      <span className="text-[#8A93A3]">{labels.speed}</span>
                       <span className="font-medium text-[#1A2233]">{t(system.speed)}</span>
                     </div>
                     <div className="flex justify-between gap-4">
                       <span className="shrink-0 text-[#8A93A3]">
-                        {system.id === "as" ? sendLabel : currencyLabel}
+                        {system.id === "as" ? labels.send : labels.currency}
                       </span>
                       <span className="text-right font-medium text-[#1A2233]">
                         {t(system.currency)}
                       </span>
                     </div>
                     <div className="flex justify-between gap-4">
-                      <span className="shrink-0 text-[#8A93A3]">{geoLabel}</span>
+                      <span className="shrink-0 text-[#8A93A3]">{labels.geo}</span>
                       <span className="text-right font-medium text-[#1A2233]">
                         {t(system.geography)}
                       </span>
                     </div>
                   </div>
                   <div className="flex items-center justify-between rounded-xl bg-[#F1F5F9] px-4 py-3.5">
-                    <span className="text-sm text-[#4B5563]">{feeLabel}</span>
+                    <span className="text-sm text-[#4B5563]">{labels.fee}</span>
                     <span className="text-xl font-bold text-[#123B78]">
                       {t(system.commission)}
                     </span>
@@ -421,7 +463,7 @@ export default function TransfersPageView({ config: data, header, footer }: Prop
                     href={system.href || "#tariffs"}
                     className="text-[15px] font-semibold text-[#2966F2]"
                   >
-                    {detailsLabel}
+                    {labels.details}
                   </Link>
                 </article>
               ))}
