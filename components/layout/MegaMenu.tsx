@@ -3,13 +3,18 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { Search, X } from "lucide-react";
 import {
   CORPORATE_MEGA_MENU_COLUMNS,
+  INVESTORS_MEGA_MENU_COLUMNS,
   MEGA_MENU_COLUMNS,
 } from "@/data/megaMenu";
 import { useSiteBranding } from "@/components/SiteBranding";
+import { useLang } from "@/hooks/useLang";
+import { tr } from "@/i18n/tr";
+import { NAV_DICT } from "@/i18n/dict/nav";
 
 type MegaMenuProps = {
   open: boolean;
@@ -19,9 +24,9 @@ type MegaMenuProps = {
 };
 
 const AUDIENCE_TABS = [
-  { id: "individuals", label: "Физическим лицам" },
-  { id: "corporate", label: "Корпоративным клиентам" },
-  { id: "investors", label: "Акционерам и инвесторам" },
+  { id: "individuals", label: "Физическим лицам", labelUz: "Jismoniy shaxslarga", labelEn: "Private Clients" },
+  { id: "corporate", label: "Корпоративным клиентам", labelUz: "Korporativ mijozlarga", labelEn: "Corporate Clients" },
+  { id: "investors", label: "Акционерам и инвесторам", labelUz: "Aksiyador va investorlarga", labelEn: "Shareholders & Investors" },
 ] as const;
 
 export default function MegaMenu({
@@ -31,6 +36,9 @@ export default function MegaMenu({
   phone = "1287",
 }: MegaMenuProps) {
   const branding = useSiteBranding();
+  const lang = useLang();
+  const t = (s: string) => tr(lang, s, NAV_DICT);
+  const pathname = usePathname();
   const [audience, setAudience] = useState<(typeof AUDIENCE_TABS)[number]["id"]>(
     "individuals"
   );
@@ -39,11 +47,19 @@ export default function MegaMenu({
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (!open) {
+    if (open) {
+      if (pathname?.startsWith("/biznes")) {
+        setAudience("corporate");
+      } else if (pathname?.startsWith("/aktsioneram")) {
+        setAudience("investors");
+      } else {
+        setAudience("individuals");
+      }
+    } else {
       setSearchOpen(false);
       setSearchQuery("");
     }
-  }, [open]);
+  }, [open, pathname]);
 
   useEffect(() => {
     if (searchOpen) {
@@ -55,21 +71,29 @@ export default function MegaMenu({
 
   const mark = logoSrc?.trim() || branding.logo || "/logo.svg";
   const columns =
-    audience === "corporate" ? CORPORATE_MEGA_MENU_COLUMNS : MEGA_MENU_COLUMNS;
+    audience === "corporate"
+      ? CORPORATE_MEGA_MENU_COLUMNS
+      : audience === "investors"
+        ? INVESTORS_MEGA_MENU_COLUMNS
+        : MEGA_MENU_COLUMNS;
 
   const filteredColumns = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
     if (!q) return columns;
     return columns
       .map((col) => {
-        const titleMatches = col.title.toLowerCase().includes(q);
+        const colTitle = tr(lang, col.title, NAV_DICT);
+        const titleMatches = colTitle.toLowerCase().includes(q);
         const matchingLinks = titleMatches
           ? col.links
-          : col.links.filter((link) => link.label.toLowerCase().includes(q));
+          : col.links.filter((link) => {
+              const linkLabel = tr(lang, link.label, NAV_DICT);
+              return linkLabel.toLowerCase().includes(q);
+            });
         return { ...col, links: matchingLinks };
       })
       .filter((col) => col.links.length > 0);
-  }, [columns, searchQuery]);
+  }, [columns, searchQuery, lang]);
 
   return (
     <AnimatePresence>
@@ -78,7 +102,7 @@ export default function MegaMenu({
           <motion.button
             key="mega-backdrop"
             type="button"
-            aria-label="Закрыть меню"
+            aria-label={t("Закрыть меню")}
             className="fixed inset-0 z-40 cursor-default bg-black/25"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -92,7 +116,7 @@ export default function MegaMenu({
               key="mega-panel"
               aria-label={
                 AUDIENCE_TABS.find((t) => t.id === audience)?.label ||
-                "Навигация"
+                t("Навигация")
               }
               className="pointer-events-auto flex w-full max-w-[1320px] flex-col gap-6 rounded-[40px] bg-white px-6 pb-8 pt-6 shadow-[0_24px_80px_rgba(17,12,48,0.18)] sm:px-8"
               initial={{ opacity: 0, y: -18, scale: 0.985 }}
@@ -134,13 +158,13 @@ export default function MegaMenu({
                           key={tab.id}
                           type="button"
                           onClick={() => setAudience(tab.id)}
-                          className={`inline-flex h-11 shrink-0 cursor-pointer items-center justify-center rounded-xl px-2 text-[13px] font-semibold leading-[18px] tracking-[-0.2px] sm:px-2 sm:text-[14px] ${
+                          className={`inline-flex h-11 shrink-0 cursor-pointer items-center justify-center rounded-xl px-3 text-[13px] font-semibold leading-[18px] tracking-[-0.2px] transition-colors sm:px-3.5 sm:text-[14px] ${
                             active
-                              ? "text-[#262626]"
-                              : "text-[rgba(38,38,38,0.6)] hover:text-[#262626]"
+                              ? "bg-[#F0F7FF] text-[#2D6EE3]"
+                              : "text-[rgba(38,38,38,0.6)] hover:bg-[#F8FAFC] hover:text-[#262626]"
                           }`}
                         >
-                          {tab.label}
+                          {lang === "uz" ? tab.labelUz : lang === "en" ? tab.labelEn : tab.label}
                         </button>
                       );
                     })}
@@ -148,7 +172,7 @@ export default function MegaMenu({
 
                   <button
                     type="button"
-                    aria-label="Поиск"
+                    aria-label={t("Поиск")}
                     aria-expanded={searchOpen}
                     onClick={() => setSearchOpen((v) => !v)}
                     className={`flex h-[50px] w-[50px] shrink-0 cursor-pointer items-center justify-center rounded-[14px] border transition-colors ${
@@ -161,14 +185,21 @@ export default function MegaMenu({
                   </button>
 
                   <Link
-                    href="#"
+                    href="/servisy#internet-bank"
+                    onClick={onClose}
                     className="inline-flex h-[52px] min-w-0 flex-1 items-center justify-center gap-2 rounded-[14px] px-4 text-[16px] font-medium leading-6 text-white shadow-[0_1px_12px_rgba(6,52,123,0.08)] sm:gap-2 sm:px-6 sm:text-[20px] lg:min-w-[220px] lg:flex-none"
                     style={{
                       background:
                         "linear-gradient(100.51deg, #2D6EE3 -14.62%, #12388C 112.09%)",
                     }}
                   >
-                    <span className="truncate">Онлайн банкинг</span>
+                    <span className="truncate">
+                      {lang === "uz"
+                        ? "Onlayn banking"
+                        : lang === "en"
+                          ? "Online Banking"
+                          : "Онлайн банкинг"}
+                    </span>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
                       <rect
                         x="6.5"
@@ -185,7 +216,7 @@ export default function MegaMenu({
 
                   <button
                     type="button"
-                    aria-label="Закрыть"
+                    aria-label={t("Закрыть")}
                     onClick={onClose}
                     className="ml-auto flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-[#110C30] hover:bg-[#F2F4F7] lg:ml-0"
                   >
@@ -215,13 +246,19 @@ export default function MegaMenu({
                             type="search"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            placeholder="Поиск по разделам..."
+                            placeholder={
+                              lang === "uz"
+                                ? "Bo‘limlar bo‘yicha qidiruv..."
+                                : lang === "en"
+                                  ? "Search sections..."
+                                  : "Поиск по разделам..."
+                            }
                             className="w-full min-w-0 bg-transparent text-[15px] font-normal leading-[20px] text-[#110C30] outline-none placeholder:font-normal placeholder:text-[#9AA6AE]"
                           />
                           {searchQuery ? (
                             <button
                               type="button"
-                              aria-label="Очистить поиск"
+                              aria-label={t("Очистить поиск")}
                               onClick={() => {
                                 setSearchQuery("");
                                 searchInputRef.current?.focus();
@@ -260,7 +297,7 @@ export default function MegaMenu({
                       }}
                     >
                       <h3 className="text-base font-bold leading-5 text-[#1A1A1A]">
-                        {column.title}
+                        {t(column.title)}
                       </h3>
                       <ul className="flex flex-col gap-3">
                         {column.links.map((link) => (
@@ -270,7 +307,7 @@ export default function MegaMenu({
                               onClick={onClose}
                               className="block text-[14px] font-medium leading-[18px] text-[#7B8088] transition-colors hover:text-[#2D6EE3]"
                             >
-                              {link.label}
+                              {t(link.label)}
                             </Link>
                           </li>
                         ))}
@@ -279,7 +316,11 @@ export default function MegaMenu({
                   ))
                 ) : (
                   <p className="col-span-full py-6 text-center text-[15px] font-normal text-[#7B8088]">
-                    По запросу «{searchQuery.trim()}» ничего не найдено
+                    {lang === "uz"
+                      ? `«${searchQuery.trim()}» so‘rovi bo‘yicha hech narsa topilmadi`
+                      : lang === "en"
+                        ? `Nothing found for «${searchQuery.trim()}»`
+                        : `По запросу «${searchQuery.trim()}» ничего не найдено`}
                   </p>
                 )}
               </motion.div>

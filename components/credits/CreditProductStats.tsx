@@ -16,13 +16,13 @@ export function buildCreditStats({
   if (!product) return [];
   const downPayment =
     page.calculator?.downMin != null && page.calculator.downMin > 0
-      ? `от ${page.calculator.downMin}%`
+      ? `${text({ ru: "от", uz: "", en: "from" })} ${page.calculator.downMin}%${text({ ru: "", uz: " dan", en: "" })}`
       : "";
   return [
-    { id: "amount", value: text(product.amount), label: text(statLabels?.amount) || "Сумма кредита" },
-    { id: "term", value: text(product.term), label: text(statLabels?.term) || "Срок кредита" },
-    { id: "rate", value: text(product.rate), label: text(statLabels?.rate) || "Процентная ставка" },
-    { id: "down", value: downPayment, label: "Первоначальный взнос" },
+    { id: "amount", value: text(product.amount), label: text(statLabels?.amount) || text({ ru: "Сумма кредита", uz: "Kredit summasi", en: "Loan amount" }) },
+    { id: "term", value: text(product.term), label: text(statLabels?.term) || text({ ru: "Срок кредита", uz: "Kredit muddati", en: "Loan term" }) },
+    { id: "rate", value: text(product.rate), label: text(statLabels?.rate) || text({ ru: "Процентная ставка", uz: "Foiz stavkasi", en: "Interest rate" }) },
+    { id: "down", value: downPayment, label: text({ ru: "Первоначальный взнос", uz: "Boshlang‘ich badal", en: "Down payment" }) },
   ].filter((item) => item.value);
 }
 

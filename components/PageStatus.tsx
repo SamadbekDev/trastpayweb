@@ -2,6 +2,7 @@
 
 import { AlertCircle, RefreshCw } from "lucide-react";
 import BrandLogo from "@/components/BrandLogo";
+import { pickText, useLang } from "@/hooks/useLang";
 
 export function TrastbankLoader() {
   return (
@@ -27,6 +28,7 @@ interface TrastbankErrorProps {
 }
 
 export function TrastbankError({ onRetry }: TrastbankErrorProps) {
+  const lang = useLang();
   return (
     <div className="w-full max-w-md bg-white rounded-3xl p-8 shadow-[0_20px_60px_-15px_rgba(8,36,63,0.12)] border border-slate-100 flex flex-col items-center text-center">
       <div className="mb-6 flex items-center gap-2">
@@ -38,12 +40,16 @@ export function TrastbankError({ onRetry }: TrastbankErrorProps) {
       </div>
 
       <h2 className="text-2xl font-bold text-[#08243f] mb-3">
-        Сервис временно недоступен
+        {pickText(lang, "Сервис временно недоступен", "Xizmat vaqtincha ishlamayapti", "Service temporarily unavailable")}
       </h2>
 
       <p className="text-slate-500 text-sm leading-relaxed mb-8">
-        К сожалению, не удалось загрузить данные страницы. Пожалуйста, проверьте
-        подключение к сети или повторите попытку позже.
+        {pickText(
+          lang,
+          "К сожалению, не удалось загрузить данные страницы. Пожалуйста, проверьте подключение к сети или повторите попытку позже.",
+          "Afsuski, sahifa ma’lumotlarini yuklab bo‘lmadi. Internet aloqasini tekshiring yoki keyinroq qayta urinib ko‘ring.",
+          "Sorry, we couldn't load this page. Please check your connection or try again later."
+        )}
       </p>
 
       <button
@@ -51,7 +57,7 @@ export function TrastbankError({ onRetry }: TrastbankErrorProps) {
         className="w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-[#08243f] text-white font-bold text-sm hover:bg-[#0c345a] active:scale-[0.98] transition-all cursor-pointer shadow-md"
       >
         <RefreshCw size={18} />
-        <span>Повторить попытку</span>
+        <span>{pickText(lang, "Повторить попытку", "Qayta urinish", "Try again")}</span>
       </button>
     </div>
   );

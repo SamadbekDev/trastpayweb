@@ -93,7 +93,7 @@ export default function Hero({ config }: HeroProps) {
                     )}
                     {btn && (
                       <Link
-                        href={card.buttonHref || "#"}
+                        href={card.buttonHref && card.buttonHref !== "#" ? card.buttonHref : "/kredity"}
                         className="mt-auto inline-flex h-8 w-fit items-center rounded-lg bg-[#1E54E0] px-6 text-[12px] font-semibold leading-[15px] text-white hover:bg-[#1848c4]"
                       >
                         {btn}

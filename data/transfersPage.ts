@@ -279,7 +279,7 @@ export const TRANSFERS_PAGE = {
       "Окончательная комиссия рассчитывается при отправке перевода в отделении банка.",
     docTitle: "Тарифы на денежные переводы",
     docMeta: "PDF · актуальная редакция",
-    docHref: "#",
+    docHref: "/tarify",
   },
   faq: {
     title: "Частые вопросы",
@@ -326,7 +326,7 @@ export const TRANSFERS_PAGE = {
     title: "Мобильное приложение на ваш смартфон",
     text: "Переводы, открытие счетов и вкладов, инвестиции и много другое - в вашем смартфоне",
     primary: "Скачать приложение",
-    primaryHref: "#",
+    primaryHref: "/servisy#trastpay",
     secondary: "Посмотреть все предложения",
     secondaryHref: "/",
   },
