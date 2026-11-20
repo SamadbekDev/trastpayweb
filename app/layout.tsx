@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
+import LangBoot from "@/components/i18n/LangBoot";
 
 const roboto = Roboto({
   weight: ["400"],
@@ -16,25 +17,31 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Trastbank | Private Joint-Stock Bank in Uzbekistan",
+  metadataBase: new URL("https://trustbank.uz"),
+  title: {
+    default: "ЧАБ «Трастбанк» — Частный акционерный банк Узбекистана",
+    template: "%s | ЧАБ «Трастбанк»",
+  },
   description:
-    "Trastbank provides a wide range of premium banking services in Uzbekistan. Apply for auto loans, consumer credit, order international Visa/Mastercard cards, and utilize online currency converter and loan calculators.",
+    "Официальный сайт ЧАБ «Трастбанк» (Узбекистан): кредиты, вклады, пластиковые карты Uzcard/Humo/Visa/Mastercard, денежные переводы, курсы валют и решения для бизнеса.",
   keywords: [
+    "Трастбанк",
     "Trastbank",
-    "Uzbekistan banking",
-    "loans Uzbekistan",
-    "credit cards Tashkent",
-    "currency exchange UZS",
-    "loan calculator",
-    "trust bank uz",
+    "банк Узбекистан",
+    "кредиты Ташкент",
+    "вклады Узбекистан",
+    "курсы валют UZS",
+    "РКО для бизнеса",
+    "trustbank.uz",
   ],
-  authors: [{ name: "Trastbank Dev Team" }],
+  authors: [{ name: "ЧАБ «Трастбанк»" }],
   openGraph: {
-    title: "Trastbank | Private Joint-Stock Bank in Uzbekistan",
+    title: "ЧАБ «Трастбанк» — Частный акционерный банк Узбекистана",
     description:
-      "Premium banking services for individuals and corporate clients. Fast loans, high-interest deposits, and digital transfers.",
+      "Банковские услуги для частных и корпоративных клиентов: кредиты, вклады, карты, переводы, ВЭД и дистанционный банкинг Trastpay.",
     type: "website",
-    locale: "en_US",
+    locale: "ru_RU",
+    alternateLocale: ["uz_UZ", "en_US"],
     url: "https://trustbank.uz",
   },
 };
@@ -47,6 +54,7 @@ export default function RootLayout({
   return (
     <html lang="ru" className={`scroll-smooth ${roboto.variable}`}>
       <body className="antialiased overflow-x-hidden text-[#08243f] [padding:env(safe-area-inset-top)_env(safe-area-inset-right)_env(safe-area-inset-bottom)_env(safe-area-inset-left)]">
+        <LangBoot />
         {children}
       </body>
     </html>

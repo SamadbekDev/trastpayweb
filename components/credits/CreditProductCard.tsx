@@ -1,10 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { CreditGroup, CreditProduct } from "@/types/credits";
 import { I18nText } from "@/types/pageConfig";
 import { getMediaUrl } from "@/utils/mediaHelper";
+import { creditProductFallback } from "@/utils/figmaAssets";
 import CreditGlyph from "./CreditGlyph";
 import { creditProductImage } from "./productImages";
 import { useCreditText } from "./text";
@@ -25,7 +27,10 @@ export default function CreditProductCard({
   secondaryCta,
 }: CreditProductCardProps) {
   const text = useCreditText();
-  const image = creditProductImage(product);
+  // CMS image; the Figma artwork replaces it when the file cannot be loaded
+  const [failed, setFailed] = useState(false);
+  const fallback = creditProductFallback(product.id);
+  const image = failed ? fallback : creditProductImage(product);
   const stats = [
     { value: text(product.rate), label: text(statLabels.rate) },
     { value: text(product.amount), label: text(statLabels.amount) },
@@ -79,8 +84,12 @@ export default function CreditProductCard({
       >
         {image ? (
           <Image
+            key={image}
             src={getMediaUrl(image)}
             alt=""
+            onError={() => {
+              if (!failed && fallback) setFailed(true);
+            }}
             fill
             unoptimized
             className="object-cover"

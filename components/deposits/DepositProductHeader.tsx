@@ -5,6 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, Search, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { tr } from "@/i18n/tr";
+import { NAV_DICT } from "@/i18n/dict/nav";
 import BrandLogo from "@/components/BrandLogo";
 import { Language, NavItem } from "@/types/pageConfig";
 import { DepositsPageConfig } from "@/types/deposits";
@@ -16,14 +18,14 @@ const DEFAULT_HEADER: HeaderConfig = {
   logoText: "TRASTBANK",
   navItems: [
     { id: "nav-1", label: "Физическим лицам", href: "/" },
-    { id: "nav-2", label: "Корпоративным клиентам", href: "#" },
-    { id: "nav-3", label: "Акционерам и инвесторам", href: "#" },
-    { id: "nav-4", label: "Еще", href: "#" },
+    { id: "nav-2", label: "Корпоративным клиентам", href: "/biznes" },
+    { id: "nav-3", label: "Акционерам и инвесторам", href: "/aktsioneram" },
+    { id: "nav-4", label: "Еще", href: "/karta-sajta" },
   ],
   becomeClientText: "Стать клиентом",
-  becomeClientHref: "#",
+  becomeClientHref: "/zayavki",
   loginButtonText: "Войти",
-  loginHref: "#",
+  loginHref: "/servisy#internet-bank",
 };
 
 interface DepositProductHeaderProps {
@@ -73,7 +75,7 @@ export default function DepositProductHeader({
                       : "font-medium text-[rgba(17,12,48,0.5)] hover:text-[#110C30]"
                   }`}
                 >
-                  {item.label}
+                  {tr(currentLang, item.label, NAV_DICT)}
                 </Link>
               );
             })}
@@ -192,7 +194,7 @@ export default function DepositProductHeader({
                 className="py-1 text-[14px] font-semibold text-[#110C30]"
                 onClick={() => setMobileOpen(false)}
               >
-                {item.label}
+                {tr(currentLang, item.label, NAV_DICT)}
               </Link>
             ))}
             <Link

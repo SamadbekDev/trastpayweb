@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { pickText, useLang } from "@/hooks/useLang";
 import { AnimatePresence, motion } from "framer-motion";
 import { pageTransition } from "@/components/motion/transitions";
 import {
@@ -19,6 +20,7 @@ export default function TariffsHero({
   content,
   onAudienceChange,
 }: TariffsHeroProps) {
+  const lang = useLang();
   return (
     <section className="w-full bg-[#1E7CFD]">
       <div className="mx-auto flex w-full max-w-[1440px] flex-col items-start gap-6 px-4 py-6 sm:px-8 lg:h-[480px] lg:px-[120px] lg:py-6">
@@ -27,7 +29,7 @@ export default function TariffsHero({
           <div
             className="flex h-[45px] w-full items-center justify-center gap-1 rounded-[14px] bg-[#EEEEF0] p-1"
             role="tablist"
-            aria-label="Тип клиента"
+            aria-label={pickText(lang, "Тип клиента", "Mijoz turi", "Client type")}
           >
             <button
               type="button"
@@ -40,7 +42,7 @@ export default function TariffsHero({
                   : "bg-transparent text-[#64748B]"
               }`}
             >
-              Физ. лицам
+              {pickText(lang, "Физ. лицам", "Jismoniy shaxslarga", "Individuals")}
             </button>
             <button
               type="button"
@@ -53,7 +55,7 @@ export default function TariffsHero({
                   : "bg-transparent text-[#64748B]"
               }`}
             >
-              Юр. лицам
+              {pickText(lang, "Юр. лицам", "Yuridik shaxslarga", "Businesses")}
             </button>
           </div>
         </div>

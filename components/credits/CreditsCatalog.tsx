@@ -5,9 +5,12 @@ import { AnimatePresence, motion } from "framer-motion";
 import { pageTransition } from "@/components/motion/transitions";
 import { CreditsPageConfig } from "@/types/credits";
 import { useCreditText } from "./text";
+import { useLang } from "@/hooks/useLang";
 import CreditProductCard from "./CreditProductCard";
 
-function creditCountLabel(count: number) {
+function creditCountLabel(count: number, lang = "ru") {
+  if (lang === "uz") return `${count} ta mahsulot`;
+  if (lang === "en") return `${count} ${count === 1 ? "product" : "products"}`;
   const n = Math.abs(count) % 100;
   const n1 = n % 10;
   if (n > 10 && n < 20) return `${count} продуктов`;
@@ -18,6 +21,7 @@ function creditCountLabel(count: number) {
 
 export default function CreditsCatalog({ config }: { config: CreditsPageConfig }) {
   const text = useCreditText();
+  const lang = useLang();
   const [activeTab, setActiveTab] = useState(config.tabs[0]?.id || "all");
 
   const visibleGroups = useMemo(() => {
@@ -81,7 +85,7 @@ export default function CreditsCatalog({ config }: { config: CreditsPageConfig }
                     className="inline-flex items-start rounded-full px-3 py-[5px] text-[13px] font-semibold leading-4"
                     style={{ backgroundColor: group.badgeBg, color: group.accent }}
                   >
-                    {creditCountLabel(products.length)}
+                    {creditCountLabel(products.length, lang)}
                   </span>
                 </div>
 

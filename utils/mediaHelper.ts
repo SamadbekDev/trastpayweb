@@ -1,4 +1,5 @@
 import { getApiBaseUrl } from "@/api/client";
+import { figmaForStub } from "@/utils/figmaAssets";
 
 /**
  * Resolve media path / id / absolute URL for <Image> and CSS backgrounds.
@@ -13,6 +14,10 @@ export const getMediaUrl = (
   }
 
   const cleanPath = pathOrId.trim();
+
+  // CMS seed stubs (placehold.co / Unsplash) → artwork from the Figma «Ultimate Design» page
+  const figma = figmaForStub(cleanPath);
+  if (figma) return figma;
 
   if (
     cleanPath.startsWith("http://") ||

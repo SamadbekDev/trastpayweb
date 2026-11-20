@@ -2,6 +2,7 @@
 
 import DepositProductHeader from "@/components/deposits/DepositProductHeader";
 import BranchesMapSection from "@/components/branches/BranchesMapSection";
+import OfficesDirectory from "@/components/content/OfficesDirectory";
 import Footer from "@/components/layout/Footer";
 import { SiteBrandingProvider } from "@/components/SiteBranding";
 import useOfficesPageConfig from "@/hooks/useOfficesPageConfig";
@@ -32,6 +33,9 @@ export default function BranchesPage() {
         <DepositProductHeader header={config.header} />
         <main className="flex-grow">
           <BranchesMapSection config={config} />
+          <div className="container-page py-10">
+            <OfficesDirectory />
+          </div>
         </main>
         <Footer config={config.footer} />
       </div>

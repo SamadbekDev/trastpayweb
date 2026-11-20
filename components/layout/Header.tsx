@@ -1,12 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { Menu, X, Search, Glasses } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { Menu, X, Search } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { tr } from "@/i18n/tr";
+import { NAV_DICT } from "@/i18n/dict/nav";
 import BrandLogo from "@/components/BrandLogo";
 import MegaMenu from "@/components/layout/MegaMenu";
+import AccessibilityMenu from "@/components/layout/AccessibilityMenu";
+import { SITE_SEARCH_INDEX } from "@/data/searchIndex";
 import {
   resolveChipSection,
   sectionPath,
@@ -31,6 +35,25 @@ function resolveUtilityHref(link: { label: string; href: string }): string {
   return href || "#";
 }
 
+function resolveNavHref(item: { id: string; label: string; href: string }): string {
+  const href = (item.href || "").trim();
+  if (href && href !== "#") return href;
+  const label = item.label.toLowerCase();
+  if (/корпоратив|бизнес|korporativ|business/.test(label) || item.id.includes("corp")) {
+    return "/biznes";
+  }
+  if (/акционер|инвестор|aksiyador|investor/.test(label) || item.id.includes("invest")) {
+    return "/aktsioneram";
+  }
+  if (/о банке|bank haqida|about/.test(label) || item.id.includes("about")) {
+    return "/o-banke";
+  }
+  if (/частн|физ|jismoniy|private/.test(label) || item.id.includes("private")) {
+    return "/";
+  }
+  return "#";
+}
+
 export default function Header({
   config,
   showProductNav = true,
@@ -39,6 +62,7 @@ export default function Header({
 }: HeaderProps) {
   const { i18n } = useTranslation();
   const router = useRouter();
+  const pathname = usePathname();
   const [activeNav, setActiveNav] = useState(config?.navItems?.[0]?.id || "");
   const [activeChip, setActiveChip] = useState(
     activeChipId || config?.chips?.[0]?.id || ""
@@ -46,6 +70,20 @@ export default function Header({
   const [mobileOpen, setMobileOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const [megaOpen, setMegaOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchFocused, setSearchFocused] = useState(false);
+
+  const searchResults = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    if (!q) return [];
+    return SITE_SEARCH_INDEX.filter(
+      (item) =>
+        item.ru.toLowerCase().includes(q) ||
+        item.uz.toLowerCase().includes(q) ||
+        item.en.toLowerCase().includes(q) ||
+        item.keywords.toLowerCase().includes(q)
+    ).slice(0, 6);
+  }, [searchQuery]);
 
   useEffect(() => {
     if (activeChipId) setActiveChip(activeChipId);
@@ -69,7 +107,35 @@ export default function Header({
 
   const handleLanguageChange = (lang: Language) => {
     i18n.changeLanguage(lang);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("app_lang", lang);
+    }
     setLangOpen(false);
+  };
+
+  const navLabel = (label: string) => {
+    const known = tr(currentLang, label.trim(), NAV_DICT);
+    if (known !== label.trim()) return known;
+    const l = label.toLowerCase();
+    if (currentLang === "uz") {
+      if (/частн|физ/.test(l)) return "Jismoniy shaxslarga";
+      if (/корпоратив|бизнес/.test(l)) return "Korporativ mijozlarga";
+      if (/акционер|инвестор/.test(l)) return "Aksiyador va investorlarga";
+      if (/о банке/.test(l)) return "Bank haqida";
+      if (/филиал/.test(l)) return "Filiallar";
+      if (/продукт/.test(l)) return "Mahsulotlar";
+      if (/тариф/.test(l)) return "Tariflar";
+    }
+    if (currentLang === "en") {
+      if (/частн|физ/.test(l)) return "Private Clients";
+      if (/корпоратив|бизнес/.test(l)) return "Corporate Clients";
+      if (/акционер|инвестор/.test(l)) return "Shareholders & Investors";
+      if (/о банке/.test(l)) return "About Bank";
+      if (/филиал/.test(l)) return "Branches";
+      if (/продукт/.test(l)) return "Products";
+      if (/тариф/.test(l)) return "Tariffs";
+    }
+    return label;
   };
 
   const navItems = config?.navItems || [];
@@ -93,19 +159,30 @@ export default function Header({
 
             <nav className="hidden xl:flex items-center gap-4">
               {navItems.map((item) => {
-                const isActive = activeNav === item.id;
+                const targetHref = resolveNavHref(item);
+                const isRouteActive =
+                  targetHref !== "#" &&
+                  (targetHref === "/"
+                    ? pathname === "/"
+                    : pathname?.startsWith(targetHref));
+                const isActive = isRouteActive || (!pathname && activeNav === item.id);
                 return (
                   <button
                     key={item.id}
                     type="button"
-                    onClick={() => setActiveNav(item.id)}
+                    onClick={() => {
+                      setActiveNav(item.id);
+                      if (targetHref && targetHref !== "#") {
+                        router.push(targetHref);
+                      }
+                    }}
                     className={`inline-flex items-center gap-1 py-3.5 text-[12px] leading-5 tracking-[0.6px] uppercase whitespace-nowrap transition-colors cursor-pointer ${
                       isActive
                         ? "font-bold text-[#110C30]"
                         : "font-medium text-[rgba(17,12,48,0.5)] hover:text-[#110C30]"
                     }`}
                   >
-                    {item.label}
+                    {navLabel(item.label)}
                   </button>
                 );
               })}
@@ -120,7 +197,7 @@ export default function Header({
                   href={link.href}
                   className="text-[12px] font-medium leading-5 tracking-[0.6px] uppercase text-[#110C30] hover:opacity-70"
                 >
-                  {link.label}
+                  {navLabel(link.label)}
                 </Link>
               ))}
             </div>
@@ -153,17 +230,13 @@ export default function Header({
               )}
             </div>
 
-            <button
-              type="button"
-              aria-label="Размер текста"
-              className="hidden sm:flex w-8 h-8 items-center justify-center rounded-md text-[#110C30] cursor-pointer"
-            >
-              <Glasses size={18} />
-            </button>
+            <div className="hidden sm:block">
+              <AccessibilityMenu />
+            </div>
 
             <Link
-              href="#"
-              className="hidden sm:inline-flex items-center gap-2 text-[12px] font-medium leading-5 text-[#110C30]"
+              href="/servisy#internet-bank"
+              className="hidden sm:inline-flex items-center gap-2 text-[12px] font-medium leading-5 text-[#110C30] hover:text-[#2D68FF]"
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
                 <path
@@ -175,7 +248,11 @@ export default function Header({
                   fill="#110C30"
                 />
               </svg>
-              {config?.loginButtonText || "Войти"}
+              {currentLang === "uz"
+                ? "Kirish"
+                : currentLang === "en"
+                  ? "Sign in"
+                  : config?.loginButtonText || "Войти"}
             </Link>
 
             <button
@@ -217,11 +294,11 @@ export default function Header({
                   ) : (
                     <Menu size={20} strokeWidth={2.2} className="text-black" />
                   )}
-                  <span>{config?.menuButtonText || "Меню"}</span>
+                  <span>{navLabel(config?.menuButtonText || "Меню")}</span>
                 </button>
 
                 <div
-                  className="flex h-[52px] min-w-0 flex-1 items-center gap-4 overflow-x-auto rounded-2xl p-1 sm:max-w-[492px] sm:flex-none"
+                  className="flex h-[52px] min-w-0 flex-1 snap-x items-center gap-4 overflow-x-auto rounded-2xl p-1 [scrollbar-width:none] sm:max-w-[492px] sm:flex-none [&::-webkit-scrollbar]:hidden"
                   style={{
                     background:
                       "linear-gradient(90deg, #BBD8F2 0%, #D4DFF7 50%, #FFFFFF 100%)",
@@ -248,42 +325,92 @@ export default function Header({
                             : "bg-transparent text-[rgba(38,38,38,0.8)] hover:text-[#262626]"
                         }`}
                       >
-                        {chip.label}
+                        {navLabel(chip.label)}
                       </button>
                     );
                   })}
                 </div>
 
-                <label className="hidden h-[50px] w-[261px] shrink-0 items-center gap-3 rounded-[14px] border border-[#E8EFEB] bg-[#F0F7FF] py-3 pl-4 pr-6 lg:flex">
-                  <Search
-                    size={24}
-                    className="shrink-0 text-[#9AA6AE]"
-                    strokeWidth={2.1}
-                  />
-                  <input
-                    type="search"
-                    placeholder="Поиск по сайту банка"
-                    className="w-full min-w-0 bg-transparent text-[17px] font-medium leading-[22px] text-[#110C30] outline-none placeholder:text-[#9AA6AE]"
-                  />
-                </label>
+                <div className="relative hidden lg:block">
+                  <label className="flex h-[50px] w-[261px] shrink-0 items-center gap-3 rounded-[14px] border border-[#E8EFEB] bg-[#F0F7FF] py-3 pl-4 pr-6">
+                    <Search
+                      size={24}
+                      className="shrink-0 text-[#9AA6AE]"
+                      strokeWidth={2.1}
+                    />
+                    <input
+                      type="search"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      onFocus={() => setSearchFocused(true)}
+                      onBlur={() => setTimeout(() => setSearchFocused(false), 180)}
+                      placeholder={
+                        currentLang === "uz"
+                          ? "Bank sayti bo‘yicha qidiruv"
+                          : currentLang === "en"
+                            ? "Search bank website"
+                            : "Поиск по сайту банка"
+                      }
+                      className="w-full min-w-0 bg-transparent text-[17px] font-medium leading-[22px] text-[#110C30] outline-none placeholder:text-[#9AA6AE]"
+                    />
+                  </label>
+                  {searchFocused && searchQuery.trim().length > 0 && (
+                    <div className="absolute right-0 top-full z-50 mt-2 w-[340px] rounded-2xl border border-[#E7EAF0] bg-white p-2 shadow-xl">
+                      {searchResults.length > 0 ? (
+                        searchResults.map((res) => (
+                          <Link
+                            key={res.href}
+                            href={res.href}
+                            onClick={() => {
+                              setSearchQuery("");
+                              setSearchFocused(false);
+                            }}
+                            className="block rounded-xl px-3.5 py-2.5 text-[14px] font-medium text-[#110C30] transition-colors hover:bg-[#F0F7FF] hover:text-[#2D68FF]"
+                          >
+                            {currentLang === "uz"
+                              ? res.uz
+                              : currentLang === "en"
+                                ? res.en
+                                : res.ru}
+                          </Link>
+                        ))
+                      ) : (
+                        <div className="px-3.5 py-3 text-[13px] text-[#6B7280]">
+                          {currentLang === "uz"
+                            ? "Hech narsa topilmadi"
+                            : currentLang === "en"
+                              ? "Nothing found"
+                              : "Ничего не найдено"}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
 
                 <button
                   type="button"
-                  aria-label="Поиск"
-                  className="flex h-12 w-12 shrink-0 items-center justify-center text-[#172419] lg:hidden"
+                  aria-label={navLabel("Поиск")}
+                  onClick={() => setMegaOpen(true)}
+                  className="flex h-12 w-12 shrink-0 items-center justify-center text-[#172419] lg:hidden cursor-pointer"
                 >
                   <Search size={20} strokeWidth={2.2} />
                 </button>
 
                 <Link
-                  href="#"
+                  href="/servisy#internet-bank"
                   className="hidden h-[52px] w-[246px] shrink-0 items-center justify-center gap-2 rounded-[14px] py-3.5 pl-6 pr-4 text-[20px] font-medium leading-6 text-white shadow-[0_1px_12px_rgba(6,52,123,0.08)] md:inline-flex"
                   style={{
                     background:
                       "linear-gradient(100.51deg, #2D6EE3 -14.62%, #12388C 112.09%)",
                   }}
                 >
-                  <span className="whitespace-nowrap">Онлайн банкинг</span>
+                  <span className="whitespace-nowrap">
+                    {currentLang === "uz"
+                      ? "Onlayn banking"
+                      : currentLang === "en"
+                        ? "Online Banking"
+                        : "Онлайн банкинг"}
+                  </span>
                   <svg
                     width="24"
                     height="24"
@@ -330,14 +457,14 @@ export default function Header({
         <div className="xl:hidden absolute inset-x-0 top-full bg-white border-t border-black/5 shadow-lg px-4 py-4 z-40">
           <nav className="flex flex-col gap-1">
             {navItems.map((item) => (
-              <a
+              <Link
                 key={item.id}
-                href={item.href}
+                href={resolveNavHref(item)}
                 className="rounded-lg px-3 py-2.5 text-[14px] font-semibold text-[#110C30]"
                 onClick={() => setMobileOpen(false)}
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
             {utilityLinks.length > 0 && (
               <div className="my-2 border-t border-black/5 pt-2 lg:hidden">
@@ -362,15 +489,19 @@ export default function Header({
                   setMegaOpen(true);
                 }}
               >
-                {config?.menuButtonText || "Меню"}
+                {navLabel(config?.menuButtonText || "Меню")}
               </button>
             </div>
             <Link
-              href="#"
+              href="/servisy#internet-bank"
               className="mt-1 rounded-lg bg-[#2D6EE3] px-3 py-2.5 text-center text-[14px] font-semibold text-white sm:hidden"
               onClick={() => setMobileOpen(false)}
             >
-              {config?.loginButtonText || "Войти"}
+              {currentLang === "uz"
+                ? "Kirish"
+                : currentLang === "en"
+                  ? "Sign in"
+                  : config?.loginButtonText || "Войти"}
             </Link>
           </nav>
         </div>

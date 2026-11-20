@@ -1,15 +1,9 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
-const getInitialLanguage = (): string => {
-  if (typeof window !== "undefined") {
-    const saved = localStorage.getItem("app_lang");
-    if (saved && ["ru", "uz", "en"].includes(saved)) {
-      return saved;
-    }
-  }
-  return "ru";
-};
+// Always start in Russian (the prerendered language); components/i18n/LangBoot
+// switches to the language saved in localStorage after hydration.
+const getInitialLanguage = (): string => "ru";
 
 const resources = {
   ru: {
@@ -64,6 +58,34 @@ const resources = {
         rate: "Ставка",
         term: "Срок",
         months: "{{count}} месяцев",
+      },
+      common: {
+        login: "Войти",
+        onlineBanking: "Онлайн банкинг",
+        menu: "Меню",
+        close: "Закрыть",
+        searchPlaceholder: "Поиск по сайту банка",
+        details: "Подробнее",
+        order: "Заказать",
+        submitApplication: "Оставить заявку",
+        allTariffs: "Все тарифы",
+      },
+      nav: {
+        private: "Частным клиентам",
+        corporate: "Корпоративным клиентам",
+        investors: "Акционерам и инвесторам",
+        about: "О банке",
+        branches: "Филиалы",
+        products: "Продукты",
+        tariffs: "Тарифы",
+      },
+      forms: {
+        fullName: "ФИО",
+        phone: "Мобильный телефон",
+        email: "E-mail",
+        branch: "Филиал / ОБУ банка",
+        submit: "Отправить заявку",
+        successTitle: "Заявка принята!",
       },
     },
   },
@@ -120,6 +142,34 @@ const resources = {
         term: "Muddat",
         months: "{{count}} oy",
       },
+      common: {
+        login: "Kirish",
+        onlineBanking: "Onlayn banking",
+        menu: "Menyu",
+        close: "Yopish",
+        searchPlaceholder: "Bank sayti bo‘yicha qidiruv",
+        details: "Batafsil",
+        order: "Buyurtma berish",
+        submitApplication: "Ariza yuborish",
+        allTariffs: "Barcha tariflar",
+      },
+      nav: {
+        private: "Jismoniy shaxslarga",
+        corporate: "Korporativ mijozlarga",
+        investors: "Aksiyador va investorlarga",
+        about: "Bank haqida",
+        branches: "Filiallar",
+        products: "Mahsulotlar",
+        tariffs: "Tariflar",
+      },
+      forms: {
+        fullName: "F.I.Sh.",
+        phone: "Mobil telefon",
+        email: "Elektron pochta",
+        branch: "Bank filiali / Xizmat ko‘rsatish ofisi",
+        submit: "Ariza yuborish",
+        successTitle: "Arizangiz qabul qilindi!",
+      },
     },
   },
   en: {
@@ -175,6 +225,34 @@ const resources = {
         term: "Term",
         months: "{{count}} months",
       },
+      common: {
+        login: "Sign in",
+        onlineBanking: "Online Banking",
+        menu: "Menu",
+        close: "Close",
+        searchPlaceholder: "Search bank website",
+        details: "Details",
+        order: "Order now",
+        submitApplication: "Apply online",
+        allTariffs: "All tariffs",
+      },
+      nav: {
+        private: "Private Clients",
+        corporate: "Corporate Clients",
+        investors: "Shareholders & Investors",
+        about: "About Bank",
+        branches: "Branches",
+        products: "Products",
+        tariffs: "Tariffs",
+      },
+      forms: {
+        fullName: "Full Name",
+        phone: "Mobile Phone",
+        email: "E-mail",
+        branch: "Bank Branch / Service Office",
+        submit: "Submit Application",
+        successTitle: "Application Submitted!",
+      },
     },
   },
 };
@@ -189,10 +267,18 @@ if (!i18n.isInitialized) {
     },
   });
 
+  // <html lang> follows the UI language: screen readers and the speech
+  // synthesis of the accessibility menu pick their voice from it.
+  const syncDocumentLang = (lng: string) => {
+    if (typeof document !== "undefined") document.documentElement.lang = lng.split("-")[0].toLowerCase();
+  };
+  syncDocumentLang(i18n.language);
+
   i18n.on("languageChanged", (lng) => {
     if (typeof window !== "undefined") {
       localStorage.setItem("app_lang", lng.split("-")[0].toLowerCase());
     }
+    syncDocumentLang(lng);
   });
 }
 

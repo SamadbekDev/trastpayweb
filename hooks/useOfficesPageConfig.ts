@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { OfficesPageConfig } from "@/types/deposits";
 import { getOfficesPage } from "@/api/pageService";
+import { FALLBACK_OFFICES_CONFIG } from "@/data/fallbackOffices";
 import "@/i18n";
 
 interface UseOfficesPageConfigResult {
@@ -24,7 +25,7 @@ export function useOfficesPageConfig(): UseOfficesPageConfigResult {
       const data = await getOfficesPage();
       setConfig(data);
     } catch (err) {
-      setConfig(null);
+      setConfig(FALLBACK_OFFICES_CONFIG);
       setError(
         err instanceof Error ? err : new Error("Failed to load offices page")
       );

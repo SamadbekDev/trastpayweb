@@ -75,7 +75,7 @@ export default function CreditAutoView({
   const productStats = buildCreditStats({ product, page, text, statLabels });
   const statsHeader = (
     text(product?.statsTitle) ||
-    (heroTitle ? `Условия покупки в ${heroTitle}` : "")
+    (heroTitle ? `${text({ ru: "Условия покупки в", uz: "Xarid shartlari:", en: "Purchase terms for" })} ${heroTitle}` : "")
   ).toUpperCase();
   const catalogLabel = text(page.catalogCrumb);
   const currentLabel = text(product?.title) || heroTitle || text(page.breadcrumb);
@@ -176,7 +176,7 @@ export default function CreditAutoView({
         <section className="bg-white px-4 pt-10 pb-6 lg:px-[120px]">
           <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-7">
             <h2 className="text-[32px] font-bold leading-[39px] text-[#1A1A1A]">
-              {text(page.whyTitle) || "Почему удобно"}
+              {text(page.whyTitle) || text({ ru: "Почему удобно", uz: "Nega qulay", en: "Why it's convenient" })}
             </h2>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
               {page.benefits.slice(0, 3).map((item) => {

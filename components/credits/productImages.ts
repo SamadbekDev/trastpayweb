@@ -1,10 +1,11 @@
 import { CreditProduct } from "@/types/credits";
+import { creditProductFallback } from "@/utils/figmaAssets";
 
 const SHOWCASE_ORDER = ["golden-house", "ipoteka-refinance", "sharq-bahori", "ipoteka-bank"];
 
-/** Image only from CMS (`product.image` → Mongo media id/url) */
+/** Image from CMS (`product.image` → Mongo media id/url); empty fields fall back to the Figma artwork. */
 export function creditProductImage(product: Pick<CreditProduct, "id" | "title" | "image">) {
-  return product.image?.trim() || "";
+  return product.image?.trim() || creditProductFallback(product.id) || "";
 }
 
 export function mortgageShowcaseProducts(products: CreditProduct[]) {

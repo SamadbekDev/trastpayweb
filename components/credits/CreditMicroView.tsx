@@ -14,6 +14,7 @@ import {
 } from "@/types/credits";
 import CreditAppBanner from "./CreditAppBanner";
 import CreditBreadcrumbs from "./CreditBreadcrumbs";
+import { CREDIT_HERO_FALLBACK, MICRO_FALLBACK } from "@/utils/figmaAssets";
 import CreditPhoto from "./CreditPhoto";
 import CreditProductStats, { buildCreditStats } from "./CreditProductStats";
 import MicroLoanCalculator from "./MicroLoanCalculator";
@@ -192,7 +193,8 @@ export default function CreditMicroView({
   const visibleFaq = showAllFaq ? faq : faq.slice(0, 7);
   const heroTitle = text(page.heroTitle);
   const heroSubtitle = text(page.heroSubtitle);
-  const heroImage = page.heroImage || "";
+  // Figma «Микрозайм»: hero banner when the CMS has none
+  const heroImage = page.heroImage || CREDIT_HERO_FALLBACK;
   const requirementsImage = page.requirementsImage || heroImage;
 
   const highlightStats = (page.highlights || [])
@@ -210,7 +212,7 @@ export default function CreditMicroView({
 
   const statsHeader = (
     text(product?.statsTitle) ||
-    (heroTitle ? `Условия микрозайма` : "")
+    (heroTitle ? text({ ru: "Условия микрозайма", uz: "Mikroqarz shartlari", en: "Microloan terms" }) : "")
   ).toUpperCase();
 
   const allRateTables = page.rateTables || [];
@@ -256,7 +258,7 @@ export default function CreditMicroView({
             className="relative mx-auto mt-10 overflow-hidden rounded-[32px] bg-[#F4F6F9]"
             style={{ height: 480, width: "min(1080px, 100%)" }}
           >
-            <CreditPhoto src={heroImage} className="object-cover object-center" />
+            <CreditPhoto src={heroImage} fallback={CREDIT_HERO_FALLBACK} className="object-cover object-center" />
           </div>
         ) : null}
       </section>
@@ -344,6 +346,7 @@ export default function CreditMicroView({
               {requirementsImage ? (
                 <CreditPhoto
                   src={requirementsImage}
+                  fallback={MICRO_FALLBACK.requirements}
                   className="object-cover object-center"
                 />
               ) : null}
@@ -385,6 +388,7 @@ export default function CreditMicroView({
                 <div className="pointer-events-none absolute left-[52%] top-0 z-[1] hidden h-[317px] w-[min(433px,46%)] sm:block lg:left-[843px] lg:w-[433px]">
                   <CreditPhoto
                     src={page.stepsBannerImage}
+                    fallback={MICRO_FALLBACK.steps}
                     className="object-contain object-left-top"
                   />
                 </div>
@@ -493,7 +497,7 @@ export default function CreditMicroView({
                     href="#documents"
                     className="mt-1 inline-flex text-[16px] font-semibold leading-6 text-[#2966F2]"
                   >
-                    Скачать образцы ↓
+                    {text({ ru: "Скачать образцы", uz: "Namunalarni yuklab olish", en: "Download templates" })} ↓
                   </a>
                 ) : null}
               </div>
@@ -519,7 +523,7 @@ export default function CreditMicroView({
                 </div>
                 <div className="relative min-h-[280px] overflow-hidden rounded-3xl bg-[linear-gradient(160deg,#7EB0FF_0%,#1B61D9_70%)] lg:min-h-[360px]">
                   {page.infoImage ? (
-                    <CreditPhoto src={page.infoImage} className="object-cover" />
+                    <CreditPhoto src={page.infoImage} fallback={MICRO_FALLBACK.info} className="object-cover" />
                   ) : (
                     <>
                       <div className="absolute -right-6 bottom-0 h-48 w-48 rounded-full bg-white/20" />
