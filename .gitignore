@@ -8,9 +8,4 @@ node_modules
 next-env.d.ts
 .DS_Store
 .idea
-.shot-*.js
-.shot-*.png
-.mortgage-*.png
-.ipoteka.png
-.kia.png
-.badges-*.png
+
