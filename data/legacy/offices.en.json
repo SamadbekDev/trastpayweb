@@ -1,0 +1,164 @@
+[
+ {
+  "name": "Operational Banking services office",
+  "slug": "operatsionnoe-upravlenie",
+  "address": "7, Navoi Street, Shaykhontokhur District, Tashkent City, 100011, Uzbekistan",
+  "phone": "(+99871) 207-62-52",
+  "fax": "",
+  "inn": "",
+  "helpline": ""
+ },
+ {
+  "name": "\"Tashkent\" banking services office",
+  "slug": "filial-tashkent",
+  "address": "11A, Bunyodkor Street, Block E, Chilanzar District, Tashkent City, 100043, Uzbekistan",
+  "phone": "(+99855) 510-01-88",
+  "fax": "(+99871) 277-50-50",
+  "inn": "",
+  "helpline": ""
+ },
+ {
+  "name": "Yakkasaray banking services office",
+  "slug": "yakkasarayckiy-filial",
+  "address": "1B, Urikzar Street, 3-passage, Tashkent City, 100100, Uzbekistan",
+  "phone": "(+99871) 203-23-10",
+  "fax": "",
+  "inn": "",
+  "helpline": ""
+ },
+ {
+  "name": "\"Darkhan\" banking services office",
+  "slug": "filial-darkhan",
+  "address": "5B, West Side, Khamid Alimjan Square, Mirzo Ulugbek District, Tashkent City, 100000, Uzbekistan",
+  "phone": "(+99871) 237-13-84",
+  "fax": "",
+  "inn": "",
+  "helpline": ""
+ },
+ {
+  "name": "Namangan banking services office",
+  "slug": "namanganskiy-filial",
+  "address": "8, Nodira Street, Namangan City, Namangan Region, 160130, Uzbekistan",
+  "phone": "(+99869) 210-20-20",
+  "fax": "",
+  "inn": "",
+  "helpline": ""
+ },
+ {
+  "name": "Termez banking services office",
+  "slug": "termezskiy-filial",
+  "address": "13G, Navbakhor Street, Termez City, Surkhandarya Region, 190112, Uzbekistan",
+  "phone": "(+99876) 228-35-00",
+  "fax": "(+99876) 228-34-72",
+  "inn": "",
+  "helpline": ""
+ },
+ {
+  "name": "Andijan banking services office",
+  "slug": "andizhanskiy-filial-",
+  "address": "45, Lermontova Street, Andijan City, Andijan Region, 170100, Uzbekistan",
+  "phone": "+99874 224-00-55",
+  "fax": "",
+  "inn": "",
+  "helpline": ""
+ },
+ {
+  "name": "Samarkand banking services office",
+  "slug": "samarkandskiy-filial",
+  "address": "47-A, Mirzo Ulugbek Street, Samarkand City, Samarkand Region, 140103, Uzbekistan",
+  "phone": "(+99855) 701-08-01",
+  "fax": "",
+  "inn": "",
+  "helpline": ""
+ },
+ {
+  "name": "Karshi banking services office",
+  "slug": "karshinskiy-filial",
+  "address": "1A, Islam Karimov Street, Karshi City, Kashkadarya Region, 180106, Uzbekistan",
+  "phone": "(+99855) 401-25-25",
+  "fax": "",
+  "inn": "",
+  "helpline": ""
+ },
+ {
+  "name": "Ferghana banking services office",
+  "slug": "ferganskiy-filial",
+  "address": "8, Marifat Street, Fergana City, Fergana Region, 150117, Uzbekistan",
+  "phone": "(+99873) 244-31-31",
+  "fax": "",
+  "inn": "",
+  "helpline": ""
+ },
+ {
+  "name": "Djizakh banking services office",
+  "slug": "jizzakh-branch",
+  "address": "114, Sh.Rashidov Street, Jizzakh City, Jizzakh Region, 130100, Uzbekistan",
+  "phone": "(+99872) 226-20-10",
+  "fax": "+99872 226-67-76",
+  "inn": "",
+  "helpline": ""
+ },
+ {
+  "name": "Bukhara banking services office",
+  "slug": "buxoro-branch",
+  "address": "2/1, Bogishamol Street, Bukhara City, Bukhara Region, 200104, Uzbekistan",
+  "phone": "(+99865) 505-08-08",
+  "fax": "",
+  "inn": "",
+  "helpline": ""
+ },
+ {
+  "name": "Bektemir banking services office",
+  "slug": "bektemir-branch6",
+  "address": "111500, Tashkent region, Urtachirchik district, Mehnatabad street, 82 (on the territory of “FOOD CITY” shopping center)",
+  "phone": "+99855-901-10-01",
+  "fax": "",
+  "inn": "",
+  "helpline": ""
+ },
+ {
+  "name": "Center of Banking Services \"Khorezm\"",
+  "slug": "center-of-banking-services-khorezmxzc",
+  "address": "98/2, Islam Karimov Street, Urgench City, Khorezm Region, Uzbekistan",
+  "phone": "(+99862) 228-12-15",
+  "fax": "",
+  "inn": "",
+  "helpline": ""
+ },
+ {
+  "name": "Center of Banking Services «\"Xiva\"",
+  "slug": "center-of-banking-services-xiva",
+  "address": "83 Feruz Street, Khorazm Region, Khiva city",
+  "phone": "(+99855) 602-30-05(06)",
+  "fax": "",
+  "inn": "",
+  "helpline": ""
+ },
+ {
+  "name": "Center of Banking Services «Guliston»",
+  "slug": "center-of-banking-services-guliston",
+  "address": "Uzbekistan, Sirdarya region, Gulistan city, Saykhun Street, 69",
+  "phone": "(+99867) 236-73-90",
+  "fax": "",
+  "inn": "",
+  "helpline": ""
+ },
+ {
+  "name": "Center of Banking Services «Navoi»",
+  "slug": "center-of-banking-services-navoisdfasdf",
+  "address": "38 V/9. Navoi Street, Navoi City, Navoi Region, Uzbekistan",
+  "phone": "(+99855) 351-45-39",
+  "fax": "",
+  "inn": "",
+  "helpline": ""
+ },
+ {
+  "name": "Digital banking services office",
+  "slug": "digital-branch-ofthe-pjsb-trustbank",
+  "address": "Tashkent city, Yakkasaroy district, Mahmud Tarobiy street, house 44.",
+  "phone": "+99855 506-07-55.",
+  "fax": "",
+  "inn": "",
+  "helpline": ""
+ }
+]

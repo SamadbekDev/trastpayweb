@@ -1,0 +1,254 @@
+{
+ "home/product-deposits": {
+  "source": "ed571193d70df8bb25f5eda05039a91762e4f05d",
+  "w": 360,
+  "h": 360,
+  "kb": 22
+ },
+ "home/product-debit-card": {
+  "source": "b0520ea9bd9d64209d6baf82eae8629d307f4589",
+  "w": 360,
+  "h": 360,
+  "kb": 18
+ },
+ "home/product-fx-card": {
+  "source": "fd9cc927efb664dbf43a9bc2e986926fd9d18019",
+  "w": 360,
+  "h": 360,
+  "kb": 22
+ },
+ "home/product-credits": {
+  "source": "5d4fa3f5c7008bc517dd0da1bbb08cb30a0a7dc5",
+  "w": 360,
+  "h": 360,
+  "kb": 31
+ },
+ "home/product-car-loan": {
+  "source": "14ecc8986449bcd5e53522e3722a7a932b7c6f05",
+  "w": 360,
+  "h": 360,
+  "kb": 14
+ },
+ "home/product-transfers": {
+  "source": "dbc8ec1465f6f7af53004a98b22ee39dab8e96a8",
+  "w": 360,
+  "h": 360,
+  "kb": 15
+ },
+ "home/product-mortgage": {
+  "source": "e0d746b66160e0b346de15e5beac566961982ba7",
+  "w": 360,
+  "h": 360,
+  "kb": 20
+ },
+ "home/product-family": {
+  "source": "b8643f8fe1733a7c3a081db9b5975a67287d02e4",
+  "w": 360,
+  "h": 360,
+  "kb": 28
+ },
+ "home/calculator-coins": {
+  "source": "220a83586d830507bbc26945c7fc6a2ebc44281f",
+  "w": 2400,
+  "h": 1484,
+  "kb": 227
+ },
+ "home/offer-deposit": {
+  "source": "323bd2235c0271a053648c54f8df98b4a36d5739",
+  "w": 900,
+  "h": 1125,
+  "kb": 42
+ },
+ "home/offer-delivery": {
+  "source": "d88cbc201ba2ee4f452915b1d7782ba8c7772b95",
+  "w": 900,
+  "h": 1125,
+  "kb": 74
+ },
+ "home/news-telegram": {
+  "source": "5b4a07081f3496415f49c2356ea952fea08bb636",
+  "w": 736,
+  "h": 920,
+  "kb": 58
+ },
+ "home/trastpay": {
+  "source": "ce43982df0fd98b40f769760838f0528f5c7ae0a",
+  "w": 1600,
+  "h": 909,
+  "kb": 130
+ },
+ "cards/visa-infinity": {
+  "source": "05a529d2b1a7c6daa8da79e3960f6c9860321d35",
+  "w": 760,
+  "h": 760,
+  "kb": 26
+ },
+ "cards/visa": {
+  "source": "608855f3d6db93d7f7f554616506730f8f7a44b4",
+  "w": 760,
+  "h": 760,
+  "kb": 33
+ },
+ "cards/maksadli-globe": {
+  "source": "70850b43c573c8283c46ce0ea476c7f15ba4b2ad",
+  "w": 760,
+  "h": 507,
+  "kb": 33
+ },
+ "cards/maksadli-black": {
+  "source": "d28c879ff9f3cab94141314735045a1ce46dec40",
+  "w": 760,
+  "h": 760,
+  "kb": 23
+ },
+ "cards/virtual": {
+  "source": "7f8cc9ede3aaf0b8b6db52bb47509834d8441efa",
+  "w": 760,
+  "h": 570,
+  "kb": 57
+ },
+ "cards/kulay-gold": {
+  "source": "bd95743555a25c6077559cd620782928d10ba6fe",
+  "w": 760,
+  "h": 760,
+  "kb": 37
+ },
+ "cards/kulay-blue": {
+  "source": "4df519976b7ffded64f2c4a4619ae753ab48dbb7",
+  "w": 760,
+  "h": 760,
+  "kb": 42
+ },
+ "cards/kulay-navy": {
+  "source": "a1b3b4630f0771037f1e1c0f86ff85188fc15297",
+  "w": 760,
+  "h": 760,
+  "kb": 41
+ },
+ "cards/istiklol-unionpay": {
+  "source": "b65037cd5cf5c78eead962e7c2dadc1cf924ee07",
+  "w": 760,
+  "h": 760,
+  "kb": 37
+ },
+ "deposits/wallet": {
+  "source": "606d7c6bd314c779646336c66475507bb156ea97",
+  "w": 560,
+  "h": 560,
+  "kb": 27
+ },
+ "deposits/hearts": {
+  "source": "2a747acd2a95044f056e1cd39b085cd21c3bb240",
+  "w": 560,
+  "h": 560,
+  "kb": 31
+ },
+ "deposits/bear": {
+  "source": "50109463df4e5eb776daac56c2262b09f3286141",
+  "w": 560,
+  "h": 560,
+  "kb": 50
+ },
+ "deposits/usd": {
+  "source": "7bb501b198c9a9f7af5ffe2e722c8897a760d4c5",
+  "w": 560,
+  "h": 560,
+  "kb": 41
+ },
+ "credits/mortgage-sharq-bahori": {
+  "source": "d64836df90c3c518683808d191c5d32816f7aabf",
+  "w": 760,
+  "h": 760,
+  "kb": 93
+ },
+ "credits/mortgage-ozshahar": {
+  "source": "31da5d501299c75e1ea288bb864d0c6cda3d51ee",
+  "w": 760,
+  "h": 760,
+  "kb": 63
+ },
+ "credits/mortgage-golden-house": {
+  "source": "e911b5e5dd4d6a9ed5369e06826708dd548e4a57",
+  "w": 760,
+  "h": 760,
+  "kb": 38
+ },
+ "credits/mortgage-market": {
+  "source": "7706253a8c98873202e1a8fe7fc1d734a7058ca9",
+  "w": 1200,
+  "h": 800,
+  "kb": 214
+ },
+ "credits/mortgage-bank": {
+  "source": "8f038a665871797f1e4a5d73278c3d7f166e746b",
+  "w": 1200,
+  "h": 800,
+  "kb": 191
+ },
+ "credits/mortgage-no-income": {
+  "source": "1dc3e3274e824eea8b89eebf174e6966933231ad",
+  "w": 1200,
+  "h": 800,
+  "kb": 233
+ },
+ "credits/micro-hero": {
+  "source": "e933111a477d3d94fc56e82583128f56ced925dc",
+  "w": 1600,
+  "h": 900,
+  "kb": 200
+ },
+ "credits/micro-income": {
+  "source": "5d4fa3f5c7008bc517dd0da1bbb08cb30a0a7dc5",
+  "w": 760,
+  "h": 760,
+  "kb": 115
+ },
+ "credits/micro-employment": {
+  "source": "68e9fe6d25753da4f377fbf3fc9d6468e3a9858c",
+  "w": 760,
+  "h": 760,
+  "kb": 117
+ },
+ "credits/micro-self": {
+  "source": "14a9ae499f8bde8f4d8384d37afe1017b1cc6394",
+  "w": 760,
+  "h": 760,
+  "kb": 115
+ },
+ "credits/micro-first-step": {
+  "source": "d4bd2f4c26cd3aa8f6197d22138b97cda12dd520",
+  "w": 760,
+  "h": 760,
+  "kb": 88
+ },
+ "credits/micro-first-step-2": {
+  "source": "7f23e8eace137404bac8139f2ad97a519593ebfe",
+  "w": 760,
+  "h": 507,
+  "kb": 45
+ },
+ "credits/universal": {
+  "source": "566676a3764cd8a8ef827af0c2c0a571216edc80",
+  "w": 760,
+  "h": 428,
+  "kb": 34
+ },
+ "credits/overdraft": {
+  "source": "01209ff373842066bfa95b58ada9a593cadf5b88",
+  "w": 760,
+  "h": 760,
+  "kb": 50
+ },
+ "credits/micro-info": {
+  "source": "c5897049b684bba6209c7c61e2fee09baf6457d6",
+  "w": 1200,
+  "h": 682,
+  "kb": 34
+ },
+ "credits/micro-qulay": {
+  "source": "9de1906e85cd73ea00b4a77b6b6704d98ec79853",
+  "w": 900,
+  "h": 507,
+  "kb": 67
+ }
+}

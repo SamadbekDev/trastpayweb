@@ -1,0 +1,818 @@
+{
+ "about/awards": {
+  "title": "Награды и достижения",
+  "path": "/o-banke/nagrady",
+  "uz": "Mukofotlar va erishilgan yutuqlar",
+  "en": "Awards and achievements"
+ },
+ "about/business-plan": {
+  "title": "Бизнес план",
+  "path": "/o-banke/biznes-plan",
+  "uz": "Biznes reja",
+  "en": "Business plan"
+ },
+ "about/central-office": {
+  "title": "Структурные подразделения банка",
+  "path": "/o-banke/struktura"
+ },
+ "about/charter": {
+  "title": "Устав банка",
+  "path": "/o-banke/ustav",
+  "uz": "Bank ustavi",
+  "en": "Charter of the Bank"
+ },
+ "about/commission": {
+  "title": "Комитеты и комиссии Банка",
+  "path": "/o-banke/komitety",
+  "uz": "Bankning qo‘mita va komissiyalari",
+  "en": "Committees and Commissions of the BANK"
+ },
+ "about/documents": {
+  "title": "Правоустанавливающие документы",
+  "path": "/o-banke/pravoustanavlivayushchie-dokumenty",
+  "uz": "Bank huquqini tasdiqlovchi hujjatlar",
+  "en": "Documents proving the bank's rights"
+ },
+ "about/fighting-against-corruption": {
+  "title": "Противодействие коррупции",
+  "path": "/o-banke/antikorruptsiya",
+  "uz": "Korrupsiyaga qarshi kurashish",
+  "en": "Fighting against corruption"
+ },
+ "about/history": {
+  "title": "История банка",
+  "path": "/o-banke/istoriya",
+  "uz": "Bank tarixi",
+  "en": "History of the Bank"
+ },
+ "about/internal-audit": {
+  "title": "Департамент внутреннего аудита Банка",
+  "path": "/o-banke/vnutrenniy-audit",
+  "uz": "Bank ichki audit departamenti",
+  "en": "Internal Audit Department of the Bank"
+ },
+ "about/license": {
+  "title": "Лицензия банка",
+  "path": "/o-banke/litsenzii",
+  "uz": "Bank litsenziyasi",
+  "en": "Bank’s Licenses"
+ },
+ "about/management": {
+  "title": "Состав Правления Банка",
+  "path": "/o-banke/pravlenie",
+  "uz": "Bank Boshqaruvi tarkibi",
+  "en": "Members of the Management Board of the Bank"
+ },
+ "about/mission": {
+  "title": "Миссия Банка",
+  "path": "/o-banke/missiya",
+  "uz": "Bank missiyasi",
+  "en": "Mission of the Bank"
+ },
+ "about/policy-quality": {
+  "title": "Политика в области качества",
+  "path": "/o-banke/politika-kachestva",
+  "uz": "Sifat siyosati",
+  "en": "Quality policy"
+ },
+ "about/ratings": {
+  "title": "Рейтинги банка",
+  "path": "/o-banke/reytingi",
+  "uz": "Bank reytinglari",
+  "en": "Ratings of the Bank"
+ },
+ "about/requisites": {
+  "title": "Реквизиты банка",
+  "path": "/o-banke/rekvizity",
+  "uz": "Bank rekvizitlari",
+  "en": "Bank Requisites"
+ },
+ "about/strategy": {
+  "title": "Стратегия развития",
+  "path": "/o-banke/strategiya",
+  "uz": "Rivojlanish strategiyasi",
+  "en": "Development Strategy"
+ },
+ "about/vacancies/list": {
+  "title": "Вакансии",
+  "path": "/vakansii",
+  "uz": "Vakansiyalar",
+  "en": "Vacancies"
+ },
+ "about/vacancies/personnel-policy": {
+  "title": "Кадровая политика",
+  "path": "/o-banke/kadrovaya-politika",
+  "uz": "Kadrlar siyosati",
+  "en": "HR policy"
+ },
+ "contacts/helpline": {
+  "title": "Телефон доверия",
+  "path": "/kontakty/helpline",
+  "uz": "Ishonch telefonlari",
+  "en": "Hotline service phone numbers"
+ },
+ "corporate/cash-services": {
+  "title": "Расчетно-кассовое обслуживание",
+  "path": "/biznes/rko",
+  "uz": "Hisob-kitob va kassa xizmatlari",
+  "en": "Settlement and cash services"
+ },
+ "corporate/client": {
+  "title": "Станьте нашим клиентом",
+  "path": "/biznes/stat-klientom",
+  "uz": "Mijozimiz bo‘ling",
+  "en": "Become our customer"
+ },
+ "corporate/crediting": {
+  "title": "Кредиты",
+  "path": "/biznes/kredity",
+  "uz": "Kreditlar",
+  "en": "Credits"
+ },
+ "corporate/crediting/avto-start": {
+  "title": "AVTO START",
+  "path": "/biznes/avto-start",
+  "uz": "AVTO START",
+  "en": "AVTO START"
+ },
+ "corporate/crediting/biznes-ipoteka": {
+  "title": "БИЗНЕС ИПОТЕКА",
+  "path": "/biznes/biznes-ipoteka",
+  "uz": "BIZNES IPOTEKA"
+ },
+ "corporate/crediting/dlya-popolnenie-oborotnykh-sredstv-stroitelnyya-organizatsiyam-uchastvuyushchikh-v-stroitelstve-mnog": {
+  "title": "Для пополнение оборотных средств строительныя организациям участвующих в строительстве многоэтажных домов",
+  "path": "/biznes/oborotnye-stroitelstvo"
+ },
+ "corporate/crediting/dlya-stroitelstva-mnogokvartirnykh-zhilykh-domov-v-massivakh-yangi-uzbekiston": {
+  "title": "Для строительства многоквартирных жилых домов в массивах «Янги Узбекистон»",
+  "path": "/biznes/yangi-uzbekiston"
+ },
+ "corporate/crediting/dlya-subektov-predprinimatelstva-osushchestvlyayushchikh-deyatelnost-v-sfere-turizma": {
+  "title": "Для субъектов предпринимательства, осуществляющих деятельность в сфере туризма",
+  "path": "/biznes/turizm"
+ },
+ "corporate/crediting/export-activity": {
+  "title": "Кредиты, выделенные предприятиям, осуществляющим экспортную деятельность, для пополнения оборотных средств",
+  "path": "/biznes/eksport-oborotnye",
+  "uz": "Eksport faoliyati bilan shug‘ullanuvchi korxonalarga aylanma mablag‘larini to‘ldirish uchun ajratiladigan kreditlar",
+  "en": "Credit for export-oriented companies"
+ },
+ "corporate/crediting/faktoringovye-uslugi-dlya-korporativnykh-klientov": {
+  "title": "Факторинговые услуги для корпоративных клиентов",
+  "path": "/biznes/faktoring"
+ },
+ "corporate/crediting/investment-credit": {
+  "title": "Инвестиционный кредит",
+  "path": "/biznes/investitsionnyy-kredit",
+  "uz": "Investitsiya kreditlari"
+ },
+ "corporate/crediting/kredit-capital-house": {
+  "title": "Кредит «Capital house»",
+  "path": "/biznes/capital-house"
+ },
+ "corporate/crediting/kredit-ekspress": {
+  "title": "Кредит «Экспресс»",
+  "path": "/biznes/express"
+ },
+ "corporate/crediting/kredit-ipoteka-uslug": {
+  "title": "Кредит «Ипотека услуг»",
+  "path": "/biznes/ipoteka-uslug"
+ },
+ "corporate/crediting/kredit-razvitie-biznesa-i-sozdanie-novykh-rabochikh-mest-dlya-korporativnykh-klientov": {
+  "title": "Кредит «Развитие бизнеса и создание новых рабочих мест» для корпоративных клиентов",
+  "path": "/biznes/kredit-rabochiye-mesta"
+ },
+ "corporate/crediting/kredit-refinans": {
+  "title": "Кредит «Рефинанс»",
+  "path": "/biznes/refinans"
+ },
+ "corporate/crediting/lgotnyy-mikrokredit-dlya-razvitiya-malogo-biznesa": {
+  "title": "Льготный микрокредит для развития малого бизнеса",
+  "path": "/biznes/lgotnyy-mikrokredit"
+ },
+ "corporate/crediting/microcredit": {
+  "title": "Микрокредитование",
+  "path": "/biznes/mikrokredit",
+  "uz": "Mikrokreditlash",
+  "en": "Microcrediting"
+ },
+ "corporate/crediting/mikrokredit-razvitie-biznesa-i-sozdanie-novykh-rabochikh-mest": {
+  "title": "Микрокредит «Развитие бизнеса и создание новых рабочих мест»",
+  "path": "/biznes/mikrokredit-rabochiye-mesta"
+ },
+ "corporate/crediting/obespechenie-oborotnymi-sredstvami-tekstilnye-i-shveyno-trikotazhnye-predpriyatiya-za-schet-revolver": {
+  "title": "Обеспечение оборотными средствами текстильные и швейно-трикотажные предприятия за счет револьверного кредитования",
+  "path": "/biznes/tekstil-revolver"
+ },
+ "corporate/crediting/partnyer-biznesa": {
+  "title": "ПАРТНЁР БИЗНЕСА",
+  "path": "/biznes/partnyer-biznesa"
+ },
+ "corporate/crediting/prestij-avto": {
+  "title": "PRESTIJ AVTO",
+  "path": "/biznes/prestij-avto",
+  "uz": "PRESTIJ AVTO",
+  "en": "PRESTIJ AVTO"
+ },
+ "corporate/crediting/produkt-zelenoe-finansitrovanie-": {
+  "title": "Продукт “Зеленое финансирование”",
+  "path": "/biznes/zelenoe-finansirovanie"
+ },
+ "corporate/crediting/working-capital-fruits": {
+  "title": "Кредит на оборотный капитал на покупку и выращивание фруктов и овощей",
+  "path": "/biznes/oborotnye-plodoovoshchi",
+  "uz": "Meva-sabzavot mahsulotlarini yetishtirish va intensiv bog‘lar tashkil etish uchun",
+  "en": "Allocation of loans for the purchase of fixed assets in agriculture for the cultivation of fruits and vegetables and the establishment of intensive orchards"
+ },
+ "corporate/crediting/working-capital": {
+  "title": "Кредит на пополнение оборотного капитала",
+  "path": "/biznes/oborotnyy-kapital",
+  "uz": "Aylanma mablag‘larni to‘ldirish uchun ajratiladigan kreditlar",
+  "en": "Credit for replenishment of the floating capital"
+ },
+ "corporate/deposit-operations": {
+  "title": "Депозитные операции",
+  "path": "/biznes/depozity",
+  "uz": "Depozit operatsiyalari",
+  "en": "Deposit operations"
+ },
+ "corporate/export-import": {
+  "title": "Экспортно-импортные операции",
+  "path": "/biznes/ved",
+  "uz": "Eksport-import operatsiyalari",
+  "en": "Export-import operations"
+ },
+ "corporate/guarantees": {
+  "title": "Гарантии и поручительства",
+  "path": "/biznes/garantii",
+  "uz": "Kafolat va kafilliklar",
+  "en": "Guaranties and sureties"
+ },
+ "corporate/leasing": {
+  "title": "Лизинг",
+  "path": "/biznes/lizing",
+  "uz": "Lizing",
+  "en": "Leasing"
+ },
+ "corporate/payment-terminals": {
+  "title": "Платежные (торговые) терминалы",
+  "path": "/biznes/terminaly",
+  "uz": "To‘lov (savdo) terminallari",
+  "en": "Payment (trade) terminals"
+ },
+ "corporate/payroll-project": {
+  "title": "Зарплатный проект",
+  "path": "/biznes/zarplatnyj-proekt",
+  "uz": "Ish haqi loyihasi",
+  "en": "Salary project"
+ },
+ "corporate/plastic-cards": {
+  "title": "Типы карт",
+  "path": "/biznes/karty",
+  "uz": "Kartalar turlari",
+  "en": "Types of cards"
+ },
+ "corporate/plastic-cards/list/international": {
+  "title": "MEЖДУНАРОДНЫЕ КАРТЫ",
+  "path": "/biznes/karty/international",
+  "uz": "Xalqaro kartalar",
+  "en": "International cards"
+ },
+ "corporate/plastic-cards/list/international/visa-business": {
+  "title": "Visa Business",
+  "path": "/biznes/karty/visa-business",
+  "uz": "Visa Business",
+  "en": "Visa Business"
+ },
+ "corporate/plastic-cards/list/national": {
+  "title": "КАРТЫ В НАЦИОНАЛЬНОЙ ВАЛЮТЕ",
+  "path": "/biznes/karty/national",
+  "uz": "Milliy valyutadagi kartalar",
+  "en": "National currency cards"
+ },
+ "corporate/plastic-cards/list/national/corporate": {
+  "title": "Корпоративная пластиковая карта",
+  "path": "/biznes/karty/korporativnaya",
+  "uz": "Korporativ plastik kartasi"
+ },
+ "corporate/plastic-cards/list/national/payroll-cards": {
+  "title": "Зарплатный проект - Зарплатные пластиковые карты",
+  "path": "/biznes/karty/zarplatnye",
+  "uz": "Ish haqi loyihasi kartasi"
+ },
+ "corporate/securities-transactions": {
+  "title": "Операции с ценными бумагами",
+  "path": "/biznes/tsennye-bumagi",
+  "uz": "Qimmatli qog‘ozlar operatsiyasi",
+  "en": "Operations with securities"
+ },
+ "corporate/tariffs": {
+  "title": "Тарифы для корпоративных клиентов",
+  "path": "/tarify/korporativnye",
+  "uz": "Korporativ mijozlar uchun tariflar",
+  "en": "Tariffs for corporative clients"
+ },
+ "corporate/tariffs/bxm": {
+  "title": "Тарифный план \"БХМ\"",
+  "path": "/tarify/korporativnye/bxm",
+  "uz": "\"BXM\" tarif rejasi",
+  "en": "Tariff Plan \"BXM\""
+ },
+ "corporate/tariffs/currency": {
+  "title": "Тарифный план \"Валютный\"",
+  "path": "/tarify/korporativnye/currency",
+  "uz": "Valyuta tarif rejasi",
+  "en": "Tariff plan \"Currency\""
+ },
+ "corporate/tariffs/digital-branch": {
+  "title": "Тарифы для филиала Цифровой",
+  "path": "/tarify/korporativnye/digital-branch",
+  "uz": "Raqamli filiali uchun tariflar",
+  "en": "Tariffs for the Digital branch"
+ },
+ "corporate/tariffs/digital-branch/comfort": {
+  "title": "Тарифный план \"COMFORT\"",
+  "path": "/tarify/korporativnye/digital-branch/comfort",
+  "uz": "\"COMFORT\" tarif rejasi",
+  "en": "Tariff Plan \"COMFORT\""
+ },
+ "corporate/tariffs/digital-branch/develop": {
+  "title": "Тарифный план \"DEVELOP\"",
+  "path": "/tarify/korporativnye/digital-branch/develop",
+  "uz": "\"DEVELOP\" tarif rejasi",
+  "en": "Tariff Plan \"DEVELOP\""
+ },
+ "corporate/tariffs/digital-branch/premium-currency": {
+  "title": "Тарифный план «Премиум» (валютный)",
+  "path": "/tarify/korporativnye/digital-branch/premium-currency",
+  "uz": "\"Premium\" tarif rejasi (valyuta)",
+  "en": "“Premium” rate plan (Foreign Currency)"
+ },
+ "corporate/tariffs/digital-branch/premium": {
+  "title": "Тарифный план \"PREMIUM\"",
+  "path": "/tarify/korporativnye/digital-branch/premium",
+  "uz": "\"PREMIUM\" tarif rejasi",
+  "en": "Tariff Plan \"PREMIUM\""
+ },
+ "corporate/tariffs/digital-branch/start": {
+  "title": "Тарифный план \"START\"",
+  "path": "/tarify/korporativnye/digital-branch/start",
+  "uz": "\"START\" tarif rejasi",
+  "en": "Tariff Plan \"START\""
+ },
+ "corporate/tariffs/digital-branch/universal": {
+  "title": "Тарифный план \"UNIVERSAL\"",
+  "path": "/tarify/korporativnye/digital-branch/universal",
+  "uz": "Tarif rejasi \"UNIVERSAL\"",
+  "en": "Tariff Plan \"UNIVERSAL\""
+ },
+ "corporate/tariffs/economy": {
+  "title": "Тарифный план \"Standart\"",
+  "path": "/tarify/korporativnye/economy",
+  "uz": "Standart tarif rejasi",
+  "en": "Tariff plan Standart"
+ },
+ "corporate/tariffs/exclusive": {
+  "title": "Тарифный план \"Exclusive\"",
+  "path": "/tarify/korporativnye/exclusive",
+  "uz": "\"Exclusive\" tarif rejasi",
+  "en": "Tariff plan \"Exclusive\""
+ },
+ "corporate/tariffs/uzex-corrency": {
+  "title": "Тарифный план \"UzEX\" валюта",
+  "path": "/tarify/korporativnye/uzex-corrency",
+  "uz": "\"UzEX\" (valyuta) tarif rejasi",
+  "en": "Tariff plan \"UzEX\" (corrency)"
+ },
+ "corporate/tariffs/uzex-soum": {
+  "title": "Тарифный план \"UzEX\" (сум)",
+  "path": "/tarify/korporativnye/uzex-soum",
+  "uz": "\"UzEX\" (so‘m) tarif rejasi",
+  "en": "Tariff plan \"UzEX\" (soum)"
+ },
+ "documents": {
+  "title": "Банковское законодательство",
+  "path": "/dokumenty",
+  "uz": "Bank qonunchiligi",
+  "en": "Banking legislation"
+ },
+ "documents/izmenyonnie-dokumenti": {
+  "title": "Утратившие силу нормативные документы",
+  "path": "/dokumenty/izmenyonnie-dokumenti",
+  "uz": "O‘z kuchini yo‘qotgan normativ hujjatlar",
+  "en": "Regulatory documents that have become invalid"
+ },
+ "financial-organizations": {
+  "title": "Финансовым Институтам",
+  "path": "/finansovym-institutam",
+  "uz": "Moliyaviy tashkilotlarga",
+  "en": "For Financial Institutes"
+ },
+ "financial-organizations/correspondence-relations": {
+  "title": "Список банков-корреспондентов",
+  "path": "/finansovym-institutam/correspondence-relations",
+  "uz": "Vakillik munosabatlari",
+  "en": "Correspondent relations"
+ },
+ "financial-organizations/documentary-credits": {
+  "title": "Документарные аккредитивы",
+  "path": "/finansovym-institutam/documentary-credits",
+  "uz": "Hujjatli akkreditivlar",
+  "en": "Documentary letters of credit"
+ },
+ "financial-organizations/interbank-market": {
+  "title": "Операции на межбанковском рынке",
+  "path": "/finansovym-institutam/interbank-market",
+  "uz": "Banklararo bozordagi operatsiyalar",
+  "en": "Operations on the interbank market"
+ },
+ "press_center": {
+  "title": "Пресс-центр",
+  "path": "/press-tsentr",
+  "uz": "Matbuot-markazi",
+  "en": "Press Centre"
+ },
+ "press_center/about-us": {
+  "title": "О нас пишут",
+  "path": "/press-tsentr/about-us",
+  "uz": "Biz haqimizda yozadilar",
+  "en": "Press about us"
+ },
+ "press_center/adverts": {
+  "title": "Объявления",
+  "path": "/press-tsentr/adverts",
+  "uz": "E’lonlar",
+  "en": "Announcements"
+ },
+ "press_center/media_library": {
+  "title": "Медиатека",
+  "path": "/press-tsentr/media_library",
+  "uz": "Media kutubxona",
+  "en": "Media Library"
+ },
+ "press_center/media_library/photo_gallery": {
+  "title": "Фотогалерея",
+  "path": "/press-tsentr/media_library/photo_gallery",
+  "uz": "Fotogalereya",
+  "en": "Update date: ..."
+ },
+ "press_center/media_library/video": {
+  "title": "Видео",
+  "path": "/press-tsentr/media_library/video",
+  "uz": "Video lavhalar",
+  "en": "Video"
+ },
+ "press_center/news": {
+  "title": "Новости",
+  "path": "/press-tsentr/news",
+  "uz": "Yangiliklar",
+  "en": "News"
+ },
+ "press_center/press-service": {
+  "title": "Информационная-служба",
+  "path": "/press-tsentr/press-service",
+  "uz": "Axborot xizmati",
+  "en": "Information service"
+ },
+ "press_center/question_answer": {
+  "title": "Вопрос-ответ",
+  "path": "/press-tsentr/question_answer",
+  "uz": "Savol-javoblar",
+  "en": "FAQ"
+ },
+ "press_center/tenders": {
+  "title": "Тендеры",
+  "path": "/press-tsentr/tenders",
+  "uz": "Tenderlar",
+  "en": "Tenders"
+ },
+ "press_center/tenders/all": {
+  "title": "Все тендеры",
+  "path": "/press-tsentr/tenders/all",
+  "uz": "Barcha tenderlar",
+  "en": "Tenders"
+ },
+ "press_center/tenders/current": {
+  "title": "Действующие тендеры",
+  "path": "/press-tsentr/tenders/current",
+  "uz": "Amaldagi tenderlar",
+  "en": "Existing requirements"
+ },
+ "press_center/tenders/last": {
+  "title": "Прошедшие тендеры",
+  "path": "/press-tsentr/tenders/last",
+  "uz": "O'tgan tenderlar",
+  "en": "Past tenders"
+ },
+ "press_center/tenders/real-estate": {
+  "title": "Продажа имущества",
+  "path": "/press-tsentr/tenders/real-estate",
+  "uz": "Sotuvdagi mulklar",
+  "en": "Sale of property"
+ },
+ "press_center/training-of-customers": {
+  "title": "Повышение финансовой грамотности клиентов",
+  "path": "/press-tsentr/training-of-customers",
+  "uz": "Mijozlar moliyaviy savodxonligini oshirish",
+  "en": "Increase of financial literacy of clients"
+ },
+ "private/communal": {
+  "title": "Коммунальные платежи",
+  "path": "/servisy/kommunalnye-platezhi",
+  "uz": "Kommunal to‘lovlari",
+  "en": "Municipal payments"
+ },
+ "private/currency-exchange-transactions": {
+  "title": "Валютно-обменные операции",
+  "path": "/valyuta/obmennye-operatsii",
+  "uz": "Valyuta ayirboshlash operatsiyalari",
+  "en": "Currency exchange transactions"
+ },
+ "private/tariffs": {
+  "title": "Тарифы для частных клиентов",
+  "path": "/tarify/chastnye",
+  "uz": "Xususiy mijozlar uchun tariflar",
+  "en": "Tariffs for private customers"
+ },
+ "private/tariffs/depositary-cells": {
+  "title": "Тарифы депозитарные ячейки",
+  "path": "/tarify/chastnye/depositary-cells",
+  "uz": "Depozit qutichalardan foydalanish tariflari",
+  "en": "Tarifs for deposit cells"
+ },
+ "private/tariffs/individuals": {
+  "title": "Тарифы для физических лиц",
+  "path": "/tarify/chastnye/individuals",
+  "uz": "Jismoniy shaxslar uchun tariflar",
+  "en": "Tarifs for individuals"
+ },
+ "private/tariffs/mastercard-gold": {
+  "title": "Тарифы MasterCard Gold",
+  "path": "/tarify/chastnye/mastercard-gold",
+  "uz": "MasterCard Gold tariflari",
+  "en": "MasterCard Gold tarifs"
+ },
+ "private/tariffs/mastercard-standart-exchange": {
+  "title": "Тарифы MasterCard Standard - Exchange",
+  "path": "/tarify/chastnye/mastercard-standart-exchange",
+  "uz": "MasterCard Standard - Exchange tariflari",
+  "en": "MasterCard Standard - Exchange tarifs"
+ },
+ "private/tariffs/mastercard-standart": {
+  "title": "Тарифы MasterCard Standard",
+  "path": "/tarify/chastnye/mastercard-standart",
+  "uz": "MasterCard Standard tariflari",
+  "en": "MasterCard Standard tarifs"
+ },
+ "private/tariffs/visa-classic-the-exchange": {
+  "title": "Тарифы Visa Classic-Exchange",
+  "path": "/tarify/chastnye/visa-classic-the-exchange"
+ },
+ "private/tariffs/visa-classic-virtual": {
+  "title": "Тарифы Visa Classic Virtual",
+  "path": "/tarify/chastnye/visa-classic-virtual",
+  "uz": "Visa Classic Virtual tariflari",
+  "en": "Visa Classic Virtual tarifs"
+ },
+ "private/tariffs/visa-electron-exchange": {
+  "title": "Тарифы VISA Electron - Exchange",
+  "path": "/tarify/chastnye/visa-electron-exchange",
+  "uz": "VISA Electron – Exchange tariflari",
+  "en": "VISA Electron – Exchange tarifs"
+ },
+ "private/tariffs/visa": {
+  "title": "Тарифы VISA",
+  "path": "/tarify/chastnye/visa",
+  "uz": "VISA tariflari",
+  "en": "VISA tarifs"
+ },
+ "services": {
+  "title": "Интерактивные услуги",
+  "path": "/servisy",
+  "uz": "Interaktiv xizmatlar",
+  "en": "Interactive services"
+ },
+ "services/blanks": {
+  "title": "Электронные формы / Образцы бланков",
+  "path": "/blanki",
+  "uz": "Elektron shakllar / Blank namunalari",
+  "en": "Electronic forms/Sample forms"
+ },
+ "services/calculators": {
+  "title": "Калькуляторы",
+  "path": "/servisy/calculators",
+  "uz": "Kalkulyatorlar",
+  "en": "Calculators"
+ },
+ "services/citizens/consumer-corner": {
+  "title": "Уголок потребителя",
+  "path": "/obrashcheniya/consumer-corner",
+  "uz": "Iste'molchi burchagi",
+  "en": "Consumer corner"
+ },
+ "services/citizens/law": {
+  "title": "Закон об обращениях физических и юридических лиц",
+  "path": "/obrashcheniya/law",
+  "uz": "“Jismoniy va yuridik shaxslarning murojaatlari to’g’risida”gi Qonun",
+  "en": "Law on citizens’ appeals"
+ },
+ "services/citizens/rating-score": {
+  "title": "Рейтинговая оценка в разрезе филиалов",
+  "path": "/obrashcheniya/rating-score",
+  "uz": "Murojaatlar tahlili bo‘yicha filiallar reytingi",
+  "en": "Rating assessment in the context of branches"
+ },
+ "services/citizens/schedule-reception": {
+  "title": "График приёма граждан",
+  "path": "/obrashcheniya/schedule-reception",
+  "uz": "Fuqarolarni qabul qilish jadvali",
+  "en": "Reception schedule"
+ },
+ "services/citizens/statistics": {
+  "title": "Статистика обращений",
+  "path": "/obrashcheniya/statistics",
+  "uz": "Murojaatlar statistikasi",
+  "en": "Requests statistics"
+ },
+ "services/internet-banking": {
+  "title": "Дистанционное банковское обслуживание",
+  "path": "/servisy/internet-banking",
+  "uz": "Masofadan bank xizmatlarini ko‘rsatish",
+  "en": "Remote banking service"
+ },
+ "services/internet-banking/online-banking": {
+  "title": "Интернет банк",
+  "path": "/servisy/internet-banking/online-banking",
+  "uz": "Internet bank",
+  "en": "Internet bank"
+ },
+ "services/internet-banking/sms-bank": {
+  "title": "SMS-Bank",
+  "path": "/servisy/internet-banking/sms-bank",
+  "uz": "SMS-Bank",
+  "en": "SMS-Bank"
+ },
+ "services/internet-banking/trust-mobile": {
+  "title": "Trast-Мобайл",
+  "path": "/servisy/internet-banking/trust-mobile",
+  "uz": "Trast-Mobayl",
+  "en": "Trast-Mobile"
+ },
+ "services/internet-banking/trustpay": {
+  "title": "Trastpay",
+  "path": "/servisy/internet-banking/trustpay",
+  "uz": "Trastpay",
+  "en": "Trastpay"
+ },
+ "services/open_data": {
+  "title": "Открытые данные",
+  "path": "/servisy/open_data",
+  "uz": "Ochiq ma’lumotlar",
+  "en": "Open Data"
+ },
+ "services/useful-links": {
+  "title": "Полезные ссылки",
+  "path": "/servisy/useful-links",
+  "uz": "Foydali havolalar",
+  "en": "Useful links"
+ },
+ "shareholders": {
+  "title": "Акционерам",
+  "path": "/aktsioneram",
+  "uz": "Aksiyador va investorlarga",
+  "en": "For shareholders and investors"
+ },
+ "shareholders/affiliate": {
+  "title": "Список аффилированных лиц Банка",
+  "path": "/aktsioneram/affiliate",
+  "uz": "Bankning affillangan shaxslari ro‘yxati",
+  "en": "List of affiliated people of the Bank"
+ },
+ "shareholders/analytical-reviews": {
+  "title": "Аналитические обзоры",
+  "path": "/aktsioneram/analytical-reviews",
+  "uz": "Tahliliy sharhlar",
+  "en": "Analytical reviews"
+ },
+ "shareholders/corporate-management": {
+  "title": "Система корпоративного управления",
+  "path": "/aktsioneram/corporate-management",
+  "uz": "Korporativ boshqaruv tizimi",
+  "en": "Corporate governance"
+ },
+ "shareholders/corporate-management/code": {
+  "title": "Сообщение о следовании рекомендациям Кодекса корпоративного управления",
+  "path": "/aktsioneram/corporate-management/code",
+  "uz": "Bank tomonidan Korporativ boshqaruv kodeksi tavsiyalarini o‘z faoliyatiga qabul qilganligi to‘g‘risida xabar",
+  "en": "Notification of compliance with the recommendations of the Corporate Governance Code"
+ },
+ "shareholders/corporate-management/documents": {
+  "title": "Внутренние нормативные документы разработанные в соответствии с требованиями Кодекса корпоративного управления",
+  "path": "/aktsioneram/corporate-management/documents",
+  "uz": "Korporativ boshqaruv Kodeksiga muvofiq ishlab chiqilgan ichki normativ hujjatlar",
+  "en": "Internal regulatory documents developed in accordance with the Corporate governance code requirements"
+ },
+ "shareholders/corporate-management/rating": {
+  "title": "Заключение по результатам проведенной оценки системы корпоративного управления в Банке и информация по международному принципу “Comply or explain” (соблюдай или объясняй)",
+  "path": "/aktsioneram/corporate-management/rating",
+  "uz": "Korporativ boshqaruv tizimini baholash natijalari to‘g‘risida xulosa va “Comply or explain” (rioya qil yoki tushuntir) xalqaro tamoyili bo‘yicha axborot",
+  "en": "Results of the assessment of the corporate governance system in the Bank and information on the international “Comply or explain” principle"
+ },
+ "shareholders/disclosures": {
+  "title": "Раскрытие информации Банком",
+  "path": "/aktsioneram/disclosures",
+  "uz": "Bankning axborotni oshkor qilishi",
+  "en": "Disclosure of information by the Bank"
+ },
+ "shareholders/disclosures/annual-reports": {
+  "title": "Ежеквартальные и годовые отчеты Банка",
+  "path": "/aktsioneram/disclosures/annual-reports",
+  "uz": "Bankning choraklik va yillik hisobotlari",
+  "en": "Quarterly and annual reports of the Bank"
+ },
+ "shareholders/disclosures/material-facts": {
+  "title": "Сообщения о существенных фактах в деятельности Банка",
+  "path": "/aktsioneram/disclosures/material-facts",
+  "uz": "Bank faoliyatidagi muhim faktlar",
+  "en": "Messages on material facts in the Bank's activities"
+ },
+ "shareholders/disclosures/securities": {
+  "title": "Документы по выпуску ценных бумаг",
+  "path": "/aktsioneram/disclosures/securities",
+  "uz": "Qimmatli qog‘ozlar emissiya xujjatlari",
+  "en": "Documents on the issue of securities"
+ },
+ "shareholders/disclosures/securities/stock": {
+  "title": "Акции",
+  "path": "/aktsioneram/disclosures/securities/stock",
+  "uz": "Aksiyalar",
+  "en": "Promotions"
+ },
+ "shareholders/distribution-of-profits": {
+  "title": "Распределение прибыли Банка",
+  "path": "/aktsioneram/distribution-of-profits",
+  "uz": "Bank foydasini taqsimlash",
+  "en": "Distribution of bank profits"
+ },
+ "shareholders/distribution-of-profits/dividends": {
+  "title": "Сведения о дивидендах, выплаченных за последние 3 года",
+  "path": "/aktsioneram/distribution-of-profits/dividends",
+  "uz": "Hisoblangan va to‘langan dividendlarga oid ma’lumotlar",
+  "en": "Information on dividends paid for the last 3 years"
+ },
+ "shareholders/distribution-of-profits/justification-of-distribution": {
+  "title": "Обоснование распределения чистой прибыли Банка",
+  "path": "/aktsioneram/distribution-of-profits/justification-of-distribution",
+  "uz": "Bank foydasini taqsimlash",
+  "en": "Justification of the distribution of the Bank's net profit"
+ },
+ "shareholders/general-meetings": {
+  "title": "Информация о проведении общего собрания акционеров Банка",
+  "path": "/aktsioneram/general-meetings",
+  "uz": "Bank aksiyadorlari umumiy yig‘ilishini o‘tkazish to‘g‘risidagi axborotlar",
+  "en": "Information on the General Meeting of Shareholders of the Bank"
+ },
+ "shareholders/hotline": {
+  "title": "Номер телефона горячей линии",
+  "path": "/aktsioneram/hotline",
+  "uz": "Tezkor bog‘lanish",
+  "en": "Hotline telephone number"
+ },
+ "shareholders/purchase-of-shares": {
+  "title": "Информация о приобретении Банком акций",
+  "path": "/aktsioneram/purchase-of-shares",
+  "uz": "Bank tomonidan aksiyalar sotib olinishi to‘g‘risidagi ma’lumotlar",
+  "en": "Information on the acquisition of shares by the Bank"
+ },
+ "shareholders/reports": {
+  "title": "Финансовая отчетность Банка по итогам года",
+  "path": "/aktsioneram/reports",
+  "uz": "Bankning yillik moliyaviy hisobotlari",
+  "en": "Financial statements of the Bank for the year"
+ },
+ "shareholders/soviet": {
+  "title": "Наблюдательный Совет банка",
+  "path": "/aktsioneram/soviet",
+  "uz": "Bank Kuzatuv Kengashi",
+  "en": "Bank Supervisory Board"
+ },
+ "shareholders/structure": {
+  "title": "Структура акционерного капитала банка",
+  "path": "/aktsioneram/structure",
+  "uz": "Bank aksiyadorlik kapitali tarkibi",
+  "en": "Structure of the Bank's share capital"
+ },
+ "shareholders/structure/over-20-percent": {
+  "title": "Акционеры владеющие свыше 20 % акций Банка",
+  "path": "/aktsioneram/structure/over-20-percent",
+  "uz": "20 foizdan ortiq Bank aksiyalariga ega aksiyadorlar",
+  "en": "Shareholders who have more than 20% of shares of the bank"
+ },
+ "shareholders/structure/over-5-percent": {
+  "title": "Акционеры владеющие свыше 5 % акций Банка",
+  "path": "/aktsioneram/structure/over-5-percent",
+  "uz": "5 foizdan ortiq Bank aksiyalariga ega aksiyadorlar",
+  "en": "Shareholders who have more than 5% of shares of the bank"
+ }
+}

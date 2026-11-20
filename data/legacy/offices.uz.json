@@ -1,0 +1,128 @@
+[
+ {
+  "name": "Amaliyot boshqarmasi",
+  "slug": "operatsionnoe-upravlenie",
+  "address": "100011, Toshkent shahri Shayxontohur tumani \"Navoiy\" ko‘chasi 7-uy",
+  "phone": "(+99871) 207-62-52",
+  "fax": "",
+  "inn": "",
+  "helpline": ""
+ },
+ {
+  "name": "\"Toshkent\" bank xizmatlari ofisi",
+  "slug": "filial-tashkent",
+  "address": "100043, Toshkent shahri Chilonzor tumani \"Bunyodkor\" ko‘chasi, “E”mavze 11-A uy.",
+  "phone": "(+99855) 510-01-88",
+  "fax": "(+99871) 277-50-50",
+  "inn": "",
+  "helpline": ""
+ },
+ {
+  "name": "\"Yakkasaroy\" bank xizmatlari ofisi",
+  "slug": "yakkasarayckiy-filial",
+  "address": "100100, Toshkent shahri Yakkasaroy tumani \"O‘rikzor\" 3-tor ko‘chasi, 1-B uy",
+  "phone": "(+99871) 203-23-10",
+  "fax": "",
+  "inn": "",
+  "helpline": ""
+ },
+ {
+  "name": "\"Darxon\" bank xizmatlari ofisi",
+  "slug": "filial-darkhan",
+  "address": "100000, Toshkent shahri Mirzo Ulug‘bek tumani Hamid Olimjon maydonining G‘arb tomoni 5 \"B\"-uy.",
+  "phone": "(+99871) 237-13-84",
+  "fax": "",
+  "inn": "",
+  "helpline": ""
+ },
+ {
+  "name": "\"Namangan\" bank xizmatlari ofisi",
+  "slug": "namanganskiy-filial",
+  "address": "160104, Namangan shahri \"Baynalminal\" MFY \"Nodira\" ko‘chasi, 8-uy.",
+  "phone": "(+99869) 210-20-20",
+  "fax": "",
+  "inn": "",
+  "helpline": ""
+ },
+ {
+  "name": "\"Termiz\" bank xizmatlari ofisi",
+  "slug": "termezskiy-filial",
+  "address": "190112, Surxondaryo viloyati Termiz shahri \"Navbahor\" ko‘chasi, 13-G uy",
+  "phone": "(+99876) 228-35-00",
+  "fax": "(+99876) 227-34-72",
+  "inn": "",
+  "helpline": ""
+ },
+ {
+  "name": "\"Andijon\" bank xizmatlari ofisi",
+  "slug": "andizhanskiy-filial",
+  "address": "170100, Andijon viloyati Andijon shahri \"Lermontov\" ko‘chasi, 45-uy.",
+  "phone": "+99874 224-00-55",
+  "fax": "",
+  "inn": "",
+  "helpline": ""
+ },
+ {
+  "name": "\"Samarqand\" bank xizmatlari ofisi",
+  "slug": "samarkandskiy-filial",
+  "address": "140103, Samarqand viloyati Samarqand shahri \"Mirzo Ulug’bek\" ko‘chasi, 47-“A” uy.",
+  "phone": "(+99855) 701-08-01",
+  "fax": "",
+  "inn": "",
+  "helpline": ""
+ },
+ {
+  "name": "\"Qarshi\" bank xizmatlari ofisi",
+  "slug": "karshinskiy-filial",
+  "address": "180106, Qashqadaryo viloyati Qarshi shahri \"Islom Karimov\" ko‘chasi 1-a uy.",
+  "phone": "(+99855) 401-25-25",
+  "fax": "",
+  "inn": "",
+  "helpline": ""
+ },
+ {
+  "name": "\"Farg‘ona\" bank xizmatlari ofisi",
+  "slug": "ferganskiy-filial",
+  "address": "150117, Farg‘ona viloyati",
+  "phone": "(+99873) 244-31-31",
+  "fax": "",
+  "inn": "",
+  "helpline": ""
+ },
+ {
+  "name": "\"Jizzax\" bank xizmatlari ofisi",
+  "slug": "jizzax-filiali",
+  "address": "130100, Jizzax shahri \"Sharof Rashidov\" ko‘chasi 114-uy",
+  "phone": "(+99872) 226-20-10",
+  "fax": "+99872 226-67-76",
+  "inn": "",
+  "helpline": ""
+ },
+ {
+  "name": "\"Buxoro\" bank xizmatlari ofisi",
+  "slug": "buxoro-filiali",
+  "address": "200104, Buxoro viloyati Buxoro shahri \"Bog‘ishamol\" ko‘chasi 2/1-uy.",
+  "phone": "(+99865) 505-08-08",
+  "fax": "",
+  "inn": "",
+  "helpline": ""
+ },
+ {
+  "name": "\"Bektemir\" bank xizmatlari ofisi",
+  "slug": "bektemir-filiali1213",
+  "address": "111500, Toshkent viloyati Bektemir tumani \"Mehnatobod\" koʻchasi 82-uy (“FOOD CITY” Savdo majmuasi hududida).",
+  "phone": "+99855-901-10-01",
+  "fax": "",
+  "inn": "",
+  "helpline": ""
+ },
+ {
+  "name": "\"Raqamli\" bank xizmatlari ofisi",
+  "slug": "raqamli-filial",
+  "address": "Toshkent shahar, Yakkasaroy tumani, Mahmud Tarobiy ko‘chasi, 44-uy.",
+  "phone": "+99855 506-07-55",
+  "fax": "",
+  "inn": "",
+  "helpline": ""
+ }
+]

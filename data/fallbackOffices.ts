@@ -1,0 +1,141 @@
+import { OfficesPageConfig } from "@/types/deposits";
+import { DEFAULT_FOOTER_CONFIG } from "@/data/staticShell";
+
+export const FALLBACK_OFFICES_CONFIG: OfficesPageConfig = {
+  header: {
+    logo: "/logo.svg",
+    logoText: "TRASTBANK",
+    navItems: [
+      { id: "nav-1", label: "Физическим лицам", href: "/" },
+      { id: "nav-2", label: "Корпоративным клиентам", href: "/biznes" },
+      { id: "nav-3", label: "Акционерам и инвесторам", href: "/aktsioneram" },
+      { id: "nav-4", label: "О банке", href: "/o-banke" },
+    ],
+    becomeClientText: "Стать клиентом",
+    becomeClientHref: "/zayavki",
+    loginButtonText: "Войти",
+    loginHref: "/servisy#internet-bank",
+  },
+  officesTitle: {
+    ru: "Офисы и банкоматы ЧАБ «Трастбанк»",
+    uz: "«Trastbank» XAB ofislari va bankomatlari",
+    en: "Trastbank Offices & ATMs",
+  },
+  city: { ru: "Ташкент", uz: "Toshkent", en: "Tashkent" },
+  offices: [
+    {
+      id: "operu",
+      name: {
+        ru: "Операционное управление (ОПЕРУ)",
+        uz: "Amaliyot boshqarmasi (OPRU)",
+        en: "Operational Department (Head Office)",
+      },
+      address: {
+        ru: "г. Ташкент, Шайхантахурский р-н, ул. Навои, 7",
+        uz: "Toshkent sh., Shayxontohur tumani, Navoiy ko‘chasi, 7",
+        en: "7 Navoi St., Shaykhantakhur district, Tashkent",
+      },
+      hours: { ru: "Пн–Пт: 09:00–18:00", uz: "Du–Ju: 09:00–18:00", en: "Mon–Fri: 09:00–18:00" },
+      city: { ru: "Ташкент", uz: "Toshkent", en: "Tashkent" },
+      lat: 41.3215,
+      lng: 69.2572,
+      type: "office",
+    },
+    {
+      id: "tashkent-obu",
+      name: {
+        ru: "ОБУ «Ташкент»",
+        uz: "«Toshkent» BXO",
+        en: "Tashkent Banking Service Office",
+      },
+      address: {
+        ru: "г. Ташкент, Чиланзарский р-н, пр. Бунёдкор, кв. «Е», д. 1",
+        uz: "Toshkent sh., Chilonzor tumani, Bunyodkor shoh ko‘chasi, «E» kv., 1-uy",
+        en: "1 Bunyodkor Ave., Chilanzar district, Tashkent",
+      },
+      hours: { ru: "Пн–Пт: 09:00–18:00", uz: "Du–Ju: 09:00–18:00", en: "Mon–Fri: 09:00–18:00" },
+      city: { ru: "Ташкент", uz: "Toshkent", en: "Tashkent" },
+      lat: 41.2858,
+      lng: 69.2036,
+      type: "office",
+    },
+    {
+      id: "darkhan-obu",
+      name: {
+        ru: "ОБУ «Дархан»",
+        uz: "«Darxon» BXO",
+        en: "Darkhan Banking Service Office",
+      },
+      address: {
+        ru: "г. Ташкент, Мирзо-Улугбекский р-н, массив Дархан",
+        uz: "Toshkent sh., Mirzo Ulug‘bek tumani, Darxon massivi",
+        en: "Darkhan, Mirzo-Ulugbek district, Tashkent",
+      },
+      hours: { ru: "Пн–Пт: 09:00–18:00", uz: "Du–Ju: 09:00–18:00", en: "Mon–Fri: 09:00–18:00" },
+      city: { ru: "Ташкент", uz: "Toshkent", en: "Tashkent" },
+      lat: 41.3264,
+      lng: 69.3081,
+      type: "office",
+    },
+    {
+      id: "samarkand-obu",
+      name: {
+        ru: "ОБУ «Самарканд»",
+        uz: "«Samarqand» BXO",
+        en: "Samarkand Banking Service Office",
+      },
+      address: {
+        ru: "г. Самарканд, ул. Мирзо Улугбека",
+        uz: "Samarqand sh., Mirzo Ulug‘bek ko‘chasi",
+        en: "Mirzo Ulugbek St., Samarkand",
+      },
+      hours: { ru: "Пн–Пт: 09:00–18:00", uz: "Du–Ju: 09:00–18:00", en: "Mon–Fri: 09:00–18:00" },
+      city: { ru: "Самарканд", uz: "Samarqand", en: "Samarkand" },
+      lat: 39.6542,
+      lng: 66.9597,
+      type: "office",
+    },
+    {
+      id: "bukhara-obu",
+      name: {
+        ru: "ОБУ «Бухара»",
+        uz: "«Buxoro» BXO",
+        en: "Bukhara Banking Service Office",
+      },
+      address: {
+        ru: "г. Бухара, ул. Бахоуддина Накшбанди",
+        uz: "Buxoro sh., Bahouddin Naqshband ko‘chasi",
+        en: "Bakhouddin Naqshband St., Bukhara",
+      },
+      hours: { ru: "Пн–Пт: 09:00–18:00", uz: "Du–Ju: 09:00–18:00", en: "Mon–Fri: 09:00–18:00" },
+      city: { ru: "Бухара", uz: "Buxoro", en: "Bukhara" },
+      lat: 39.7747,
+      lng: 64.4286,
+      type: "office",
+    },
+  ],
+  atms: [
+    {
+      id: "atm-navoi",
+      name: { ru: "Банкомат ОПЕРУ (24/7)", uz: "OPRU bankomati (24/7)", en: "Head Office ATM (24/7)" },
+      address: { ru: "г. Ташкент, ул. Навои, 7", uz: "Toshkent sh., Navoiy ko‘chasi, 7", en: "7 Navoi St., Tashkent" },
+      hours: { ru: "Круглосуточно 24/7", uz: "Kecha-kunduz 24/7", en: "24/7" },
+      city: { ru: "Ташкент", uz: "Toshkent", en: "Tashkent" },
+      lat: 41.3216,
+      lng: 69.2575,
+      type: "atm",
+    },
+    {
+      id: "atm-bunyodkor",
+      name: { ru: "Банкомат ОБУ «Ташкент» (24/7)", uz: "«Toshkent» BXO bankomati (24/7)", en: "Tashkent BSO ATM (24/7)" },
+      address: { ru: "г. Ташкент, пр. Бунёдкор, д. 1", uz: "Toshkent sh., Bunyodkor shoh ko‘chasi, 1", en: "1 Bunyodkor Ave., Tashkent" },
+      hours: { ru: "Круглосуточно 24/7", uz: "Kecha-kunduz 24/7", en: "24/7" },
+      city: { ru: "Ташкент", uz: "Toshkent", en: "Tashkent" },
+      lat: 41.286,
+      lng: 69.204,
+      type: "atm",
+    },
+  ],
+  mapEmbedUrl: "",
+  footer: DEFAULT_FOOTER_CONFIG,
+};
