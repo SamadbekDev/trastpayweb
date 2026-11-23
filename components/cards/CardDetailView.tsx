@@ -5,7 +5,7 @@ import CardsHeader from "./CardsHeader";
 import CardDetailHero from "./CardDetailHero";
 import CardSuggested from "./CardSuggested";
 import CardVirtualOnline from "./CardVirtualOnline";
-import DepositHighlights from "@/components/deposits/DepositHighlights";
+import CardHighlights from "./CardHighlights";
 import DepositSteps from "@/components/deposits/DepositSteps";
 import DepositOffices from "@/components/deposits/DepositOffices";
 import DepositFaq from "@/components/deposits/DepositFaq";
@@ -24,11 +24,12 @@ export default function CardDetailView({ config }: CardDetailViewProps) {
       logo={config.header?.logo}
       logoText={config.header?.logoText}
     >
-      <ContentReveal className="flex min-h-screen flex-col bg-[#FFFAFA]">
+      <ContentReveal className="flex min-h-screen flex-col bg-[#FAFAFA]">
         <CardsHeader config={config.header} />
         <main className="flex-grow">
           <CardDetailHero config={config} />
-          <DepositHighlights config={config} />
+          {/* Figma «Карточные продукты»: icon strip (the deposits' blue facts block was a stand-in) */}
+          <CardHighlights items={config.highlights} />
           <DepositSteps config={config} />
           <DepositOffices config={config} />
           <CardSuggested title={config.suggestedTitle} products={config.suggested} />

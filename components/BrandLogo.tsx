@@ -1,8 +1,9 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/ui/SkeletonImage";
 import Link from "next/link";
 import { useSiteBranding } from "@/components/SiteBranding";
+import { getMediaUrl } from "@/utils/mediaHelper";
 
 type BrandLogoProps = {
   src?: string;
@@ -19,11 +20,11 @@ type BrandLogoProps = {
  * mark 50.19×22
  */
 const FRAME =
-  "flex h-[54px] w-[82.19px] shrink-0 flex-col items-start gap-[11px] p-4";
+  "flex h-[56px] w-[96px] shrink-0 items-center justify-start px-3 pt-1 pb-3";
 const MARK = {
-  width: 50.19,
-  height: 22,
-  className: "h-[22px] w-[50.19px] object-contain object-left",
+  width: 73,
+  height: 32,
+  className: "h-[32px] w-[73px] object-contain object-left",
 };
 
 /** Shared Trustbank mark — CMS logo via SiteBrandingProvider / props. */
@@ -36,7 +37,8 @@ export default function BrandLogo({
   link = true,
 }: BrandLogoProps) {
   const branding = useSiteBranding();
-  const logoSrc = src?.trim() || branding.logo || "/logo.svg";
+  // through getMediaUrl: CMS ids / localhost API URLs become loadable from any device
+  const logoSrc = getMediaUrl(src?.trim() || branding.logo || "/logo.svg");
   const logoAlt = alt?.trim() || branding.logoText || "TRASTBANK";
 
   const image = (
@@ -49,6 +51,8 @@ export default function BrandLogo({
         className={MARK.className}
         unoptimized
         priority={priority}
+        // the header remounts on every navigation: a shimmer behind the logo would blink
+        skeleton={false}
       />
     </span>
   );

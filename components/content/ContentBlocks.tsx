@@ -3,6 +3,7 @@
  * Server-safe: no hooks, so pages can keep large content out of the client bundle.
  */
 import Link from "next/link";
+import { SkeletonImg } from "@/components/ui/SkeletonImage";
 import { Fragment, type ReactNode } from "react";
 import { CalendarClock, Download, FileText, Phone } from "lucide-react";
 import { BulletList, InfoTable, PendingContent } from "@/components/ui/PageKit";
@@ -267,11 +268,12 @@ export function ContentBlockView({ block, lang = "ru" }: { block: ContentBlock; 
                 rel="noopener noreferrer"
                 className="group block overflow-hidden rounded-tile bg-page"
               >
-                {/* eslint-disable-next-line @next/next/no-img-element -- legacy CMS images with unknown sizes */}
-                <img
+                {/* legacy CMS images with unknown sizes; skeleton while loading */}
+                <SkeletonImg
                   src={img.src}
                   alt={img.alt}
                   loading="lazy"
+                  loadingClassName={block.images.length === 1 ? "h-[320px] w-full max-w-[560px] rounded-xl" : ""}
                   className={
                     block.images.length === 1
                       ? "mx-auto max-h-[520px] w-auto object-contain"

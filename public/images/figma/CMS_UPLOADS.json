@@ -41,5 +41,6 @@
  "credits/universal.webp": "http://localhost:4000/api/media/f88cb04eb5f0439aa1a659106b470c33",
  "credits/overdraft.webp": "http://localhost:4000/api/media/0b63ca71a7fa422998e1ff8f5a01c0a1",
  "credits/micro-info.webp": "http://localhost:4000/api/media/f03b862c71e14787878bc9f6be7838d3",
- "credits/micro-hero.webp": "http://localhost:4000/api/media/14803b4dad6d49ca951ea6f6d979fc55"
+ "credits/micro-hero.webp": "http://localhost:4000/api/media/14803b4dad6d49ca951ea6f6d979fc55",
+ "public/videos/hero-deposits.mp4": "http://localhost:4000/api/media/53ee7753b35748cc88a2a77cf87a2a6f"
 }

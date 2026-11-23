@@ -5,6 +5,8 @@ import { useCallback, useRef } from "react";
 /**
  * Horizontal drag-to-scroll with mouse (hold + move).
  * Touch keeps native swipe. Suppresses accidental link clicks after a drag.
+ * Scroll snapping and smooth scrolling are switched off while dragging (they would fight every
+ * scrollLeft change) and restored on release, so the strip settles on the nearest card.
  */
 export function useDragScroll<T extends HTMLElement>() {
   const cleanupRef = useRef<(() => void) | null>(null);
@@ -27,6 +29,8 @@ export function useDragScroll<T extends HTMLElement>() {
       state.moved = false;
       state.startX = e.pageX;
       state.scrollLeft = el.scrollLeft;
+      el.style.scrollSnapType = "none";
+      el.style.scrollBehavior = "auto";
       el.style.cursor = "grabbing";
       el.style.userSelect = "none";
       e.preventDefault();
@@ -45,6 +49,8 @@ export function useDragScroll<T extends HTMLElement>() {
       state.dragging = false;
       el.style.cursor = "grab";
       el.style.userSelect = "";
+      el.style.scrollSnapType = "";
+      el.style.scrollBehavior = "";
     };
 
     const onClickCapture = (e: MouseEvent) => {
@@ -79,7 +85,7 @@ export function useDragScroll<T extends HTMLElement>() {
   return {
     ref,
     className:
-      "cursor-grab select-none touch-pan-y [-webkit-user-drag:none] [&_a]:[-webkit-user-drag:none] [&_img]:pointer-events-none",
+      "cursor-grab select-none [-webkit-user-drag:none] [&_a]:[-webkit-user-drag:none] [&_img]:pointer-events-none",
   };
 }
 

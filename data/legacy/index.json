@@ -814,5 +814,63 @@
   "path": "/aktsioneram/structure/over-5-percent",
   "uz": "5 foizdan ortiq Bank aksiyalariga ega aksiyadorlar",
   "en": "Shareholders who have more than 5% of shares of the bank"
+ },
+ "contacts/neighborhood-banker": {
+  "title": "Махаллинские банкиры",
+  "path": "/kontakty/neighborhood-banker",
+  "uz": "Mahalla bankiri"
+ },
+ "documents/2456": {
+  "title": "Законы",
+  "path": "/dokumenty/2456",
+  "uz": "Qonunlar",
+  "en": "Laws"
+ },
+ "documents/2457": {
+  "title": "Указы и Постановления Президента Республики Узбекистан",
+  "path": "/dokumenty/2457",
+  "uz": "O‘zbekiston Respublikasi Prezidentining Farmon va qarorlari"
+ },
+ "documents/2458": {
+  "title": "Постановления Кабинета Министров Республики Узбекистан",
+  "path": "/dokumenty/2458",
+  "uz": "O‘zbekiston Respublikasi Vazirlar Mahkamasining qarorlari",
+  "en": "Resolutions of the Cabinet of Ministers of the Republic of Uzbekistan"
+ },
+ "documents/2460": {
+  "title": "Нормативные акты",
+  "path": "/dokumenty/2460",
+  "uz": "Me’yoriy hujjatlar",
+  "en": "Drafts of normative documents"
+ },
+ "documents/2461": {
+  "title": "Программы",
+  "path": "/dokumenty/2461",
+  "uz": "Dasturlar"
+ },
+ "documents/2536": {
+  "title": "Конституция Республики Узбекистан",
+  "path": "/dokumenty/2536",
+  "uz": "O’zbekiston Respublikasi Konstitutsiyasi"
+ },
+ "documents/2537": {
+  "title": "Комментарии к нормативным актам",
+  "path": "/dokumenty/2537",
+  "uz": "Me’yoriy hujjatlarga sharhlar"
+ },
+ "documents/2538": {
+  "title": "Валютное регулирование и валютный контроль",
+  "path": "/dokumenty/2538",
+  "uz": "Valyutani tartibga solish va nazorat qilish"
+ },
+ "documents/2539": {
+  "title": "Кодекс профессиональной этики банкира",
+  "path": "/dokumenty/2539",
+  "uz": "Bank xodimining kasb odob-ahloqi kodeksi"
+ },
+ "documents/3127": {
+  "title": "Общеустановленный налог на добавленную стоимость",
+  "path": "/dokumenty/3127",
+  "uz": "Umumbelgilangan va qo‘shilgan qiymat solig‘i"
  }
 }

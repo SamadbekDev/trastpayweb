@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/ui/SkeletonImage";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import { TrastpayConfig, Language } from "@/types/pageConfig";

@@ -21277,5 +21277,1634 @@
     ]
    }
   ]
+ },
+ "contacts/neighborhood-banker": {
+  "title": "Mahalla bankiri",
+  "source": "https://trustbank.uz/uz/contacts/neighborhood-banker/",
+  "path": "/kontakty/neighborhood-banker",
+  "blocks": [
+   {
+    "type": "docs",
+    "items": [
+     {
+      "label": "“Trastbank” XABning hududlardagi “mahalla bankir”lari va ularning “yordamchi-agent”lari haqida",
+      "href": "/upload/medialibrary/392/yuuh6t2aasiwwvsoenjsy1f5yv1elim1/Mahalla-bankirlari_.pdf",
+      "meta": "225.53 KB"
+     }
+    ]
+   }
+  ]
+ },
+ "documents/2456": {
+  "title": "Qonunlar",
+  "source": "https://trustbank.uz/uz/documents/2456/",
+  "path": "/dokumenty/2456",
+  "blocks": [
+   {
+    "type": "heading",
+    "text": "Investitsiyalar va investitsiya faoliyati to‘g‘risida",
+    "href": "https://trustbank.uz/uz/documents/2462/37469/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 25 dekabr 2019 y.",
+     "Raqam: № O‘RQ-598",
+     "[lex.uz](http://lex.uz/ru/docs/4664142)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "«O‘zbekiston Respublikasining Markaziy banki to‘g‘risida»gi O‘zbekiston Respublikasi Qonuniga o‘zgartish va qo‘shimchalar kiritish haqida",
+    "href": "https://trustbank.uz/uz/documents/2462/37421/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 11 noyabr 2019 y.",
+     "Raqam: № O‘RQ-582",
+     "[lex.uz](http://lex.uz/ru/docs/-4590452)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "«Banklar va bank faoliyati to‘g‘risida»gi O‘zbekiston Respublikasi Qonuniga o‘zgartish va qo‘shimchalar kiritish haqida",
+    "href": "https://trustbank.uz/uz/documents/2462/37424/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 05 noyabr 2019 y.",
+     "Raqam: № O‘RQ-580",
+     "[lex.uz](http://lex.uz/ru/docs/-4581969)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "To‘lovlar va to‘lov tizimlari to‘g‘risida",
+    "href": "https://trustbank.uz/uz/documents/2462/37431/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 01 noyabr 2019 y.",
+     "Raqam: № O‘RQ-578",
+     "[lex.uz](http://lex.uz/ru/docs/4575786)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Kreditorlarni huquqiy jihatdan himoya qilish kuchaytirilishi hamda tadbirkorlik faoliyatini moliyalashtirish mexanizmlari takomillashtirilishi munosabati bilan O‘zbekiston Respublikasining ayrim qonun hujjatlariga o‘zgartish va qo‘shimchalar kiritish",
+    "href": "https://trustbank.uz/uz/documents/2462/37472/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 22 oktabr 2019 y.",
+     "Raqam: № O‘RQ-572",
+     "[lex.uz](http://lex.uz/ru/docs/4563025)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "“Valyutani tartibga solish to‘g‘risida”gi O‘zbekiston Respublikasi Qonuniga o‘zgartish va qo‘shimchalar kiritish haqida",
+    "href": "https://trustbank.uz/uz/documents/2462/37428/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 22 oktabr 2019 y.",
+     "Raqam: № O‘RQ-573",
+     "[lex.uz](http://lex.uz/ru/docs/-4562834)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Davlat-xususiy sheriklik to‘g‘risida",
+    "href": "https://trustbank.uz/uz/documents/2462/37476/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 10 may 2019 y.",
+     "Raqam: № O‘RQ-537",
+     "[lex.uz](http://lex.uz/ru/docs/-4329270)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "“Jismoniy va yuridik shaxslarning murojaatlari to‘g‘risida”gi O‘zbekiston Respublikasi qonuniga o‘zgartish va qo‘shimchalar kiritish haqida",
+    "href": "https://trustbank.uz/uz/documents/2462/37520/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 11 sentabr 2017 y.",
+     "Raqam: № O‘RQ-445",
+     "[lex.uz](http://lex.uz/docs/-3336169)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "“Buxgalteriya hisobi to‘g‘risida”gi O‘zbekiston Respublikasi Qonuniga o‘zgartish va qo‘shimchalar kiritish haqida",
+    "href": "https://trustbank.uz/uz/documents/2462/37434/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 13 aprel 2016 y.",
+     "Raqam: № O‘RQ-404",
+     "[lex.uz](http://lex.uz/ru/docs/-2931253)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Elektron hukumat to‘g‘risida",
+    "href": "https://trustbank.uz/uz/documents/2462/37480/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 09 dekabr 2015 y.",
+     "Raqam: № O‘RQ-395",
+     "[lex.uz](http://lex.uz/ru/docs/-2833860)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "“Qimmatli qog‘ozlar bozori to‘g‘risida”gi O‘zbekiston Respublikasi Qonuniga o‘zgartish va qo‘shimchalar kiritish haqida",
+    "href": "https://trustbank.uz/uz/documents/2462/37483/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 03 iyun 2015 y.",
+     "Raqam: № O‘RQ-387",
+     "[lex.uz](http://lex.uz/ru/docs/-2662539)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "“Elektron tijorat to‘g‘risida”gi O‘zbekiston Respublikasi Qonuniga o‘zgartish va qo‘shimchalar kiritish haqida",
+    "href": "https://trustbank.uz/uz/documents/2462/37489/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 22 may 2015 y.",
+     "Raqam: № O‘RQ-385",
+     "[lex.uz](http://lex.uz/ru/docs/-2650293)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "“Aksiyadorlik jamiyatlari va aksiyadorlarning huquqlarini himoya qilish to‘g‘risida”gi O‘zbekiston Respublikasi Qonuniga o‘zgartish va qo‘shimchalar kiritish haqida",
+    "href": "https://trustbank.uz/uz/documents/2462/37494/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 06 may 2014 y.",
+     "Raqam: № O‘RQ-370",
+     "[lex.uz](http://lex.uz/ru/docs/-2382409)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Garov reestri to‘g‘risida",
+    "href": "https://trustbank.uz/uz/documents/2462/37463/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 23 oktabr 2013 y.",
+     "Raqam: № O‘RQ-356",
+     "[lex.uz](http://lex.uz/ru/docs/-2258572)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "\"Xususiy bank va moliya institutlari hamda ular faoliyatining kafolatlari to‘g‘risida\"gi Qonuni",
+    "href": "https://trustbank.uz/uz/documents/2462/37443/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 17 dekabr 2012 y.",
+     "Raqam: № O‘RQ-339",
+     "[lex.uz](http://lex.uz/ru/docs/-2102388)"
+    ]
+   },
+   {
+    "type": "list",
+    "items": [
+     "[Boshlanishi](#)",
+     "[1](#)",
+     "[2](https://trustbank.uz/uz/documents/2462/?PAGEN_1=2)",
+     "[Oxirgi](https://trustbank.uz/uz/documents/2462/?PAGEN_1=2)"
+    ]
+   }
+  ]
+ },
+ "documents/2457": {
+  "title": "O‘zbekiston Respublikasi Prezidentining Farmon va qarorlari",
+  "source": "https://trustbank.uz/uz/documents/2457/",
+  "path": "/dokumenty/2457",
+  "blocks": [
+   {
+    "type": "heading",
+    "text": "2021-yilda O‘zbekiston Respublikasining eksport salohiyatini amalga oshirish chora-tadbirlari to‘g‘risida",
+    "href": "https://trustbank.uz/uz/documents/2463/48714/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 14 yanvar 2021 y.",
+     "Raqam: PQ-4949",
+     "[lex.uz](http://lex.uz/docs/-5219216)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Eksport faoliyatini moliyaviy qo‘llab-quvvatlashni yanada kengaytirish chora-tadbirlari to‘g‘risida",
+    "href": "https://trustbank.uz/uz/documents/2463/45676/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 21 oktabr 2020 y.",
+     "Raqam: PF-6091",
+     "[lex.uz](http://www.lex.uz/docs/-5060630)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "2020-2025-yillarga mo‘ljallangan O‘zbekiston Respublikasining bank tizimini isloh qilish strategiyasi to‘g‘risida",
+    "href": "https://trustbank.uz/uz/documents/2463/40553/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 12 may 2020 y.",
+     "Raqam: PF-5992",
+     "[lex.uz](http://lex.uz/ru/docs/-4811025)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Moliyaviy hisobotning xalqaro standartlariga o‘tish bo‘yicha qo‘shimcha chora-tadbirlar to‘g‘risida",
+    "href": "https://trustbank.uz/uz/documents/2463/44326/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 24 fevral 2020 y.",
+     "Raqam: PQ-4611",
+     "[lex.uz](http://www.lex.uz/docs/-4746047)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Byurokratik to‘siqlarni yanada qisqartirish hamda davlat organlari va tashkilotlari faoliyatiga zamonaviy boshqaruv tamoyillarini joriy qilish chora-tadbirlari to‘g‘risida",
+    "href": "https://trustbank.uz/uz/documents/2463/37766/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 09 dekabr 2019 y.",
+     "Raqam: PQ-4546",
+     "[lex.uz](http://lex.uz/docs/-4634623)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Ipoteka krediti mexanizmlarini takomillashtirishga oid qo‘shimcha chora-tadbirlar to‘g‘risida",
+    "href": "https://trustbank.uz/uz/documents/2463/37768/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 28 noyabr 2019 y.",
+     "Raqam: PF-5886",
+     "[lex.uz](http://lex.uz/docs/-4637331)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Osiyo taraqqiyot banki ishtirokidagi «Chorvachilik sohasida qo‘shilgan qiymat zanjirini yaratishni rivojlantirish» loyihasini amalga oshirishga doir qo‘shimcha chora-tadbirlar to‘g‘risida",
+    "href": "https://trustbank.uz/uz/documents/2463/37772/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 27 noyabr 2019 y.",
+     "Raqam: PQ-4538",
+     "[lex.uz](http://lex.uz/docs/4616632)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Mamlakatda biznes muhitini yanada yaxshilash va tadbirkorlikni qo‘llab-quvvatlash tizimini takomillashtirish chora-tadbirlari to‘g‘risida",
+    "href": "https://trustbank.uz/uz/documents/2463/37775/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 20 noyabr 2019 y.",
+     "Raqam: PQ-4525",
+     "[lex.uz](http://lex.uz/docs/4602230)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Inflyatsion targetlash rejimiga bosqichma-bosqich o‘tish orqali pul-kredit siyosatini takomillashtirish to‘g‘risida",
+    "href": "https://trustbank.uz/uz/documents/2463/37777/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 18 noyabr 2019 y.",
+     "Raqam: PF-5877",
+     "[lex.uz](http://lex.uz/docs/4600824)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Jahon banki ishtirokida «O‘zbekistonda bozor islohotlarini qo‘llab-quvvatlash» loyihasini amalga oshirish chora-tadbirlari to‘g‘risida",
+    "href": "https://trustbank.uz/uz/documents/2463/37780/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 13 noyabr 2019 y.",
+     "Raqam: PQ-4521",
+     "[lex.uz](http://lex.uz/docs/4593926)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Bank-moliya sohasida kadrlar tayyorlash tizimini takomillashtirish chora-tadbirlari to‘g‘risida",
+    "href": "https://trustbank.uz/uz/documents/2463/37784/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 31 oktabr 2019 y.",
+     "Raqam: PQ-4503",
+     "[lex.uz](http://lex.uz/docs/4574335)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Oilaviy tadbirkorlikni rivojlantirish davlat dasturlari doirasida amalga oshirilayotgan loyihalarni kreditlash tartibini takomillashtirishning qo‘shimcha chora-tadbirlari to‘g‘risida",
+    "href": "https://trustbank.uz/uz/documents/2463/37804/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 24 oktabr 2019 y.",
+     "Raqam: PQ-4498",
+     "[lex.uz](http://lex.uz/docs/4569641)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "O‘zbekiston Respublikasining soliq siyosatini yanada takomillashtirish chora-tadbirlari to‘g‘risida",
+    "href": "https://trustbank.uz/uz/documents/2463/37806/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 26 sentabr 2019 y.",
+     "Raqam: PF-5837",
+     "[lex.uz](http://lex.uz/docs/4529995)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Yengil sanoatni yanada rivojlantirish va tayyor mahsulotlar ishlab chiqarishni rag‘batlantirish chora-tadbirlari to‘g‘risida",
+    "href": "https://trustbank.uz/uz/documents/2463/37809/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 16 sentabr 2019 y.",
+     "Raqam: PQ-4453",
+     "[lex.uz](http://lex.uz/docs/4516526)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Mikromoliyaviy xizmatlar ommabopligini oshirish chora-tadbirlari to‘g‘risida",
+    "href": "https://trustbank.uz/uz/documents/2463/37812/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 23 iyul 2019 y.",
+     "Raqam: PQ-4400",
+     "[lex.uz](http://lex.uz/docs/4435438)"
+    ]
+   },
+   {
+    "type": "list",
+    "items": [
+     "[Boshlanishi](#)",
+     "[1](#)",
+     "[2](https://trustbank.uz/uz/documents/2463/?PAGEN_1=4)",
+     "[3](https://trustbank.uz/uz/documents/2463/?PAGEN_1=4)",
+     "[4](https://trustbank.uz/uz/documents/2463/?PAGEN_1=4)",
+     "[Oxirgi](https://trustbank.uz/uz/documents/2463/?PAGEN_1=4)"
+    ]
+   }
+  ]
+ },
+ "documents/2458": {
+  "title": "O‘zbekiston Respublikasi Vazirlar Mahkamasining qarorlari",
+  "source": "https://trustbank.uz/uz/documents/2458/",
+  "path": "/dokumenty/2458",
+  "blocks": [
+   {
+    "type": "heading",
+    "text": "Vakolatli organlarning meva-sabzavotlar, to‘qimachilik mahsulotlari va buyumlarini eksport qilish uchun zarur ruxsatnoma va sertifikatlarni rasmiylashtirish bilan bog‘liq xarajatlarini qoplab berish tartibi to‘g‘risidagi nizomni tasdiqlash haqida",
+    "href": "https://trustbank.uz/uz/documents/2464/38630/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 20 mart 2020 y.",
+     "Raqam: № 175",
+     "[lex.uz](http://lex.uz/ru/docs/-4772487)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "\"O‘zbekiston Respublikasi Hukumatining ayrim qarorlariga o‘zgartirishlar kiritish, shuningdek, ba’zilarini o‘z kuchini yo‘qotgan deb hisoblash to‘g‘risida\"gi Qarori",
+    "href": "https://trustbank.uz/uz/documents/2464/44070/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 16 yanvar 2020 y.",
+     "Raqam: № 30",
+     "[lex.uz](http://www.lex.uz/docs/-4701605)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "\"Osiyo taraqqiyot banki ishtirokida O‘zbekistonda ipoteka krediti bozorini rivojlantirish dasturini amalga oshirish chora-tadbirlari to‘g‘risida\"gi Qarori",
+    "href": "https://trustbank.uz/uz/documents/2464/44067/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 16 yanvar 2020 y.",
+     "Raqam: № 29",
+     "[lex.uz](http://www.lex.uz/docs/-4701507)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Onlayn nazorat-kassa mashinalari va virtual kassa tizimi qo‘llanilishini ta’minlash chora-tadbirlari to‘g‘risida",
+    "href": "https://trustbank.uz/uz/documents/2464/44073/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 23 noyabr 2019 y.",
+     "Raqam: 943",
+     "[lex.uz](http://www.lex.uz/docs/-4603329)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Internet jahon axborot tarmog‘ida milliy kontentni rivojlantirishga doir qo‘shimcha chora-tadbirlar to‘g‘risida",
+    "href": "https://trustbank.uz/uz/documents/2464/36753/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 21 oktabr 2019 y.",
+     "Raqam: VM-888",
+     "[lex.uz](http://lex.uz/docs/4566279)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "\"Xalqaro tiklanish va taraqqiyot banki ishtirokida \"Sanoat korxonalarining energiya samaradorligini oshirish\" (2-qo‘shimcha moliyalashtirish)\" loyihasi doirasida Yevropa investitsiya banki mablag‘larini jalb qilish chora-tadbirlari to‘g‘risida\"gi Qarori",
+    "href": "https://trustbank.uz/uz/documents/2464/44076/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 28 iyun 2019 y.",
+     "Raqam: 541",
+     "[lex.uz](http://www.lex.uz/docs/-4392874)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "\"Islom taraqqiyot banki guruhi va Arab muvofiqlashtirish guruhi jamg‘armalari bilan hamkorlikni yanada rivojlantirish chora-tadbirlari to‘g‘risida\"gi Qarori",
+    "href": "https://trustbank.uz/uz/documents/2464/44079/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 23 may 2019 y.",
+     "Raqam: 428",
+     "[lex.uz](http://www.lex.uz/docs/-4351726)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "\"Yoshlar - kelajagimiz\" Davlat dasturi doirasida amalga oshiriladigan tadbirkorlik loyihalarini qo‘llab-quvvatlash chora-tadbirlari to‘g‘risida\" Qarori",
+    "href": "https://trustbank.uz/uz/documents/2464/44085/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 27 noyabr 2018 y.",
+     "Raqam: 962",
+     "[lex.uz](http://www.lex.uz/docs/-4082240)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "\"Yaponiya xalqaro hamkorlik banki va Yaponiyaning tijorat banklari kreditiga xizmat ko‘rsatish chora-tadbirlari to‘g‘risida\"gi Qarori",
+    "href": "https://trustbank.uz/uz/documents/2464/44082/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 23 noyabr 2018 y.",
+     "Raqam: 951",
+     "[lex.uz](http://www.lex.uz/docs/-4074756)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "\"O‘zbekiston Respublikasi Hukumatining ayrim qarorlariga qishloq joylarda yangilangan namunaviy loyihalar bo‘yicha arzon uy-joylar qurish uchun beriladigan ipoteka kreditlari bo‘yicha garov ta’minotini rasmiylashtirish tartibini soddalashtirishga",
+    "href": "https://trustbank.uz/uz/documents/2464/44089/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 23 oktabr 2018 y.",
+     "Raqam: 856",
+     "[lex.uz](http://www.lex.uz/docs/-4017464?ONDATE=25.10.2018)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "\"Xalqaro tiklanish va taraqqiyot banki ishtirokida \"Sanoat korxonalarining energiya samaradorligini oshirish\" (2-qo‘shimcha moliyalashtirish) loyihasini amalga oshirishga doir qo‘shimcha chora-tadbirlar to‘g‘risida\"gi Qarori",
+    "href": "https://trustbank.uz/uz/documents/2464/44092/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 02 oktabr 2018 y.",
+     "Raqam: 785",
+     "[lex.uz](http://www.lex.uz/docs/-3924427)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "O‘zbekiston Respublikasi Hukumatining ayrim qarorlariga o‘zgartirish va qo‘shimchalar kiritish to‘g‘risida",
+    "href": "https://trustbank.uz/uz/documents/2464/32010/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 26 iyul 2018 y.",
+     "Raqam: 583",
+     "[lex.uz](http://lex.uz/pdfs/3838258)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "\"Notarial harakatlar va FHDY ogranlari xizmatlari uchun to‘lovlarni amalga oshirishda interaktiv xizmatlarni joriy etishni kengaytirish chora-tadbirlari to‘g‘risida\"gi Qarori",
+    "href": "https://trustbank.uz/uz/documents/2464/44095/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 16 iyul 2018 y.",
+     "Raqam: 540",
+     "[lex.uz](http://www.lex.uz/docs/-3824335)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "\"Maktabgacha ta’lim sohasida davlat-xususiy sheriklikni rivojlantirish uchun shart-sharoitlar yaratish chora-tadbirlari to‘g‘risida\"gi Qarori",
+    "href": "https://trustbank.uz/uz/documents/2464/44098/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 25 iyun 2018 y.",
+     "Raqam: 475",
+     "[lex.uz](http://www.lex.uz/docs/-3794699)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "\"Maktabgacha ta’lim sohasida davlat-xususiy sherikchilik munosabatlarini yanada rag‘batlantirish chora-tadbirlari to‘g‘risida\"gi Qarori",
+    "href": "https://trustbank.uz/uz/documents/2464/44101/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 19 may 2018 y.",
+     "Raqam: 378",
+     "[lex.uz](http://www.lex.uz/docs/-3743466)"
+    ]
+   },
+   {
+    "type": "list",
+    "items": [
+     "[Boshlanishi](#)",
+     "[1](#)",
+     "[2](https://trustbank.uz/uz/documents/2464/?PAGEN_1=5)",
+     "[3](https://trustbank.uz/uz/documents/2464/?PAGEN_1=5)",
+     "[4](https://trustbank.uz/uz/documents/2464/?PAGEN_1=5)",
+     "[5](https://trustbank.uz/uz/documents/2464/?PAGEN_1=5)",
+     "[Oxirgi](https://trustbank.uz/uz/documents/2464/?PAGEN_1=5)"
+    ]
+   }
+  ]
+ },
+ "documents/2460": {
+  "title": "Me’yoriy hujjatlar",
+  "source": "https://trustbank.uz/uz/documents/2460/",
+  "path": "/dokumenty/2460",
+  "blocks": [
+   {
+    "type": "heading",
+    "text": "Garov tartibi",
+    "href": "https://trustbank.uz/uz/documents/3421/"
+   },
+   {
+    "type": "heading",
+    "text": "“Trastbank” xususiy aksiyadorlik banki tizimida qarzdorga/mijozga ajratilgan kredit bo‘yicha ta’minot sifatida qabul qilingan garov mulkini bosqichma-bosqich garovdan ozod qilish yoki garov mulkini almashtirish TARTIBI",
+    "href": "https://trustbank.uz/uz/documents/2466/187519/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 01 iyun 2026 y."
+    ]
+   },
+   {
+    "type": "docs",
+    "items": [
+     {
+      "label": "Yuklab olish",
+      "href": "/upload/dl/107264/Kredit-ta_tili-Nizom-o_zgartirish_.pdf",
+      "meta": "297.28 KB"
+     }
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "O‘z vaqtida kredit to‘lovlarini amalga oshirishga qiynalayotgan qarzdorlarning amaldagi kreditlari bo‘yicha kredit shartnomasi shartlariga o‘zgartirish va qo‘shimchalar kiritish haqidagi arizalarini ko‘rib chiqish tartibi",
+    "href": "https://trustbank.uz/uz/documents/2466/180231/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 12 yanvar 2026 y."
+    ]
+   },
+   {
+    "type": "docs",
+    "items": [
+     {
+      "label": "Yuklab olish",
+      "href": "/upload/dl/105405/Kredit-yangi-tartib-_2_.pdf",
+      "meta": "268.96 KB"
+     }
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "“Trastbank xususiy aksiyadorlik banki tizimida qarzdorga/mijozga ajratilgan kredit bo‘yicha ta’minot sifatida qabul qilingan garov mulkini bosqichma-bosqich garovdan ozod qilish yoki garov mulkini almashtirish tartibi”",
+    "href": "https://trustbank.uz/uz/documents/2466/177331/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 19 noyabr 2025 y."
+    ]
+   },
+   {
+    "type": "docs",
+    "items": [
+     {
+      "label": "Yuklab olish",
+      "href": "/upload/dl/104843/711.pdf",
+      "meta": "253.98 KB"
+     }
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Bank xizmatlari iste’molchilari bilan o‘zaro munosabatlarni amalga oshirishda tijorat banklarining faoliyatiga qo‘yiladigan minimal talablar to‘g‘risidagi nizomga o‘zgartirish va qo‘shimchalar kiritish haqida",
+    "href": "https://trustbank.uz/uz/documents/2466/48710/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 14 yanvar 2021 y.",
+     "Raqam: 3030-6",
+     "[lex.uz](http://lex.uz/docs/-5224929)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Tijorat banklarida kassa ishini tashkil etish, naqd pul va boshqa qimmatliklarni inkassatsiya qilishga doir yo‘riqnomaga o‘zgartirish va qo‘shimchalar kiritish haqida",
+    "href": "https://trustbank.uz/uz/documents/2466/45812/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 22 oktabr 2020 y.",
+     "Raqam: 3028-4",
+     "[lex.uz](http://www.lex.uz/docs/-5065474)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Yuridik va jismoniy shaxslar tomonidan valyuta operatsiyalari amalga oshirilishining asoslanganligi yuzasidan monitoring olib borish tartibi to‘g‘risidagi nizomga o‘zgartirish va qo‘shimchalar kiritish haqida",
+    "href": "https://trustbank.uz/uz/documents/2466/45656/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 12 oktabr 2020 y.",
+     "Raqam: 2467-3",
+     "[lex.uz](http://www.lex.uz/docs/-5046687)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Bank xizmatlari iste’molchilari bilan o‘zaro munosabatlarni amalga oshirishda tijorat banklarining faoliyatiga qo‘yiladigan minimal talablar to‘g‘risida nizomning 3-bobiga o‘zgartirish kiritish haqida",
+    "href": "https://trustbank.uz/uz/documents/2466/48707/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 07 sentabr 2020 y.",
+     "Raqam: 3030-5",
+     "[lex.uz](http://lex.uz/docs/-4988093)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Bank xizmatlari iste’molchilari bilan o‘zaro munosabatlarni amalga oshirishda tijorat banklarining faoliyatiga qo‘yiladigan minimal talablar to‘g‘risidagi nizomga qo‘shimchalar va o‘zgartirish kiritish haqida",
+    "href": "https://trustbank.uz/uz/documents/2466/48704/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 21 fevral 2020 y.",
+     "Raqam: 3030-4",
+     "[lex.uz](http://lex.uz/docs/-4745845)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Qarz oluvchi jismoniy shaxslarning kreditlar (mikroqarzlar) bo‘yicha qarz yukini hisoblash tartibi, qarz yukining ruxsat etilgan miqdori, shuningdek qarz yuki o‘sishini cheklash to‘g‘risidagi nizomni tasdiqlash haqida",
+    "href": "https://trustbank.uz/uz/documents/2466/44335/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 19 dekabr 2019 y.",
+     "Raqam: 3205",
+     "[lex.uz](http://www.lex.uz/docs/-4654149)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Bank xizmatlari iste’molchilari bilan o‘zaro munosabatlarni amalga oshirishda tijorat banklarining faoliyatiga qo‘yiladigan minimal talablar to‘g‘risidagi nizomga qo‘shimchalar kiritish haqida",
+    "href": "https://trustbank.uz/uz/documents/2466/48701/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 22 noyabr 2019 y.",
+     "Raqam: 3030-3",
+     "[lex.uz](http://lex.uz/docs/-4602547)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Bank xizmatlari iste’molchilari bilan o‘zaro munosabatlarni amalga oshirishda tijorat banklarining faoliyatiga qo‘yiladigan minimal talablar to‘g‘risidagi nizomga qo‘shimchalar kiritish haqida",
+    "href": "https://trustbank.uz/uz/documents/2466/48697/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 25 sentabr 2019 y.",
+     "Raqam: 3030-2",
+     "[lex.uz](http://lex.uz/docs/-4529452)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "O‘zbekiston Respublikasi Markaziy bankining 25 so‘mlik va undan kichik nominal qiymatdagi tangalari va banknotlarini muomaladan qaytarib olish tartibi to‘g‘risidagi nizomni tasdiqlash haqida",
+    "href": "https://trustbank.uz/uz/documents/2466/44338/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 18 sentabr 2019 y.",
+     "Raqam: 3183",
+     "[lex.uz](http://www.lex.uz/ru/docs/-4517455)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Tijorat banklari tomonidan davlat soliq xizmati organlariga taqdim etiladigan moliyaviy hisobot shakllarini tasdiqlash to‘g‘risida",
+    "href": "https://trustbank.uz/uz/documents/2466/44345/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 29 avgust 2019 y.",
+     "Raqam: 3178",
+     "[lex.uz](http://www.lex.uz/ru/docs/-4493134)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Tijorat banklari tomonidan davlat soliq xizmati organlariga taqdim etiladigan moliyaviy hisobot shakllarini tasdiqlash to‘g‘risida",
+    "href": "https://trustbank.uz/uz/documents/2466/44341/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 29 avgust 2019 y.",
+     "Raqam: 3178",
+     "[lex.uz](http://www.lex.uz/docs/-4493134)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Bank xizmatlari iste’molchilari bilan o‘zaro munosabatlarni amalga oshirishda tijorat banklarining faoliyatiga qo‘yiladigan minimal talablar to‘g‘risidagi nizomga kiritilayotgan o‘zgartirish va qo‘shimchalar",
+    "href": "https://trustbank.uz/uz/documents/2466/48694/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 15 iyul 2019 y.",
+     "Raqam: 3030-1",
+     "[lex.uz](http://lex.uz/docs/-4420946)"
+    ]
+   },
+   {
+    "type": "list",
+    "items": [
+     "[Boshlanishi](#)",
+     "[1](#)",
+     "[2](https://trustbank.uz/uz/documents/2466/?PAGEN_1=7)",
+     "[3](https://trustbank.uz/uz/documents/2466/?PAGEN_1=7)",
+     "[4](https://trustbank.uz/uz/documents/2466/?PAGEN_1=7)",
+     "[5](https://trustbank.uz/uz/documents/2466/?PAGEN_1=7)",
+     "[Oxirgi](https://trustbank.uz/uz/documents/2466/?PAGEN_1=7)"
+    ]
+   }
+  ]
+ },
+ "documents/2461": {
+  "title": "Dasturlar",
+  "source": "https://trustbank.uz/uz/documents/2461/",
+  "path": "/dokumenty/2461",
+  "blocks": [
+   {
+    "type": "heading",
+    "text": "2020 yil - Ilm, ma’rifat va raqamli iqtisodiyotni rivojlantirish yili",
+    "href": "https://trustbank.uz/uz/documents/2467/38134/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 02 mart 2020 y.",
+     "Raqam: PF-5953",
+     "[lex.uz](http://lex.uz/docs/-4751561)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "2019 yil - Faol investitsiyalar va ijtimoiy rivojlanish yili",
+    "href": "https://trustbank.uz/uz/documents/2467/36374/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 17 yanvar 2019 y.",
+     "Raqam: PF-5635",
+     "[lex.uz](http://www.lex.uz/docs/4168749)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "2018 yil - Faol tadbirkorlik, innovatsion g‘oyalar va texnologiyalarni qo‘llab-quvvatlash yili",
+    "href": "https://trustbank.uz/uz/documents/2467/29103/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 22 yanvar 2018 y.",
+     "Raqam: PF-5308",
+     "[lex.uz](http://www.lex.uz/Pages/GetPDFView.aspx?lact_id=3516847)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "2017 yil - Xalq bilan muloqot va inson manfaatlari yili",
+    "href": "https://trustbank.uz/uz/documents/2467/29102/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 17 dekabr 2016 y.",
+     "Raqam: F-4760",
+     "[lex.uz](http://www.lex.uz/pages/getpage.aspx?lact_id=3121798)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "2016 yil – Sog`lom ona va bola yili",
+    "href": "https://trustbank.uz/uz/documents/2467/27285/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 17 aprel 2016 y.",
+     "Raqam: PQ-2487",
+     "[lex.uz](http://lex.uz/pages/getpage.aspx?lact_id=2903502)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "2015 yil – Keksalarni e’zozlash yili",
+    "href": "https://trustbank.uz/uz/documents/2467/27286/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 17 aprel 2015 y.",
+     "Raqam: PQ-2302",
+     "[lex.uz](http://lex.uz/pages/getpage.aspx?lact_id=2575143)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "2014 yil – Sog`lom bola yili",
+    "href": "https://trustbank.uz/uz/documents/2467/27287/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 17 aprel 2014 y.",
+     "Raqam: PQ-2133",
+     "[lex.uz](http://lex.uz/pages/getpage.aspx?lact_id=2347400)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "2013 yil – Obod turmush yili",
+    "href": "https://trustbank.uz/uz/documents/2467/27288/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 17 aprel 2013 y.",
+     "Raqam: PQ-1920",
+     "[lex.uz](http://lex.uz/Pages/GetAct.aspx?lact_id=2135768)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "2012 yil – Mustahkam oila yili",
+    "href": "https://trustbank.uz/uz/documents/2467/27289/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 17 aprel 2012 y.",
+     "Raqam: PQ-1717",
+     "[lex.uz](http://lex.uz/Pages/GetAct.aspx?lact_id=1967131)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "2011 yil – Kichik biznes va xususiy tadbirkorlik yili",
+    "href": "https://trustbank.uz/uz/documents/2467/27290/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 17 aprel 2011 y.",
+     "Raqam: PQ-1474",
+     "[lex.uz](http://lex.uz/pages/GetAct.aspx?lact_id=1745082)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "2010 yil – Barkamol avlod yili",
+    "href": "https://trustbank.uz/uz/documents/2467/27291/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 17 aprel 2010 y.",
+     "Raqam: PQ-1271",
+     "[lex.uz](http://lex.uz/pages/GetAct.aspx?lact_id=1586072)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "2009 yil – Qishloq taraqqiyoti va farovonligi yili",
+    "href": "https://trustbank.uz/uz/documents/2467/27292/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 17 aprel 2009 y.",
+     "Raqam: PQ-1046",
+     "[lex.uz](http://lex.uz/pages/getpage.aspx?lact_id=1437232)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "2008 yil – Yoshlar yili",
+    "href": "https://trustbank.uz/uz/documents/2467/27293/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 17 aprel 2008 y.",
+     "Raqam: PQ-805",
+     "[lex.uz](http://lex.uz/pages/getpage.aspx?lact_id=1323062)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "2007 yil – Ijtimoiy himoya yili",
+    "href": "https://trustbank.uz/uz/documents/2467/27294/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 17 aprel 2007 y.",
+     "Raqam: PQ-573",
+     "[lex.uz](http://lex.uz/pages/GetAct.aspx?lact_id=1112866)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "2006 yil – Homiylar va shifokorlar yili",
+    "href": "https://trustbank.uz/uz/documents/2467/27295/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 17 aprel 2006 y.",
+     "Raqam: PQ-266",
+     "[lex.uz](http://lex.uz/pages/GetAct.aspx?lact_id=973445)"
+    ]
+   },
+   {
+    "type": "list",
+    "items": [
+     "[Boshlanishi](#)",
+     "[1](#)",
+     "[2](https://trustbank.uz/uz/documents/2467/?PAGEN_1=2)",
+     "[Oxirgi](https://trustbank.uz/uz/documents/2467/?PAGEN_1=2)"
+    ]
+   }
+  ]
+ },
+ "documents/2536": {
+  "title": "O’zbekiston Respublikasi Konstitutsiyasi",
+  "source": "https://trustbank.uz/uz/documents/2536/",
+  "path": "/dokumenty/2536",
+  "blocks": [
+   {
+    "type": "heading",
+    "text": "O’zbekiston Respublikasi Konstitutsiyasi",
+    "href": "https://trustbank.uz/uz/documents/2551/21041/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 15 dekabr 1992 y.",
+     "Raqam: 723-XII",
+     "[lex.uz](http://lex.uz/ru/docs/-20596)"
+    ]
+   }
+  ]
+ },
+ "documents/2537": {
+  "title": "Me’yoriy hujjatlarga sharhlar",
+  "source": "https://trustbank.uz/uz/documents/2537/",
+  "path": "/dokumenty/2537",
+  "blocks": [
+   {
+    "type": "heading",
+    "text": "Kapital harakati bilan bog‘liq ayrim valyuta operatsiyalarini amalga oshirish tartibi to‘g‘risidagi Nizomga o‘zgartirish va qo‘shimcha kiritish haqida",
+    "href": "https://trustbank.uz/uz/documents/2465/31222/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 23 noyabr 2017 y.",
+     "Raqam: 2536-1",
+     "[lex.uz](http://lex.uz/docs/3422065)"
+    ]
+   }
+  ]
+ },
+ "documents/2538": {
+  "title": "Valyutani tartibga solish va nazorat qilish",
+  "source": "https://trustbank.uz/uz/documents/2538/",
+  "path": "/dokumenty/2538",
+  "blocks": [
+   {
+    "type": "heading",
+    "text": "“O'zbekiston Respublikasida investitsiya iqlimi va ishbilarmonlik muhitini yanada takomillashtirishga doir qo'shimcha chora-tadbirlar to'g'risida”gi farmon",
+    "href": "https://trustbank.uz/uz/documents/2552/21246/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 07 aprel 2014 y.",
+     "Raqam: PF-4609",
+     "[lex.uz](http://www.lex.uz/docs/2368307)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "“Kichik biznes va xususiy tadbirkorlik sub'ektlari eksportini qo'llab-quvvatlash borasidagi qo'shimcha chora-tadbirlar to'g'risida”gi qaror",
+    "href": "https://trustbank.uz/uz/documents/2552/21245/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 08 avgust 2013 y.",
+     "Raqam: PQ-2022",
+     "[lex.uz](http://www.lex.uz/docs/2221221)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "“Jismoniy shaxslarga xorijiy valyutani sotish tartibini yanada liberallashtirish chora-tadbirlari to'g'risida”gi qaror",
+    "href": "https://trustbank.uz/uz/documents/2552/21244/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 30 yanvar 2013 y.",
+     "Raqam: PQ–1914",
+     "[lex.uz](http://www.lex.uz/docs/2127976)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "“Mamlakatimizda ishlab chiqarilgan mahsulotlarning raqobatdoshliligini yanada oshirish va tovarlarni respublikaga noqonuniy olib kirishga qarshi kurashni kuchaytirish to'g'risida”gi qaror",
+    "href": "https://trustbank.uz/uz/documents/2552/21243/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 29 yanvar 2013 y.",
+     "Raqam: PQ-1913",
+     "[lex.uz](http://www.lex.uz/docs/2132349)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "“Chakana savdo va xizmat ko'rsatish sohasida hisob-kitoblar mexanizmini yanada tartibga solish to'g'risida”gi qaror",
+    "href": "https://trustbank.uz/uz/documents/2552/21242/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 24 yanvar 2013 y.",
+     "Raqam: PQ-1910",
+     "[lex.uz](http://www.lex.uz/docs/2125302)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "“Eksport qiluvchi korxonalarni rag'batlantirishni kuchaytirish va raqobatbardosh mahsulotlarni eksportga etkazib berishni kengaytirish borasida qo'shimcha chora-tadbirlar to'g'risida”gi farmon",
+    "href": "https://trustbank.uz/uz/documents/2552/21241/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 26 mart 2012 y.",
+     "Raqam: PQ-1731",
+     "[lex.uz](http://www.lex.uz/docs/1988186)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "“Erkin almashtiriladigan valyutaga eksport qilishda imtiyozlar va preferentsiyalarni qo'llash maqsadida o'zi ishlab chiqargan tovarlarni (ishlarni, xizmatlarni) aniqlash qoidalarini tasdiqlash to'g'risida”gi qaror",
+    "href": "https://trustbank.uz/uz/documents/2552/21196/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 16 fevral 2011 y.",
+     "Raqam: 2195",
+     "[lex.uz](http://www.lex.uz/docs/1746547)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "“O'zbekiston Respublikasi hududida xorijiy davlatlarning banklari vakolatxonalarini akkreditatsiya qilish tartibi to'g'risida”gi Nizom",
+    "href": "https://trustbank.uz/uz/documents/2552/21195/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 23 dekabr 2008 y.",
+     "Raqam: 1883",
+     "[lex.uz](http://www.lex.uz/docs/1417932)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "“Navoiy viloyatida erkin industrial-iqtisodiy zona tashkil etish to'g'risida”gi farmon",
+    "href": "https://trustbank.uz/uz/documents/2552/21240/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 02 dekabr 2008 y.",
+     "Raqam: PQ-4059",
+     "[lex.uz](http://www.lex.uz/docs/1411630)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "“O'zbekiston Respublikasi tovar-xom ashyo birjasida chet el valyutasida tuzilgan eksport shartnomalarini ro'yxatdan o'tkazish, hisob-kitoblarni va ularning ijrosi ustidan nazoratni amalga oshirish tartibi to'g'risida” Nizom",
+    "href": "https://trustbank.uz/uz/documents/2552/21193/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 21 iyun 2005 y.",
+     "Raqam: 263-В",
+     "[lex.uz](http://www.lex.uz/docs/627297)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "“Ochiq valyuta pozitsiyasini yuritish qoidalarining yangi tahririni tasdiqlash to'g'risida”gi qaror",
+    "href": "https://trustbank.uz/uz/documents/2552/21194/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 28 may 2005 y.",
+     "Raqam: 610",
+     "[lex.uz](http://www.lex.uz/docs/659833)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "“Tashqi savdo kontraktlariga identifikatsiya raqamini berish tartibi to'g'risidagi nizomni tasdiqlash haqida” qaror",
+    "href": "https://trustbank.uz/uz/documents/2552/21192/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 03 may 2004 y.",
+     "Raqam: 250-В",
+     "[lex.uz](http://www.lex.uz/docs/842099)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "“O'zbekiston Respublikasining naqd milliy valyutasini olib kirish va olib chiqish tartibi to'g'risida”gi Nizom",
+    "href": "https://trustbank.uz/uz/documents/2552/21191/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 01 mart 2004 y.",
+     "Raqam: 249-В",
+     "[lex.uz](http://www.lex.uz/docs/820593)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Valyutani tartibga solish to'g'risida (Yangi tahriri)",
+    "href": "https://trustbank.uz/uz/documents/2552/21249/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 11 noyabr 2003 y.",
+     "Raqam: 556-II",
+     "[lex.uz](http://lex.uz/docs/81577)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "“O'zbekiston Respublikasida tashqi savdo faoliyatini yanada erkinlashtirish chora-tadbirlari to'g'risida”gi",
+    "href": "https://trustbank.uz/uz/documents/2552/21239/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 26 sentabr 2003 y.",
+     "Raqam: PF-3321",
+     "[lex.uz](http://www.lex.uz/docs/173080)"
+    ]
+   },
+   {
+    "type": "list",
+    "items": [
+     "[Boshlanishi](#)",
+     "[1](#)",
+     "[2](https://trustbank.uz/uz/documents/2552/?PAGEN_1=5)",
+     "[3](https://trustbank.uz/uz/documents/2552/?PAGEN_1=5)",
+     "[4](https://trustbank.uz/uz/documents/2552/?PAGEN_1=5)",
+     "[5](https://trustbank.uz/uz/documents/2552/?PAGEN_1=5)",
+     "[Oxirgi](https://trustbank.uz/uz/documents/2552/?PAGEN_1=5)"
+    ]
+   }
+  ]
+ },
+ "documents/2539": {
+  "title": "Bank xodimining kasb odob-ahloqi kodeksi",
+  "source": "https://trustbank.uz/uz/documents/2539/",
+  "path": "/dokumenty/2539",
+  "blocks": [
+   {
+    "type": "heading",
+    "text": "BANK XODIMINING KASB ODOB-AHLOQI K O D E K S I",
+    "href": "https://trustbank.uz/uz/documents/2553/21250/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "[lex.uz](http://uba.uz/uz/assotsiatsiya/bankir-kodeksi.html)"
+    ]
+   }
+  ]
+ },
+ "documents/3127": {
+  "title": "Umumbelgilangan va qo‘shilgan qiymat solig‘i",
+  "source": "https://trustbank.uz/uz/documents/3127/",
+  "path": "/dokumenty/3127",
+  "blocks": [
+   {
+    "type": "heading",
+    "text": "O‘zbekiston Respublikasi Prezidentining 29.06.2018 y. PF-5468-son \"O‘zbekiston Respublikasining soliq siyosatini takomillashtirish konsepsiyasi to‘g‘risida\"gi Farmoni",
+    "href": "https://trustbank.uz/uz/documents/3126/33843/"
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "Ro’yxatdan o’tish muddati: 29 iyun 2018 y.",
+     "Raqam: PF-5468",
+     "[lex.uz](http://www.lex.uz/docs/3802378)"
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Mol-mulkni ijaraga beruvchi jismoniy shaxslar uchun belgilangan ijara to‘lovining eng kam stavkalari",
+    "href": "https://trustbank.uz/uz/documents/3126/33863/"
+   },
+   {
+    "type": "docs",
+    "items": [
+     {
+      "label": "Yuklab olish",
+      "href": "/upload/dl/39967/05.pdf",
+      "meta": "362.01 KB"
+     }
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Jismoniy shaxslarning mol-mulkiga solinadigan soliq stavkalari",
+    "href": "https://trustbank.uz/uz/documents/3126/33862/"
+   },
+   {
+    "type": "docs",
+    "items": [
+     {
+      "label": "Yuklab olish",
+      "href": "/upload/dl/39966/04.pdf",
+      "meta": "429.26 KB"
+     }
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Suv resurslaridan foydalanganlik uchun soliq stavkalari",
+    "href": "https://trustbank.uz/uz/documents/3126/33861/"
+   },
+   {
+    "type": "docs",
+    "items": [
+     {
+      "label": "Yuklab olish",
+      "href": "/upload/dl/39965/03.pdf",
+      "meta": "287.87 KB"
+     }
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Yakka tartibdagi tadbirkorlardan olinadigan soliq stavkalari",
+    "href": "https://trustbank.uz/uz/documents/3126/33860/"
+   },
+   {
+    "type": "docs",
+    "items": [
+     {
+      "label": "Yuklab olish",
+      "href": "/upload/dl/39964/02.pdf",
+      "meta": "527.49 KB"
+     }
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Yagona soliq stavkalari",
+    "href": "https://trustbank.uz/uz/documents/3126/33859/"
+   },
+   {
+    "type": "docs",
+    "items": [
+     {
+      "label": "Yuklab olish",
+      "href": "/upload/dl/39963/01.pdf",
+      "meta": "383.77 KB"
+     }
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Qo‘shilgan qiymat solig‘i savdo korxonasi misolida",
+    "href": "https://trustbank.uz/uz/documents/3126/33858/"
+   },
+   {
+    "type": "docs",
+    "items": [
+     {
+      "label": "Yuklab olish",
+      "href": "/upload/dl/39962/torgovlya-uz.pdf",
+      "meta": "330.18 KB"
+     }
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Qo‘shilgan qiymat solig‘i qurilish korxonasi misolida",
+    "href": "https://trustbank.uz/uz/documents/3126/33857/"
+   },
+   {
+    "type": "docs",
+    "items": [
+     {
+      "label": "Yuklab olish",
+      "href": "/upload/dl/39961/stroitelstvo-uz.pdf",
+      "meta": "254.89 KB"
+     }
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Qo‘shilgan qiymat solig‘i ishlab chiqaruvchi korxona misolida",
+    "href": "https://trustbank.uz/uz/documents/3126/33856/"
+   },
+   {
+    "type": "docs",
+    "items": [
+     {
+      "label": "Yuklab olish",
+      "href": "/upload/dl/39960/proizvodstvo-uz.pdf",
+      "meta": "259.03 KB"
+     }
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Qo‘shilgan qiymat solig‘i umumiy ovqatlanish korxonasi misolida",
+    "href": "https://trustbank.uz/uz/documents/3126/33854/"
+   },
+   {
+    "type": "docs",
+    "items": [
+     {
+      "label": "Yuklab olish",
+      "href": "/upload/dl/39958/obshchepit-uz.pdf",
+      "meta": "267.45 KB"
+     }
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Qo‘shilgan qiymat solig‘i auditorlik xizmatini ko‘rsatish korxonasi misolida",
+    "href": "https://trustbank.uz/uz/documents/3126/33853/"
+   },
+   {
+    "type": "docs",
+    "items": [
+     {
+      "label": "Yuklab olish",
+      "href": "/upload/dl/39957/auditorskie-uslugi-uz.pdf",
+      "meta": "246.60 KB"
+     }
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Yuridik shaxslardan olinadigan er solig‘i, mol-mulk solig‘i va suv resurslaridan foydalanganlik uchun soliqni hisoblash bo‘yicha uslubiy tavsiyalar",
+    "href": "https://trustbank.uz/uz/documents/3126/33851/"
+   },
+   {
+    "type": "docs",
+    "items": [
+     {
+      "label": "Yuklab olish",
+      "href": "/upload/dl/39955/metodichka_resurs_uz.pdf",
+      "meta": "796.81 KB"
+     }
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Yuridik shaxslardan olinadigan foyda solig‘ini hisoblab chiqarish va to‘lash bo‘yicha uslubiy qo‘llanmalar",
+    "href": "https://trustbank.uz/uz/documents/3126/33850/"
+   },
+   {
+    "type": "docs",
+    "items": [
+     {
+      "label": "Yuklab olish",
+      "href": "/upload/dl/39954/metodichka_pribl_uz.pdf",
+      "meta": "955.18 KB"
+     }
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "Qo‘shilgan qiymat solig‘ini hisoblash va to‘lash bo‘yicha uslubiy tavsiyalar",
+    "href": "https://trustbank.uz/uz/documents/3126/33849/"
+   },
+   {
+    "type": "docs",
+    "items": [
+     {
+      "label": "Yuklab olish",
+      "href": "/upload/dl/39953/metodichka_nds_uz.pdf",
+      "meta": "2.26 MB"
+     }
+    ]
+   },
+   {
+    "type": "heading",
+    "text": "2019 yilda soliq qonunchiligiga kiritilayotgan o‘zgarishlar yuzasidan o‘quv qo‘llanma",
+    "href": "https://trustbank.uz/uz/documents/3126/33848/"
+   },
+   {
+    "type": "docs",
+    "items": [
+     {
+      "label": "Yuklab olish",
+      "href": "/upload/dl/39952/ukuv-kullanma-uzb.pdf",
+      "meta": "2.35 MB"
+     }
+    ]
+   },
+   {
+    "type": "gallery",
+    "images": [
+     {
+      "src": "/upload/medialibrary/2ec/koll_markaz.jpg",
+      "alt": ""
+     }
+    ]
+   },
+   {
+    "type": "text",
+    "paragraphs": [
+     "[Qo‘shilgan qiymat solig‘i](https://mover.uz/watch/4SD9Tv8m/)",
+     "[Yakka tartibdagi tadbirkorlar](https://mover.uz/watch/yJOgpv8m/)",
+     "[Eksport operatsiyasi bo‘yicha](https://mover.uz/watch/Pq1Npv8m/)",
+     "[Xabarnoma](https://mover.uz/watch/aEzoNv8m/)"
+    ]
+   }
+  ]
  }
 }

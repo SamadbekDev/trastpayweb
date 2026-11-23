@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState, type ReactNode } from "react";
-import Image from "next/image";
+import Image from "@/components/ui/SkeletonImage";
 import Link from "next/link";
 import { ArrowLeftRight, ChevronDown } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -18,6 +18,15 @@ const fmt = (n: number) =>
     maximumFractionDigits: 2,
     minimumFractionDigits: n % 1 === 0 ? 0 : 2,
   });
+
+const formatInputDisplay = (raw: string) => {
+  if (!raw) return "";
+  const match = raw.match(/^(\d*)([.,]\d*)?$/);
+  if (!match) return raw;
+  const [, intPart, decPart = ""] = match;
+  const grouped = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  return `${grouped}${decPart}`;
+};
 
 function Field({
   label,
@@ -58,7 +67,9 @@ function CurrencySelect({
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className="flex h-6 w-6 items-center justify-center rounded-full bg-[#E7E7EA] cursor-pointer"
+        aria-label={currencyLabel}
+        // 24px circle (Figma) with a 40px touch area
+        className="relative flex h-6 w-6 cursor-pointer items-center justify-center rounded-full bg-[#E7E7EA] after:absolute after:-inset-2 after:content-['']"
       >
         <ChevronDown size={14} className="text-black" />
       </button>
@@ -92,9 +103,15 @@ export default function CurrencyConverter({ config }: CurrencyConverterProps) {
   const rates = useMemo(() => config?.rates || [], [config?.rates]);
   const [fromCode, setFromCode] = useState(config?.defaultFrom || "USD");
   const [toCode, setToCode] = useState(config?.defaultTo || "UZS");
-  const [amount, setAmount] = useState(100);
+  const [amountStr, setAmountStr] = useState("100");
   const [fromOpen, setFromOpen] = useState(false);
   const [toOpen, setToOpen] = useState(false);
+
+  const amount = useMemo(() => {
+    if (!amountStr) return 0;
+    const parsed = Number(amountStr.replace(",", "."));
+    return Number.isFinite(parsed) ? parsed : 0;
+  }, [amountStr]);
 
   const rateMap = useMemo(() => {
     const map: Record<string, number> = { UZS: 1 };
@@ -125,6 +142,23 @@ export default function CurrencyConverter({ config }: CurrencyConverterProps) {
   const swap = () => {
     setFromCode(toCode);
     setToCode(fromCode);
+    if (amountStr === "") {
+      setAmountStr("");
+    } else {
+      const rounded = Math.round(converted * 100) / 100;
+      setAmountStr(String(rounded).replace(".", ","));
+    }
+  };
+
+  const handleAmountChange = (raw: string) => {
+    const cleaned = raw.replace(/\s+/g, "");
+    if (cleaned === "") {
+      setAmountStr("");
+      return;
+    }
+    if (/^\d*([.,]\d*)?$/.test(cleaned)) {
+      setAmountStr(cleaned.replace(/^0+(?=\d)/, ""));
+    }
   };
 
   return (
@@ -140,10 +174,12 @@ export default function CurrencyConverter({ config }: CurrencyConverterProps) {
               <div className="flex flex-1 flex-col gap-0.5 px-5 py-3.5">
                 <span className="text-[11px] leading-[13px] text-[#6B7280]">{amountLabel}</span>
                 <input
-                  type="number"
-                  value={amount}
-                  onChange={(e) => setAmount(Number(e.target.value) || 0)}
-                  className="w-full bg-transparent text-[18px] font-semibold leading-[22px] text-[#1A1A2E] outline-none"
+                  type="text"
+                  inputMode="decimal"
+                  placeholder="0"
+                  value={formatInputDisplay(amountStr)}
+                  onChange={(e) => handleAmountChange(e.target.value)}
+                  className="w-full bg-transparent text-[18px] font-semibold leading-[22px] text-[#1A1A2E] tabular-nums outline-none"
                 />
               </div>
               <div className="h-11 w-px bg-[#E8EAF0]" />
@@ -156,7 +192,13 @@ export default function CurrencyConverter({ config }: CurrencyConverterProps) {
                   setFromOpen(v);
                   setToOpen(false);
                 }}
-                onSelect={setFromCode}
+                onSelect={(c) => {
+                  if (c === toCode) {
+                    swap();
+                  } else {
+                    setFromCode(c);
+                  }
+                }}
               />
             </Field>
 
@@ -186,7 +228,13 @@ export default function CurrencyConverter({ config }: CurrencyConverterProps) {
                   setToOpen(v);
                   setFromOpen(false);
                 }}
-                onSelect={setToCode}
+                onSelect={(c) => {
+                  if (c === fromCode) {
+                    swap();
+                  } else {
+                    setToCode(c);
+                  }
+                }}
               />
             </Field>
           </div>
@@ -195,7 +243,8 @@ export default function CurrencyConverter({ config }: CurrencyConverterProps) {
             Курсы валют
           </p>
 
-          <div className="flex flex-col gap-4 sm:flex-row">
+          {/* phones: 2×2 grid (3 rates + «see all»), from sm: one row */}
+          <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-row sm:gap-4">
             {rates.slice(0, 3).map((rate) => (
               <div
                 key={rate.id}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import Image from "next/image";
+import Image from "@/components/ui/SkeletonImage";
 import { useTranslation } from "react-i18next";
 import { DepositDetailPageConfig } from "@/types/deposits";
 import { Language } from "@/types/pageConfig";
@@ -53,7 +53,7 @@ export default function DepositConditions({ config }: DepositConditionsProps) {
   if (!tabs.length && !tabContent && !title) return null;
 
   return (
-    <section className="w-full bg-white px-4 py-16 lg:px-20">
+    <section className="w-full bg-[#FAFAFA] px-4 py-16 lg:px-20">
       <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-9">
         <div className="flex flex-col items-start gap-6 lg:flex-row lg:items-center">
           {title ? (
@@ -64,7 +64,7 @@ export default function DepositConditions({ config }: DepositConditionsProps) {
             <div className="flex-1" />
           )}
           {tabs.length > 0 ? (
-            <div className="flex max-w-full flex-wrap items-center gap-1 rounded-full bg-[#EBEDF2] p-1.5">
+            <div className="flex flex-wrap items-start gap-2.5">
               {tabs.map((tab) => {
                 const active = tab.id === activeTab;
                 return (
@@ -72,10 +72,10 @@ export default function DepositConditions({ config }: DepositConditionsProps) {
                     key={tab.id}
                     type="button"
                     onClick={() => setActiveTab(tab.id)}
-                    className={`cursor-pointer rounded-full px-5 py-[11px] text-[15px] leading-[19px] transition-colors ${
+                    className={`inline-flex cursor-pointer items-center rounded-full px-[18px] py-[11px] text-[14px] leading-[17px] transition-colors ${
                       active
-                        ? "bg-white font-semibold text-[#0F0F17] shadow-[0px_2px_6px_rgba(0,0,0,0.08)]"
-                        : "font-medium text-[#6B7280]"
+                        ? "bg-[#0F1F3D] font-semibold text-white"
+                        : "border border-[#E2E8F2] bg-[#F4F7FB] font-medium text-[#0F1F3D] hover:bg-[#EAEFF8]"
                     }`}
                   >
                     {getLocalizedText(tab.label, lang)}

@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/ui/SkeletonImage";
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -24,7 +24,7 @@ export default function CardVirtualOnline({ config }: CardVirtualOnlineProps) {
   const imageSrc = getMediaUrl(config.image, "");
 
   return (
-    <section className="w-full bg-[#FFFAFA] py-16 lg:py-20">
+    <section className="w-full bg-[#FAFAFA] py-16 lg:py-20">
       <div className="mx-auto flex w-full max-w-[1440px] justify-center px-4 lg:px-[100px]">
         <div className="relative w-full max-w-[1240px] overflow-hidden rounded-[32px] bg-white shadow-[0px_4px_24px_rgba(6,9,17,0.12)]">
           {/* TOP — overflow hidden clips image to banner bounds */}
@@ -60,17 +60,9 @@ export default function CardVirtualOnline({ config }: CardVirtualOnlineProps) {
             </h3>
 
             <div className="mt-6 grid w-full grid-cols-1 gap-6 md:grid-cols-3 md:gap-6">
-              {config.steps.map((step, index) => (
+              {config.steps.map((step) => (
                 <article key={step.id} className="relative pt-7">
-                  <div
-                    className={`absolute top-0 z-10 flex h-14 w-14 items-center justify-center rounded-[18px] bg-[#2D6EE3] text-[24px] font-medium text-white ${
-                      index === 0
-                        ? "left-8"
-                        : index === 2
-                          ? "right-8 left-auto"
-                          : "left-1/2 -translate-x-1/2"
-                    }`}
-                  >
+                  <div className="absolute left-8 top-0 z-10 flex h-14 w-14 items-center justify-center rounded-[18px] bg-[#2D6EE3] text-[24px] font-medium text-white">
                     {step.number}
                   </div>
                   <div className="flex min-h-[160px] flex-col rounded-3xl bg-[#F6F7F8] px-8 pb-8 pt-12">

@@ -1,12 +1,13 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/ui/SkeletonImage";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import { DepositDetailPageConfig } from "@/types/deposits";
 import { Language } from "@/types/pageConfig";
 import { getLocalizedText } from "@/utils/i18nHelper";
-import { getMediaUrl } from "@/utils/mediaHelper";
+
+const DEPOSIT_HERO_BG = "/images/figma/deposits/hero-safe.png";
 
 interface DepositDetailHeroProps {
   config: DepositDetailPageConfig;
@@ -34,8 +35,6 @@ export default function DepositDetailHero({ config }: DepositDetailHeroProps) {
   const secondaryCta =
     getLocalizedText(config.heroSecondaryCta, lang) ||
     getLocalizedText(config.product.secondaryCta, lang);
-  const imageRaw = (config.heroImage || config.product.image || "").trim();
-  const imageSrc = imageRaw ? getMediaUrl(imageRaw) : "";
   const bullets = (config.heroBullets ?? [])
     .map((bullet) => getLocalizedText(bullet, lang))
     .filter(Boolean);
@@ -46,23 +45,21 @@ export default function DepositDetailHero({ config }: DepositDetailHeroProps) {
     "flex h-[22px] items-center font-normal leading-[22px] tracking-[-0.4px] text-[#3261EC]";
 
   return (
-    <section className="relative isolate w-full overflow-hidden bg-[#F5F8FC]">
-      {imageSrc ? (
-        <div
-          className="pointer-events-none absolute inset-y-0 right-[max(0px,calc(50%-720px))] z-0 hidden w-full max-w-[1440px] lg:block"
-          aria-hidden
-        >
-          <Image
-            src={imageSrc}
-            alt=""
-            fill
-            unoptimized
-            priority
-            className="object-cover object-right"
-            sizes="1440px"
-          />
-        </div>
-      ) : null}
+    <section className="relative isolate w-full overflow-hidden bg-[#FAFAFA] lg:bg-[#F3F7FA]">
+      <div
+        className="pointer-events-none absolute inset-y-0 right-[max(0px,calc(50%-720px))] z-0 hidden w-full max-w-[1440px] lg:block"
+        aria-hidden
+      >
+        <Image
+          src={DEPOSIT_HERO_BG}
+          alt=""
+          fill
+          unoptimized
+          priority
+          className="object-cover object-right"
+          sizes="1440px"
+        />
+      </div>
 
       <div className="relative z-[1] mx-auto flex w-full max-w-[1224px] flex-col items-start gap-6 px-4 pt-6 lg:h-[594.38px] lg:px-6">
         {config.breadcrumbs?.length > 0 ? (
@@ -104,10 +101,10 @@ export default function DepositDetailHero({ config }: DepositDetailHeroProps) {
         ) : null}
 
         <div className="flex w-full flex-col items-start gap-6 lg:h-[442.38px] lg:min-h-[400px] lg:flex-row lg:justify-between">
-          <div className="flex w-full max-w-[576px] flex-col items-start pb-8 pt-8 lg:h-[442.38px] lg:w-[576px] lg:shrink-0 lg:pb-12 lg:pt-16">
+          <div className="flex w-full max-w-[576px] flex-col items-start pb-8 pt-4 lg:h-[442.38px] lg:w-[576px] lg:shrink-0 lg:pb-12 lg:pt-16">
             <div className="flex w-full flex-col items-start gap-4">
               {title ? (
-                <h1 className="flex w-full items-center text-balance text-[36px] font-semibold leading-[40px] text-[#2F3441] lg:min-h-[96px] lg:text-[44px] lg:leading-[48px]">
+                <h1 className="flex w-full items-center text-balance text-[28px] font-bold leading-[34px] text-[#2F3441] sm:text-[36px] sm:leading-[40px] lg:min-h-[96px] lg:text-[44px] lg:font-semibold lg:leading-[48px]">
                   {title}
                 </h1>
               ) : null}
@@ -137,24 +134,22 @@ export default function DepositDetailHero({ config }: DepositDetailHeroProps) {
             </div>
 
             {primaryCta || secondaryCta ? (
-              <div className="flex w-full flex-row flex-wrap items-start gap-y-3 pt-12">
+              <div className="flex w-full flex-col gap-3 pt-8 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4 lg:pt-12">
                 {primaryCta ? (
                   <Link
                     href={config.heroPrimaryHref || config.product.primaryHref || "#calculator"}
-                    className="inline-flex h-[52px] min-h-[52px] min-w-[180px] items-center justify-center rounded-lg bg-[#3261EC] px-6 text-center text-[16.5px] leading-5 tracking-[-0.4px] text-white transition-colors hover:bg-[#2651d4]"
+                    className="inline-flex h-[52px] min-h-[52px] w-full items-center justify-center rounded-lg bg-[#3261EC] px-6 text-center text-[16px] font-medium leading-5 tracking-[-0.4px] text-white transition-colors hover:bg-[#2651d4] sm:w-auto sm:min-w-[180px]"
                   >
                     {primaryCta}
                   </Link>
                 ) : null}
                 {secondaryCta ? (
-                  <div className={primaryCta ? "pl-4" : ""}>
-                    <Link
-                      href={config.heroSecondaryHref || config.product.secondaryHref || "#"}
-                      className="inline-flex h-[52px] min-h-[52px] min-w-[236px] items-center justify-center rounded-lg border border-[#9EADD4] px-6 text-center text-[16.5px] leading-5 tracking-[-0.4px] text-[#2F3441] transition-colors hover:bg-white/60"
-                    >
-                      {secondaryCta}
-                    </Link>
-                  </div>
+                  <Link
+                    href={config.heroSecondaryHref || config.product.secondaryHref || "#"}
+                    className="inline-flex h-[52px] min-h-[52px] w-full items-center justify-center rounded-lg border border-[#9EADD4] px-6 text-center text-[16px] font-medium leading-5 tracking-[-0.4px] text-[#2F3441] transition-colors hover:bg-white/60 sm:w-auto sm:min-w-[220px]"
+                  >
+                    {secondaryCta}
+                  </Link>
                 ) : null}
               </div>
             ) : null}
@@ -164,19 +159,6 @@ export default function DepositDetailHero({ config }: DepositDetailHeroProps) {
           <div className="hidden h-[442.38px] min-w-0 max-w-[576px] flex-1 lg:block" aria-hidden />
         </div>
       </div>
-
-      {imageSrc ? (
-        <div className="relative h-[260px] w-full sm:h-[340px] lg:hidden">
-          <Image
-            src={imageSrc}
-            alt=""
-            fill
-            unoptimized
-            className="object-cover object-right"
-            sizes="100vw"
-          />
-        </div>
-      ) : null}
     </section>
   );
 }
