@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Image from "@/components/ui/SkeletonImage";
+import Image from "next/image";
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 import {
@@ -110,7 +110,10 @@ export default function CreditAutoView({
               </div>
             )}
           </div>
-          <div className="relative mx-auto mt-8 h-[220px] w-full max-w-[1080px] overflow-hidden rounded-[24px] bg-[#F4F6F9] sm:mt-10 sm:h-[360px] sm:rounded-[32px] lg:h-[480px]">
+          <div
+            className="relative mx-auto mt-10 overflow-hidden rounded-[32px] bg-[#F4F6F9]"
+            style={{ height: 480, width: "min(1080px, 100%)" }}
+          >
             {heroImage ? <CreditPhoto src={heroImage} className="object-cover object-center" /> : null}
           </div>
         </section>
@@ -181,7 +184,7 @@ export default function CreditAutoView({
                 return (
                   <article
                     key={item.id}
-                    className="flex flex-col items-center gap-4 rounded-[20px] bg-[#F4F6F9] px-6 py-6 text-center"
+                    className="flex flex-col items-start gap-4 rounded-[20px] bg-[#F4F6F9] px-6 py-6"
                   >
                     <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#E8EEF8]">
                       {icon ? (
@@ -195,7 +198,7 @@ export default function CreditAutoView({
                         />
                       ) : null}
                     </div>
-                    <div className="flex flex-col items-center gap-1.5">
+                    <div className="flex flex-col gap-1.5">
                       <h3 className="text-[20px] font-bold leading-6 text-[#1A1A1A]">
                         {text(item.title)}
                       </h3>
@@ -258,7 +261,7 @@ export default function CreditAutoView({
               {page.benefits.map((item) => {
                 const icon = item.image?.trim() ? getMediaUrl(item.image) : "";
                 return (
-                  <article key={item.id} className="flex flex-col items-center gap-3 rounded-2xl bg-[#F4F6F9] px-6 py-[26px] text-center">
+                  <article key={item.id} className="flex flex-col items-start gap-3 rounded-2xl bg-[#F4F6F9] px-6 py-[26px]">
                     {icon ? (
                       <Image src={icon} alt="" width={36} height={36} unoptimized className="h-9 w-9 object-contain" />
                     ) : null}
@@ -313,7 +316,10 @@ export default function CreditAutoView({
                 </article>
               ))}
             </div>
-            <div className="relative h-[220px] w-full max-w-[736px] overflow-hidden rounded-[24px] bg-[#F6F7F8] sm:h-[320px] lg:h-[388px] lg:min-w-0 lg:flex-1">
+            <div
+              className="relative w-full shrink-0 overflow-hidden rounded-[24px] bg-[#F6F7F8]"
+              style={{ height: 388, width: "min(736px, 100%)" }}
+            >
               {requirementsImage ? <CreditPhoto src={requirementsImage} className="object-contain object-center" /> : null}
             </div>
           </div>
@@ -323,10 +329,8 @@ export default function CreditAutoView({
       {page.steps.length > 0 && (
         <section id="zayavka" className="overflow-visible bg-white px-4 py-16 lg:px-[100px]">
           <div className="relative mx-auto flex w-full max-w-[1240px] flex-col items-start">
-            {/* phones: the banner grows with its text (full width) and the car goes under it;
-                from sm: Figma layout — the car on the right of a 340px banner */}
-            <div className="relative w-full rounded-t-[32px] bg-[#0D2F56] px-5 pb-16 pt-7 sm:h-[340px] sm:bg-transparent sm:p-0">
-              <div className="absolute bottom-2.5 left-0 hidden h-[330px] w-full overflow-hidden rounded-t-[32px] bg-[#0D2F56] sm:block">
+            <div className="relative h-[300px] w-full sm:h-[340px]">
+              <div className="absolute bottom-2.5 left-0 h-[260px] w-full overflow-hidden rounded-t-[32px] bg-[#0D2F56] sm:h-[330px]">
                 {page.stepsBannerImage ? (
                   <div
                     className="pointer-events-none absolute right-0"
@@ -336,9 +340,9 @@ export default function CreditAutoView({
                   </div>
                 ) : null}
               </div>
-              <div className="relative z-10 flex w-full flex-col items-start gap-3 sm:absolute sm:left-8 sm:top-8 sm:w-[min(794px,56%)] lg:w-[794px]">
+              <div className="absolute left-4 top-6 flex w-[min(794px,56%)] flex-col items-start gap-3 sm:left-8 sm:top-8 lg:w-[794px]">
                 <h2
-                  className="text-[28px] font-bold leading-[1.16] tracking-[-0.02em] text-white sm:text-[48px]"
+                  className="text-[32px] font-bold leading-[1.16] tracking-[-0.02em] text-white sm:text-[48px]"
                   style={{ fontFamily: "var(--font-display)" }}
                 >
                   {text(page.stepsBannerTitle)}
@@ -360,11 +364,6 @@ export default function CreditAutoView({
                   </div>
                 )}
               </div>
-              {page.stepsBannerImage ? (
-                <div className="pointer-events-none relative mt-4 h-[170px] w-full sm:hidden">
-                  <CreditPhoto src={page.stepsBannerImage} className="object-contain object-center" />
-                </div>
-              ) : null}
             </div>
             <div
               className="relative z-10 w-full rounded-[32px] bg-white p-8 shadow-[0px_4px_24px_rgba(6,9,17,0.12)]"
@@ -430,7 +429,7 @@ export default function CreditAutoView({
           <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-9">
             <div className="flex flex-col items-start justify-between gap-4 lg:flex-row lg:items-center">
               <h2 className="text-[32px] font-bold leading-[48px] text-[#0F0F17] lg:text-[40px]">{text(page.infoTitle)}</h2>
-              <div className="flex flex-wrap items-start gap-2.5">
+              <div className="flex max-w-full flex-wrap items-center gap-1 rounded-full bg-[#EBEDF2] p-1.5">
                 {infoTabs.map((tab) => {
                   const active = tab.id === infoTab;
                   return (
@@ -438,10 +437,8 @@ export default function CreditAutoView({
                       key={tab.id}
                       type="button"
                       onClick={() => setInfoTab(tab.id)}
-                      className={`inline-flex cursor-pointer items-center rounded-full px-[18px] py-[11px] text-[14px] leading-[17px] transition-colors ${
-                        active
-                          ? "bg-[#0F1F3D] font-semibold text-white"
-                          : "border border-[#E2E8F2] bg-[#F4F7FB] font-medium text-[#0F1F3D] hover:bg-[#EAEFF8]"
+                      className={`cursor-pointer rounded-full px-[22px] py-3 text-[16px] leading-[19px] ${
+                        active ? "bg-white font-semibold text-[#0F0F17] shadow-[0px_2px_6px_rgba(0,0,0,0.08)]" : "font-medium text-[#6B7280]"
                       }`}
                     >
                       {text(tab.label)}

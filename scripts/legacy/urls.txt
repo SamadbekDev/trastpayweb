@@ -177,13 +177,3 @@
 /ru/shareholders/structure/over-20-percent/
 /ru/shareholders/structure/over-5-percent/
 /ru/subscribe/
-/ru/documents/2536/
-/ru/documents/2456/
-/ru/documents/2457/
-/ru/documents/2458/
-/ru/documents/2460/
-/ru/documents/2461/
-/ru/documents/2538/
-/ru/documents/2539/
-/ru/documents/2537/
-/ru/documents/3127/

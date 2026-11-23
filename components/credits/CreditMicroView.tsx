@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Image from "@/components/ui/SkeletonImage";
+import Image from "next/image";
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 import { I18nText } from "@/types/pageConfig";
@@ -254,7 +254,10 @@ export default function CreditMicroView({
           ) : null}
         </div>
         {heroImage ? (
-          <div className="relative mx-auto mt-8 h-[240px] w-full max-w-[1080px] overflow-hidden rounded-[24px] bg-[#F4F6F9] sm:mt-10 sm:h-[360px] sm:rounded-[32px] lg:h-[480px]">
+          <div
+            className="relative mx-auto mt-10 overflow-hidden rounded-[32px] bg-[#F4F6F9]"
+            style={{ height: 480, width: "min(1080px, 100%)" }}
+          >
             <CreditPhoto src={heroImage} fallback={CREDIT_HERO_FALLBACK} className="object-cover object-center" />
           </div>
         ) : null}
@@ -274,7 +277,7 @@ export default function CreditMicroView({
                 return (
                   <article
                     key={item.id}
-                    className="flex flex-col items-center gap-3 rounded-2xl bg-[#F4F6F9] px-6 py-[26px] text-center"
+                    className="flex flex-col items-start gap-3 rounded-2xl bg-[#F4F6F9] px-6 py-[26px]"
                   >
                     {icon ? (
                       <Image
@@ -339,7 +342,7 @@ export default function CreditMicroView({
                 </article>
               ))}
             </div>
-            <div className="relative h-[240px] w-full min-w-0 shrink-0 overflow-hidden rounded-[24px] bg-[#F6F7F8] sm:h-[320px] md:h-[413px] md:flex-1">
+            <div className="relative h-[240px] w-full min-w-0 flex-1 overflow-hidden rounded-[24px] bg-[#F6F7F8] sm:h-[320px] md:h-[413px]">
               {requirementsImage ? (
                 <CreditPhoto
                   src={requirementsImage}
@@ -356,15 +359,13 @@ export default function CreditMicroView({
         <section id="zayavka" className="overflow-visible bg-white px-4 py-10 lg:px-[100px] lg:pb-20 lg:pt-10">
           <div className="relative mx-auto flex w-full max-w-[1240px] flex-col items-start">
             {/* Figma TOP: 1240×340 · radius 32 32 0 0 */}
-            {/* phones: the banner grows with its text (full width — the picture is hidden there) and leaves
-                64px for the steps panel that overlaps it; from sm: the Figma 1240×340 layout */}
-            <div className="relative w-full overflow-visible rounded-t-[32px] bg-[#1468A9] px-5 pb-16 pt-7 sm:h-[340px] sm:bg-transparent sm:p-0">
+            <div className="relative h-[280px] w-full overflow-visible rounded-t-[32px] sm:h-[340px]">
               {/* Rectangle 240654494: 1240×330 · bottom 10 · #1468A9 */}
-              <div className="absolute bottom-2.5 left-0 hidden w-full rounded-t-[32px] bg-[#1468A9] sm:block sm:h-[330px]" />
+              <div className="absolute bottom-2.5 left-0 h-[250px] w-full rounded-t-[32px] bg-[#1468A9] sm:h-[330px]" />
 
               {/* Frame 2131333233: left 32 · top 32 · w 794 · gap 12 */}
-              <div className="relative z-10 flex w-full flex-col items-start gap-3 sm:absolute sm:left-8 sm:top-8 sm:w-[min(794px,58%)]">
-                <h2 className="w-full text-[28px] font-bold leading-[116%] tracking-[-0.02em] text-white sm:text-[48px]">
+              <div className="absolute left-4 top-6 z-10 flex w-[min(794px,58%)] flex-col items-start gap-3 sm:left-8 sm:top-8">
+                <h2 className="w-full text-[32px] font-bold leading-[116%] tracking-[-0.02em] text-white sm:text-[48px]">
                   {text(page.stepsBannerTitle)}
                 </h2>
                 <p className="w-full text-[18px] font-normal leading-[120%] text-white sm:text-[24px]">
@@ -382,9 +383,9 @@ export default function CreditMicroView({
                 )}
               </div>
 
-              {/* image 1: 433×317 · Figma left 843 (sticks out 36px past the 1240 banner on wide screens) */}
+              {/* image 1: 433×317 · left 843 · top 0 */}
               {page.stepsBannerImage ? (
-                <div className="pointer-events-none absolute right-0 top-0 z-[1] hidden h-[317px] w-[min(433px,46%)] sm:block desk:-right-9 desk:w-[433px]">
+                <div className="pointer-events-none absolute left-[52%] top-0 z-[1] hidden h-[317px] w-[min(433px,46%)] sm:block lg:left-[843px] lg:w-[433px]">
                   <CreditPhoto
                     src={page.stepsBannerImage}
                     fallback={MICRO_FALLBACK.steps}
@@ -446,7 +447,7 @@ export default function CreditMicroView({
               <h2 className="text-[32px] font-bold leading-[48px] text-[#0F0F17] lg:text-[40px]">
                 {text(page.infoTitle)}
               </h2>
-              <div className="flex flex-wrap items-start gap-2.5">
+              <div className="flex max-w-full flex-wrap items-center gap-1 rounded-full bg-[#EBEDF2] p-1.5">
                 {infoTabs.map((tab) => {
                   const active = tab.id === infoTab;
                   return (
@@ -454,10 +455,10 @@ export default function CreditMicroView({
                       key={tab.id}
                       type="button"
                       onClick={() => setInfoTab(tab.id)}
-                      className={`inline-flex cursor-pointer items-center rounded-full px-[18px] py-[11px] text-[14px] leading-[17px] transition-colors ${
+                      className={`cursor-pointer rounded-full px-[22px] py-3 text-[16px] leading-[19px] ${
                         active
-                          ? "bg-[#0F1F3D] font-semibold text-white"
-                          : "border border-[#E2E8F2] bg-[#F4F7FB] font-medium text-[#0F1F3D] hover:bg-[#EAEFF8]"
+                          ? "bg-white font-semibold text-[#0F0F17] shadow-[0px_2px_6px_rgba(0,0,0,0.08)]"
+                          : "font-medium text-[#6B7280]"
                       }`}
                     >
                       {text(tab.label)}

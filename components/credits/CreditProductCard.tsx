@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Image from "@/components/ui/SkeletonImage";
+import Image from "next/image";
 import Link from "next/link";
 import { CreditGroup, CreditProduct } from "@/types/credits";
 import { I18nText } from "@/types/pageConfig";
@@ -37,42 +37,41 @@ export default function CreditProductCard({
     { value: text(product.term), label: text(statLabels.term) },
   ];
 
-  // below lg (phones / tablets): picture first, stats in one row, both buttons side by side, full width
   return (
-    <article className="box-border flex w-full flex-col items-stretch gap-4 overflow-hidden rounded-[20px] border border-[#E2E8F2] bg-white px-5 py-6 shadow-[0px_8px_28px_rgba(15,33,71,0.08)] sm:px-8 sm:py-8 lg:flex-row lg:items-center lg:justify-between lg:gap-6 lg:px-10 lg:py-8">
-      <div className="flex min-w-0 flex-1 flex-col items-stretch gap-4 sm:gap-5 lg:items-start">
-        <h3 className="break-words text-[21px] font-bold leading-[1.2] text-[#0F1F3D] sm:text-[27px]">
+    <article className="box-border flex w-full flex-col items-stretch gap-6 rounded-[20px] border border-[#E2E8F2] bg-white px-5 py-6 shadow-[0px_8px_28px_rgba(15,33,71,0.08)] sm:px-8 sm:py-8 lg:flex-row lg:items-center lg:justify-between lg:gap-6 lg:px-10 lg:py-8">
+      <div className="flex min-w-0 flex-1 flex-col items-start gap-5">
+        <h3 className="text-[22px] font-bold leading-[1.2] text-[#0F1F3D] sm:text-[27px]">
           {text(product.title)}
         </h3>
-        <p className="break-words text-[14px] font-normal leading-[1.4] text-[#5B6B85] sm:text-[16px]">
+        <p className="text-[16px] font-normal leading-[1.4] text-[#5B6B85]">
           {text(product.description)}
         </p>
 
-        <div className="flex flex-wrap items-start gap-x-5 gap-y-3 sm:gap-x-12 sm:gap-y-4">
+        <div className="flex flex-wrap items-start gap-x-8 gap-y-4 sm:gap-x-12">
           {stats.map((stat) => (
-            <div key={stat.label} className="flex min-w-0 max-w-full flex-col items-start gap-[3px]">
+            <div key={stat.label} className="flex flex-col items-start gap-[3px]">
               <p
-                className="break-words text-[16px] font-bold leading-[20px] sm:text-[24px] sm:leading-[29px]"
+                className="text-[22px] font-bold leading-[29px] sm:text-[24px]"
                 style={{ color: theme.accent }}
               >
                 {stat.value}
               </p>
-              <p className="break-words text-[12px] font-normal leading-4 text-[#5B6B85] sm:text-[14px]">{stat.label}</p>
+              <p className="text-[14px] font-normal leading-4 text-[#5B6B85]">{stat.label}</p>
             </div>
           ))}
         </div>
 
-        <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:items-start sm:gap-3">
+        <div className="flex flex-wrap items-start gap-3">
           <Link
             href={`/kredity/${product.id}`}
-            className="inline-flex min-h-[46px] items-center justify-center rounded-[10px] px-3 py-3 text-center text-[14px] font-semibold leading-[18px] text-white sm:px-[26px] sm:py-[14px] sm:text-[15px]"
+            className="inline-flex items-center rounded-[10px] px-[26px] py-[14px] text-[15px] font-semibold leading-[18px] text-white"
             style={{ backgroundColor: theme.accent }}
           >
             {primaryCta}
           </Link>
           <Link
             href={`/kredity/${product.id}#zayavka`}
-            className="inline-flex min-h-[46px] items-center justify-center rounded-[10px] bg-[#EEF1F6] px-3 py-3 text-center text-[14px] font-semibold leading-[18px] text-[#0F1F3D] sm:px-[26px] sm:py-[14px] sm:text-[15px]"
+            className="inline-flex items-center rounded-[10px] bg-[#EEF1F6] px-[26px] py-[14px] text-[15px] font-semibold leading-[18px] text-[#0F1F3D]"
           >
             {secondaryCta}
           </Link>
@@ -80,7 +79,7 @@ export default function CreditProductCard({
       </div>
 
       <div
-        className="relative order-first mx-auto h-[170px] w-full max-w-[348px] shrink-0 overflow-hidden rounded-2xl sm:h-[218px] lg:order-none lg:mx-0"
+        className="relative mx-auto h-[180px] w-full max-w-[348px] shrink-0 overflow-hidden rounded-2xl sm:h-[218px] lg:mx-0"
         style={image ? undefined : { background: theme.gradient }}
       >
         {image ? (
@@ -93,8 +92,7 @@ export default function CreditProductCard({
             }}
             fill
             unoptimized
-            // contain: the designer's pictures are cut-outs (podiums, buildings) — cover cut their tops off
-            className="object-contain"
+            className="object-cover"
             sizes="348px"
           />
         ) : (

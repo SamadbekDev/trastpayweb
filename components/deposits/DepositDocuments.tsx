@@ -46,7 +46,7 @@ export default function DepositDocuments({ config }: DepositDocumentsProps) {
   if (!documents.length) return null;
 
   return (
-    <section className="w-full bg-[#FAFAFA] px-4 py-8 lg:px-[120px]">
+    <section className="w-full bg-white px-4 py-8 lg:px-[120px]">
       <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-5">
         {title ? (
           <h2 className="text-[24px] font-bold leading-[130%] text-[#0F0F17]">

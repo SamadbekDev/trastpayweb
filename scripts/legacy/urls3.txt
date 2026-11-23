@@ -462,7 +462,6 @@
 /ru/press_center/media_library/video/trastbank-pomogaet-razvitiyu-otechestvennoy-meditsine/
 /ru/press_center/media_library/video/bankomaty-avtovash-ot-trastbanka/
 /ru/press_center/media_library/video/kreditnye-linii-roseksimbanka/
-/ru/press_center/news/sostoyalos-vneocherednoe-obshchee-sobranie-aktsionerov2011/
 /ru/press_center/news/punkty-obmena-valyuty-rabotayut-i-v-vykhodnye-dni1911/
 /ru/press_center/news/v-samarkande-i-dzhizake-proshli-otkrytye-uroki-v-ramkakh-vsemirnoy-nedeli-deneg/
 /ru/press_center/news/punkty-obmena-valyuty-rabotayut-i-v-vykhodnye-dni1211/

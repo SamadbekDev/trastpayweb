@@ -126,7 +126,10 @@ export default function CreditDetailView({
           ) : null}
         </div>
         {heroImage ? (
-          <div className="relative mx-auto mt-8 h-[240px] w-full max-w-[1080px] overflow-hidden rounded-[24px] bg-[#F4F6F9] sm:mt-10 sm:h-[360px] sm:rounded-[32px] lg:h-[480px]">
+          <div
+            className="relative mx-auto mt-10 overflow-hidden rounded-[32px] bg-[#F4F6F9]"
+            style={{ height: 480, width: "min(1080px, 100%)" }}
+          >
             <CreditPhoto src={heroImage} className="object-cover object-center" />
           </div>
         ) : null}
@@ -173,7 +176,7 @@ export default function CreditDetailView({
               <h2 className="text-[32px] font-bold leading-[48px] text-[#0F0F17] lg:text-[40px]">
                 {text(page.infoTitle)}
               </h2>
-              <div className="flex flex-wrap items-start gap-2.5">
+              <div className="flex max-w-full flex-wrap items-center gap-1 rounded-full bg-[#EBEDF2] p-1.5">
                 {infoTabs.map((tab) => {
                   const active = tab.id === infoTab;
                   return (
@@ -181,10 +184,10 @@ export default function CreditDetailView({
                       key={tab.id}
                       type="button"
                       onClick={() => setInfoTab(tab.id)}
-                      className={`inline-flex cursor-pointer items-center rounded-full px-[18px] py-[11px] text-[14px] leading-[17px] transition-colors ${
+                      className={`cursor-pointer rounded-full px-[22px] py-3 text-[16px] leading-[19px] ${
                         active
-                          ? "bg-[#0F1F3D] font-semibold text-white"
-                          : "border border-[#E2E8F2] bg-[#F4F7FB] font-medium text-[#0F1F3D] hover:bg-[#EAEFF8]"
+                          ? "bg-white font-semibold text-[#0F0F17] shadow-[0px_2px_6px_rgba(0,0,0,0.08)]"
+                          : "font-medium text-[#6B7280]"
                       }`}
                     >
                       {text(tab.label)}
@@ -234,7 +237,7 @@ export default function CreditDetailView({
             {page.related.map((offer) => (
               <article
                 key={offer.id}
-                className="flex w-full flex-col items-center rounded-[32px] bg-[#F6F7F8] px-4 pt-6 lg:h-[431px] lg:min-w-0 lg:max-w-[404px] lg:flex-1"
+                className="flex w-full flex-col items-center rounded-[32px] bg-[#F6F7F8] px-4 pt-6 lg:h-[431px] lg:w-[404px] lg:shrink-0"
               >
                 <div className="flex w-full max-w-[372px] flex-col items-center gap-12 py-3">
                   <div className="flex w-full flex-col items-center gap-4 text-center">

@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import Image from "@/components/ui/SkeletonImage";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Check, CheckCircle2, Smartphone } from "lucide-react";
 import StaticPageShell from "@/components/layout/StaticPageShell";

@@ -19,11 +19,6 @@ export const getMediaUrl = (
   const figma = figmaForStub(cleanPath);
   if (figma) return figma;
 
-  // CMS media saved with the API's local origin (http://localhost:4000/api/media/…): serve it through
-  // this site's /api proxy, so it also loads on other devices (a phone on the LAN, a deployed site).
-  const proxied = viaSiteApi(cleanPath);
-  if (proxied !== cleanPath) return proxied;
-
   if (
     cleanPath.startsWith("http://") ||
     cleanPath.startsWith("https://") ||
@@ -40,12 +35,3 @@ export const getMediaUrl = (
   const base = getApiBaseUrl();
   return `${base}/media/${encodeURIComponent(cleanPath)}`;
 };
-
-/**
- * CMS media saved with the API's local origin (http://localhost:4000/api/media/…) → this site's
- * /api proxy (next.config rewrites), so it also loads on other devices: a phone on the LAN, a deployed site.
- */
-export function viaSiteApi(url: string): string {
-  const local = url.match(/^https?:\/\/(?:localhost|127\.0\.0\.1)(?::\d+)?(\/api\/.*)$/);
-  return local ? local[1] : url;
-}

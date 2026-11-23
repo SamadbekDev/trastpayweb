@@ -1,6 +1,5 @@
 // Uploads the Figma artwork (public/images/figma) to the CMS (dashboard-api) and puts it into the content
 // instead of placeholder stubs, empty credit images and media files missing on the server.
-// Also sets the home banner video (hero.video) when the CMS has none.
 //
 //   node scripts/cms-upload-figma.mjs <path to dashboard-api/.env>            dry run: prints the plan
 //   node scripts/cms-upload-figma.mjs <path to dashboard-api/.env> --apply    uploads, saves the draft, publishes
@@ -46,12 +45,6 @@ const CREDIT_PRODUCTS = {
 /** Micro-loan page slots ("Микрозайм" frame) when empty or pointing at a file missing on the server */
 const MICRO_SLOTS = { heroImage: "credits/micro-hero.webp", stepsBannerImage: "credits/micro-self.webp", infoImage: "credits/micro-info.webp", requirementsImage: "credits/micro-hero.webp" };
 const QULAY_IMAGE = "credits/micro-qulay.webp";
-/** Figma «Главный экран — Физ» deposits banner animation; paths starting with public/ are not under ROOT */
-const HERO_VIDEO = "public/videos/hero-deposits.mp4";
-/** first-frame colour of that video: the banner's text area must blend into it */
-const HERO_VIDEO_BG = "#F2F6FC";
-const filePath = (file) => (file.startsWith("public/") ? file : path.join(ROOT, file));
-const MIME = { ".svg": "image/svg+xml", ".webp": "image/webp", ".mp4": "video/mp4", ".webm": "video/webm" };
 
 function stubTarget(url) {
   const ph = url.match(/placehold\.co\/(\d+x\d+)\/[^?]*\?text=([^&#]*)/);
@@ -120,18 +113,10 @@ const walk = (v, p, parent, key) => {
   }
 };
 walk(content, "content", null, null);
-if (content.hero && typeof content.hero === "object") {
-  const prev = fs.existsSync(path.join(ROOT, "CMS_UPLOADS.json")) ? JSON.parse(fs.readFileSync(path.join(ROOT, "CMS_UPLOADS.json"), "utf8")) : {};
-  const video = String(content.hero.video || "").trim();
-  if (!video)
-    plan.push({ path: "content.hero.video", parent: content.hero, key: "video", from: "(empty)", file: HERO_VIDEO });
-  if ((!video || video === prev[HERO_VIDEO]) && content.hero.backgroundColor !== HERO_VIDEO_BG)
-    plan.push({ path: "content.hero.backgroundColor", parent: content.hero, key: "backgroundColor", from: String(content.hero.backgroundColor || "(empty)"), value: HERO_VIDEO_BG });
-}
 
 console.log(`\nplan: ${plan.length} replacements (${missing.size} media files missing on the server)`);
 const byFile = {};
-for (const p of plan) (byFile[p.file ?? p.value ?? "—"] ??= []).push(`${p.path}  ←  ${p.from.slice(0, 70)}`);
+for (const p of plan) (byFile[p.file ?? "—"] ??= []).push(`${p.path}  ←  ${p.from.slice(0, 70)}`);
 for (const [f, rows] of Object.entries(byFile)) console.log(`\n${f}\n  ` + rows.join("\n  "));
 
 if (!APPLY) {
@@ -144,8 +129,8 @@ const UPLOADS = path.join(ROOT, "CMS_UPLOADS.json");
 const uploaded = fs.existsSync(UPLOADS) ? JSON.parse(fs.readFileSync(UPLOADS, "utf8")) : {};
 for (const file of [...new Set(plan.map((p) => p.file).filter(Boolean))]) {
   if (uploaded[file]) continue;
-  const buf = fs.readFileSync(filePath(file));
-  const type = MIME[path.extname(file)] || "application/octet-stream";
+  const buf = fs.readFileSync(path.join(ROOT, file));
+  const type = file.endsWith(".svg") ? "image/svg+xml" : "image/webp";
   const form = new FormData();
   form.append("file", new Blob([buf], { type }), path.basename(file).replace(/\.(\w+)$/, `-figma.$1`));
   const r = await fetch(`${API}/media/upload`, { method: "POST", headers: H, body: form });
@@ -157,10 +142,7 @@ for (const file of [...new Set(plan.map((p) => p.file).filter(Boolean))]) {
 }
 
 /* ── save draft and publish ── */
-for (const p of plan) {
-  if (p.file) p.parent[p.key] = uploaded[p.file];
-  else if (p.value !== undefined) p.parent[p.key] = p.value;
-}
+for (const p of plan) if (p.file) p.parent[p.key] = uploaded[p.file];
 // The CMS stores its static header JSON together with a module `default` key, which its own
 // validation then rejects on save; it is a duplicate of the header and is re-merged by the server.
 if (content.header && typeof content.header === "object") delete content.header.default;

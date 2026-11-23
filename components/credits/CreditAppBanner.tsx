@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Image from "@/components/ui/SkeletonImage";
+import Image from "next/image";
 import { useTranslation } from "react-i18next";
 import { useAppBannerConfig } from "@/hooks/useAppBannerConfig";
 import { getLocalizedText } from "@/utils/i18nHelper";
@@ -117,7 +117,7 @@ export default function CreditAppBanner({
         ) : null}
 
         {/* Content — left 32, top 32, width 740, gap 60 */}
-        <div className="relative z-10 flex w-full max-w-[740px] flex-col items-start gap-8 p-6 md:absolute md:left-8 md:top-8 md:w-[min(740px,calc(100%-64px))] md:gap-[60px] md:p-0">
+        <div className="relative z-10 flex w-full max-w-[740px] flex-col items-start gap-8 p-6 md:absolute md:left-8 md:top-8 md:w-[740px] md:gap-[60px] md:p-0">
           <div className="flex w-full flex-col items-start gap-3 self-stretch">
             <h2
               className="w-full max-w-[740px] text-[32px] font-bold leading-[116%] tracking-[-0.02em] text-white md:h-[130px] md:text-[56px]"

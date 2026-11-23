@@ -1,7 +1,9 @@
-/**
- * Smooth enter when content appears (e.g. after data load / opening a page).
- * The header inside stays still; only what follows it fades in (see `.page-enter` in globals.css).
- */
+"use client";
+
+import { motion } from "framer-motion";
+import { pageTransition } from "@/components/motion/transitions";
+
+/** Smooth enter when content appears (e.g. after data load / opening a page). */
 export default function ContentReveal({
   children,
   className,
@@ -9,5 +11,14 @@ export default function ContentReveal({
   children: React.ReactNode;
   className?: string;
 }) {
-  return <div className={`page-enter ${className ?? ""}`}>{children}</div>;
+  return (
+    <motion.div
+      className={className}
+      initial={pageTransition.initial}
+      animate={pageTransition.animate}
+      transition={pageTransition.transition}
+    >
+      {children}
+    </motion.div>
+  );
 }

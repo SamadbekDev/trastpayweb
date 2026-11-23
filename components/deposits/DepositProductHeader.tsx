@@ -1,15 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { Menu, Search, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { tr } from "@/i18n/tr";
 import { NAV_DICT } from "@/i18n/dict/nav";
 import BrandLogo from "@/components/BrandLogo";
-import HeaderUtilities from "@/components/layout/HeaderUtilities";
-import { isMoreNavItem, MobileSiteMenu, SiteMenuNavExtras } from "@/components/layout/HeaderSiteMenu";
 import { Language, NavItem } from "@/types/pageConfig";
 import { DepositsPageConfig } from "@/types/deposits";
 
@@ -40,23 +38,7 @@ export default function DepositProductHeader({
   const { i18n } = useTranslation();
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
-
-  useEffect(() => {
-    if (!mobileOpen) return;
-    const prevBody = document.body.style.overflow;
-    const prevHtml = document.documentElement.style.overflow;
-    document.body.style.overflow = "hidden";
-    document.documentElement.style.overflow = "hidden";
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setMobileOpen(false);
-    };
-    window.addEventListener("keydown", onKeyDown);
-    return () => {
-      document.body.style.overflow = prevBody;
-      document.documentElement.style.overflow = prevHtml;
-      window.removeEventListener("keydown", onKeyDown);
-    };
-  }, [mobileOpen]);
+  const [langOpen, setLangOpen] = useState(false);
   const currentLang =
     (i18n.language?.split("-")[0].toLowerCase() as Language) || "ru";
   const config = header || DEFAULT_HEADER;
@@ -71,10 +53,7 @@ export default function DepositProductHeader({
   };
 
   return (
-    <header
-      data-site-header
-      className={`z-50 w-full bg-[#FAFAFA] ${mobileOpen ? "sticky top-0" : "relative"}`}
-    >
+    <header className="relative z-50 w-full bg-white">
       <div className="mx-auto flex h-[82px] w-full max-w-[1440px] items-center justify-between gap-4 px-5 xl:px-10 min-[1400px]:px-[132px]">
         <div className="flex min-w-0 items-center gap-4">
           <BrandLogo
@@ -84,7 +63,7 @@ export default function DepositProductHeader({
           />
 
           <nav className="hidden items-center gap-4 xl:flex">
-            {navItems.filter((item) => !isMoreNavItem(item)).map((item) => {
+            {navItems.map((item) => {
               const isActive = isNavActive(item.href);
               return (
                 <Link
@@ -96,18 +75,73 @@ export default function DepositProductHeader({
                       : "font-medium text-[rgba(17,12,48,0.5)] hover:text-[#110C30]"
                   }`}
                 >
-                  <span className="bold-stable" data-text={tr(currentLang, item.label, NAV_DICT)}>
-                    {tr(currentLang, item.label, NAV_DICT)}
-                  </span>
+                  {tr(currentLang, item.label, NAV_DICT)}
                 </Link>
               );
             })}
-            <SiteMenuNavExtras />
           </nav>
         </div>
 
-        <div className="flex items-center gap-2 sm:gap-3">
-          <HeaderUtilities onBeforeOpenModal={() => setMobileOpen(false)} />
+        <div className="flex items-center gap-1 sm:gap-4">
+          <button
+            type="button"
+            aria-label="Поиск"
+            className="flex h-12 w-12 items-center justify-center rounded-full text-[#1E1E20] cursor-pointer"
+          >
+            <Search size={22} strokeWidth={2} />
+          </button>
+
+          <nav className="hidden items-center gap-4 md:flex">
+            <Link
+              href="tel:1287"
+              className="py-3.5 text-[12px] font-medium uppercase tracking-[0.6px] text-[#110C30]"
+            >
+              1287
+            </Link>
+            <Link
+              href="/filialy"
+              className={`py-3.5 text-[12px] uppercase tracking-[0.6px] text-[#110C30] ${
+                pathname.startsWith("/filialy") ? "font-bold" : "font-medium"
+              }`}
+            >
+              {currentLang === "uz"
+                ? "filiallar"
+                : currentLang === "en"
+                  ? "branches"
+                  : "филиалы"}
+            </Link>
+          </nav>
+
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => setLangOpen((v) => !v)}
+              className="flex h-12 items-center px-1 text-[12px] font-bold uppercase tracking-[0.6px] text-[#110C30] cursor-pointer"
+            >
+              {currentLang}
+            </button>
+            {langOpen && (
+              <div className="absolute right-0 top-full z-50 mt-1 min-w-[64px] rounded-xl border border-black/5 bg-white py-1 shadow-lg">
+                {(["ru", "uz", "en"] as Language[]).map((lang) => (
+                  <button
+                    key={lang}
+                    type="button"
+                    onClick={() => {
+                      i18n.changeLanguage(lang);
+                      setLangOpen(false);
+                    }}
+                    className={`block w-full px-3 py-1.5 text-left text-[12px] font-semibold uppercase cursor-pointer ${
+                      currentLang === lang
+                        ? "text-[#1E54E0]"
+                        : "text-[#110C30] hover:bg-[#F2F4F7]"
+                    }`}
+                  >
+                    {lang}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
 
           <Link
             href={config.loginHref || "#"}
@@ -151,9 +185,9 @@ export default function DepositProductHeader({
       </div>
 
       {mobileOpen && (
-        <div className="fixed inset-x-0 top-[82px] bottom-0 z-40 overflow-y-auto overscroll-contain border-t border-black/5 bg-white px-5 py-4 pb-8 xl:hidden">
+        <div className="absolute inset-x-0 top-full z-40 border-t border-black/5 bg-white px-5 py-4 shadow-lg xl:hidden">
           <nav className="flex flex-col gap-3">
-            {navItems.filter((item) => !isMoreNavItem(item)).map((item) => (
+            {navItems.map((item) => (
               <Link
                 key={item.id}
                 href={item.href}
@@ -163,7 +197,6 @@ export default function DepositProductHeader({
                 {tr(currentLang, item.label, NAV_DICT)}
               </Link>
             ))}
-            <MobileSiteMenu onNavigate={() => setMobileOpen(false)} />
             <Link
               href="/vklady"
               className="py-1 text-[14px] font-semibold text-[#110C30]"

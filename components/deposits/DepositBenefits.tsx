@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "@/components/ui/SkeletonImage";
+import Image from "next/image";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import { DepositDetailPageConfig } from "@/types/deposits";
@@ -24,7 +24,7 @@ export default function DepositBenefits({ config }: DepositBenefitsProps) {
   const [flex, online, paperless, protectedCard, term] = benefits;
 
   return (
-    <section className="w-full bg-[#FAFAFA] px-4 py-9 lg:px-[120px]">
+    <section className="w-full bg-white px-4 py-9 lg:px-[120px]">
       <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-4">
         <div className="grid gap-4 lg:grid-cols-2">
           {flex && (

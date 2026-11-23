@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "@/components/ui/SkeletonImage";
+import Image from "next/image";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import { DepositProduct } from "@/types/deposits";
@@ -44,11 +44,10 @@ export default function DepositCard({ product }: DepositCardProps) {
   ].filter((stat) => stat.value);
 
   return (
-    // below lg (phones / tablets): picture first, stats wrap cleanly, both buttons side by side, full width
-    <article className="box-border flex w-full max-w-[1200px] flex-col items-stretch gap-4 overflow-hidden rounded-[20px] border border-[#E2E8F2] bg-white px-5 py-6 shadow-[0px_8px_28px_rgba(15,33,71,0.08)] sm:gap-6 sm:px-8 sm:py-8 lg:flex-row lg:items-center lg:justify-between lg:gap-6 lg:px-10 lg:py-8">
-      <div className="flex min-w-0 flex-1 flex-col items-stretch gap-4 sm:gap-5 lg:items-start">
+    <article className="box-border flex w-full max-w-[1200px] flex-col items-stretch gap-6 rounded-[20px] border border-[#E2E8F2] bg-white px-5 py-6 shadow-[0px_8px_28px_rgba(15,33,71,0.08)] sm:px-8 sm:py-8 lg:flex-row lg:items-center lg:justify-between lg:gap-6 lg:px-10 lg:py-8">
+      <div className="flex min-w-0 flex-1 flex-col items-start gap-5">
         {title ? (
-          <h3 className="break-words text-[21px] font-bold leading-[1.2] text-[#0F1F3D] sm:text-[27px]">
+          <h3 className="text-[22px] font-bold leading-[1.2] text-[#0F1F3D] sm:text-[27px]">
             <Link href={detailsHref} className="hover:text-[#1F3FBF]">
               {title}
             </Link>
@@ -56,23 +55,23 @@ export default function DepositCard({ product }: DepositCardProps) {
         ) : null}
 
         {description ? (
-          <p className="break-words text-[14px] font-normal leading-[1.4] text-[#5B6B85] sm:text-[16px]">
+          <p className="text-[16px] font-normal leading-[1.4] text-[#5B6B85]">
             {description}
           </p>
         ) : null}
 
         {stats.length > 0 ? (
-          <div className="flex flex-wrap items-start gap-x-5 gap-y-3 sm:gap-x-12 sm:gap-y-4">
+          <div className="flex flex-wrap items-start gap-x-8 gap-y-4 sm:gap-x-12">
             {stats.map((stat) => (
               <div
                 key={stat.label || stat.value}
-                className="flex min-w-0 max-w-full flex-col items-start gap-[3px]"
+                className="flex flex-col items-start gap-[3px]"
               >
-                <p className="break-words text-[17px] font-bold leading-[22px] text-[#1F3FBF] sm:text-[24px] sm:leading-[29px]">
+                <p className="text-[22px] font-bold leading-[29px] text-[#1F3FBF] sm:text-[24px]">
                   {stat.value}
                 </p>
                 {stat.label ? (
-                  <p className="break-words text-[12px] font-normal leading-4 text-[#5B6B85] sm:text-[14px]">
+                  <p className="text-[14px] font-normal leading-4 text-[#5B6B85]">
                     {stat.label}
                   </p>
                 ) : null}
@@ -81,11 +80,11 @@ export default function DepositCard({ product }: DepositCardProps) {
           </div>
         ) : null}
 
-        <div className="grid w-full grid-cols-2 gap-2 sm:flex sm:w-auto sm:flex-wrap sm:items-start sm:gap-3">
+        <div className="flex flex-wrap items-start gap-3">
           {getLocalizedText(product.primaryCta, lang) ? (
             <Link
               href={detailsHref}
-              className="inline-flex min-h-[46px] items-center justify-center rounded-[10px] bg-[#2F6BF0] px-3 py-3 text-center text-[14px] font-semibold leading-[18px] text-white hover:bg-[#265ad1] sm:px-[26px] sm:py-[14px] sm:text-[15px]"
+              className="inline-flex items-center rounded-[10px] bg-[#2F6BF0] px-[26px] py-[14px] text-[15px] font-semibold leading-[18px] text-white hover:bg-[#265ad1]"
             >
               {getLocalizedText(product.primaryCta, lang)}
             </Link>
@@ -93,7 +92,7 @@ export default function DepositCard({ product }: DepositCardProps) {
           {getLocalizedText(product.secondaryCta, lang) ? (
             <Link
               href={product.secondaryHref || "#"}
-              className="inline-flex min-h-[46px] items-center justify-center rounded-[10px] bg-[#EEF1F6] px-3 py-3 text-center text-[14px] font-semibold leading-[18px] text-[#0F1F3D] hover:bg-[#dde1ea] sm:px-[26px] sm:py-[14px] sm:text-[15px]"
+              className="inline-flex items-center rounded-[10px] bg-[#EEF1F6] px-[26px] py-[14px] text-[15px] font-semibold leading-[18px] text-[#0F1F3D] hover:bg-[#dde1ea]"
             >
               {getLocalizedText(product.secondaryCta, lang)}
             </Link>
@@ -104,14 +103,14 @@ export default function DepositCard({ product }: DepositCardProps) {
       {imageSrc ? (
         <Link
           href={detailsHref}
-          className="relative order-first mx-auto h-[130px] w-full max-w-[220px] shrink-0 sm:h-[190px] sm:max-w-[300px] lg:order-none lg:mx-0 lg:h-[218px] lg:max-w-[348px]"
+          className="relative mx-auto h-[180px] w-full max-w-[348px] shrink-0 sm:h-[218px] lg:mx-0"
         >
           <Image
             src={imageSrc}
             alt={title}
             fill
             unoptimized
-            className="object-contain lg:object-right"
+            className="object-contain object-right"
             sizes="(max-width: 1024px) 90vw, 348px"
           />
         </Link>

@@ -6,7 +6,7 @@
  *  - link cards radius 16, padding 24, icon tile 40 (radius 12)
  *  - section heading 24/32, card title 15, caption 13
  */
-import Image from "@/components/ui/SkeletonImage";
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { ArrowRight, ChevronDown, ChevronRight, type LucideIcon } from "lucide-react";

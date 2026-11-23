@@ -1,7 +1,7 @@
 "use client";
 
 import { Fragment, useMemo, useState } from "react";
-import Image from "@/components/ui/SkeletonImage";
+import Image from "next/image";
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -320,7 +320,17 @@ export default function TransfersPageView({ config: data, header, footer }: Prop
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
                 {(data.howToSend?.steps || []).map((step, index) => (
                   <article key={step.id || step.number || index} className="relative pt-7">
-                    <div className="absolute left-8 top-0 z-10 flex h-14 w-14 items-center justify-center rounded-[17.5px] bg-[#004B7C] text-2xl font-medium text-white">
+                    <div
+                      className={`absolute top-0 z-10 flex h-14 w-14 items-center justify-center rounded-[17.5px] bg-[#004B7C] text-2xl font-medium text-white ${
+                        index === 0
+                          ? "left-8"
+                          : index === 1
+                            ? "left-1/2 -translate-x-1/2"
+                            : index === 2
+                              ? "right-14 left-auto"
+                              : "right-8 left-auto"
+                      }`}
+                    >
                       {step.number}
                     </div>
                     <div className="flex min-h-[160px] flex-col rounded-3xl bg-[#F4F6F9] px-8 pb-8 pt-12">
@@ -348,20 +358,19 @@ export default function TransfersPageView({ config: data, header, footer }: Prop
         {/* Systems */}
         <section
           id="systems"
-          className="relative isolate overflow-hidden px-4 py-10 lg:px-[92px] lg:py-[60px]"
+          className="bg-cover bg-center bg-no-repeat px-4 py-10 lg:px-[92px] lg:py-[60px]"
           style={
             systemsBgUrl
-              ? { backgroundColor: "#040B1A" }
+              ? {
+                  backgroundColor: "#040B1A",
+                  backgroundImage: `url(${systemsBgUrl})`,
+                }
               : {
-                background:
-                  "radial-gradient(ellipse 65% 55% at 15% 15%, rgba(45, 110, 227, 0.45) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 85% 85%, rgba(32, 128, 220, 0.35) 0%, transparent 60%), linear-gradient(180deg, #06142E 0%, #092B5A 50%, #041630 100%)",
-              }
+                  background:
+                    "radial-gradient(ellipse 65% 55% at 15% 15%, rgba(45, 110, 227, 0.45) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 85% 85%, rgba(32, 128, 220, 0.35) 0%, transparent 60%), linear-gradient(180deg, #06142E 0%, #092B5A 50%, #041630 100%)",
+                }
           }
         >
-          {/* background photo as an image (not CSS) so it gets the loading skeleton */}
-          {systemsBgUrl ? (
-            <Image src={systemsBgUrl} alt="" fill unoptimized sizes="100vw" className="-z-10 object-cover object-center" />
-          ) : null}
           <div
             className="mx-auto flex w-full max-w-[1256px] flex-col gap-7 rounded-[40px] p-6 backdrop-blur-[42px] sm:p-10"
             style={{
@@ -383,10 +392,11 @@ export default function TransfersPageView({ config: data, header, footer }: Prop
                     type="button"
                     aria-pressed={systemFilter === id}
                     onClick={() => setSystemFilter(id)}
-                    className={`cursor-pointer rounded-[10px] px-5 py-2.5 text-sm font-medium ${systemFilter === id
+                    className={`cursor-pointer rounded-[10px] px-5 py-2.5 text-sm font-medium ${
+                      systemFilter === id
                         ? "bg-[#004B7C] text-white shadow-sm"
                         : "text-[#6B7280]"
-                      }`}
+                    }`}
                   >
                     {label}
                   </button>
@@ -414,10 +424,11 @@ export default function TransfersPageView({ config: data, header, footer }: Prop
                       {system.name}
                     </h3>
                     <span
-                      className={`rounded-full px-2.5 py-1 text-xs font-medium ${system.tagTone === "blue"
+                      className={`rounded-full px-2.5 py-1 text-xs font-medium ${
+                        system.tagTone === "blue"
                           ? "bg-[#E8F0FE] text-[#2966F2]"
                           : "bg-[#F1F5F9] text-[#4B5563]"
-                        }`}
+                      }`}
                     >
                       {t(system.tag)}
                     </span>
@@ -502,10 +513,11 @@ export default function TransfersPageView({ config: data, header, footer }: Prop
                           {cells.map((cell, i) => (
                             <td
                               key={`${rowKey}-${i}`}
-                              className={`py-3.5 pr-4 leading-[130%] ${i === 0
+                              className={`py-3.5 pr-4 leading-[130%] ${
+                                i === 0
                                   ? "text-base font-medium text-[#0F0F17]"
                                   : "text-xl font-semibold text-[#0F0F17]"
-                                }`}
+                              }`}
                             >
                               {cell}
                             </td>
@@ -548,8 +560,9 @@ export default function TransfersPageView({ config: data, header, footer }: Prop
                       </span>
                       <ChevronDown
                         size={28}
-                        className={`mt-1 shrink-0 text-[#606981] transition-transform ${open ? "rotate-180" : ""
-                          }`}
+                        className={`mt-1 shrink-0 text-[#606981] transition-transform ${
+                          open ? "rotate-180" : ""
+                        }`}
                       />
                     </button>
                     {open ? (

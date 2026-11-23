@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "@/components/ui/SkeletonImage";
+import Image from "next/image";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import { ProductsConfig, Language } from "@/types/pageConfig";
@@ -41,7 +41,7 @@ export default function ProductGrid({ config }: ProductGridProps) {
                       ? "/vklady"
                       : "#"
                 }
-                className={`group flex w-1/2 md:w-1/4 h-[140px] sm:h-[179px] flex-col items-center justify-center gap-3.5 rounded-[20px] px-0 py-6 transition-colors 
+                className={`group flex w-1/2 md:w-1/4 h-[179px] flex-col items-center justify-center gap-3.5 rounded-[20px] px-0 py-6 transition-colors 
                     "hover:bg-[#F6F6F8]"
                 `}
               >

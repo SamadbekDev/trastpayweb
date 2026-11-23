@@ -1,7 +1,4 @@
-"use client";
-
 import Link from "next/link";
-import { pickText, useLang } from "@/hooks/useLang";
 
 interface CreditBreadcrumbsProps {
   catalogLabel: string;
@@ -13,7 +10,8 @@ interface CreditBreadcrumbsProps {
 }
 
 /**
- * Same pattern as cards: Главная / Catalog / Current page
+ * Same pattern as deposits/cards:
+ * / Catalog / Current page
  */
 export default function CreditBreadcrumbs({
   catalogLabel,
@@ -22,7 +20,6 @@ export default function CreditBreadcrumbs({
   variant = "light",
   className = "",
 }: CreditBreadcrumbsProps) {
-  const lang = useLang();
   if (!catalogLabel && !currentLabel) return null;
 
   const isDark = variant === "dark";
@@ -39,10 +36,6 @@ export default function CreditBreadcrumbs({
       className={`flex flex-wrap items-center gap-1 text-[16px] leading-[22px] tracking-[-0.4px] ${className}`}
       aria-label="breadcrumb"
     >
-      {/* first crumb: home page (the bare leading «/» read like a missing item) */}
-      <Link href="/" className={link}>
-        {pickText(lang, "Главная", "Bosh sahifa", "Home")}
-      </Link>
       <span className={`px-2 text-[13px] ${slash}`}>/</span>
       {catalogLabel ? (
         <Link href={catalogHref} className={link}>

@@ -23,7 +23,7 @@ export default function DepositHighlights({ config }: DepositHighlightsProps) {
   if (items.length === 0) return null;
 
   return (
-    <section className="flex w-full flex-col items-center justify-center bg-[#FAFAFA] px-4 py-10 lg:px-[120px] lg:py-20">
+    <section className="flex w-full flex-col items-center justify-center bg-white px-4 py-10 lg:px-[120px] lg:py-20">
       <div className="flex w-full max-w-[1240px] flex-col items-start">
         <div
           className="relative flex w-full items-center justify-center overflow-hidden rounded-t-[28px] bg-[#3261EC]"
@@ -42,7 +42,7 @@ export default function DepositHighlights({ config }: DepositHighlightsProps) {
               {index > 0 ? (
                 <div className="hidden h-16 w-px shrink-0 bg-[#2D6EE3] sm:block" />
               ) : null}
-              <div className="flex flex-1 flex-col items-center gap-2.5 text-center">
+              <div className="flex flex-col items-start gap-2.5">
                 <p className="text-[24px] font-bold leading-8 text-[#1A1A1A] sm:text-[28px] sm:leading-[34px]">
                   {getLocalizedText(item.value, lang)}
                 </p>

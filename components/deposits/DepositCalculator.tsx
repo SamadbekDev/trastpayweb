@@ -1,7 +1,7 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
-import Image from "@/components/ui/SkeletonImage";
+import { useMemo, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { Calendar, ChevronUp } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -11,7 +11,6 @@ import { Language } from "@/types/pageConfig";
 import { getLocalizedText } from "@/utils/i18nHelper";
 import { getMediaUrl } from "@/utils/mediaHelper";
 import { useDragScroll } from "@/hooks/useDragScroll";
-import { useAutoScroll } from "@/hooks/useAutoScroll";
 
 interface DepositCalculatorProps {
   config: DepositDetailPageConfig;
@@ -83,17 +82,6 @@ export default function DepositCalculator({ config }: DepositCalculatorProps) {
   const [partial, setPartial] = useState(false);
   const [paramsOpen, setParamsOpen] = useState(true);
   const dragScroll = useDragScroll<HTMLDivElement>();
-  const dragScrollRef = dragScroll.ref;
-  // «Вам также подойдёт» drifts slowly on its own (pauses on hover / touch / focus)
-  const [suggestedEl, setSuggestedEl] = useState<HTMLDivElement | null>(null);
-  const suggestedRef = useCallback(
-    (node: HTMLDivElement | null) => {
-      dragScrollRef(node);
-      setSuggestedEl(node);
-    },
-    [dragScrollRef]
-  );
-  const autoScroll = useAutoScroll(suggestedEl, suggested.length);
 
   const selected = useMemo(() => {
     const sorted = [...calculatorTerms].sort(
@@ -150,9 +138,10 @@ export default function DepositCalculator({ config }: DepositCalculatorProps) {
   return (
     <section
       id="calculator"
-      className="relative w-full overflow-hidden lg:min-h-[1085px]"
+      className="relative w-full overflow-hidden"
       style={{
         background: "linear-gradient(138.81deg, #5A93EC 10%, #C6DAF6 76.67%)",
+        minHeight: 1085,
       }}
     >
       {coinsSrc ? (
@@ -171,10 +160,12 @@ export default function DepositCalculator({ config }: DepositCalculatorProps) {
 
       <div className="relative z-10 mx-auto flex w-full max-w-[1440px] items-center justify-center px-4 py-10 lg:py-12">
         <div
-          className="flex w-full max-w-[980px] flex-col items-start gap-2.5 rounded-[40px] p-5 sm:p-10 sm:backdrop-blur-[24px]"
+          className="flex w-full max-w-[980px] flex-col items-start gap-2.5 rounded-[40px] p-5 sm:p-10"
           style={{
             background:
-              "linear-gradient(109.17deg, rgba(255, 255, 255, 0.34) -3.74%, rgba(255, 255, 255, 0.22) 107.99%)",
+              "linear-gradient(109.17deg, rgba(255, 255, 255, 0.32) -3.74%, rgba(255, 255, 255, 0.2) 107.99%)",
+            backdropFilter: "blur(42px)",
+            WebkitBackdropFilter: "blur(42px)",
           }}
         >
           {/* Tabs */}
@@ -209,12 +200,12 @@ export default function DepositCalculator({ config }: DepositCalculatorProps) {
                   ? "Amount at maturity"
                   : "Сумма в конце срока"}
             </p>
-            <div className="flex max-w-full flex-nowrap items-baseline justify-center gap-1.5 whitespace-nowrap tabular-nums sm:gap-2">
-              <span className="text-[clamp(24px,6.8vw,40px)] font-bold leading-tight text-white sm:text-[58px] sm:leading-[70px]">
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              <span className="text-[40px] font-bold leading-none text-white sm:text-[58px] sm:leading-[70px]">
                 {whole}
                 {fraction ? `,${fraction}` : ""}
               </span>
-              <span className="text-[clamp(18px,5.2vw,32px)] font-bold leading-tight text-white/55 sm:text-[50px] sm:leading-[62px]">
+              <span className="text-[34px] font-bold leading-none text-white/55 sm:text-[50px] sm:leading-[62px]">
                 {currencyLabel}
               </span>
             </div>
@@ -352,14 +343,11 @@ export default function DepositCalculator({ config }: DepositCalculatorProps) {
                 </span>
               </div>
               <div
-                ref={suggestedRef}
+                ref={dragScroll.ref}
                 className={`${dragScroll.className} -mx-1 flex gap-4 overflow-x-auto px-1 pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden`}
                 style={{ WebkitOverflowScrolling: "touch" }}
               >
-                {(autoScroll.loop ? [...suggested, ...suggested] : suggested).map((item, i) => {
-                  // second copy only feeds the endless loop: hidden from screen readers and Tab
-                  const copy = i >= suggested.length;
-                  const index = i % suggested.length;
+                {suggested.map((item, index) => {
                   const badgeText = item.badge
                     ? getLocalizedText(item.badge, lang)
                     : "";
@@ -375,10 +363,8 @@ export default function DepositCalculator({ config }: DepositCalculatorProps) {
                     : "";
                   return (
                     <Link
-                      key={copy ? `${item.id}-copy` : item.id}
+                      key={item.id}
                       href={item.href}
-                      aria-hidden={copy || undefined}
-                      tabIndex={copy ? -1 : undefined}
                       className="flex w-[min(344px,82vw)] shrink-0 snap-start flex-col gap-3.5 rounded-[18px] px-5 py-[18px] text-white"
                       style={{
                         background:
@@ -449,7 +435,7 @@ export default function DepositCalculator({ config }: DepositCalculatorProps) {
           <div className="flex w-full flex-col items-stretch gap-4 sm:flex-row sm:items-center">
             <Link
               href={config.product.primaryHref || "#"}
-              className="flex h-[65px] shrink-0 items-center justify-center rounded-2xl sm:flex-1 bg-[#2F6BF0] text-[17px] font-semibold leading-[21px] text-white"
+              className="flex h-[65px] flex-1 items-center justify-center rounded-2xl bg-[#2F6BF0] text-[17px] font-semibold leading-[21px] text-white"
             >
               {getLocalizedText(config.product.primaryCta, lang) ||
                 (lang === "uz"
@@ -460,7 +446,7 @@ export default function DepositCalculator({ config }: DepositCalculatorProps) {
             </Link>
             <Link
               href={config.product.secondaryHref || "#info"}
-              className="flex h-[65px] shrink-0 items-center justify-center rounded-2xl sm:flex-1 bg-white/55 text-[17px] font-semibold leading-[21px] text-[#2F6BF0]"
+              className="flex h-[65px] flex-1 items-center justify-center rounded-2xl bg-white/55 text-[17px] font-semibold leading-[21px] text-[#2F6BF0]"
             >
               {getLocalizedText(config.product.secondaryCta, lang) ||
                 (lang === "uz" ? "Batafsil" : lang === "en" ? "Details" : "Подробнее")}
