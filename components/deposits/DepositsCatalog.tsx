@@ -44,7 +44,7 @@ export default function DepositsCatalog({ config }: DepositsCatalogProps) {
           {getLocalizedText(config.title, lang)}
         </h1>
 
-        <div className="flex w-full items-center rounded-[14px] bg-[#EEEEF0] p-1">
+        <div className="flex w-full max-w-[1200px] flex-wrap items-start gap-2.5">
           {config.tabs.map((tab) => {
             const isActive = activeTab === tab.id;
             return (
@@ -52,10 +52,10 @@ export default function DepositsCatalog({ config }: DepositsCatalogProps) {
                 key={tab.id}
                 type="button"
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex h-10 flex-1 cursor-pointer items-center justify-center rounded-[10px] px-3 text-[14px] font-medium leading-[120%] transition-colors sm:px-[18px] ${
+                className={`inline-flex cursor-pointer items-center rounded-full px-[18px] py-[11px] text-[14px] leading-[17px] transition-colors ${
                   isActive
-                    ? "bg-[#2D6EE3] text-white shadow-[0px_1px_2px_rgba(15,23,42,0.05)]"
-                    : "bg-transparent text-[#64748B] hover:text-[#110C30]"
+                    ? "bg-[#0F1F3D] font-semibold text-white"
+                    : "border border-[#E2E8F2] bg-[#F4F7FB] font-medium text-[#0F1F3D] hover:bg-[#EAEFF8]"
                 }`}
               >
                 {getLocalizedText(tab.label, lang)}

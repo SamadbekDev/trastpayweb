@@ -27,7 +27,7 @@ export default function DepositDetailView({ config }: DepositDetailViewProps) {
       logo={config.header?.logo}
       logoText={config.header?.logoText}
     >
-      <ContentReveal className="flex min-h-screen flex-col bg-white">
+      <ContentReveal className="flex min-h-screen flex-col bg-[#FAFAFA]">
         <DepositProductHeader header={config.header} />
         <main className="flex-grow">
           <DepositDetailHero config={config} />

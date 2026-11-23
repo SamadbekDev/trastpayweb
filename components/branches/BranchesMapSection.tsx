@@ -29,8 +29,11 @@ export default function BranchesMapSection({ config }: BranchesMapSectionProps) 
   const [cityFilter, setCityFilter] = useState<string>("all");
   const [cityOpen, setCityOpen] = useState(false);
 
-  const offices = useMemo(() => config.offices ?? [], [config.offices]);
-  const atms = useMemo(() => config.atms ?? [], [config.atms]);
+  // CMS rows without a name (half-filled drafts) would render as empty cards / map pins
+  const named = <T extends { name?: unknown }>(list: T[] | undefined) =>
+    (list ?? []).filter((item) => ["ru", "uz", "en"].some((l) => getLocalizedText(item.name as never, l).trim()));
+  const offices = useMemo(() => named(config.offices), [config.offices]);
+  const atms = useMemo(() => named(config.atms), [config.atms]);
   const allItems = useMemo(
     () => [...offices, ...atms, ...(config.locations ?? [])],
     [offices, atms, config.locations],
@@ -75,16 +78,16 @@ export default function BranchesMapSection({ config }: BranchesMapSectionProps) 
   const cityLabel =
     cityFilter === "all"
       ? usableCityLabel(rawCityLabel) ||
-        cities[0] ||
-        (lang === "uz"
-          ? "Toshkent shahri"
-          : lang === "en"
-            ? "Tashkent city"
-            : "Город Ташкент")
+      cities[0] ||
+      (lang === "uz"
+        ? "Toshkent shahri"
+        : lang === "en"
+          ? "Tashkent city"
+          : "Город Ташкент")
       : cityFilter;
 
   return (
-    <section id="offices" className="w-full bg-white px-4 py-9 lg:px-[120px]">
+    <section id="offices" className="w-full bg-[#FAFAFA] px-4 py-9 lg:px-[120px]">
       <div className="mx-auto w-full max-w-[1200px]">
         <h2 className="mb-5 text-[28px] font-bold leading-[36px] text-[#0F172A] lg:mb-6 lg:text-[36px] lg:leading-[44px]">
           {getLocalizedText(config.officesTitle, lang)}
@@ -290,9 +293,8 @@ function CityOption({
     <button
       type="button"
       onClick={onClick}
-      className={`block w-full rounded-[8px] px-3 py-2 text-left text-[13px] ${
-        active ? "bg-[#F1F5F9] font-semibold text-[#0F172A]" : "text-[#64748B]"
-      }`}
+      className={`block w-full rounded-[8px] px-3 py-2 text-left text-[13px] ${active ? "bg-[#F1F5F9] font-semibold text-[#0F172A]" : "text-[#64748B]"
+        }`}
     >
       {label}
     </button>
@@ -312,9 +314,8 @@ function TabButton({
     <button
       type="button"
       onClick={onClick}
-      className={`h-[37px] flex-1 cursor-pointer rounded-[11px] border-2 text-[13px] font-semibold leading-[17px] ${
-        active ? "border-[#3B82F6] bg-[#2D6EE3] text-white" : "border-transparent text-[#64748B]"
-      }`}
+      className={`h-[37px] flex-1 cursor-pointer rounded-[11px] border-2 text-[13px] font-semibold leading-[17px] ${active ? "border-[#3B82F6] bg-[#2D6EE3] text-white" : "border-transparent text-[#64748B]"
+        }`}
     >
       {label}
     </button>
@@ -336,9 +337,8 @@ function OfficeRow({
     <button
       type="button"
       onClick={onClick}
-      className={`w-full border-t border-[#E7EAF0] px-3 py-4 text-left cursor-pointer ${
-        active ? "rounded-[15px] bg-[#F1F5F9]" : ""
-      }`}
+      className={`w-full border-t border-[#E7EAF0] px-3 py-4 text-left cursor-pointer ${active ? "rounded-[15px] bg-[#F1F5F9]" : ""
+        }`}
     >
       <p className="text-[15px] font-semibold leading-5 text-[#0F172A]">
         {getLocalizedText(item.name, lang)}

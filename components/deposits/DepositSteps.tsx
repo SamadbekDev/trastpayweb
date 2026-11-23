@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/ui/SkeletonImage";
 import Link from "next/link";
 import { Coins } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -44,7 +44,7 @@ export default function DepositSteps({ config }: DepositStepsProps) {
 
   if (!hasBanner) {
     return (
-      <section className="w-full bg-white">
+      <section className="w-full bg-[#FAFAFA]">
         <div className="mx-auto w-full max-w-[1280px] px-4 py-12 lg:px-6">
           <h2 className="text-[28px] font-bold leading-[36px] text-[rgba(0,0,0,0.8)] lg:text-[36px] lg:leading-[44px]">
             {title}
@@ -52,18 +52,10 @@ export default function DepositSteps({ config }: DepositStepsProps) {
           <div className="mt-8 grid gap-6 md:grid-cols-3">
             {config.steps.map((step, index) => (
               <article key={step.id} className="relative pt-7">
-                <div
-                  className={`absolute top-0 z-10 flex h-14 w-14 items-center justify-center rounded-[18px] bg-[#2D6EE3] text-[24px] font-medium text-white ${
-                    index === 0
-                      ? "left-8"
-                      : index === config.steps.length - 1
-                        ? "right-8 left-auto"
-                        : "left-1/2 -translate-x-1/2"
-                  }`}
-                >
+                <div className="absolute left-8 top-0 z-10 flex h-14 w-14 items-center justify-center rounded-[18px] bg-[#2D6EE3] text-[24px] font-medium text-white">
                   {step.number}
                 </div>
-                <div className="flex min-h-[160px] flex-col rounded-3xl bg-[#F6F7F8] px-8 pb-8 pt-12">
+                <div className="flex min-h-[160px] flex-col rounded-3xl bg-white px-8 pb-8 pt-12 shadow-[0px_2px_20px_rgba(21,93,241,0.05)]">
                   <h3 className="text-[15px] font-semibold leading-5 text-[rgba(0,0,0,0.8)]">
                     {getLocalizedText(step.title, lang)}
                   </h3>
@@ -89,7 +81,7 @@ export default function DepositSteps({ config }: DepositStepsProps) {
   }
 
   return (
-    <section className="overflow-visible bg-white px-4 py-10 lg:px-[100px] lg:py-20">
+    <section className="overflow-visible bg-[#FAFAFA] px-4 py-10 lg:px-[100px] lg:py-20">
       <div className="relative mx-auto flex w-full max-w-[1240px] flex-col items-start">
         <div className="relative h-[280px] w-full overflow-visible rounded-t-[32px] sm:h-[340px]">
           <div className="absolute bottom-2.5 left-0 h-[250px] w-full rounded-t-[32px] bg-[#2D6EE3] sm:h-[330px]" />
@@ -136,45 +128,33 @@ export default function DepositSteps({ config }: DepositStepsProps) {
           style={{ marginTop: -52 }}
         >
           <div className="flex flex-wrap items-center justify-center gap-x-6">
-            {config.steps.map((step, index) => {
-              const badgeAlign =
-                index === 0
-                  ? "left-8"
-                  : index === config.steps.length - 1
-                    ? "right-8 left-auto"
-                    : index === 1
-                      ? "left-1/2 -translate-x-1/2"
-                      : "right-14";
-              return (
-                <div
-                  key={step.id}
-                  className="flex h-auto w-full max-w-[384px] flex-1 flex-col justify-center pb-4 pt-11 sm:min-w-[240px] lg:h-[220px] lg:w-[276px]"
-                >
-                  <article className="relative flex h-[160px] w-full flex-col rounded-3xl bg-[#F6F7F8] px-8 pb-8 pt-12">
-                    <span
-                      className={`absolute -top-7 flex h-14 w-14 items-center justify-center rounded-[18px] bg-[#2D6EE3] text-[24px] font-medium leading-7 text-white ${badgeAlign}`}
+            {config.steps.map((step, index) => (
+              <div
+                key={step.id}
+                className="flex h-auto w-full max-w-[384px] flex-1 flex-col justify-center pb-4 pt-11 sm:min-w-[240px] lg:min-h-[220px] lg:w-[276px]"
+              >
+                <article className="relative flex min-h-[160px] w-full flex-col rounded-3xl bg-[#F6F7F8] px-8 pb-8 pt-12">
+                  <span className="absolute -top-7 left-8 flex h-14 w-14 items-center justify-center rounded-[18px] bg-[#2D6EE3] text-[24px] font-medium leading-7 text-white">
+                    {step.number || index + 1}
+                  </span>
+                  <h3 className="break-words text-[15px] font-semibold leading-5 text-black/80">
+                    {getLocalizedText(step.title, lang)}
+                  </h3>
+                  <p className="mt-2 break-words text-[13px] leading-[15px] tracking-[-0.02em] text-[#797F8E]">
+                    {getLocalizedText(step.description, lang)}
+                  </p>
+                  {getLocalizedText(step.linkText, lang) ? (
+                    <Link
+                      href={step.href || "#"}
+                      className="mt-auto flex items-center gap-1 pt-3 text-[13px] leading-[15px] tracking-[-0.4px] text-[#3261EC]"
                     >
-                      {step.number || index + 1}
-                    </span>
-                    <h3 className="text-[15px] font-semibold leading-5 text-black/80">
-                      {getLocalizedText(step.title, lang)}
-                    </h3>
-                    <p className="mt-2 text-[13px] leading-[15px] tracking-[-0.02em] text-[#797F8E]">
-                      {getLocalizedText(step.description, lang)}
-                    </p>
-                    {getLocalizedText(step.linkText, lang) ? (
-                      <Link
-                        href={step.href || "#"}
-                        className="mt-auto flex items-center gap-1 pt-3 text-[13px] leading-[15px] tracking-[-0.4px] text-[#3261EC]"
-                      >
-                        {getLocalizedText(step.linkText, lang)}
-                        <StepLinkIcon />
-                      </Link>
-                    ) : null}
-                  </article>
-                </div>
-              );
-            })}
+                      {getLocalizedText(step.linkText, lang)}
+                      <StepLinkIcon />
+                    </Link>
+                  ) : null}
+                </article>
+              </div>
+            ))}
           </div>
         </div>
       </div>

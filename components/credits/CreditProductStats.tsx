@@ -74,7 +74,7 @@ export default function CreditProductStats({
               {index > 0 ? (
                 <div className="h-px w-full bg-[#ECECEC] lg:hidden" aria-hidden />
               ) : null}
-              <div className="flex min-w-0 flex-1 flex-col items-start gap-2.5">
+              <div className="flex min-w-0 flex-1 flex-col items-center gap-2.5 text-center">
                 <p className="text-[24px] font-bold leading-8 text-[#1A1A1A] lg:text-[30px] lg:leading-9">
                   {item.value}
                 </p>

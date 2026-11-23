@@ -4,13 +4,16 @@ import { AlertCircle, RefreshCw } from "lucide-react";
 import BrandLogo from "@/components/BrandLogo";
 import { pickText, useLang } from "@/hooks/useLang";
 
+/** Page loader: one brand-blue arc spinning on a light ring around the round Trastbank icon
+ *  (Figma «Trastbank — Logo System»: circle 108, mark in a 66 safe zone — public/images/brand). */
 export function TrastbankLoader() {
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-white/95 backdrop-blur-md">
       <div className="relative flex items-center justify-center">
-        <div className="h-28 w-28 rounded-full border-4 border-slate-100 border-t-[#08243f] border-r-[#126df7] animate-spin" />
+        <div className="h-28 w-28 animate-spin rounded-full border-4 border-[#E8EEF8] border-t-[#0A4FC8]" />
         <div className="absolute inset-0 flex items-center justify-center">
-          <BrandLogo link={false} className="animate-pulse" priority />
+          {/* eslint-disable-next-line @next/next/no-img-element -- local vector, shown before anything else loads */}
+          <img src="/images/brand/trastbank-round.svg" alt="TRASTBANK" width={76} height={76} className="h-[76px] w-[76px]" />
         </div>
       </div>
 

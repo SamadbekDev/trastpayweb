@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import Image from "next/image";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import Image from "@/components/ui/SkeletonImage";
 import Link from "next/link";
 import { Calendar, ChevronUp } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -17,6 +17,7 @@ import FintechRangeSlider from "@/components/ui/FintechRangeSlider";
 import { formatAmount } from "@/components/ui/AmountSlider";
 import { getCreditsPage, getDepositsPage } from "@/api/pageService";
 import { useDragScroll } from "@/hooks/useDragScroll";
+import { useAutoScroll } from "@/hooks/useAutoScroll";
 
 interface LoanCalculatorProps {
   config?: CalculatorConfig;
@@ -174,6 +175,17 @@ export default function LoanCalculator({
   const [paramsOpen, setParamsOpen] = useState(true);
   const [suggested, setSuggested] = useState<CalculatorSuggestedCard[]>([]);
   const dragScroll = useDragScroll<HTMLDivElement>();
+  const dragScrollRef = dragScroll.ref;
+  // «Вам также подойдёт» drifts slowly on its own (pauses on hover / touch / focus)
+  const [suggestedEl, setSuggestedEl] = useState<HTMLDivElement | null>(null);
+  const suggestedRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      dragScrollRef(node);
+      setSuggestedEl(node);
+    },
+    [dragScrollRef]
+  );
+  const autoScroll = useAutoScroll(suggestedEl, suggested.length);
 
   useEffect(() => {
     if (!catalogMode) {
@@ -412,26 +424,38 @@ export default function LoanCalculator({
 
       <div className="relative z-10 mx-auto w-full max-w-[1440px] px-4 lg:px-[60px]">
         <div
-          className="mx-auto flex w-full max-w-[980px] flex-col gap-2.5 rounded-[40px] p-5 sm:p-10"
+          className="mx-auto flex w-full max-w-[980px] flex-col gap-2.5 rounded-[40px] p-5 sm:p-10 sm:backdrop-blur-[24px]"
           style={{
             background:
-              "linear-gradient(109.17deg, rgba(255, 255, 255, 0.32) -3.74%, rgba(255, 255, 255, 0.2) 107.99%)",
-            backdropFilter: "blur(42px)",
-            WebkitBackdropFilter: "blur(42px)",
+              "linear-gradient(109.17deg, rgba(255, 255, 255, 0.34) -3.74%, rgba(255, 255, 255, 0.22) 107.99%)",
           }}
         >
           {/* Tabs */}
           <div className="flex w-full flex-col items-center py-3">
-            <div className="flex max-w-full items-start gap-1 overflow-x-auto rounded-[14px] bg-[#F1F5F9] p-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-              {tabs.map((tab) => {
+            <div
+              className={`grid w-full gap-1 rounded-[14px] bg-[#F1F5F9] p-1 sm:inline-flex sm:w-auto sm:flex-wrap sm:justify-center ${
+                tabs.length <= 2
+                  ? "grid-cols-2"
+                  : tabs.length === 3
+                    ? "grid-cols-3"
+                    : "grid-cols-2"
+              }`}
+            >
+              {tabs.map((tab, idx) => {
                 const label = getLocalizedText(tab.label, lang);
                 const active = activeTab === tab.id;
+                const spanFullOnMobile =
+                  tabs.length > 3 &&
+                  tabs.length % 2 === 1 &&
+                  idx === tabs.length - 1;
                 return (
                   <button
                     key={tab.id}
                     type="button"
                     onClick={() => setActiveTab(tab.id)}
-                    className={`shrink-0 cursor-pointer rounded-[10px] px-[18px] py-2.5 text-[14px] font-medium leading-[120%] ${
+                    className={`cursor-pointer rounded-[10px] px-3 py-2.5 text-center text-[14px] font-medium leading-[120%] transition-colors sm:shrink-0 sm:px-[18px] ${
+                      spanFullOnMobile ? "col-span-2 sm:col-span-1" : ""
+                    } ${
                       active
                         ? "bg-white text-[#0F172A] shadow-[0px_1px_2px_rgba(15,23,42,0.05)]"
                         : "text-[#64748B]"
@@ -449,11 +473,11 @@ export default function LoanCalculator({
             <p className="text-[18px] font-medium leading-[22px] text-white">
               {resultLabel}
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-2">
-              <span className="text-[40px] font-bold leading-none text-white sm:text-[58px] sm:leading-[70px]">
+            <div className="flex max-w-full flex-nowrap items-baseline justify-center gap-1.5 whitespace-nowrap tabular-nums sm:gap-2">
+              <span className="text-[clamp(24px,6.8vw,40px)] font-bold leading-tight text-white sm:text-[58px] sm:leading-[70px]">
                 {formatAmount(resultValue)}
               </span>
-              <span className="text-[34px] font-bold leading-none text-white/55 sm:text-[50px] sm:leading-[62px]">
+              <span className="text-[clamp(18px,5.2vw,32px)] font-bold leading-tight text-white/55 sm:text-[50px] sm:leading-[62px]">
                 сум
               </span>
             </div>
@@ -665,11 +689,14 @@ export default function LoanCalculator({
                 </span>
               </div>
               <div
-                ref={dragScroll.ref}
+                ref={suggestedRef}
                 className={`${dragScroll.className} -mx-1 flex gap-4 overflow-x-auto px-1 pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden`}
                 style={{ WebkitOverflowScrolling: "touch" }}
               >
-                {suggested.map((item, index) => {
+                {(autoScroll.loop ? [...suggested, ...suggested] : suggested).map((item, i) => {
+                  // second copy only feeds the endless loop: hidden from screen readers and Tab
+                  const copy = i >= suggested.length;
+                  const index = i % suggested.length;
                   const badge = item.badge
                     ? getLocalizedText(item.badge, lang)
                     : "";
@@ -683,8 +710,10 @@ export default function LoanCalculator({
                     : "";
                   return (
                     <Link
-                      key={item.id}
+                      key={copy ? `${item.id}-copy` : item.id}
                       href={item.href || catalogHref}
+                      aria-hidden={copy || undefined}
+                      tabIndex={copy ? -1 : undefined}
                       className="flex w-[min(344px,82vw)] shrink-0 snap-start flex-col gap-3.5 rounded-[18px] px-5 py-[18px] text-white"
                       style={{
                         background:
@@ -751,13 +780,13 @@ export default function LoanCalculator({
           <div className="flex w-full flex-col items-stretch gap-4 sm:flex-row sm:items-center">
             <Link
               href={catalogHref}
-              className="flex h-[65px] flex-1 items-center justify-center rounded-2xl bg-[#2F6BF0] text-[17px] font-semibold leading-[21px] text-white"
+              className="flex h-[65px] shrink-0 items-center justify-center rounded-2xl sm:flex-1 bg-[#2F6BF0] text-[17px] font-semibold leading-[21px] text-white"
             >
               {primaryCta}
             </Link>
             <Link
               href={catalogHref}
-              className="flex h-[65px] flex-1 items-center justify-center rounded-2xl bg-white/55 text-[17px] font-semibold leading-[21px] text-[#2F6BF0]"
+              className="flex h-[65px] shrink-0 items-center justify-center rounded-2xl sm:flex-1 bg-white/55 text-[17px] font-semibold leading-[21px] text-[#2F6BF0]"
             >
               {secondaryCta}
             </Link>

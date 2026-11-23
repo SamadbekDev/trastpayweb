@@ -89,10 +89,7 @@ export default function CreditMortgageView({
           ) : null}
         </div>
         {heroImage ? (
-          <div
-            className="relative mx-auto mt-10 overflow-hidden rounded-[32px] bg-[#F4F6F9]"
-            style={{ height: 480, width: "min(1080px, 100%)" }}
-          >
+          <div className="relative mx-auto mt-8 h-[240px] w-full max-w-[1080px] overflow-hidden rounded-[24px] bg-[#F4F6F9] sm:mt-10 sm:h-[360px] sm:rounded-[32px] lg:h-[480px]">
             <CreditPhoto src={heroImage} className="object-cover object-center" />
           </div>
         ) : null}
@@ -108,7 +105,7 @@ export default function CreditMortgageView({
               {page.benefits.map((item, index) => {
                 const Icon = BENEFIT_ICONS[index % BENEFIT_ICONS.length];
                 return (
-                  <article key={item.id} className="flex flex-col items-start gap-3 rounded-2xl bg-[#F4F6F9] px-6 py-[26px]">
+                  <article key={item.id} className="flex flex-col items-center gap-3 rounded-2xl bg-[#F4F6F9] px-6 py-[26px] text-center">
                     <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white text-[#3261EC]">
                       <Icon size={28} strokeWidth={1.7} />
                     </span>
@@ -165,7 +162,7 @@ export default function CreditMortgageView({
                 </article>
               )}
             </div>
-            <div className="relative h-[320px] w-full overflow-hidden rounded-[24px] bg-[#F6F7F8] sm:h-[420px] lg:h-[488px] lg:w-[736px] lg:shrink-0">
+            <div className="relative h-[320px] w-full overflow-hidden rounded-[24px] bg-[#F6F7F8] sm:h-[420px] lg:h-[488px] lg:w-[55%] lg:max-w-[736px] lg:shrink-0">
               {page.requirementsImage || heroImage ? (
                 <div className="absolute bottom-0 right-0 h-full w-full lg:bottom-[-33px] lg:right-2 lg:h-[527px] lg:w-[678px]">
                   <CreditPhoto src={page.requirementsImage || heroImage} className="object-cover object-center" />
@@ -179,9 +176,11 @@ export default function CreditMortgageView({
       {page.steps.length > 0 && (
         <section id="zayavka" className="overflow-visible bg-white px-4 py-16 lg:px-[100px]">
           <div className="relative mx-auto flex w-full max-w-[1240px] flex-col items-start">
-            <div className="relative h-[300px] w-full sm:h-[340px]">
+            {/* phones: the banner grows with its text and leaves 64px for the overlapping steps panel;
+                the picture shows from sm (it sat under the title and made it unreadable) */}
+            <div className="relative w-full rounded-t-[32px] bg-[#A07E6A] px-5 pb-16 pt-7 sm:h-[340px] sm:bg-transparent sm:p-0">
               <div
-                className="absolute bottom-2.5 left-0 h-[260px] w-full overflow-hidden rounded-t-[32px] sm:h-[330px]"
+                className="absolute bottom-2.5 left-0 hidden h-[330px] w-full overflow-hidden rounded-t-[32px] sm:block"
                 style={{ backgroundColor: "#A07E6A" }}
               >
                 {page.stepsBannerImage ? (
@@ -190,9 +189,9 @@ export default function CreditMortgageView({
                   </div>
                 ) : null}
               </div>
-              <div className="absolute left-4 top-8 flex w-[min(794px,58%)] flex-col items-start gap-3 sm:left-8 lg:w-[794px]">
+              <div className="relative z-10 flex w-full flex-col items-start gap-3 sm:absolute sm:left-8 sm:top-8 sm:w-[min(794px,58%)] lg:w-[794px]">
                 <h2
-                  className="text-[32px] font-bold leading-[1.16] tracking-[-0.02em] text-white sm:text-[48px]"
+                  className="text-[28px] font-bold leading-[1.16] tracking-[-0.02em] text-white sm:text-[48px]"
                   style={{ fontFamily: "var(--font-display)" }}
                 >
                   {text(page.stepsBannerTitle)}
@@ -263,7 +262,7 @@ export default function CreditMortgageView({
               <h2 className="text-[32px] font-bold leading-[48px] text-[#0F0F17] lg:text-[40px]">
                 {text(page.infoTitle)}
               </h2>
-              <div className="flex max-w-full flex-wrap items-center gap-1 rounded-full bg-[#EBEDF2] p-1.5">
+              <div className="flex flex-wrap items-start gap-2.5">
                 {infoTabs.map((tab) => {
                   const active = tab.id === infoTab;
                   return (
@@ -271,10 +270,10 @@ export default function CreditMortgageView({
                       key={tab.id}
                       type="button"
                       onClick={() => setInfoTab(tab.id)}
-                      className={`cursor-pointer rounded-full px-[22px] py-3 text-[16px] leading-[19px] ${
+                      className={`inline-flex cursor-pointer items-center rounded-full px-[18px] py-[11px] text-[14px] leading-[17px] transition-colors ${
                         active
-                          ? "bg-white font-semibold text-[#0F0F17] shadow-[0px_2px_6px_rgba(0,0,0,0.08)]"
-                          : "font-medium text-[#6B7280]"
+                          ? "bg-[#0F1F3D] font-semibold text-white"
+                          : "border border-[#E2E8F2] bg-[#F4F7FB] font-medium text-[#0F1F3D] hover:bg-[#EAEFF8]"
                       }`}
                     >
                       {text(tab.label)}

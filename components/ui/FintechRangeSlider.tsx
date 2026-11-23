@@ -46,7 +46,7 @@ export default function FintechRangeSlider({
         {label}
       </label>
 
-      <p className="text-[22px] font-semibold leading-[27px] text-[#1A2233]">
+      <p className="text-[22px] font-semibold leading-[27px] text-[#1A2233] tabular-nums">
         {displayValue}
       </p>
 
@@ -57,8 +57,8 @@ export default function FintechRangeSlider({
           aria-hidden
         >
           <div
-            className="h-full rounded-[2.5px] bg-[#2F6BF0]"
-            style={{ width: `${pct}%` }}
+            className="h-full w-full origin-left rounded-[2.5px] bg-[#2F6BF0]"
+            style={{ transform: `scaleX(${pct / 100})` }}
           />
         </div>
 
@@ -74,7 +74,7 @@ export default function FintechRangeSlider({
           aria-valuenow={value}
           aria-valuetext={displayValue}
           onChange={(e) => onChange(Number(e.target.value))}
-          className="amount-slider-range relative z-10 w-full"
+          className="amount-slider-range relative z-10 w-full touch-none"
         />
       </div>
 

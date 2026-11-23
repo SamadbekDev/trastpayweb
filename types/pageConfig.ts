@@ -46,6 +46,8 @@ export interface HeroConfig {
   buttonText: I18nText;
   buttonHref?: string;
   image?: string;
+  /** Looping background video of the main banner (shown instead of `image`) */
+  video?: string;
   backgroundColor?: string;
   sideCards?: HeroSideCard[];
 }
@@ -105,6 +107,8 @@ export interface NewsItem {
   category: I18nText;
   date: string;
   href?: string;
+  /** Card picture (CMS media) */
+  image?: string;
 }
 
 export interface NewsPromo {
@@ -201,6 +205,7 @@ export interface FooterSocial {
   id: string;
   label: string;
   href: string;
+  icon?: string;
 }
 
 export interface FooterQr {

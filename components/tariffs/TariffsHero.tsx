@@ -65,7 +65,7 @@ export default function TariffsHero({
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={audience}
-              className="flex w-full flex-col items-start justify-between gap-8 lg:absolute lg:inset-0 lg:h-[340px] lg:flex-row lg:items-center lg:gap-[328px]"
+              className="flex w-full flex-col items-start justify-between gap-8 lg:absolute lg:inset-0 lg:h-[340px] lg:flex-row lg:items-center lg:gap-12"
               initial={pageTransition.initial}
               animate={pageTransition.animate}
               exit={pageTransition.exit}
